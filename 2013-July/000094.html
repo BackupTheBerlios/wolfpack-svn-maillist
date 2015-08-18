@@ -1,0 +1,696 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6892 - trunk/server/release/web
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2013-July/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6892%20-%20trunk/server/release/web&In-Reply-To=%3C20130722102829.C66B355B0C%40scm.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000093.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6892 - trunk/server/release/web</H1>
+    <B>owner_mutilador at scm.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6892%20-%20trunk/server/release/web&In-Reply-To=%3C20130722102829.C66B355B0C%40scm.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6892 - trunk/server/release/web">owner_mutilador at scm.berlios.de
+       </A><BR>
+    <I>Mon Jul 22 12:28:29 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000093.html">[Wolfpack-svn] r6891 - in trunk/server: build	release/definitions/system src src/ai src/gui src/muls	src/network src/python src/win
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: owner_mutilador
+Date: 2013-07-22 12:28:29 +0200 (Mon, 22 Jul 2013)
+New Revision: 6892
+
+Added:
+   trunk/server/release/web/Trammel.jpg
+   trunk/server/release/web/map_ilshenar.jpg
+   trunk/server/release/web/map_ilshenar.py
+   trunk/server/release/web/map_malas.jpg
+   trunk/server/release/web/map_malas.py
+   trunk/server/release/web/map_tokuno.jpg
+   trunk/server/release/web/map_tokuno.py
+   trunk/server/release/web/map_trammel.jpg
+   trunk/server/release/web/map_trammel.py
+   trunk/server/release/web/maps.py
+   trunk/server/release/web/status.html
+Modified:
+   trunk/server/release/web/template.py
+Log:
+Add new client's map in localization web system.
+
+Added: trunk/server/release/web/Trammel.jpg
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/server/release/web/Trammel.jpg
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/server/release/web/map_ilshenar.jpg
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/server/release/web/map_ilshenar.jpg
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/server/release/web/map_ilshenar.py
+===================================================================
+--- trunk/server/release/web/map_ilshenar.py	                        (rev 0)
++++ trunk/server/release/web/map_ilshenar.py	2013-07-22 10:28:29 UTC (rev 6892)
+@@ -0,0 +1,86 @@
++
++# Displays Players on a Map
++
++import web.sessions
++import web.template
++import cgi
++import sys
++import re
++import wolfpack
++import wolfpack.sockets
++import wolfpack.accounts
++import wolfpack.time
++
++form = cgi.FieldStorage()
++session_id = form.getvalue( 'session', '' )
++
++web.sessions.check_timeouts()
++session = web.sessions.get_session( session_id )
++
++if session == None:
++	web.sessions.display_timeout()
++	sys.exit()
++
++username = session[ 'username' ]
++
++XOFFSET = 0
++YOFFSET = -200
++
++content = &quot;&quot;&quot;
++&lt;p&gt;
++&lt;h1&gt;Players on a Ilshenar Map&lt;/h1&gt;
++Below you see the Players on the Map. Use your browsers refresh button to see the current output.&lt;br&gt;
++&lt;table width=&quot;576&quot; height=&quot;400&quot; border=&quot;0&quot;&gt;
++  &lt;tr&gt;
++    &lt;td background=&quot;map_ilshenar.jpg&quot;&gt;
++&quot;&quot;&quot;
++
++numero = 0
++socket = wolfpack.sockets.first()
++nextsocket = wolfpack.sockets.next()
++while socket:
++	if( socket.player and socket.player.pos.map == 2 and not socket.player.invisible ):
++		
++		numero += 1
++
++		content += &quot;&quot;&quot;
++		&lt;div id=&quot;
++		&quot;&quot;&quot;
++
++		content += 'layer' + unicode(numero)
++
++		content += &quot;&quot;&quot;
++		&quot; style=&quot;position:relative; width:8px; height:8px; z-index:0;
++		&quot;&quot;&quot;
++
++		content += 'left: ' + unicode(((socket.player.pos.x)/4) + XOFFSET) + 'px; '
++		
++		content += 'top: ' + unicode(((socket.player.pos.y)/4) + YOFFSET) + 'px;&quot;&gt;'
++
++		content += &quot;&quot;&quot;
++		&lt;img src=&quot;marker.gif&quot;
++		&quot;&quot;&quot;
++
++		content += ' alt=&quot;' + unicode(socket.player.name) + '&quot; width=&quot;8&quot; height=&quot;8&quot;&gt;'
++
++		content += &quot;&quot;&quot;
++		&lt;/div&gt;
++		&quot;&quot;&quot;
++			
++	socket = nextsocket
++	nextsocket = wolfpack.sockets.next()
++
++content += &quot;&quot;&quot;
++	&lt;/td&gt;
++  &lt;/tr&gt;
++&lt;/table&gt;
++&lt;/p&gt;
++&quot;&quot;&quot;
++
++web.template.output( 	'&gt; &lt;a href=&quot;map.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Players on a Map&lt;/a&gt;' % { 'session': session_id }, 
++						'&lt;i&gt;Logged in as:&lt;/i&gt; %(username)s&lt;br /&gt;&lt;a href=&quot;logout.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Logout&lt;/a&gt;' % { 'username': username, 'session': session_id }, 
++						1, 
++						content,
++						session_id
++					)
++
+
+Added: trunk/server/release/web/map_malas.jpg
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/server/release/web/map_malas.jpg
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/server/release/web/map_malas.py
+===================================================================
+--- trunk/server/release/web/map_malas.py	                        (rev 0)
++++ trunk/server/release/web/map_malas.py	2013-07-22 10:28:29 UTC (rev 6892)
+@@ -0,0 +1,86 @@
++
++# Displays Players on a Map
++
++import web.sessions
++import web.template
++import cgi
++import sys
++import re
++import wolfpack
++import wolfpack.sockets
++import wolfpack.accounts
++import wolfpack.time
++
++form = cgi.FieldStorage()
++session_id = form.getvalue( 'session', '' )
++
++web.sessions.check_timeouts()
++session = web.sessions.get_session( session_id )
++
++if session == None:
++	web.sessions.display_timeout()
++	sys.exit()
++
++username = session[ 'username' ]
++
++XOFFSET = 0
++YOFFSET = -254
++
++content = &quot;&quot;&quot;
++&lt;p&gt;
++&lt;h1&gt;Players on a Mala Map&lt;/h1&gt;
++Below you see the Players on the Map. Use your browsers refresh button to see the current output.&lt;br&gt;
++&lt;table width=&quot;640&quot; height=&quot;511&quot; border=&quot;0&quot;&gt;
++  &lt;tr&gt;
++    &lt;td background=&quot;map_malas.jpg&quot;&gt;
++&quot;&quot;&quot;
++
++numero = 0
++socket = wolfpack.sockets.first()
++nextsocket = wolfpack.sockets.next()
++while socket:
++	if( socket.player and socket.player.pos.map == 3 and not socket.player.invisible ):
++		
++		numero += 1
++
++		content += &quot;&quot;&quot;
++		&lt;div id=&quot;
++		&quot;&quot;&quot;
++
++		content += 'layer' + unicode(numero)
++
++		content += &quot;&quot;&quot;
++		&quot; style=&quot;position:relative; width:8px; height:8px; z-index:0;
++		&quot;&quot;&quot;
++
++		content += 'left: ' + unicode(((socket.player.pos.x)/4) + XOFFSET) + 'px; '
++		
++		content += 'top: ' + unicode(((socket.player.pos.y)/4) + YOFFSET) + 'px;&quot;&gt;'
++
++		content += &quot;&quot;&quot;
++		&lt;img src=&quot;marker.gif&quot;
++		&quot;&quot;&quot;
++
++		content += ' alt=&quot;' + unicode(socket.player.name) + '&quot; width=&quot;8&quot; height=&quot;8&quot;&gt;'
++
++		content += &quot;&quot;&quot;
++		&lt;/div&gt;
++		&quot;&quot;&quot;
++			
++	socket = nextsocket
++	nextsocket = wolfpack.sockets.next()
++
++content += &quot;&quot;&quot;
++	&lt;/td&gt;
++  &lt;/tr&gt;
++&lt;/table&gt;
++&lt;/p&gt;
++&quot;&quot;&quot;
++
++web.template.output( 	'&gt; &lt;a href=&quot;map.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Players on a Map&lt;/a&gt;' % { 'session': session_id }, 
++						'&lt;i&gt;Logged in as:&lt;/i&gt; %(username)s&lt;br /&gt;&lt;a href=&quot;logout.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Logout&lt;/a&gt;' % { 'username': username, 'session': session_id }, 
++						1, 
++						content,
++						session_id
++					)
++
+
+Added: trunk/server/release/web/map_tokuno.jpg
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/server/release/web/map_tokuno.jpg
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/server/release/web/map_tokuno.py
+===================================================================
+--- trunk/server/release/web/map_tokuno.py	                        (rev 0)
++++ trunk/server/release/web/map_tokuno.py	2013-07-22 10:28:29 UTC (rev 6892)
+@@ -0,0 +1,86 @@
++
++# Displays Players on a Map
++
++import web.sessions
++import web.template
++import cgi
++import sys
++import re
++import wolfpack
++import wolfpack.sockets
++import wolfpack.accounts
++import wolfpack.time
++
++form = cgi.FieldStorage()
++session_id = form.getvalue( 'session', '' )
++
++web.sessions.check_timeouts()
++session = web.sessions.get_session( session_id )
++
++if session == None:
++	web.sessions.display_timeout()
++	sys.exit()
++
++username = session[ 'username' ]
++
++XOFFSET = -3
++YOFFSET = -180
++
++content = &quot;&quot;&quot;
++&lt;p&gt;
++&lt;h1&gt;Players on a Tokuno Map&lt;/h1&gt;
++Below you see the Players on the Map. Use your browsers refresh button to see the current output.&lt;br&gt;
++&lt;table width=&quot;365&quot; height=&quot;365&quot; border=&quot;0&quot;&gt;
++  &lt;tr&gt;
++    &lt;td background=&quot;map_tokuno.jpg&quot;&gt;
++&quot;&quot;&quot;
++
++numero = 0
++socket = wolfpack.sockets.first()
++nextsocket = wolfpack.sockets.next()
++while socket:
++	if( socket.player and socket.player.pos.map == 4 and not socket.player.invisible ):
++		
++		numero += 1
++
++		content += &quot;&quot;&quot;
++		&lt;div id=&quot;
++		&quot;&quot;&quot;
++
++		content += 'layer' + unicode(numero)
++
++		content += &quot;&quot;&quot;
++		&quot; style=&quot;position:relative; width:8px; height:8px; z-index:0;
++		&quot;&quot;&quot;
++
++		content += 'left: ' + unicode(((socket.player.pos.x)/4) + XOFFSET) + 'px; '
++		
++		content += 'top: ' + unicode(((socket.player.pos.y)/4) + YOFFSET) + 'px;&quot;&gt;'
++
++		content += &quot;&quot;&quot;
++		&lt;img src=&quot;marker.gif&quot;
++		&quot;&quot;&quot;
++
++		content += ' alt=&quot;' + unicode(socket.player.name) + '&quot; width=&quot;8&quot; height=&quot;8&quot;&gt;'
++
++		content += &quot;&quot;&quot;
++		&lt;/div&gt;
++		&quot;&quot;&quot;
++			
++	socket = nextsocket
++	nextsocket = wolfpack.sockets.next()
++
++content += &quot;&quot;&quot;
++	&lt;/td&gt;
++  &lt;/tr&gt;
++&lt;/table&gt;
++&lt;/p&gt;
++&quot;&quot;&quot;
++
++web.template.output( 	'&gt; &lt;a href=&quot;map.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Players on a Map&lt;/a&gt;' % { 'session': session_id }, 
++						'&lt;i&gt;Logged in as:&lt;/i&gt; %(username)s&lt;br /&gt;&lt;a href=&quot;logout.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Logout&lt;/a&gt;' % { 'username': username, 'session': session_id }, 
++						1, 
++						content,
++						session_id
++					)
++
+
+Added: trunk/server/release/web/map_trammel.jpg
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/server/release/web/map_trammel.jpg
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/server/release/web/map_trammel.py
+===================================================================
+--- trunk/server/release/web/map_trammel.py	                        (rev 0)
++++ trunk/server/release/web/map_trammel.py	2013-07-22 10:28:29 UTC (rev 6892)
+@@ -0,0 +1,86 @@
++
++# Displays Players on a Map
++
++import web.sessions
++import web.template
++import cgi
++import sys
++import re
++import wolfpack
++import wolfpack.sockets
++import wolfpack.accounts
++import wolfpack.time
++
++form = cgi.FieldStorage()
++session_id = form.getvalue( 'session', '' )
++
++web.sessions.check_timeouts()
++session = web.sessions.get_session( session_id )
++
++if session == None:
++	web.sessions.display_timeout()
++	sys.exit()
++
++username = session[ 'username' ]
++
++XOFFSET = 0
++YOFFSET = -200
++
++content = &quot;&quot;&quot;
++&lt;p&gt;
++&lt;h1&gt;Players on a Trammel Map&lt;/h1&gt;
++Below you see the Players on the Map. Use your browsers refresh button to see the current output.&lt;br&gt;
++&lt;table width=&quot;615&quot; height=&quot;410&quot; border=&quot;0&quot;&gt;
++  &lt;tr&gt;
++    &lt;td background=&quot;map_trammel.jpg&quot;&gt;
++&quot;&quot;&quot;
++
++numero = 0
++socket = wolfpack.sockets.first()
++nextsocket = wolfpack.sockets.next()
++while socket:
++	if( socket.player and socket.player.pos.map == 2 and not socket.player.invisible ):
++		
++		numero += 1
++
++		content += &quot;&quot;&quot;
++		&lt;div id=&quot;
++		&quot;&quot;&quot;
++
++		content += 'layer' + unicode(numero)
++
++		content += &quot;&quot;&quot;
++		&quot; style=&quot;position:relative; width:8px; height:8px; z-index:0;
++		&quot;&quot;&quot;
++
++		content += 'left: ' + unicode(((socket.player.pos.x)/10) + XOFFSET) + 'px; '
++		
++		content += 'top: ' + unicode(((socket.player.pos.y)/10) + YOFFSET) + 'px;&quot;&gt;'
++
++		content += &quot;&quot;&quot;
++		&lt;img src=&quot;marker.gif&quot;
++		&quot;&quot;&quot;
++
++		content += ' alt=&quot;' + unicode(socket.player.name) + '&quot; width=&quot;8&quot; height=&quot;8&quot;&gt;'
++
++		content += &quot;&quot;&quot;
++		&lt;/div&gt;
++		&quot;&quot;&quot;
++			
++	socket = nextsocket
++	nextsocket = wolfpack.sockets.next()
++
++content += &quot;&quot;&quot;
++	&lt;/td&gt;
++  &lt;/tr&gt;
++&lt;/table&gt;
++&lt;/p&gt;
++&quot;&quot;&quot;
++
++web.template.output( 	'&gt; &lt;a href=&quot;map.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Players on a Map&lt;/a&gt;' % { 'session': session_id }, 
++						'&lt;i&gt;Logged in as:&lt;/i&gt; %(username)s&lt;br /&gt;&lt;a href=&quot;logout.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Logout&lt;/a&gt;' % { 'username': username, 'session': session_id }, 
++						1, 
++						content,
++						session_id
++					)
++
+
+Added: trunk/server/release/web/maps.py
+===================================================================
+--- trunk/server/release/web/maps.py	                        (rev 0)
++++ trunk/server/release/web/maps.py	2013-07-22 10:28:29 UTC (rev 6892)
+@@ -0,0 +1,69 @@
++
++# Displays Players on a Map
++
++import web.sessions
++import web.template
++import cgi
++import sys
++import re
++import wolfpack
++import wolfpack.sockets
++import wolfpack.accounts
++import wolfpack.time
++
++form = cgi.FieldStorage()
++session_id = form.getvalue( 'session', '' )
++
++web.sessions.check_timeouts()
++session = web.sessions.get_session( session_id )
++
++if session == None:
++	web.sessions.display_timeout()
++	sys.exit()
++
++username = session[ 'username' ]
++
++content = &quot;&quot;&quot;
++&lt;p&gt;
++&lt;h1&gt;Players on a Map&lt;/h1&gt;
++Below you see the Players on the Map. Use your browsers refresh button to see the current output.&lt;br&gt;
++&lt;table border=&quot;0&quot;&gt;
++  &lt;tr&gt;&lt;td&gt;
++&quot;&quot;&quot;
++
++content += &quot;&quot;&quot;
++&lt;br /&gt;
++&lt;a href=&quot;
++&quot;&quot;&quot;
++content +=	'map_trammel.py?session=%(session)s&quot;&gt;Trammel&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;'% { 'session': session_id }
++
++content +=	&quot;&quot;&quot;
++&lt;a href=&quot;
++&quot;&quot;&quot;
++content += 'map_malas.py?session=%(session)s&quot;&gt;Malas&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;'% { 'session': session_id }
++
++content += &quot;&quot;&quot;
++&lt;a href=&quot;
++&quot;&quot;&quot;
++
++content += 'map_ilshenar.py?session=%(session)s&quot;&gt;Ilshenar&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;'% { 'session': session_id }
++
++content += &quot;&quot;&quot;
++&lt;a href=&quot;
++&quot;&quot;&quot;
++content += 'map_tokuno.py?session=%(session)s&quot;&gt;Tokuno&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;' % { 'session': session_id }
++
++content += &quot;&quot;&quot;
++	&lt;/td&gt;
++  &lt;/tr&gt;
++&lt;/table&gt;
++&lt;/p&gt;
++&quot;&quot;&quot;
++
++web.template.output( 	'&gt; &lt;a href=&quot;map.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Players on a Map&lt;/a&gt;' % { 'session': session_id }, 
++						'&lt;i&gt;Logged in as:&lt;/i&gt; %(username)s&lt;br /&gt;&lt;a href=&quot;logout.py?session=%(session)s&quot; class=&quot;header&quot;&gt;Logout&lt;/a&gt;' % { 'username': username, 'session': session_id }, 
++						1, 
++						content,
++						session_id
++					)
++
+
+Added: trunk/server/release/web/status.html
+===================================================================
+--- trunk/server/release/web/status.html	                        (rev 0)
++++ trunk/server/release/web/status.html	2013-07-22 10:28:29 UTC (rev 6892)
+@@ -0,0 +1,104 @@
++
++&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;<A HREF="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd</A>&quot;&gt;
++&lt;html xmlns=&quot;<A HREF="http://www.w3.org/1999/xhtml">http://www.w3.org/1999/xhtml</A>&quot;&gt;
++&lt;head&gt;
++&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
++&lt;title&gt;Wolfpack Status&lt;/title&gt;
++&lt;style type=&quot;text/css&quot;&gt;
++&lt;!--
++body {
++	margin-left: 0px;
++	margin-top: 0px;
++	margin-right: 0px;
++	margin-bottom: 0px;
++	background-color: #FFFFFF;
++}
++body,td,th {
++	font-family: Arial, Helvetica, sans-serif;
++	font-size: 10pt;
++}
++.maintitle {
++	font-family: &quot;Trebuchet MS&quot;, Arial, Helvetica;
++	font-size: 16px;
++	font-weight: bold;
++	color: #336633;
++}
++
++.smalltext {
++	font-family: &quot;Trebuchet MS&quot;, Arial, Helvetica;
++	font-size: 10px;
++	color: #999999;
++}
++
++.sectiontitle {
++
++	font-family: &quot;Trebuchet MS&quot;, Arial, Helvetica;
++	font-size: 14px;
++	font-weight: bold;
++	color: #666666;
++}
++
++.text {
++	font-family: &quot;Trebuchet MS&quot;, Arial, Helvetica;
++	font-size: 12px;
++}
++
++img {
++	border: 0;
++}
++
++a {
++	color: #0000FF;
++	text-decoration: none;
++}
++
++a:hover {
++	color: #FF0000;
++}
++
++--&gt;
++&lt;/style&gt;&lt;/head&gt;
++
++&lt;body&gt;
++&lt;table width=&quot;100%&quot;  border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
++  &lt;tr&gt;
++	&lt;td bgcolor=&quot;#004026&quot;&gt;&lt;img src=&quot;top_logo.jpg&quot; width=&quot;586&quot; height=&quot;87&quot; /&gt;&lt;/td&gt;
++  &lt;/tr&gt;
++  &lt;tr&gt;
++	&lt;td bgcolor=&quot;#DDDDDD&quot; height=&quot;2&quot;&gt;&lt;img src=&quot;spacer.gif&quot; width=&quot;1&quot; height=&quot;2&quot; /&gt;&lt;/td&gt;
++  &lt;/tr&gt;
++&lt;/table&gt;
++&lt;div align=&quot;center&quot;&gt;&lt;br /&gt;
++&lt;span class=&quot;maintitle&quot;&gt;SERVERSTATUS&lt;/span&gt;  &lt;/div&gt;
++&lt;table width=&quot;530&quot;  border=&quot;0&quot; align=&quot;center&quot; cellpadding=&quot;5&quot; cellspacing=&quot;0&quot;&gt;
++  &lt;tr&gt;
++
++
++	&lt;td width=&quot;520&quot;&gt;&lt;strong&gt;Connected Accounts:&lt;/strong&gt; 1 of 1&lt;br /&gt;
++	  &lt;br /&gt;
++	  &lt;strong&gt;Player Characters:&lt;/strong&gt; 1 &lt;br /&gt;
++	  &lt;strong&gt;NPCs:&lt;/strong&gt; 5778 &lt;br /&gt;
++	  &lt;strong&gt;Items:&lt;/strong&gt; 30290 &lt;br /&gt;
++	  &lt;strong&gt;Ingame Time:&lt;/strong&gt; Day 2, 20:25 &lt;br /&gt; &lt;br /&gt;
++	  &lt;strong&gt;Connected Players:&lt;/strong&gt;&lt;br&gt;
++	  &lt;table width=&quot;100%&quot; border=&quot;0&quot; cellspacing=&quot;1&quot; cellpadding=&quot;0&quot;&gt;
++
++
++		&lt;tr&gt;
++		
++&lt;td width=&quot;16&quot; valign=&quot;middle&quot;&gt;
++&lt;div align=&quot;center&quot;&gt;&lt;img src=&quot;gender_male.gif&quot;&gt;&lt;/div&gt;
++&lt;/td&gt;&lt;td valign=&quot;middle&quot;&gt;
++&lt;font color=&quot;#0000DD&quot; face=&quot;Georgia&quot;&gt;&lt;b&gt;Owner Mutilador&lt;/b&gt;&lt;/font&gt;
++ (Zento)
++&lt;/td&gt;&lt;/tr&gt;
++&lt;/tr&gt;
++
++
++		&lt;/table&gt;
++	  &lt;/td&gt;
++  &lt;/tr&gt;
++&lt;/table&gt;
++&lt;/body&gt;
++&lt;/html&gt;
++
+
+Modified: trunk/server/release/web/template.py
+===================================================================
+--- trunk/server/release/web/template.py	2013-07-21 10:03:31 UTC (rev 6891)
++++ trunk/server/release/web/template.py	2013-07-22 10:28:29 UTC (rev 6892)
+@@ -15,7 +15,7 @@
+ 		&nbsp;&nbsp;&nbsp; &lt;a href=&quot;console.py?session=%(session)s&quot;&gt;Console&lt;/a&gt;&lt;br /&gt;
+ 		&nbsp;&nbsp;&nbsp; &lt;a href=&quot;accounts.py?session=%(session)s&quot;&gt;Accounts&lt;/a&gt;&lt;br /&gt;
+ 		&nbsp;&nbsp;&nbsp; &lt;a href=&quot;pythonlog.py?session=%(session)s&quot;&gt;Python Log&lt;/a&gt;&lt;br /&gt;
+-		&nbsp;&nbsp;&nbsp; &lt;a href=&quot;map.py?session=%(session)s&quot;&gt;Map with Players&lt;/a&gt;&lt;br /&gt;
++		&nbsp;&nbsp;&nbsp; &lt;a href=&quot;maps.py?session=%(session)s&quot;&gt;Maps with Players&lt;/a&gt;&lt;br /&gt;
+ 		&lt;br /&gt;
+ 		&nbsp;&nbsp;&nbsp; &lt;a href=&quot;logout.py?session=%(session)s&quot;&gt;Logout&lt;/a&gt;&quot;&quot;&quot; % { 'session': session_id }
+ 	else:
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000093.html">[Wolfpack-svn] r6891 - in trunk/server: build	release/definitions/system src src/ai src/gui src/muls	src/network src/python src/win
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

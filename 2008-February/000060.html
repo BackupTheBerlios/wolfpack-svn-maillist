@@ -1,0 +1,2749 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6856 - in trunk/WPGM: Components/Graphics32 Release	build src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6856%20-%20in%20trunk/WPGM%3A%20Components/Graphics32%20Release%0A%09build%20src&In-Reply-To=%3C200802270139.m1R1dMGW022059%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000059.html">
+   <LINK REL="Next"  HREF="000061.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6856 - in trunk/WPGM: Components/Graphics32 Release	build src</H1>
+    <B>lastkiller at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6856%20-%20in%20trunk/WPGM%3A%20Components/Graphics32%20Release%0A%09build%20src&In-Reply-To=%3C200802270139.m1R1dMGW022059%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6856 - in trunk/WPGM: Components/Graphics32 Release	build src">lastkiller at mail.berlios.de
+       </A><BR>
+    <I>Wed Feb 27 02:39:22 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000059.html">[Wolfpack-svn] r6855 - in trunk/WPGM: . Release build src
+</A></li>
+        <LI>Next message: <A HREF="000061.html">[Wolfpack-svn] r6857 - trunk/WPGM
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#60">[ date ]</a>
+              <a href="thread.html#60">[ thread ]</a>
+              <a href="subject.html#60">[ subject ]</a>
+              <a href="author.html#60">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lastkiller
+Date: 2008-02-27 02:38:25 +0100 (Wed, 27 Feb 2008)
+New Revision: 6856
+
+Added:
+   trunk/WPGM/build/open_document16.bmp
+   trunk/WPGM/src/RegionWizard.dfm
+   trunk/WPGM/src/RegionWizard.pas
+   trunk/WPGM/src/RegionWizard2Region.dfm
+   trunk/WPGM/src/RegionWizard2Region.pas
+   trunk/WPGM/src/RegionWizard2Spawn.dfm
+   trunk/WPGM/src/RegionWizard2Spawn.pas
+   trunk/WPGM/src/RegionWizard3Region.dfm
+   trunk/WPGM/src/RegionWizard3Region.pas
+   trunk/WPGM/src/RegionWizard3Spawn.dfm
+   trunk/WPGM/src/RegionWizard3Spawn.pas
+   trunk/WPGM/src/RegionWizard4Region.dfm
+   trunk/WPGM/src/RegionWizard4Region.pas
+   trunk/WPGM/src/RegionWizard4Spawn.dfm
+   trunk/WPGM/src/RegionWizard4Spawn.pas
+Modified:
+   trunk/WPGM/Components/Graphics32/GR32.dcu
+   trunk/WPGM/Release/WPGM.exe
+   trunk/WPGM/Release/categories.db
+   trunk/WPGM/Release/config.ini
+   trunk/WPGM/build/WPGM.dpr
+   trunk/WPGM/build/WPGM.dproj
+   trunk/WPGM/build/WPGM.dproj.local
+   trunk/WPGM/build/WPGM.identcache
+   trunk/WPGM/build/WPGM.res
+   trunk/WPGM/src/Main.dfm
+   trunk/WPGM/src/Main.pas
+   trunk/WPGM/src/Spawnregions.dfm
+   trunk/WPGM/src/Spawnregions.pas
+Log:
+	- Added a wizard for region and spawnregion creation. Use &quot;New Region&quot; button
+	- Added &quot;Export Region&quot; Button which copies a complete region/spawnregion to clipboard
+	- Removed &quot;copy as region&quot; button
+	- Removed &quot;copy as spawnregion&quot; button
+
+
+Modified: trunk/WPGM/Components/Graphics32/GR32.dcu
+===================================================================
+(Binary files differ)
+
+Modified: trunk/WPGM/Release/WPGM.exe
+===================================================================
+(Binary files differ)
+
+Modified: trunk/WPGM/Release/categories.db
+===================================================================
+(Binary files differ)
+
+Modified: trunk/WPGM/Release/config.ini
+===================================================================
+--- trunk/WPGM/Release/config.ini	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/Release/config.ini	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -7,7 +7,7 @@
+ Window Position Y=396
+ Window Width=632
+ Window Height=233
+-Current Page=8
++Current Page=7
+ EventCount=0
+ Map0Modify=31/1/2008 22:12:48
+ Statics0Modify=31/1/2008 22:24:12
+
+Modified: trunk/WPGM/build/WPGM.dpr
+===================================================================
+--- trunk/WPGM/build/WPGM.dpr	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/build/WPGM.dpr	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -2,6 +2,7 @@
+ 
+ uses
+   Forms,
++  midaslib,
+   Configuration in '..\src\Configuration.pas' {FrmConfig},
+   Main in '..\src\Main.pas' {frmMain},
+   Overview in '..\src\Overview.pas' {frmOverview},
+@@ -19,7 +20,14 @@
+   UORadarCol in '..\src\UORadarCol.pas',
+   UOStatics in '..\src\UOStatics.pas',
+   uPatternColor in '..\src\uPatternColor.pas' {frmPatternColor},
+-  XMLReader in '..\src\XMLReader.pas';
++  XMLReader in '..\src\XMLReader.pas',
++  RegionWizard in '..\src\RegionWizard.pas' {frmRegionW1},
++  RegionWizard2Region in '..\src\RegionWizard2Region.pas' {frmRegionW2R},
++  RegionWizard3Region in '..\src\RegionWizard3Region.pas' {FrmRegionW3R},
++  RegionWizard4Region in '..\src\RegionWizard4Region.pas' {frmRergionW4R},
++  RegionWizard2Spawn in '..\src\RegionWizard2Spawn.pas' {frmRegionW2S},
++  RegionWizard3Spawn in '..\src\RegionWizard3Spawn.pas' {FrmRegionW3S},
++  RegionWizard4Spawn in '..\src\RegionWizard4Spawn.pas' {FrmRegionW4S};
+ 
+ {$R *.RES}
+ 
+@@ -32,5 +40,12 @@
+   Application.CreateForm(TfrmCenter, frmCenter);
+   Application.CreateForm(TfrmChooseHue, frmChooseHue);
+   Application.CreateForm(TfrmPatternColor, frmPatternColor);
++  Application.CreateForm(TfrmRegionW1, frmRegionW1);
++  Application.CreateForm(TfrmRegionW2R, frmRegionW2R);
++  Application.CreateForm(TFrmRegionW3R, FrmRegionW3R);
++  Application.CreateForm(TfrmRergionW4R, frmRergionW4R);
++  Application.CreateForm(TfrmRegionW2S, frmRegionW2S);
++  Application.CreateForm(TFrmRegionW3S, FrmRegionW3S);
++  Application.CreateForm(TFrmRegionW4S, FrmRegionW4S);
+   Application.Run;
+ end.
+
+Modified: trunk/WPGM/build/WPGM.dproj
+===================================================================
+--- trunk/WPGM/build/WPGM.dproj	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/build/WPGM.dproj	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -42,7 +42,7 @@
+     &lt;Borland.Personality&gt;Delphi.Personality&lt;/Borland.Personality&gt;
+     &lt;Borland.ProjectType&gt;VCLApplication&lt;/Borland.ProjectType&gt;
+     &lt;BorlandProject&gt;
+-&lt;BorlandProject&gt;&lt;Delphi.Personality&gt;&lt;Parameters&gt;&lt;Parameters Name=&quot;UseLauncher&quot;&gt;False&lt;/Parameters&gt;&lt;Parameters Name=&quot;LoadAllSymbols&quot;&gt;True&lt;/Parameters&gt;&lt;Parameters Name=&quot;LoadUnspecifiedSymbols&quot;&gt;False&lt;/Parameters&gt;&lt;/Parameters&gt;&lt;VersionInfo&gt;&lt;VersionInfo Name=&quot;IncludeVerInfo&quot;&gt;True&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;AutoIncBuild&quot;&gt;True&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;MajorVer&quot;&gt;1&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;MinorVer&quot;&gt;0&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Release&quot;&gt;1&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Build&quot;&gt;20&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Debug&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;PreRelease&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Special&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Private&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;DLL&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Locale&quot;&gt;1031&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;CodePage&quot;&gt;1252&lt;/VersionInfo&gt;&lt;/VersionInfo&gt;&lt;VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;CompanyName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;FileDescription&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionIn!
+ foKeys Name=&quot;FileVersion&quot;&gt;1.0.1.20&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;InternalName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;LegalCopyright&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;LegalTrademarks&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;OriginalFilename&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;ProductName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;ProductVersion&quot;&gt;1.0.0.0&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;Comments&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;/VersionInfoKeys&gt;&lt;Source&gt;&lt;Source Name=&quot;MainSource&quot;&gt;WPGM.dpr&lt;/Source&gt;&lt;/Source&gt;&lt;/Delphi.Personality&gt;&lt;/BorlandProject&gt;&lt;/BorlandProject&gt;
++&lt;BorlandProject&gt;&lt;Delphi.Personality&gt;&lt;Parameters&gt;&lt;Parameters Name=&quot;UseLauncher&quot;&gt;False&lt;/Parameters&gt;&lt;Parameters Name=&quot;LoadAllSymbols&quot;&gt;True&lt;/Parameters&gt;&lt;Parameters Name=&quot;LoadUnspecifiedSymbols&quot;&gt;False&lt;/Parameters&gt;&lt;/Parameters&gt;&lt;VersionInfo&gt;&lt;VersionInfo Name=&quot;IncludeVerInfo&quot;&gt;True&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;AutoIncBuild&quot;&gt;True&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;MajorVer&quot;&gt;1&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;MinorVer&quot;&gt;0&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Release&quot;&gt;2&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Build&quot;&gt;1&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Debug&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;PreRelease&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Special&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Private&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;DLL&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Locale&quot;&gt;1031&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;CodePage&quot;&gt;1252&lt;/VersionInfo&gt;&lt;/VersionInfo&gt;&lt;VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;CompanyName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;FileDescription&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInf!
+ oKeys Name=&quot;FileVersion&quot;&gt;1.0.2.1&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;InternalName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;LegalCopyright&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;LegalTrademarks&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;OriginalFilename&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;ProductName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;ProductVersion&quot;&gt;1.0.0.0&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;Comments&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;/VersionInfoKeys&gt;&lt;Source&gt;&lt;Source Name=&quot;MainSource&quot;&gt;WPGM.dpr&lt;/Source&gt;&lt;/Source&gt;&lt;/Delphi.Personality&gt;&lt;/BorlandProject&gt;&lt;/BorlandProject&gt;
+   &lt;/ProjectExtensions&gt;
+   &lt;Import Project=&quot;$(MSBuildBinPath)\Borland.Delphi.Targets&quot; /&gt;
+   &lt;ItemGroup&gt;
+@@ -61,6 +61,27 @@
+     &lt;DCCReference Include=&quot;..\src\Progress.pas&quot;&gt;
+       &lt;Form&gt;frmProgress&lt;/Form&gt;
+     &lt;/DCCReference&gt;
++    &lt;DCCReference Include=&quot;..\src\RegionWizard.pas&quot;&gt;
++      &lt;Form&gt;frmRegionW1&lt;/Form&gt;
++    &lt;/DCCReference&gt;
++    &lt;DCCReference Include=&quot;..\src\RegionWizard2Region.pas&quot;&gt;
++      &lt;Form&gt;frmRegionW2R&lt;/Form&gt;
++    &lt;/DCCReference&gt;
++    &lt;DCCReference Include=&quot;..\src\RegionWizard2Spawn.pas&quot;&gt;
++      &lt;Form&gt;frmRegionW2S&lt;/Form&gt;
++    &lt;/DCCReference&gt;
++    &lt;DCCReference Include=&quot;..\src\RegionWizard3Region.pas&quot;&gt;
++      &lt;Form&gt;FrmRegionW3R&lt;/Form&gt;
++    &lt;/DCCReference&gt;
++    &lt;DCCReference Include=&quot;..\src\RegionWizard3Spawn.pas&quot;&gt;
++      &lt;Form&gt;FrmRegionW3S&lt;/Form&gt;
++    &lt;/DCCReference&gt;
++    &lt;DCCReference Include=&quot;..\src\RegionWizard4Region.pas&quot;&gt;
++      &lt;Form&gt;frmRergionW4R&lt;/Form&gt;
++    &lt;/DCCReference&gt;
++    &lt;DCCReference Include=&quot;..\src\RegionWizard4Spawn.pas&quot;&gt;
++      &lt;Form&gt;FrmRegionW4S&lt;/Form&gt;
++    &lt;/DCCReference&gt;
+     &lt;DCCReference Include=&quot;..\src\Spawnregions.pas&quot;&gt;
+       &lt;Form&gt;frmRegions&lt;/Form&gt;
+     &lt;/DCCReference&gt;
+
+Modified: trunk/WPGM/build/WPGM.dproj.local
+===================================================================
+--- trunk/WPGM/build/WPGM.dproj.local	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/build/WPGM.dproj.local	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -31,5 +31,19 @@
+     &lt;Transaction&gt;2007/06/22 22:25:12.421.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLiteTable.pas=&lt;/Transaction&gt;
+     &lt;Transaction&gt;2007/06/22 22:25:12.453.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLite2.pas=&lt;/Transaction&gt;
+     &lt;Transaction&gt;2007/06/22 22:25:12.468.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLite.pas=&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 00:30:34.609.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard.pas&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 00:30:34.609.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard.dfm&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 00:43:24.703.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard2Region.pas&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 00:43:24.703.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard2Region.dfm&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 00:57:14.171.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Region.pas&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 00:57:14.171.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Region.dfm&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 01:24:29.718.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Region.pas&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 01:24:29.718.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Region.dfm&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 17:23:19.734.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard2Spawn.pas&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 17:23:19.734.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard2Spawn.dfm&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 17:28:36.281.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Spawn.pas&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 17:28:36.281.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Spawn.dfm&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 17:56:39.390.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Spawn.pas&lt;/Transaction&gt;
++    &lt;Transaction&gt;2008/02/24 17:56:39.390.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Spawn.dfm&lt;/Transaction&gt;
+   &lt;/Transactions&gt;
+ &lt;/BorlandProject&gt;
+
+Modified: trunk/WPGM/build/WPGM.identcache
+===================================================================
+(Binary files differ)
+
+Modified: trunk/WPGM/build/WPGM.res
+===================================================================
+(Binary files differ)
+
+Added: trunk/WPGM/build/open_document16.bmp
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/WPGM/build/open_document16.bmp
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Modified: trunk/WPGM/src/Main.dfm
+===================================================================
+--- trunk/WPGM/src/Main.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/Main.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -23,7 +23,7 @@
+     Top = 21
+     Width = 604
+     Height = 163
+-    ActivePage = TravelMap
++    ActivePage = TabSheet1
+     Align = alClient
+     RaggedRight = True
+     TabOrder = 0
+@@ -620,7 +620,7 @@
+           Left = 201
+           Top = 0
+           Height = 103
+-          ExplicitHeight = 112
++          ExplicitLeft = 204
+         end
+         object Splitter2: TSplitter
+           Left = 478
+@@ -1490,8 +1490,8 @@
+     Enabled = False
+     Interval = 100
+     OnTimer = ontopTimerTimer
+-    Left = 572
+-    Top = 24
++    Left = 576
++    Top = 56
+   end
+   object btnCustomPopup: TPopupMenu
+     Left = 572
+
+Modified: trunk/WPGM/src/Main.pas
+===================================================================
+--- trunk/WPGM/src/Main.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/Main.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -413,7 +413,7 @@
+ implementation
+ 
+ uses UOUtilities, uChooseHue, Math, uCenter, Overview, Spawnregions,
+-  uPatternColor     , Configuration;
++  uPatternColor     , Configuration, RegionWizard4Spawn;
+ 
+ {$R *.DFM}
+ 
+
+Added: trunk/WPGM/src/RegionWizard.dfm
+===================================================================
+--- trunk/WPGM/src/RegionWizard.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,55 @@
++object frmRegionW1: TfrmRegionW1
++  Left = 370
++  Top = 183
++  Caption = 'Region Wizard'
++  ClientHeight = 310
++  ClientWidth = 454
++  Color = clBtnFace
++  Font.Charset = DEFAULT_CHARSET
++  Font.Color = clWindowText
++  Font.Height = -11
++  Font.Name = 'Tahoma'
++  Font.Style = []
++  FormStyle = fsStayOnTop
++  OldCreateOrder = False
++  PopupMode = pmExplicit
++  PopupParent = frmRegions.Owner
++  Position = poDesktopCenter
++  PixelsPerInch = 96
++  TextHeight = 13
++  object Label1: TLabel
++    Left = 56
++    Top = 72
++    Width = 116
++    Height = 13
++    Caption = 'Select your region type:'
++  end
++  object RGRegionType: TRadioGroup
++    Left = 176
++    Top = 108
++    Width = 113
++    Height = 81
++    Items.Strings = (
++      'Regions'
++      'SpawnRegions')
++    TabOrder = 0
++  end
++  object Button1: TButton
++    Left = 272
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Next'
++    TabOrder = 1
++    OnClick = Button1Click
++  end
++  object Button2: TButton
++    Left = 361
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Cancel'
++    TabOrder = 2
++    OnClick = Button2Click
++  end
++end
+
+Added: trunk/WPGM/src/RegionWizard.pas
+===================================================================
+--- trunk/WPGM/src/RegionWizard.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,57 @@
++unit RegionWizard;
++
++interface
++
++uses
++  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
++  Dialogs, StdCtrls, ExtCtrls;
++
++type
++  TfrmRegionW1 = class(TForm)
++    Label1: TLabel;
++    RGRegionType: TRadioGroup;
++    Button1: TButton;
++    Button2: TButton;
++    procedure Button2Click(Sender: TObject);
++    procedure Button1Click(Sender: TObject);
++  private
++    { Private declarations }
++  public
++    { Public declarations }
++  end;
++
++var
++  frmRegionW1: TfrmRegionW1;
++
++implementation
++
++uses RegionWizard2Region, Spawnregions, RegionWizard2Spawn;
++
++{$R *.dfm}
++
++procedure TfrmRegionW1.Button1Click(Sender: TObject);
++begin
++  if RGregiontype.ItemIndex = -1 then
++    showmessage('You must select an option to continue!')
++   else if RGregiontype.ItemIndex = 0 then
++        begin
++          frmRegionW2R.Show;
++          frmregions.regiontype := True;
++          close;
++        end
++        else
++        begin
++          frmRegionW2S.Show;
++          frmregions.regiontype := False;
++          close;
++        end;
++      
++
++end;
++
++procedure TfrmRegionW1.Button2Click(Sender: TObject);
++begin
++  close;
++end;
++
++end.
+
+Added: trunk/WPGM/src/RegionWizard2Region.dfm
+===================================================================
+--- trunk/WPGM/src/RegionWizard2Region.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard2Region.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,61 @@
++object frmRegionW2R: TfrmRegionW2R
++  Left = 388
++  Top = 134
++  Caption = 'Region Wizard - Region 1'
++  ClientHeight = 310
++  ClientWidth = 454
++  Color = clBtnFace
++  Font.Charset = DEFAULT_CHARSET
++  Font.Color = clWindowText
++  Font.Height = -11
++  Font.Name = 'Tahoma'
++  Font.Style = []
++  FormStyle = fsStayOnTop
++  OldCreateOrder = False
++  PopupMode = pmExplicit
++  PopupParent = frmRegions.Owner
++  Position = poDesktopCenter
++  PixelsPerInch = 96
++  TextHeight = 13
++  object Label1: TLabel
++    Left = 100
++    Top = 140
++    Width = 103
++    Height = 13
++    Caption = 'Name for the Region:'
++  end
++  object Button1: TButton
++    Left = 272
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Next'
++    TabOrder = 0
++    OnClick = Button1Click
++  end
++  object Button2: TButton
++    Left = 361
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Cancel'
++    TabOrder = 1
++    OnClick = Button2Click
++  end
++  object ERegionName: TEdit
++    Left = 209
++    Top = 137
++    Width = 121
++    Height = 21
++    TabOrder = 2
++  end
++  object Button3: TButton
++    Left = 184
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Back'
++    TabOrder = 3
++    OnClick = Button3Click
++  end
++end
+
+Added: trunk/WPGM/src/RegionWizard2Region.pas
+===================================================================
+--- trunk/WPGM/src/RegionWizard2Region.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard2Region.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,58 @@
++unit RegionWizard2Region;
++
++interface
++
++uses
++  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
++  Dialogs, StdCtrls;
++
++type
++  TfrmRegionW2R = class(TForm)
++    Button1: TButton;
++    Button2: TButton;
++    Label1: TLabel;
++    ERegionName: TEdit;
++    Button3: TButton;
++    procedure Button2Click(Sender: TObject);
++    procedure Button1Click(Sender: TObject);
++    procedure Button3Click(Sender: TObject);
++  private
++    { Private declarations }
++  public
++    { Public declarations }
++  end;
++
++var
++  frmRegionW2R: TfrmRegionW2R;
++
++implementation
++
++uses RegionWizard3Region, RegionWizard, Spawnregions;
++
++{$R *.dfm}
++
++procedure TfrmRegionW2R.Button1Click(Sender: TObject);
++begin
++  if length(ERegionName.Text) = 0 then
++    showmessage('You need a name for you Region!')
++  else
++  begin
++    FrmRegionW3R.regionName :=  ERegionName.Text;
++    FrmRegionW3R.show;
++    close;
++  end;
++
++end;
++
++procedure TfrmRegionW2R.Button2Click(Sender: TObject);
++begin
++  close;
++end;
++
++procedure TfrmRegionW2R.Button3Click(Sender: TObject);
++begin
++  frmRegionW1.show;
++  close;
++end;
++
++end.
+
+Added: trunk/WPGM/src/RegionWizard2Spawn.dfm
+===================================================================
+--- trunk/WPGM/src/RegionWizard2Spawn.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard2Spawn.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,57 @@
++object frmRegionW2S: TfrmRegionW2S
++  Left = 371
++  Top = 228
++  Caption = 'Region Wizard - Spawnregion'
++  ClientHeight = 310
++  ClientWidth = 454
++  Color = clBtnFace
++  Font.Charset = DEFAULT_CHARSET
++  Font.Color = clWindowText
++  Font.Height = -11
++  Font.Name = 'Tahoma'
++  Font.Style = []
++  OldCreateOrder = False
++  Position = poDesktopCenter
++  PixelsPerInch = 96
++  TextHeight = 13
++  object Label1: TLabel
++    Left = 71
++    Top = 140
++    Width = 132
++    Height = 13
++    Caption = 'Name for the Spawnregion:'
++  end
++  object Button2: TButton
++    Left = 361
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Cancel'
++    TabOrder = 0
++  end
++  object Button1: TButton
++    Left = 272
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Next'
++    TabOrder = 1
++    OnClick = Button1Click
++  end
++  object Button3: TButton
++    Left = 184
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Back'
++    TabOrder = 2
++    OnClick = Button3Click
++  end
++  object ERegionName: TEdit
++    Left = 209
++    Top = 137
++    Width = 121
++    Height = 21
++    TabOrder = 3
++  end
++end
+
+Added: trunk/WPGM/src/RegionWizard2Spawn.pas
+===================================================================
+--- trunk/WPGM/src/RegionWizard2Spawn.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard2Spawn.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,51 @@
++unit RegionWizard2Spawn;
++
++interface
++
++uses
++  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
++  Dialogs, StdCtrls;
++
++type
++  TfrmRegionW2S = class(TForm)
++    Button2: TButton;
++    Button1: TButton;
++    Button3: TButton;
++    ERegionName: TEdit;
++    Label1: TLabel;
++    procedure Button1Click(Sender: TObject);
++    procedure Button3Click(Sender: TObject);
++  private
++    { Private declarations }
++  public
++    { Public declarations }
++  end;
++
++var
++  frmRegionW2S: TfrmRegionW2S;
++
++implementation
++
++uses RegionWizard, RegionWizard3Spawn;
++
++{$R *.dfm}
++
++procedure TfrmRegionW2S.Button1Click(Sender: TObject);
++begin
++  if length(ERegionName.Text) = 0 then
++    showmessage('You need a name for you Region!')
++  else
++  begin
++    FrmRegionW3S.regionName :=  ERegionName.Text;
++    FrmRegionW3S.show;
++    close;
++  end;
++end;
++
++procedure TfrmRegionW2S.Button3Click(Sender: TObject);
++begin
++  frmRegionW1.show;
++  close;
++end;
++
++end.
+
+Added: trunk/WPGM/src/RegionWizard3Region.dfm
+===================================================================
+--- trunk/WPGM/src/RegionWizard3Region.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard3Region.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,124 @@
++object FrmRegionW3R: TFrmRegionW3R
++  Left = 406
++  Top = 179
++  Caption = 'Region Wizard - Region 2 - Flags'
++  ClientHeight = 310
++  ClientWidth = 454
++  Color = clBtnFace
++  Font.Charset = DEFAULT_CHARSET
++  Font.Color = clWindowText
++  Font.Height = -11
++  Font.Name = 'Tahoma'
++  Font.Style = []
++  FormStyle = fsStayOnTop
++  OldCreateOrder = False
++  PopupMode = pmExplicit
++  PopupParent = frmRegions.Owner
++  Position = poDesktopCenter
++  PixelsPerInch = 96
++  TextHeight = 13
++  object Label1: TLabel
++    Left = 24
++    Top = 8
++    Width = 134
++    Height = 13
++    Caption = 'Select flags for your region:'
++  end
++  object Label2: TLabel
++    Left = 52
++    Top = 29
++    Width = 73
++    Height = 13
++    Caption = 'Selected Flags:'
++  end
++  object Label3: TLabel
++    Left = 264
++    Top = 29
++    Width = 67
++    Height = 13
++    Caption = 'Avaible Flags:'
++  end
++  object Button1: TButton
++    Left = 272
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Next'
++    TabOrder = 0
++    OnClick = Button1Click
++  end
++  object Button2: TButton
++    Left = 361
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Cancel'
++    TabOrder = 1
++    OnClick = Button2Click
++  end
++  object LBSelected: TListBox
++    Left = 52
++    Top = 48
++    Width = 137
++    Height = 209
++    ItemHeight = 13
++    TabOrder = 2
++  end
++  object LBAvaible: TListBox
++    Left = 264
++    Top = 48
++    Width = 137
++    Height = 209
++    ItemHeight = 13
++    Items.Strings = (
++      'antimagic'
++      'cave'
++      'escortregion'
++      'guarded'
++      'instalogout'
++      'noagressivemagic'
++      'nocriminalcombat'
++      'nodecay'
++      'noentermessage'
++      'nogate'
++      'noguardmessage'
++      'nohousing'
++      'nokillcount'
++      'nomark'
++      'nomusic'
++      'norecallin'
++      'norecallout'
++      'noteleport'
++      'recallshield'
++      'safe')
++    Sorted = True
++    TabOrder = 3
++  end
++  object Insert: TButton
++    Left = 212
++    Top = 112
++    Width = 25
++    Height = 25
++    Caption = '&lt;'
++    TabOrder = 4
++    OnClick = InsertClick
++  end
++  object Remove: TButton
++    Left = 212
++    Top = 156
++    Width = 25
++    Height = 25
++    Caption = '&gt;'
++    TabOrder = 5
++    OnClick = RemoveClick
++  end
++  object Button3: TButton
++    Left = 184
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Back'
++    TabOrder = 6
++    OnClick = Button3Click
++  end
++end
+
+Added: trunk/WPGM/src/RegionWizard3Region.pas
+===================================================================
+--- trunk/WPGM/src/RegionWizard3Region.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard3Region.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,95 @@
++unit RegionWizard3Region;
++
++interface
++
++uses
++  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
++  Dialogs, StdCtrls;
++
++type
++  TFrmRegionW3R = class(TForm)
++    Button1: TButton;
++    Button2: TButton;
++    Label1: TLabel;
++    LBSelected: TListBox;
++    LBAvaible: TListBox;
++    Label2: TLabel;
++    Label3: TLabel;
++    Insert: TButton;
++    Remove: TButton;
++    Button3: TButton;
++    procedure InsertClick(Sender: TObject);
++    procedure RemoveClick(Sender: TObject);
++    procedure Button2Click(Sender: TObject);
++    procedure Button1Click(Sender: TObject);
++    procedure Button3Click(Sender: TObject);
++  private
++    { Private declarations }
++  public
++    { Public declarations }
++    regionName : string;
++  end;
++
++var
++  FrmRegionW3R: TFrmRegionW3R;
++
++implementation
++
++uses RegionWizard4Region, RegionWizard2Region, Spawnregions;
++
++{$R *.dfm}
++
++procedure TFrmRegionW3R.Button1Click(Sender: TObject);
++begin
++
++  frmRergionW4R.regionName := regionName;
++  frmRergionW4R.flags := TstringList.Create;
++  frmRergionW4R.flags.AddStrings(lbselected.Items);
++  frmRergionW4R.show;
++  close;
++end;
++
++procedure TFrmRegionW3R.Button2Click(Sender: TObject);
++begin
++  close;
++end;
++
++procedure TFrmRegionW3R.Button3Click(Sender: TObject);
++begin
++  FrmRegionW2R.Show;
++  close;
++end;
++
++procedure TFrmRegionW3R.InsertClick(Sender: TObject);
++begin
++  if lbavaible.Items.Count &gt; 0 then
++  begin
++    if lbavaible.ItemIndex = -1 then
++      exit;
++
++    lbselected.Items.Add(lbavaible.Items.Strings[lbavaible.ItemIndex]);
++    lbselected.Refresh;
++    lbavaible.Items.Delete(lbavaible.ItemIndex);
++    lbavaible.Refresh;
++  end
++  else
++    showmessage('There`re no more flags avaibles to add.');
++
++end;
++
++procedure TFrmRegionW3R.RemoveClick(Sender: TObject);
++begin
++  if lbselected.Items.Count &gt; 0 then
++  begin
++    if lbselected.ItemIndex = -1 then
++      exit;
++    lbavaible.Items.Add(lbselected.Items.Strings[lbselected.ItemIndex]);
++    lbselected.Items.Delete(lbselected.ItemIndex);
++    lbselected.Refresh;
++    lbavaible.Refresh;
++  end
++  else
++    showmessage('There`re no more flags to remove.');
++end;
++
++end.
+
+Added: trunk/WPGM/src/RegionWizard3Spawn.dfm
+===================================================================
+--- trunk/WPGM/src/RegionWizard3Spawn.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard3Spawn.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,207 @@
++object FrmRegionW3S: TFrmRegionW3S
++  Left = 390
++  Top = 198
++  Caption = 'Region Wizard - Spawnregion - Definitions'
++  ClientHeight = 310
++  ClientWidth = 454
++  Color = clBtnFace
++  Font.Charset = DEFAULT_CHARSET
++  Font.Color = clWindowText
++  Font.Height = -11
++  Font.Name = 'Tahoma'
++  Font.Style = []
++  OldCreateOrder = False
++  Position = poDesktopCenter
++  PixelsPerInch = 96
++  TextHeight = 13
++  object Label1: TLabel
++    Left = 68
++    Top = 80
++    Width = 85
++    Height = 13
++    Caption = 'Max Npc Amount:'
++  end
++  object Label2: TLabel
++    Left = 68
++    Top = 126
++    Width = 31
++    Height = 13
++    Caption = 'Delay:'
++  end
++  object Label3: TLabel
++    Left = 68
++    Top = 188
++    Width = 73
++    Height = 13
++    Caption = 'Npcs per cycle:'
++  end
++  object Label4: TLabel
++    Left = 68
++    Top = 143
++    Width = 20
++    Height = 13
++    Caption = 'Min:'
++  end
++  object Label5: TLabel
++    Left = 140
++    Top = 143
++    Width = 24
++    Height = 13
++    Caption = 'Max:'
++  end
++  object SpeedButton1: TSpeedButton
++    Left = 343
++    Top = 64
++    Width = 23
++    Height = 22
++    Glyph.Data = {
++      36030000424D3603000000000000360000002800000010000000100000000100
++      18000000000000030000120B0000120B00000000000000000000FF00FF078DBE
++      078DBE078DBE078DBE078DBE078DBE078DBE078DBE078DBE078DBE078DBE078D
++      BE078DBEFF00FFFF00FF078DBE25A1D172C7E785D7FA66CDF965CDF965CDF965
++      CDF965CDF865CDF965CDF866CEF939ADD8078DBEFF00FFFF00FF078DBE4CBCE7
++      39A8D1A0E2FB6FD4FA6FD4F96ED4FA6FD4F96FD4FA6FD4FA6FD4FA6ED4F93EB1
++      D984D7EB078DBEFF00FF078DBE72D6FA078DBEAEEAFC79DCFB79DCFB79DCFB79
++      DCFB79DCFB7ADCFB79DCFA79DCFA44B5D9AEF1F9078DBEFF00FF078DBE79DDFB
++      1899C79ADFF392E7FB84E4FB83E4FC83E4FC84E4FC83E4FC83E4FB84E5FC48B9
++      DAB3F4F9078DBEFF00FF078DBE82E3FC43B7DC65C3E0ACF0FD8DEBFC8DEBFC8D
++      EBFD8DEBFD8DEBFC8DEBFD0C85184CBBDAB6F7F96DCAE0078DBE078DBE8AEAFC
++      77DCF3229CC6FDFFFFC8F7FEC9F7FEC9F7FEC9F7FEC8F7FE0C85183CBC5D0C85
++      18DEF9FBD6F6F9078DBE078DBE93F0FE93F0FD1697C5078DBE078DBE078DBE07
++      8DBE078DBE0C851852D97F62ED9741C4650C8518078DBE078DBE078DBE9BF5FE
++      9AF6FE9AF6FE9BF5FD9BF6FE9AF6FE9BF5FE0C851846CE6C59E48858E18861EB
++      9440C1650C8518FF00FF078DBEFEFEFEA0FBFFA0FBFEA0FBFEA1FAFEA1FBFE0C
++      85180C85180C85180C851856E18447CD6E0C85180C85180C8518FF00FF078DBE
++      FEFEFEA5FEFFA5FEFFA5FEFF078CB643B7DC43B7DC43B7DC0C85184EDD7936BA
++      540C8518FF00FFFF00FFFF00FFFF00FF078DBE078DBE078DBE078DBEFF00FFFF
++      00FFFF00FFFF00FF0C851840D0650C8518FF00FFFF00FFFF00FFFF00FFFF00FF
++      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0C85182AB7432DBA490C85
++      18FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
++      00FFFF00FF0C851821B5380C8518FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
++      FF00FFFF00FFFF00FFFF00FFFF00FF0C85180C85180C85180C8518FF00FFFF00
++      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0C85180C85180C
++      85180C8518FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
++    OnClick = SpeedButton1Click
++  end
++  object Label6: TLabel
++    Left = 224
++    Top = 46
++    Width = 33
++    Height = 13
++    Caption = 'Group:'
++  end
++  object SpeedButton2: TSpeedButton
++    Left = 370
++    Top = 64
++    Width = 23
++    Height = 22
++    Glyph.Data = {
++      36030000424D3603000000000000360000002800000010000000100000000100
++      18000000000000030000120B0000120B00000000000000000000FF00FF078DBE
++      078DBE078DBE078DBE078DBE078DBE078DBE078DBE078DBE078DBE078DBE078D
++      BE078DBEFF00FFFF00FF078DBE25A1D172C7E785D7FA66CDF965CDF965CDF965
++      CDF965CDF865CDF965CDF866CEF939ADD8078DBEFF00FFFF00FF078DBE4CBCE7
++      39A8D1A0E2FB6FD4FA6FD4F96ED4FA6FD4F96FD4FA6FD4FA6FD4FA6ED4F93EB1
++      D984D7EB078DBEFF00FF078DBE72D6FA078DBEAEEAFC79DCFB79DCFB79DCFB79
++      DCFB79DCFB7ADCFB79DCFA79DCFA44B5D9AEF1F9078DBEFF00FF078DBE79DDFB
++      1899C79ADFF392E7FB84E4FB83E4FC83E4FC84E4FC83E4FC83E4FB84E5FC48B9
++      DAB3F4F9078DBEFF00FF078DBE82E3FC43B7DC65C3E0ACF0FD8DEBFC8DEBFC8D
++      EBFD8DEBFD8DEBFC8DEBFD0C85184CBBDAB6F7F96DCAE0078DBE078DBE8AEAFC
++      77DCF3229CC6FDFFFFC8F7FEC9F7FEC9F7FEC9F7FEC8F7FE0C85183CBC5D0C85
++      18DEF9FBD6F6F9078DBE078DBE93F0FE93F0FD1697C5078DBE078DBE078DBE07
++      8DBE078DBE0C851852D97F62ED9741C4650C8518078DBE078DBE078DBE9BF5FE
++      9AF6FE9AF6FE9BF5FD9BF6FE9AF6FE9BF5FE0C851846CE6C59E48858E18861EB
++      9440C1650C8518FF00FF078DBEFEFEFEA0FBFFA0FBFEA0FBFEA1FAFEA1FBFE0C
++      85180C85180C85180C851856E18447CD6E0C85180C85180C8518FF00FF078DBE
++      FEFEFEA5FEFFA5FEFFA5FEFF078CB643B7DC43B7DC43B7DC0C85184EDD7936BA
++      540C8518FF00FFFF00FFFF00FFFF00FF078DBE078DBE078DBE078DBEFF00FFFF
++      00FFFF00FFFF00FF0C851840D0650C8518FF00FFFF00FFFF00FFFF00FFFF00FF
++      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0C85182AB7432DBA490C85
++      18FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
++      00FFFF00FF0C851821B5380C8518FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
++      FF00FFFF00FFFF00FFFF00FFFF00FF0C85180C85180C85180C8518FF00FFFF00
++      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0C85180C85180C
++      85180C8518FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
++    OnClick = SpeedButton2Click
++  end
++  object CheckBox1: TCheckBox
++    Left = 67
++    Top = 52
++    Width = 97
++    Height = 13
++    Caption = 'Active'
++    TabOrder = 0
++  end
++  object EMaxnpcamount: TEdit
++    Left = 68
++    Top = 99
++    Width = 121
++    Height = 21
++    TabOrder = 1
++    Text = '0'
++  end
++  object Edelaymin: TEdit
++    Left = 68
++    Top = 157
++    Width = 53
++    Height = 21
++    TabOrder = 2
++    Text = '0'
++  end
++  object Edelaymax: TEdit
++    Left = 140
++    Top = 157
++    Width = 49
++    Height = 21
++    TabOrder = 3
++    Text = '0'
++  end
++  object Enpcspercycle: TEdit
++    Left = 68
++    Top = 207
++    Width = 121
++    Height = 21
++    TabOrder = 4
++    Text = '0'
++  end
++  object Button3: TButton
++    Left = 184
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Back'
++    TabOrder = 5
++  end
++  object Button1: TButton
++    Left = 272
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Next'
++    TabOrder = 6
++    OnClick = Button1Click
++  end
++  object Button2: TButton
++    Left = 361
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Cancel'
++    TabOrder = 7
++  end
++  object ListBox1: TListBox
++    Left = 224
++    Top = 92
++    Width = 169
++    Height = 136
++    ItemHeight = 13
++    TabOrder = 8
++  end
++  object Edit1: TEdit
++    Left = 224
++    Top = 65
++    Width = 113
++    Height = 21
++    TabOrder = 9
++  end
++end
+
+Added: trunk/WPGM/src/RegionWizard3Spawn.pas
+===================================================================
+--- trunk/WPGM/src/RegionWizard3Spawn.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard3Spawn.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,75 @@
++unit RegionWizard3Spawn;
++
++interface
++
++uses
++  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
++  Dialogs, StdCtrls, Buttons;
++
++type
++  TFrmRegionW3S = class(TForm)
++    CheckBox1: TCheckBox;
++    Label1: TLabel;
++    EMaxnpcamount: TEdit;
++    Label2: TLabel;
++    Edelaymin: TEdit;
++    Edelaymax: TEdit;
++    Label3: TLabel;
++    Enpcspercycle: TEdit;
++    Label4: TLabel;
++    Label5: TLabel;
++    Button3: TButton;
++    Button1: TButton;
++    Button2: TButton;
++    ListBox1: TListBox;
++    Edit1: TEdit;
++    SpeedButton1: TSpeedButton;
++    Label6: TLabel;
++    SpeedButton2: TSpeedButton;
++    procedure Button1Click(Sender: TObject);
++    procedure SpeedButton1Click(Sender: TObject);
++    procedure SpeedButton2Click(Sender: TObject);
++  private
++    { Private declarations }
++  public
++    { Public declarations }
++    regionName : string;
++  end;
++
++var
++  FrmRegionW3S: TFrmRegionW3S;
++
++implementation
++
++uses RegionWizard4Spawn;
++
++{$R *.dfm}
++
++procedure TFrmRegionW3S.Button1Click(Sender: TObject);
++begin
++  frmregionw4s.group := Tstringlist.Create;
++  frmregionw4s.group.AddStrings(listbox1.Items);
++  frmregionw4s.active := CheckBox1.Checked;
++  frmregionw4s.npcpercycle := strtoint(Enpcspercycle.Text);
++  frmregionw4s.maxnpcamount := strtoint(EMaxnpcamount.Text);
++  frmregionw4s.delaymin := strtoint(Edelaymin.text);
++  frmregionw4s.delaymax := strtoint(Edelaymax.text);
++  frmregionw4s.regionName := regionName;
++  frmregionw4s.Show;
++  close;
++end;
++
++procedure TFrmRegionW3S.SpeedButton1Click(Sender: TObject);
++begin
++  if length(trim(edit1.Text)) &lt;&gt; 0 then
++    listbox1.Items.Add(edit1.text);
++  
++end;
++
++procedure TFrmRegionW3S.SpeedButton2Click(Sender: TObject);
++begin
++  if listbox1.ItemIndex &lt;&gt; -1 then
++    listbox1.DeleteSelected;
++end;
++
++end.
+
+Added: trunk/WPGM/src/RegionWizard4Region.dfm
+===================================================================
+--- trunk/WPGM/src/RegionWizard4Region.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard4Region.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,138 @@
++object frmRergionW4R: TfrmRergionW4R
++  Left = 337
++  Top = 190
++  Caption = 'Region Wizard - Region 4 - Extra-Options'
++  ClientHeight = 310
++  ClientWidth = 484
++  Color = clBtnFace
++  Font.Charset = DEFAULT_CHARSET
++  Font.Color = clWindowText
++  Font.Height = -11
++  Font.Name = 'Tahoma'
++  Font.Style = []
++  FormStyle = fsStayOnTop
++  OldCreateOrder = False
++  PopupMode = pmExplicit
++  PopupParent = frmRegions.Owner
++  Position = poDesktopCenter
++  PixelsPerInch = 96
++  TextHeight = 13
++  object Label1: TLabel
++    Left = 64
++    Top = 127
++    Width = 71
++    Height = 13
++    Caption = 'Guard Owner :'
++  end
++  object Label2: TLabel
++    Left = 247
++    Top = 36
++    Width = 38
++    Height = 13
++    Caption = 'MidiList:'
++  end
++  object Label3: TLabel
++    Left = 247
++    Top = 96
++    Width = 64
++    Height = 13
++    Caption = 'Rain Chance:'
++  end
++  object Label4: TLabel
++    Left = 247
++    Top = 149
++    Width = 69
++    Height = 13
++    Caption = 'Snow Chance:'
++  end
++  object Label5: TLabel
++    Left = 247
++    Top = 207
++    Width = 40
++    Height = 13
++    Caption = 'resores:'
++  end
++  object Button2: TButton
++    Left = 361
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Cancel'
++    TabOrder = 0
++  end
++  object Button1: TButton
++    Left = 272
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Finish'
++    TabOrder = 1
++    OnClick = Button1Click
++  end
++  object Eguardowner: TEdit
++    Left = 64
++    Top = 146
++    Width = 121
++    Height = 21
++    TabOrder = 2
++  end
++  object CheckBox1: TCheckBox
++    Left = 64
++    Top = 104
++    Width = 65
++    Height = 17
++    Caption = 'Guards'
++    TabOrder = 3
++  end
++  object Emidilist: TEdit
++    Left = 247
++    Top = 55
++    Width = 121
++    Height = 21
++    TabOrder = 4
++  end
++  object Erainchancemin: TEdit
++    Left = 247
++    Top = 115
++    Width = 58
++    Height = 21
++    TabOrder = 5
++  end
++  object ESnowChancemin: TEdit
++    Left = 247
++    Top = 168
++    Width = 58
++    Height = 21
++    TabOrder = 6
++  end
++  object EResores: TEdit
++    Left = 247
++    Top = 226
++    Width = 121
++    Height = 21
++    TabOrder = 7
++  end
++  object Button3: TButton
++    Left = 184
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Back'
++    TabOrder = 8
++    OnClick = Button3Click
++  end
++  object Erainchancemax: TEdit
++    Left = 311
++    Top = 115
++    Width = 58
++    Height = 21
++    TabOrder = 9
++  end
++  object ESnowChancemax: TEdit
++    Left = 311
++    Top = 168
++    Width = 58
++    Height = 21
++    TabOrder = 10
++  end
++end
+
+Added: trunk/WPGM/src/RegionWizard4Region.pas
+===================================================================
+--- trunk/WPGM/src/RegionWizard4Region.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard4Region.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,71 @@
++unit RegionWizard4Region;
++
++interface
++
++uses
++  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
++  Dialogs, StdCtrls;
++
++type
++  TfrmRergionW4R = class(TForm)
++    Button2: TButton;
++    Button1: TButton;
++    Eguardowner: TEdit;
++    CheckBox1: TCheckBox;
++    Label1: TLabel;
++    Label2: TLabel;
++    Emidilist: TEdit;
++    Label3: TLabel;
++    Erainchancemin: TEdit;
++    Label4: TLabel;
++    ESnowChancemin: TEdit;
++    Label5: TLabel;
++    EResores: TEdit;
++    Button3: TButton;
++    Erainchancemax: TEdit;
++    ESnowChancemax: TEdit;
++    procedure Button3Click(Sender: TObject);
++    procedure Button1Click(Sender: TObject);
++  private
++    { Private declarations }
++  public
++    { Public declarations }
++    flags : tstringlist;
++    regionname: string;
++  end;
++
++var
++  frmRergionW4R: TfrmRergionW4R;
++
++implementation
++
++uses RegionWizard3Region, Spawnregions;
++
++{$R *.dfm}
++
++procedure TfrmRergionW4R.Button1Click(Sender: TObject);
++begin
++  frmRegions.regionname := regionname;
++  frmRegions.flags := tstringList.Create;
++  frmRegions.flags.AddStrings(flags);
++  flags.Destroy;
++  frmRegions.rainchancemin := strTOint(erainchancemin.Text);
++  frmRegions.rainchancemax := strTOint(erainchancemax.Text);
++  frmRegions.snowchancemin := strTOint(esnowchancemin.Text);
++  frmRegions.snowchancemax := strTOint(esnowchancemax.Text);
++  frmRegions.guardowner := Eguardowner.Text;
++  frmRegions.isguarded := false;
++  frmRegions.isguarded := CheckBox1.Checked;
++  frmregions.midlist := emidilist.Text;
++  frmregions.resores := eresores.Text;
++  ShowMessage('Now you can set areas of the to your region.');
++  close;
++end;
++
++procedure TfrmRergionW4R.Button3Click(Sender: TObject);
++begin
++  FrmRegionW3R.Show;
++  close;
++end;
++
++end.
+
+Added: trunk/WPGM/src/RegionWizard4Spawn.dfm
+===================================================================
+--- trunk/WPGM/src/RegionWizard4Spawn.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard4Spawn.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,295 @@
++object FrmRegionW4S: TFrmRegionW4S
++  Left = 387
++  Top = 257
++  Caption = 'Region Wizard - Spawnregion - Npcs'
++  ClientHeight = 310
++  ClientWidth = 454
++  Color = clBtnFace
++  Font.Charset = DEFAULT_CHARSET
++  Font.Color = clWindowText
++  Font.Height = -11
++  Font.Name = 'Tahoma'
++  Font.Style = []
++  OldCreateOrder = False
++  Position = poDesktopCenter
++  OnClose = FormClose
++  OnCreate = FormCreate
++  PixelsPerInch = 96
++  TextHeight = 13
++  object Button2: TButton
++    Left = 361
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Cancel'
++    TabOrder = 0
++    OnClick = Button2Click
++  end
++  object Button1: TButton
++    Left = 272
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Next'
++    TabOrder = 1
++    OnClick = Button1Click
++  end
++  object Button3: TButton
++    Left = 184
++    Top = 277
++    Width = 75
++    Height = 25
++    Caption = '&amp;Back'
++    TabOrder = 2
++  end
++  object Panel1: TPanel
++    Left = 0
++    Top = 4
++    Width = 453
++    Height = 125
++    TabOrder = 3
++    object Splitter1: TSplitter
++      Left = 157
++      Top = 1
++      Height = 123
++      ExplicitLeft = 202
++      ExplicitHeight = 112
++    end
++    object Splitter2: TSplitter
++      Left = 337
++      Top = 1
++      Height = 123
++      Align = alRight
++      ExplicitLeft = 336
++    end
++    object vtNpcCategories: TVirtualStringTree
++      Left = 1
++      Top = 1
++      Width = 156
++      Height = 123
++      Align = alLeft
++      Header.AutoSizeIndex = 0
++      Header.Font.Charset = DEFAULT_CHARSET
++      Header.Font.Color = clWindowText
++      Header.Font.Height = -11
++      Header.Font.Name = 'MS Sans Serif'
++      Header.Font.Style = []
++      Header.MainColumn = -1
++      Header.Options = [hoColumnResize, hoDrag]
++      IncrementalSearchStart = ssAlwaysStartOver
++      ScrollBarOptions.AlwaysVisible = True
++      TabOrder = 0
++      TreeOptions.PaintOptions = [toShowButtons, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages]
++      OnChange = vtNpcCategoriesChange
++      OnExpanding = vtNpcCategoriesExpanding
++      OnGetText = vtNpcCategoriesGetText
++      Columns = &lt;&gt;
++    end
++    object vtNpcs: TVirtualStringTree
++      Left = 160
++      Top = 1
++      Width = 177
++      Height = 123
++      Align = alClient
++      Header.AutoSizeIndex = 0
++      Header.Font.Charset = DEFAULT_CHARSET
++      Header.Font.Color = clWindowText
++      Header.Font.Height = -11
++      Header.Font.Name = 'MS Sans Serif'
++      Header.Font.Style = []
++      Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
++      Header.SortColumn = 0
++      ScrollBarOptions.AlwaysVisible = True
++      ScrollBarOptions.ScrollBars = ssVertical
++      TabOrder = 1
++      TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScrollOnExpand, toAutoSort, toAutoTristateTracking, toAutoDeleteMovedNodes, toAutoFreeOnCollapse]
++      TreeOptions.PaintOptions = [toHideFocusRect, toShowButtons, toThemeAware, toUseBlendedImages]
++      TreeOptions.SelectionOptions = [toDisableDrawSelection, toFullRowSelect]
++      OnChange = vtNpcsChange
++      OnCompareNodes = vtNpcsCompareNodes
++      OnGetText = vtNpcsGetText
++      OnHeaderClick = vtNpcsHeaderClick
++      Columns = &lt;
++        item
++          Position = 0
++          Width = 100
++          WideText = 'Name'
++        end
++        item
++          Position = 1
++          WideText = 'ID'
++        end&gt;
++    end
++    object pbNpcPreview: TPaintBox32
++      Left = 340
++      Top = 1
++      Width = 112
++      Height = 123
++      Align = alRight
++      TabOrder = 2
++      OnPaintBuffer = pbNpcPreviewPaintBuffer
++    end
++  end
++  object GroupBox1: TGroupBox
++    Left = 2
++    Top = 134
++    Width = 451
++    Height = 50
++    Caption = 'Npc Wander'
++    TabOrder = 4
++    object Label1: TLabel
++      Left = 162
++      Top = 22
++      Width = 16
++      Height = 13
++      Caption = 'x1:'
++    end
++    object Label2: TLabel
++      Left = 229
++      Top = 22
++      Width = 16
++      Height = 13
++      Caption = 'y1:'
++    end
++    object Label3: TLabel
++      Left = 300
++      Top = 22
++      Width = 16
++      Height = 13
++      Caption = 'x2:'
++    end
++    object Label4: TLabel
++      Left = 369
++      Top = 22
++      Width = 16
++      Height = 13
++      Caption = 'y2:'
++    end
++    object ComboBox1: TComboBox
++      Left = 23
++      Top = 20
++      Width = 133
++      Height = 21
++      ItemHeight = 13
++      TabOrder = 0
++      OnChange = ComboBox1Change
++      Items.Strings = (
++        'rectangle'
++        'circle'
++        'freely'
++        'none')
++    end
++    object Ex1: TEdit
++      Left = 179
++      Top = 19
++      Width = 48
++      Height = 21
++      TabOrder = 1
++      Text = '0'
++    end
++    object Ey1: TEdit
++      Left = 247
++      Top = 19
++      Width = 48
++      Height = 21
++      TabOrder = 2
++      Text = '0'
++    end
++    object Ex2: TEdit
++      Left = 315
++      Top = 19
++      Width = 48
++      Height = 21
++      TabOrder = 3
++      Text = '0'
++    end
++    object Ey2: TEdit
++      Left = 386
++      Top = 19
++      Width = 48
++      Height = 21
++      TabOrder = 4
++      Text = '0'
++    end
++  end
++  object DBGNpc: TDBGrid
++    Left = 44
++    Top = 190
++    Width = 408
++    Height = 80
++    DataSource = DataSource1
++    TabOrder = 5
++    TitleFont.Charset = DEFAULT_CHARSET
++    TitleFont.Color = clWindowText
++    TitleFont.Height = -11
++    TitleFont.Name = 'Tahoma'
++    TitleFont.Style = []
++    Columns = &lt;
++      item
++        Expanded = False
++        FieldName = 'Id'
++        Width = 100
++        Visible = True
++      end
++      item
++        Expanded = False
++        FieldName = 'WanderType'
++        Width = 70
++        Visible = True
++      end
++      item
++        Expanded = False
++        FieldName = 'x1'
++        Width = 45
++        Visible = True
++      end
++      item
++        Expanded = False
++        FieldName = 'x2'
++        Width = 45
++        Visible = True
++      end
++      item
++        Expanded = False
++        FieldName = 'y1'
++        Width = 45
++        Visible = True
++      end
++      item
++        Expanded = False
++        FieldName = 'y2'
++        Width = 45
++        Visible = True
++      end&gt;
++  end
++  object Badd: TButton
++    Left = 2
++    Top = 190
++    Width = 36
++    Height = 39
++    Caption = 'Add'
++    TabOrder = 6
++    OnClick = BaddClick
++  end
++  object bdel: TButton
++    Left = 2
++    Top = 231
++    Width = 36
++    Height = 39
++    Caption = 'Del'
++    TabOrder = 7
++  end
++  object animtimer: TTimer
++    Enabled = False
++    Interval = 100
++    OnTimer = animtimerTimer
++    Left = 572
++    Top = 24
++  end
++  object DataSource1: TDataSource
++    AutoEdit = False
++    DataSet = frmRegions.CDSNpc
++    Left = 32
++    Top = 280
++  end
++end
+
+Added: trunk/WPGM/src/RegionWizard4Spawn.pas
+===================================================================
+--- trunk/WPGM/src/RegionWizard4Spawn.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/RegionWizard4Spawn.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -0,0 +1,514 @@
++unit RegionWizard4Spawn;
++
++interface
++
++uses
++  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
++  Dialogs, StdCtrls, GR32,GR32_Image, ExtCtrls, VirtualTrees, Grids, DBGrids, SQLite3, SQLiteTable3, UOAnim, uConfig,
++  DB;
++
++type
++  TFrmRegionW4S = class(TForm)
++    Button2: TButton;
++    Button1: TButton;
++    Button3: TButton;
++    Panel1: TPanel;
++    vtNpcCategories: TVirtualStringTree;
++    Splitter1: TSplitter;
++    vtNpcs: TVirtualStringTree;
++    Splitter2: TSplitter;
++    pbNpcPreview: TPaintBox32;
++    GroupBox1: TGroupBox;
++    ComboBox1: TComboBox;
++    Ex1: TEdit;
++    Ey1: TEdit;
++    Ex2: TEdit;
++    Ey2: TEdit;
++    Label1: TLabel;
++    Label2: TLabel;
++    Label3: TLabel;
++    Label4: TLabel;
++    DBGNpc: TDBGrid;
++    Badd: TButton;
++    bdel: TButton;
++    animtimer: TTimer;
++    DataSource1: TDataSource;
++    procedure vtNpcCategoriesChange(Sender: TBaseVirtualTree;
++      Node: PVirtualNode);
++    procedure vtNpcsChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
++    procedure vtNpcsCompareNodes(Sender: TBaseVirtualTree; Node1,
++      Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
++    procedure vtNpcsGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
++      Column: TColumnIndex; TextType: TVSTTextType; var CellText: WideString);
++    procedure vtNpcsHeaderClick(Sender: TVTHeader; Column: TColumnIndex;
++      Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
++    procedure pbNpcPreviewPaintBuffer(Sender: TObject);
++    procedure FormCreate(Sender: TObject);
++    procedure Button1Click(Sender: TObject);
++    procedure FormClose(Sender: TObject; var Action: TCloseAction);
++    procedure vtNpcCategoriesExpanding(Sender: TBaseVirtualTree;
++      Node: PVirtualNode; var Allowed: Boolean);
++    procedure vtNpcCategoriesGetText(Sender: TBaseVirtualTree;
++      Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
++      var CellText: WideString);
++    procedure animtimerTimer(Sender: TObject);
++    procedure ComboBox1Change(Sender: TObject);
++    procedure BaddClick(Sender: TObject);
++    procedure Button2Click(Sender: TObject);
++  private
++    { Private declarations }
++  public
++    { Public declarations }
++    active : boolean;
++    maxnpcamount : integer;
++    delaymin : integer;
++    delaymax : integer;
++    npcpercycle : integer;
++    group : tstringlist;
++    regionName : string;
++
++  end;
++
++var
++  FrmRegionW4S: TFrmRegionW4S;
++  npcPreview: Array of TAnimation;
++  npcPreviewFrame: Integer;
++  selectedId : string;
++
++
++implementation
++
++uses Main,Math, Spawnregions;
++
++{$R *.dfm}
++
++procedure TFrmRegionW4S.animtimerTimer(Sender: TObject);
++begin
++  if (npcPreview &lt;&gt; nil) and (npcPreview[0].frameCount &gt; 0) then begin
++    npcPreviewFrame := (npcPreviewFrame + 1) mod npcPreview[0].frameCount;
++    pbNpcPreview.Invalidate;
++  end;
++end;
++
++procedure TFrmRegionW4S.BaddClick(Sender: TObject);
++begin
++  if combobox1.ItemIndex = -1 then
++  begin
++    showmessage('You must select a wandertype!');
++    exit;
++  end;
++    
++  frmRegions.CDSNpc.Append;
++  frmregions.CDSNpcId.AsString := selectedId;
++  frmregions.CDSNpcWanderType.AsString := combobox1.Items.Strings[combobox1.ItemIndex];
++  frmregions.CDSNpcx1.AsString := ex1.Text;
++  frmregions.CDSNpcy1.AsString := ey1.Text;
++  frmregions.CDSNpcx2.AsString := ex2.Text;
++  frmregions.CDSNpcy2.AsString := ey1.Text;
++  frmregions.CDSNpc.Post;
++
++end;
++
++procedure TFrmRegionW4S.Button1Click(Sender: TObject);
++begin
++
++
++    frmregions.active := active;
++    frmregions.maxnpcamount := maxnpcamount;
++    frmregions.delaymin := delaymin;
++    frmregions.delaymax := delaymax;
++    frmregions.npcspercycle := npcpercycle;
++    frmregions.group := tstringlist.create;
++    frmregions.group.AddStrings(group);
++    frmregions.regionname := regionname;
++    group.Destroy;
++
++  close;
++end;
++
++procedure TFrmRegionW4S.Button2Click(Sender: TObject);
++begin
++  close;
++end;
++
++procedure TFrmRegionW4S.ComboBox1Change(Sender: TObject);
++begin
++    case combobox1.ItemIndex  of
++      0: begin
++            label1.Visible := true;
++            label2.Visible := true;
++            label3.Visible := true;
++            label4.Visible := true;
++            ex1.Visible := true;
++            ey1.Visible := true;
++            ex2.Visible := true;
++            ey2.Visible := true;
++         end;
++      1: begin
++            label1.Visible := true;
++            label2.Visible := false;
++            label3.Visible := false;
++            label4.Visible := false;
++            ex1.Visible := true;
++            ey1.Visible := false;
++            ex2.Visible := false;
++            ey2.Visible := false;
++         end;
++      2: begin
++            label1.Visible := false;
++            label2.Visible := false;
++            label3.Visible := false;
++            label4.Visible := false;
++            ex1.Visible := false;
++            ey1.Visible := false;
++            ex2.Visible := false;
++            ey2.Visible := false;
++          end;
++      3: begin
++            label1.Visible := false;
++            label2.Visible := false;
++            label3.Visible := false;
++            label4.Visible := false;
++            ex1.Visible := false;
++            ey1.Visible := false;
++            ex2.Visible := false;
++            ey2.Visible := false;
++
++         end;
++    end;
++end;
++
++procedure TFrmRegionW4S.FormClose(Sender: TObject; var Action: TCloseAction);
++begin
++  cafree;
++end;
++
++procedure TFrmRegionW4S.FormCreate(Sender: TObject);
++var
++  Config: TConfig;
++      RootQuery: TSQLiteTable;
++    CountQuery: TSQLiteTable;
++    Node: PNode;
++    TreeNode: PVirtualNode;
++    i: Integer;
++    value: String;
++begin
++    frmRegions.CDSNpc.Open;
++
++    npcPreview := nil;
++    npcPreviewFrame := 0;
++    Config := TConfig.Create;
++    Config.Load(ExtractFilePath( Application.ExeName ) + 'config.ini');
++
++    vtNpcCategories.NodeDataSize := sizeof(TNode);
++
++    vtNpcs.NodeDataSize := sizeof( TNpcNode );
++
++
++    // Query initial count of Items
++    try
++      //    TSQLiteDatabase
++    	SQLiteDb := TSQLiteDatabase.Create( 'categories.db' );
++        SQLiteDb.ExecSQL( 'PRAGMA default_cache_size = 10000;' );
++        SQLiteDb.ExecSQL( 'PRAGMA default_synchronous = OFF;' );
++        SQLiteDb.ExecSQL( 'PRAGMA full_column_names = OFF;' );
++        SQLiteDb.ExecSQL( 'PRAGMA show_datatypes = OFF;' );
++
++        if not SqLitedb.TableExists('categories') then
++        begin
++          // Table not exists, maybe databse don't exists too
++          Application.MessageBox(PChar('Please check you categories.db, It''s corrupted'), 'Error', MB_OK+MB_ICONERROR );
++          exit;
++        end;
++
++        //RootQuery.Free;
++
++        RootQuery := TSQLiteTable.Create( SQLiteDb, 'SELECT id,name FROM npccategories WHERE type = 0 AND parent = 0 ORDER BY name ASC;' );
++        while not RootQuery.EOF do
++        begin
++          TreeNode := vtNpcCategories.AddChild( nil );
++          Node := vtNpcCategories.GetNodeData( TreeNode );
++          Node.Id := StrToInt( RootQuery.Fields[0] );
++          Node.Name := UTF8Decode(RootQuery.Fields[1]);
++          TreeNode.States := [ vsInitialized ] + TreeNode.States;
++
++          // Check for Children
++          CountQuery := SQLiteDb.GetTable( Format( 'SELECT COUNT(*) FROM npccategories WHERE type = 0 AND parent = %u', [ Node.Id ] ) );
++
++          if StrToInt(CountQuery.Fields[0]) &gt; 0 then
++            TreeNode.States := [ vsHasChildren ] + TreeNode.States;
++          CountQuery.Free;
++          RootQuery.Next;
++        end;
++        RootQuery.Free;
++
++    except
++    	on E: Exception do
++        begin
++	    	Application.MessageBox(PChar(E.Message), 'Error', MB_OK+MB_ICONERROR );
++	        PostQuitMessage( 0 );
++	        Exit;
++        end;
++    end;
++ end;
++
++procedure TFrmRegionW4S.pbNpcPreviewPaintBuffer(Sender: TObject);
++var
++  pb: TPaintBox32;
++  totalHeight, totalWidth, i, xpos, ypos: Integer;
++  frame: PAnimFrame;
++begin
++  if not (Sender is TPaintBox32) then
++    exit;
++
++  pb := Sender as TPaintBox32;
++  pb.Buffer.Clear(clGray32);
++
++  // Draw Centered
++  if (npcPreview &lt;&gt; nil) and (length(npcPreview) &gt; 0) then begin
++    // Measure Total Height and Width
++    totalHeight := 0;
++    totalWidth := 0;
++
++    for i := 0 to Length(npcPreview) - 1 do begin
++      totalHeight := Max(npcPreview[i].getTotalHeight, totalHeight);
++      totalWidth := Max(npcPreview[i].getTotalWidth, totalWidth);
++    end;
++
++    xpos := (pb.ClientWidth div 2);
++    ypos := (pb.ClientHeight div 2) + (totalHeight div 2);
++
++    for i := 0 to Length(npcPreview) - 1 do begin
++      frame := npcPreview[i].getFrame(npcPreviewFrame);
++
++      if frame &lt;&gt; nil then begin
++        pb.Buffer.Draw(xpos - frame.CenterX, ypos - frame.image.height - frame.CenterY, frame.Image);
++      end;
++    end;
++  end;
++end;
++
++procedure TFrmRegionW4S.vtNpcCategoriesChange(Sender: TBaseVirtualTree;
++  Node: PVirtualNode);
++var
++	MyData: PNode;
++  ItemData: PNpcNode;
++	Query, SubQuery: TSQLiteTable;
++  TreeNode: PVirtualNode;
++  i: Integer;
++begin
++    vtNpcs.Clear;
++
++    if Node = nil then
++        Exit;
++
++    MyData := Sender.GetNodeData(Node);
++    try
++      Query := TSQLiteTable.Create( SQLiteDb, Format( 'SELECT id,name,bodyid,addid,skin FROM npcs WHERE parent = %u ORDER BY name;', [ MyData.Id ] ) );
++      while not Query.EOF do
++      begin
++        TreeNode := vtNpcs.AddChild( nil );
++        ItemData := vtNpcs.GetNodeData( TreeNode );
++
++        ItemData.Id := StrToInt( Query.Fields[0] );
++        ItemData.Name := UTF8Decode(Query.Fields[1]);
++        ItemData.BodyId := StrToInt( Query.Fields[2] );
++        ItemData.AddId := Query.Fields[3];
++        ItemData.Skin := StrToIntDef( Query.Fields[4], 0);
++
++        SubQuery := TSQLiteTable.Create(SQLiteDb, Format('SELECT layer,artid,color FROM npcequipment WHERE id = %u ORDER BY layer DESC', [ ItemData.Id ] ) );
++
++        while not SubQuery.Eof do
++        begin
++          i := Length(ItemData.Equipment);
++          SetLength(ItemData.Equipment, i + 1);
++          ItemData.Equipment[i].Layer := StrToInt( SubQuery.Fields[0] );
++          ItemData.Equipment[i].Anim := StrToInt( SubQuery.Fields[1] );
++          ItemData.Equipment[i].Color := StrToInt( SubQuery.Fields[2] );
++          SubQuery.Next;
++        end;
++
++        SubQuery.Free;
++
++        Query.Next;
++      end;
++      Query.Free;
++      vtNpcs.SortTree(vtNpcs.Header.SortColumn, vtNpcs.Header.SortDirection);
++    except
++    	on E: Exception do
++        begin
++	    	Application.MessageBox( PChar( 'Error retrieving ChildCount: ' + E.Message ), 'Error', MB_OK+MB_ICONERROR );
++	        PostQuitMessage( 0 );
++	        Exit;
++        end;
++    end;
++end;
++
++procedure TFrmRegionW4S.vtNpcCategoriesExpanding(Sender: TBaseVirtualTree;
++  Node: PVirtualNode; var Allowed: Boolean);
++var
++	MyData: PNode;
++    RootQuery, CountQuery: TSQLiteTable;
++    TreeNode: PVirtualNode;
++begin
++	// Children Already Added
++    if ( Sender.ChildCount[ Node ] &gt; 0 ) or not ( vsHasChildren in Node.States ) then
++    	exit;
++
++	// Add the Children
++    MyData := Sender.GetNodeData( Node );
++
++	try
++        RootQuery := TSQLiteTable.Create( SQLiteDb, Format( 'SELECT id,name FROM npccategories WHERE type = 0 AND parent = %u ORDER BY name ASC;', [ MyData.Id ] ) );
++
++        while not RootQuery.EOF do
++        begin
++	        TreeNode := vtNpcCategories.AddChild( Node );
++            MyData := vtNpcCategories.GetNodeData( TreeNode );
++            MyData.Id := StrToInt( RootQuery.Fields[0] );
++            MyData.Name := UTF8Decode(RootQuery.Fields[1]);
++            TreeNode.States := [ vsInitialized ] + TreeNode.States;
++
++            // Check for Children
++            CountQuery := SQLiteDb.GetTable( Format( 'SELECT COUNT(*) FROM npccategories WHERE type = 0 AND parent = %u', [ MyData.Id ] ) );
++
++			if StrToInt( CountQuery.Fields[0] ) &gt; 0 then
++            	TreeNode.States := [ vsHasChildren ] + TreeNode.States;
++
++            CountQuery.Free;
++
++            RootQuery.Next;
++        end;
++
++        RootQuery.Free;
++    except
++    	on E: Exception do
++      begin
++        Application.MessageBox( PChar( E.Message ), 'Error', MB_OK+MB_ICONERROR );
++        PostQuitMessage( 0 );
++        Exit;
++      end;
++    end;
++end;
++
++
++procedure TFrmRegionW4S.vtNpcCategoriesGetText(Sender: TBaseVirtualTree;
++  Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
++  var CellText: WideString);
++begin
++  if TextType = ttNormal then
++  	CellText := PNode( Sender.GetNodeData( Node ) ).Name;
++end;
++
++procedure TFrmRegionW4S.vtNpcsChange(Sender: TBaseVirtualTree;
++  Node: PVirtualNode);
++var
++	MyItemData: PNpcNode;
++  frames: TAnimation;
++  i, j: Integer;
++
++  const LayerOrder: Array[0..21] of Byte = ( 20, 5, 4, 3, 24, 23, 13, 19, 17, 22, 12, 14, 8, 7, 1, 2, 10, 16, 11, 18, 6, 21 );
++begin
++  animtimer.Enabled := false;
++
++  for i := 0 to Length(npcPreview) - 1 do
++    npcPreview[i].Free;
++
++  SetLength(npcPreview, 0);
++
++  // Display a Preview Item
++  if Node &lt;&gt; nil then
++  begin
++    MyItemData := Sender.GetNodeData(Node);
++    selectedId := Myitemdata.AddId;
++
++    frames := Anim.GetFrames(MyItemData.BodyId, 1, MyItemData.Skin);
++    
++    if frames &lt;&gt; nil then begin
++      SetLength(npcPreview, 1);
++      npcPreview[0] := frames;
++
++      // Add Equipment
++      for j := 0 to Length(LayerOrder) - 1 do begin
++        for i := 0 to Length(MyItemData.Equipment) - 1 do begin
++          if MyItemData.Equipment[i].Layer = LayerOrder[j] then begin
++            frames := Anim.GetFrames(MyItemData.Equipment[i].Anim, 1, MyItemData.Equipment[i].Color);
++            if frames &lt;&gt; nil then begin
++              SetLength(npcPreview, Length(npcPreview) + 1);
++              npcPreview[Length(npcPreview) - 1] := frames;
++            end;
++          end;
++        end;
++      end;
++
++      npcPreviewFrame := 0;
++      pbNpcPreview.Invalidate;
++      animtimer.Interval := npcPreview[0].frameDelay;
++      animtimer.Enabled := true;
++    end;
++
++  end else begin
++    pbNpcPreview.Invalidate;
++  end;
++
++
++  // See if there is some selected node
++  Node := vtNpcs.RootNode.FirstChild;
++  while Node &lt;&gt; nil do
++  begin
++    if vsSelected in Node.States then
++    begin
++      exit;
++    end;
++    Node := Node.NextSibling;
++  end;
++end;
++
++procedure TFrmRegionW4S.vtNpcsCompareNodes(Sender: TBaseVirtualTree; Node1,
++  Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
++var
++	MyData1, MyData2: PNpcNode;
++begin
++	MyData1 := Sender.GetNodeData( Node1 );
++	MyData2 := Sender.GetNodeData( Node2 );
++
++    case Column of
++        0: Result := CompareStr( MyData1.Name, MyData2.Name );
++        1: Result := CompareStr( MyData1.AddId, MyData2.AddId );
++    end;
++
++end;
++
++procedure TFrmRegionW4S.vtNpcsGetText(Sender: TBaseVirtualTree;
++  Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
++  var CellText: WideString);
++var
++	MyData: PNpcNode;
++begin
++	MyData := Sender.GetNodeData( Node );
++
++    case Column of
++		    0: CellText := MyData.Name;
++        1: CellText := MyData.AddId;
++    end;
++end;
++
++procedure TFrmRegionW4S.vtNpcsHeaderClick(Sender: TVTHeader;
++  Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X,
++  Y: Integer);
++begin
++	// When changing we keep our sort direction
++    if Sender.SortColumn = Column then
++    begin
++		if Sender.SortDirection = sdAscending then
++        	Sender.SortDirection := sdDescending
++        else
++            Sender.SortDirection := sdAscending;
++        exit;
++    end;
++
++  	Sender.SortColumn := Column;
++    Sender.SortDirection := sdAscending;
++end;
++
++end.
+
+Modified: trunk/WPGM/src/Spawnregions.dfm
+===================================================================
+--- trunk/WPGM/src/Spawnregions.dfm	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/Spawnregions.dfm	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -1,9 +1,8 @@
+ object frmRegions: TfrmRegions
+   Left = 214
+   Top = 135
+-  AutoScroll = False
+   Caption = 'Regions'
+-  ClientHeight = 495
++  ClientHeight = 515
+   ClientWidth = 756
+   Color = clBtnFace
+   Font.Charset = DEFAULT_CHARSET
+@@ -12,44 +11,49 @@
+   Font.Name = 'MS Sans Serif'
+   Font.Style = []
+   OldCreateOrder = False
++  Position = poDesktopCenter
+   OnCreate = FormCreate
+   OnDestroy = FormDestroy
+   OnResize = FormResize
+   OnShow = FormShow
+   DesignSize = (
+     756
+-    495)
++    515)
+   PixelsPerInch = 96
+   TextHeight = 13
+   object Label1: TLabel
+     Left = 161
+-    Top = 468
++    Top = 488
+     Width = 96
+     Height = 13
+     Anchors = [akLeft, akBottom]
+     Caption = 'Screen Coordinates:'
++    ExplicitTop = 468
+   end
+   object Label2: TLabel
+     Left = 417
+-    Top = 468
++    Top = 488
+     Width = 83
+     Height = 13
+     Anchors = [akLeft, akBottom]
+     Caption = 'Map Coordinates:'
++    ExplicitTop = 468
+   end
+   object lblScreen: TLabel
+     Left = 264
+-    Top = 468
++    Top = 488
+     Width = 3
+     Height = 13
+     Anchors = [akLeft, akBottom]
++    ExplicitTop = 468
+   end
+   object lblMap: TLabel
+     Left = 512
+-    Top = 468
++    Top = 488
+     Width = 3
+     Height = 13
+     Anchors = [akLeft, akBottom]
++    ExplicitTop = 468
+   end
+   object Label3: TLabel
+     Left = 624
+@@ -67,14 +71,14 @@
+   end
+   object lblSelected: TLabel
+     Left = 624
+-    Top = 280
++    Top = 283
+     Width = 3
+     Height = 13
+     Anchors = [akTop, akRight]
+   end
+   object cbMap: TComboBox
+     Left = 8
+-    Top = 464
++    Top = 484
+     Width = 145
+     Height = 21
+     Style = csDropDownList
+@@ -89,10 +93,11 @@
+       'Ilshenar'
+       'Malas'
+       'Tokuno Islands')
++    ExplicitTop = 464
+   end
+   object pbMap: TPaintBox32
+     Left = 3
+-    Top = 8
++    Top = 28
+     Width = 597
+     Height = 433
+     Anchors = [akLeft, akTop, akRight, akBottom]
+@@ -104,7 +109,7 @@
+   end
+   object sbX: TScrollBar
+     Left = 4
+-    Top = 440
++    Top = 460
+     Width = 597
+     Height = 17
+     Anchors = [akLeft, akRight, akBottom]
+@@ -115,7 +120,7 @@
+   end
+   object sbY: TScrollBar
+     Left = 601
+-    Top = 8
++    Top = 28
+     Width = 17
+     Height = 432
+     Anchors = [akTop, akRight, akBottom]
+@@ -127,9 +132,9 @@
+   end
+   object lbRects: TListBox
+     Left = 624
+-    Top = 8
++    Top = 28
+     Width = 121
+-    Height = 217
++    Height = 198
+     Anchors = [akTop, akRight]
+     ItemHeight = 13
+     TabOrder = 4
+@@ -165,6 +170,7 @@
+     Anchors = [akTop, akRight]
+     Caption = 'Copy as Spawnregion'
+     TabOrder = 7
++    Visible = False
+     OnClick = Button1Click
+   end
+   object Button2: TButton
+@@ -175,6 +181,7 @@
+     Anchors = [akTop, akRight]
+     Caption = 'Copy as Region'
+     TabOrder = 8
++    Visible = False
+     OnClick = Button2Click
+   end
+   object Button3: TButton
+@@ -199,7 +206,7 @@
+   end
+   object btnZoomOut: TButton
+     Left = 624
+-    Top = 432
++    Top = 452
+     Width = 41
+     Height = 25
+     Anchors = [akRight, akBottom]
+@@ -209,7 +216,7 @@
+   end
+   object btnZoomIn: TButton
+     Left = 672
+-    Top = 432
++    Top = 452
+     Width = 41
+     Height = 25
+     Anchors = [akRight, akBottom]
+@@ -219,7 +226,7 @@
+   end
+   object btnRedraw: TButton
+     Left = 624
+-    Top = 464
++    Top = 484
+     Width = 89
+     Height = 25
+     Anchors = [akRight, akBottom]
+@@ -227,4 +234,73 @@
+     TabOrder = 13
+     OnClick = btnRedrawClick
+   end
++  object ToolBar1: TToolBar
++    Left = 0
++    Top = 0
++    Width = 756
++    Height = 22
++    ButtonHeight = 19
++    ButtonWidth = 79
++    Caption = 'ToolBar1'
++    List = True
++    AllowTextButtons = True
++    TabOrder = 14
++    object ToolButton1: TToolButton
++      Left = 0
++      Top = 0
++      AutoSize = True
++      Caption = 'New Region'
++      ImageIndex = 0
++      Style = tbsTextButton
++      OnClick = ToolButton1Click
++    end
++    object ToolButton2: TToolButton
++      Left = 75
++      Top = 0
++      Caption = 'Edit Region'
++      ImageIndex = 1
++      Style = tbsTextButton
++      OnClick = ToolButton2Click
++    end
++    object ToolButton3: TToolButton
++      Left = 146
++      Top = 0
++      Caption = 'Export Region'
++      ImageIndex = 2
++      Style = tbsTextButton
++      OnClick = ToolButton3Click
++    end
++  end
++  object CDSNpc: TClientDataSet
++    Active = True
++    Aggregates = &lt;&gt;
++    Params = &lt;&gt;
++    Left = 568
++    Top = 4
++    Data = {
++      7C0000009619E0BD0100000018000000060000000000030000007C0002496402
++      0049000000010005574944544802000200FF000A57616E646572547970650200
++      49000000010005574944544802000200FF000278310400010000000000027931
++      0400010000000000027832040001000000000002793204000100000000000000}
++    object CDSNpcId: TStringField
++      FieldName = 'Id'
++      Size = 255
++    end
++    object CDSNpcWanderType: TStringField
++      FieldName = 'WanderType'
++      Size = 255
++    end
++    object CDSNpcx1: TIntegerField
++      FieldName = 'x1'
++    end
++    object CDSNpcy1: TIntegerField
++      FieldName = 'y1'
++    end
++    object CDSNpcx2: TIntegerField
++      FieldName = 'x2'
++    end
++    object CDSNpcy2: TIntegerField
++      FieldName = 'y2'
++    end
++  end
+ end
+
+Modified: trunk/WPGM/src/Spawnregions.pas
+===================================================================
+--- trunk/WPGM/src/Spawnregions.pas	2008-02-09 00:49:23 UTC (rev 6855)
++++ trunk/WPGM/src/Spawnregions.pas	2008-02-27 01:38:25 UTC (rev 6856)
+@@ -4,7 +4,8 @@
+ 
+ uses
+   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+-  Dialogs, StdCtrls, GR32, GR32_Blend, GR32_Image, UOMap, UOStatics, ClipBrd;
++  Dialogs, StdCtrls, GR32, GR32_Blend, GR32_Image, UOMap, UOStatics, ClipBrd,
++  ComCtrls, ToolWin, DB, DBClient;
+ 
+ type
+   TfrmRegions = class(TForm)
+@@ -28,6 +29,17 @@
+     btnZoomOut: TButton;
+     btnZoomIn: TButton;
+     btnRedraw: TButton;
++    ToolBar1: TToolBar;
++    ToolButton1: TToolButton;
++    ToolButton2: TToolButton;
++    ToolButton3: TToolButton;
++    CDSNpc: TClientDataSet;
++    CDSNpcId: TStringField;
++    CDSNpcWanderType: TStringField;
++    CDSNpcx1: TIntegerField;
++    CDSNpcy1: TIntegerField;
++    CDSNpcx2: TIntegerField;
++    CDSNpcy2: TIntegerField;
+     procedure FormShow(Sender: TObject);
+     procedure FormCreate(Sender: TObject);
+     procedure pbMapPaintBuffer(Sender: TObject);
+@@ -55,12 +67,36 @@
+     procedure btnZoomOutClick(Sender: TObject);
+     procedure btnZoomInClick(Sender: TObject);
+     procedure btnRedrawClick(Sender: TObject);
++    procedure ToolButton1Click(Sender: TObject);
++    procedure ToolButton3Click(Sender: TObject);
++    procedure ToolButton2Click(Sender: TObject);
+   private
+     { Private declarations }
+     Places: Array of TRect;
+ 
+   public
+     { Public declarations }
++    regiontype: boolean; // true: region, false: spawnregion
++    // for region
++    flags : tstringList;
++    regionname : string; // for spawnregion too
++    isguarded : boolean;
++    guardowner : string;
++    midlist : string;
++    resores : string;
++    snowchancemin: integer;
++    snowchancemax: integer;
++    rainchancemin: integer;
++    rainchancemax: integer;
++    //spawnregion
++    active : boolean;
++    maxnpcamount : integer;
++    delaymin : integer;
++    delaymax : integer;
++    npcspercycle : integer;
++    group : tstringlist;
++
++
+     procedure ChangeMap(MapId: Byte);
+     procedure RedrawBuffer(Buffer: TBitmap32; StartX: Integer; StartY: Integer; Width: Integer; Height: Integer);
+ 
+@@ -68,6 +104,8 @@
+     function BufferToMap(Point: TPoint): TPoint;
+     procedure AddRect(X1: Integer; Y1: Integer; X2: Integer; Y2: Integer);
+     procedure UpdateSelectionLabel;
++
++
+   end;
+ 
+ var
+@@ -83,7 +121,7 @@
+ 
+ {$R *.dfm}
+ 
+-uses Main, Math, XMLReader, StrLib, UORadarCol;
++uses Main, Math, XMLReader, StrLib, UORadarCol, RegionWizard;
+ 
+ function TfrmRegions.MapToBuffer(Point: TPoint): TPoint;
+ begin
+@@ -327,6 +365,165 @@
+   end;
+ end;
+ 
++procedure TfrmRegions.ToolButton1Click(Sender: TObject);
++begin
++  if not cdsnpc.Active then
++    cdsnpc.Open;
++  cdsnpc.EmptyDataSet;
++  
++  frmRegionW1.Show;
++end;
++
++procedure TfrmRegions.ToolButton2Click(Sender: TObject);
++begin
++  Application.MessageBox('Not yet implemented', 'Error', MB_OK+MB_ICONERROR);
++end;
++
++procedure TfrmRegions.ToolButton3Click(Sender: TObject);
++var
++  i: Integer;
++  Result: String;
++  ClipBoard: TClipboard;
++begin
++{
++
++&lt;region name=&quot;Maiha&quot;&gt;
++		&lt;flags&gt;
++			&lt;guarded /&gt;
++			&lt;noagressivemagic /&gt;
++		&lt;/flags&gt;
++		&lt;guards&gt;
++			&lt;list id=&quot;standard_guards&quot; /&gt;
++		&lt;/guards&gt;
++		&lt;guardowner&gt;Maiha Elite&lt;/guardowner&gt;
++		&lt;rainchance&gt;&lt;random min=&quot;30&quot; max=&quot;40&quot; /&gt;&lt;/rainchance&gt;
++		&lt;snowchance&gt;&lt;random min=&quot;45&quot; max=&quot;55&quot; /&gt;&lt;/snowchance&gt;
++
++    &lt;rectangle x1=&quot;396&quot; y1=&quot;628&quot; x2=&quot;396&quot; y2=&quot;628&quot; map=&quot;0&quot; /&gt;
++&lt;/region&gt;
++
++
++  regiontype: boolean; // true: region, false: spawnregion
++    // for region
++    flags : tstringList;
++    regionname : string; // for spawnregion too
++    isguarded : boolean;
++    guardowner : string;
++    midlist : string;
++    resores : string;
++    snowchancemin: integer;
++    snowchancemax: integer;
++    rainchancemin: integer;
++    rainchancemax: integer;
++    //spawnregion
++    active : boolean;
++    maxnpcamount : integer;
++    delaymin : integer;
++    delaymax : integer;
++    npcspercycle : integer;
++    group : tstringlist;
++
++}
++
++
++  ClipBoard := TClipBoard.Create;
++
++  if regiontype then
++  begin
++    result := format( #9 + ' &lt;region name=&quot;%s&quot;&gt;' + #13, [regionname]);
++
++    result := result + #9 +  #9 + '&lt;flags&gt;' + #13;
++    for I := 0 to flags.Count - 1 do
++    begin
++      Result := Result + Format( #9 + #9 + #9 + '&lt;%s /&gt;' + #13, [flags.Strings[i]]);
++    end;
++
++    if isguarded then
++      Result := Result + #9 +  #9 + #9 + '&lt;guarded /&gt;' + #13;
++       
++    result := Result +  #9 + #9 + '&lt;/flags&gt;' + #13;
++
++
++    if isguarded then
++    begin
++      result := Result +  #9 + #9 + '&lt;guards&gt;' + #13 + #9 +  #9 +#9 + '&lt;list id=&quot;standard_guards&quot; /&gt;' + #13 +  #9 + #9 +	'&lt;/guards&gt;' + #13;
++    end;
++
++    result := result +  #9 + #9 + Format('&lt;guardowner&gt;%s&lt;/guardowner&gt;' + #13,[guardowner]);
++    result := result +  #9 + #9 + Format('&lt;rainchance&gt;&lt;random min=&quot;%d&quot; max=&quot;%d&quot; /&gt;&lt;/rainchance&gt;' + #13,[rainchancemin,rainchancemax]);
++    result := result +  #9 + #9 + Format('&lt;snowchance&gt;&lt;random min=&quot;%d&quot; max=&quot;%d&quot; /&gt;&lt;/snowchance&gt;' + #13,[snowchancemin,snowchancemax]);
++
++    for i := 0 to Length(Places) - 1 do begin
++      Result := Result + Format( #9 + #9 + '&lt;rectangle x1=&quot;%d&quot; y1=&quot;%d&quot; x2=&quot;%d&quot; y2=&quot;%d&quot; map=&quot;%u&quot; /&gt;' + #13, [Places[i].Left, Places[i].Top, Places[i].Right, Places[i].Bottom, cbMap.ItemIndex]);
++    end;
++    result := result +  #9 + '&lt;/region&gt;' + #13;
++    showmessage('Region copied to clipboard!');
++  end
++  else
++  begin
++  {
++  &lt;spawnregion id=&quot;Ice_0&quot;&gt;
++		&lt;active /&gt;
++		&lt;maxnpcamount&gt;45&lt;/maxnpcamount&gt;
++		&lt;delay min=&quot;2&quot; max=&quot;10&quot; /&gt;
++		&lt;npcspercycle&gt;3&lt;/npcspercycle&gt;
++		&lt;npc id=&quot;crystal_elemental&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;5&quot; /&gt;&lt;/npc&gt;
++		&lt;npc id=&quot;frost_spider&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;5&quot; /&gt;&lt;/npc&gt;
++		&lt;npc id=&quot;giant_ice_serpent&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;5&quot; /&gt;&lt;/npc&gt;
++		&lt;npc id=&quot;ice_elemental&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;5&quot; /&gt;&lt;/npc&gt;
++		&lt;rectangle from=&quot;5355,166&quot; to=&quot;5485,362&quot; map=&quot;0&quot; /&gt;
++		&lt;rectangle from=&quot;5326,292&quot; to=&quot;5355,362&quot; map=&quot;0&quot; /&gt;
++		&lt;rectangle from=&quot;5372,5&quot; to=&quot;5475,109&quot; map=&quot;0&quot; /&gt;
++	&lt;/spawnregion&gt;
++
++
++
++
++  }
++    result := Format( #9 + '&lt;spawnregion id=&quot;%s&quot;&gt;' + #13,[regionname]);
++    if active then
++      result := result +  #9 + #9 + '&lt;active /&gt;' + #13
++    else
++      result := result + #9 +  #9 + '&lt;inactive /&gt;' + #13;
++
++    for I := 0 to group.Count - 1 do
++    begin
++      Result := Result + Format( #9 + #9 + '&lt;group&gt;%s&lt;/group&gt;' + #13, [group.Strings[i]]);
++    end;
++
++    result := result + Format( #9 + #9 + '&lt;maxnpcamount&gt;%d&lt;/maxnpcamount&gt;' + #13,[maxnpcamount]);
++    result := result + Format( #9 + #9 + '&lt;delay min=&quot;%d&quot; max=&quot;%d&quot; /&gt;' + #13,[delaymin,delaymax]);
++    result := result + Format( #9 + #9 + '&lt;npcspercycle&gt;%d&lt;/npcspercycle&gt;' + #13,[npcspercycle]);
++
++    cdsnpc.First;
++    while not CDSnpc.Eof do
++    begin
++      result := result + Format( #9 + #9 + '&lt;npc id=&quot;%s&quot;&gt;',[CDSNpcId.AsString]);
++      if CDSNPCWanderType.AsString = 'circle' then
++        result := result + Format('&lt;npcwander type=&quot;%s&quot; radius=&quot;%d&quot; /&gt;',[CDSNPCWanderType.AsString,CDSNpcx1.AsInteger])
++      else if CDSNPCWanderType.AsString = 'rectangle' then
++        result := result + Format('&lt;npcwander type=&quot;%s&quot; x1=&quot;%d&quot; x2=&quot;%d&quot; y1=&quot;%d&quot; y2=&quot;%d&quot; /&gt;',[CDSNPCWanderType.AsString,CDSNpcx1.AsInteger,CDSNpcy1.AsInteger,CDSNpcx2.AsInteger,CDSNpcy2.AsInteger])
++      else if CDSNPCWanderType.AsString = 'freely' then
++        result := result + '&lt;npcwander type=&quot;freely&quot; /&gt;'
++      else if CDSNPCWanderType.AsString = 'none' then
++        result := result + '&lt;npcwander type=&quot;none&quot; /&gt;';
++      result := result + '&lt;/npc&gt;' + #13;
++      cdsnpc.Next;
++    end;
++
++    for i := 0 to Length(Places) - 1 do begin
++      Result := Result + Format( #9 + #9 + '&lt;rectangle from=&quot;%d,%d&quot; to=&quot;%d,%d&quot; map=&quot;%u&quot; /&gt;' + #13, [Places[i].Left, Places[i].Top, Places[i].Right, Places[i].Bottom, cbMap.ItemIndex]);
++    end;
++    Result := result +  #9 + '&lt;/spawnregion&gt;' +#13;
++    showmessage('Spawnregion copied to clipboard!');
++  end;
++
++
++  ClipBoard.SetTextBuf(PChar(result));
++
++
++end;
++
+ procedure TfrmRegions.FormDestroy(Sender: TObject);
+ begin
+   Buffer.Free;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000059.html">[Wolfpack-svn] r6855 - in trunk/WPGM: . Release build src
+</A></li>
+	<LI>Next message: <A HREF="000061.html">[Wolfpack-svn] r6857 - trunk/WPGM
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#60">[ date ]</a>
+              <a href="thread.html#60">[ thread ]</a>
+              <a href="subject.html#60">[ subject ]</a>
+              <a href="author.html#60">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

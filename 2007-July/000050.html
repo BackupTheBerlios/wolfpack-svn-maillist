@@ -1,0 +1,621 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6845 - in trunk/server/src/gui: . trayicon
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6845%20-%20in%20trunk/server/src/gui%3A%20.%20trayicon&In-Reply-To=%3C200707131531.l6DFVnSu020308%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000049.html">
+   <LINK REL="Next"  HREF="000051.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6845 - in trunk/server/src/gui: . trayicon</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6845%20-%20in%20trunk/server/src/gui%3A%20.%20trayicon&In-Reply-To=%3C200707131531.l6DFVnSu020308%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6845 - in trunk/server/src/gui: . trayicon">naddel at mail.berlios.de
+       </A><BR>
+    <I>Fri Jul 13 17:31:49 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000049.html">[Wolfpack-svn] r6844 - trunk/server/release/scripts
+</A></li>
+        <LI>Next message: <A HREF="000051.html">[Wolfpack-svn] r6846 - trunk/server/src/gui/trayicon
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-07-13 17:31:49 +0200 (Fri, 13 Jul 2007)
+New Revision: 6845
+
+Modified:
+   trunk/server/src/gui/mainwindow.cpp
+   trunk/server/src/gui/trayicon/trayicon.cpp
+   trunk/server/src/gui/trayicon/trayicon.h
+   trunk/server/src/gui/trayicon/trayicon.pri
+Log:
+tray icon using QT (my first bigger c++ change, let's hope it works ^^)
+
+Modified: trunk/server/src/gui/mainwindow.cpp
+===================================================================
+--- trunk/server/src/gui/mainwindow.cpp	2007-07-08 14:57:09 UTC (rev 6844)
++++ trunk/server/src/gui/mainwindow.cpp	2007-07-13 15:31:49 UTC (rev 6845)
+@@ -50,7 +50,7 @@
+     createMenus();
+ 
+ 	// Setup trayicon
+-	trayicon = new TrayIcon( QPixmap(&quot;:/gui/images/icon_red.png&quot;), tr(&quot;Wolfpack&quot;), 0, this );
++	trayicon = new TrayIcon( this );
+ 	trayicon-&gt;show();
+ 	// Fire up the server thread
+ 	Server::instance()-&gt;start();
+@@ -145,12 +145,12 @@
+ 	if ( s == RUNNING )
+ 	{
+ 		setWindowIcon(QIcon(&quot;:/gui/images/icon_green.png&quot;));
+-		trayicon-&gt;setIcon( QPixmap(&quot;:/gui/images/icon_green.png&quot;) );
++		trayicon-&gt;setIcon( QIcon(&quot;:/gui/images/icon_green.png&quot;) );
+ 	}
+ 	else
+ 	{
+ 		setWindowIcon(QIcon(&quot;:/gui/images/icon_red.png&quot;));
+-		trayicon-&gt;setIcon( QPixmap(&quot;:/gui/images/icon_red.png&quot;) );
++		trayicon-&gt;setIcon( QIcon(&quot;:/gui/images/icon_red.png&quot;) );
+ 	}
+ }
+ 
+
+Modified: trunk/server/src/gui/trayicon/trayicon.cpp
+===================================================================
+--- trunk/server/src/gui/trayicon/trayicon.cpp	2007-07-08 14:57:09 UTC (rev 6844)
++++ trunk/server/src/gui/trayicon/trayicon.cpp	2007-07-13 15:31:49 UTC (rev 6845)
+@@ -1,296 +1,72 @@
+-/*
+- * trayicon.cpp - system-independent trayicon class (adapted from Qt example)
+- * Copyright (C) 2003  Justin Karneges
+- *
+- * This library is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU Lesser General Public
+- * License as published by the Free Software Foundation; either
+- * version 2.1 of the License, or (at your option) any later version.
+- *
+- * This library is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * Lesser General Public License for more details.
+- *
+- * You should have received a copy of the GNU Lesser General Public
+- * License along with this library; if not, write to the Free Software
+- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+- *
+- */
+-
+-#include &quot;trayicon.h&quot;
+-
+-#include &lt;QMenu&gt;
+-#include &lt;QMouseEvent&gt;
+-
+-/*!
+-  \class TrayIcon qtrayicon.h
+-  \brief The TrayIcon class implements an entry in the system tray.
+-*/
+-
+-/*!
+-  Creates a TrayIcon object. \a parent and \a name are propagated
+-  to the QObject constructor. The icon is initially invisible.
+-
+-  \sa show
+-*/
+-TrayIcon::TrayIcon( QObject *parent, const char *name )
+-: QObject(parent), pop(0), d(0)
+-{
+-	if ( name )
+-		setObjectName( name );
+-	v_isWMDock = FALSE;
+-}
+-
+-/*!
+-  Creates a TrayIcon object displaying \a icon and \a tooltip, and opening
+-  \a popup when clicked with the right mousebutton. \a parent and \a name are
+-  propagated to the QObject constructor. The icon is initially invisible.
+-
+-  \sa show
+-*/
+-TrayIcon::TrayIcon( const QPixmap &amp;icon, const QString &amp;tooltip, QMenu *popup, QObject *parent, const char *name )
+-: QObject(parent), pop(popup), pm(icon), tip(tooltip), d(0)
+-{
+-	if ( name )
+-		setObjectName( name );
+-	v_isWMDock = FALSE;
+-
+-	if ( !pm.width() || !pm.height() )
+-		pm = QPixmap( 16, 16 );
+-}
+-
+-/*!
+-  Removes the icon from the system tray and frees all allocated resources.
+-*/
+-TrayIcon::~TrayIcon()
+-{
+-    sysRemove();
+-}
+-
+-/*!
+-  Informs the trayicon that the notification owner has probably been changed;
+-  and that it should attempt to register or re-register.
+-*/
+-void TrayIcon::newTrayOwner()
+-{
+-    // detach ourself from any existing notification area.
+-    hide();
+-    // show ourself on the new notification area
+-    show();
+-}
+-
+-
+-/*!
+-  Sets the context menu to \a popup. The context menu will pop up when the
+-  user clicks the system tray entry with the right mouse button.
+-*/
+-void TrayIcon::setPopup( QMenu* popup )
+-{
+-    pop = popup;
+-}
+-
+-/*!
+-  Returns the current popup menu.
+-
+-  \sa setPopup
+-*/
+-QMenu* TrayIcon::popup() const
+-{
+-    return pop;
+-}
+-
+-/*!
+-  \property TrayIcon::icon
+-  \brief the system tray icon.
+-*/
+-void TrayIcon::setIcon( const QPixmap &amp;icon )
+-{
+-    //if(!popup()) {
+-    //    tip = &quot;&quot;;
+-    //}
+-
+-    pm = icon;
+-    sysUpdateIcon();
+-}
+-
+-QPixmap TrayIcon::icon() const
+-{
+-    return pm;
+-}
+-
+-/*!
+-  \property TrayIcon::toolTip
+-  \brief the tooltip for the system tray entry
+-
+-  On some systems, the tooltip's length is limited and will be truncated as necessary.
+-*/
+-void TrayIcon::setToolTip( const QString &amp;tooltip )
+-{
+-    tip = tooltip;
+-    sysUpdateToolTip();
+-}
+-
+-QString TrayIcon::toolTip() const
+-{
+-    return tip;
+-}
+-
+-/*!
+-  Shows the icon in the system tray.
+-
+-  \sa hide
+-*/
+-void TrayIcon::show()
+-{
+-    sysInstall();
+-}
+-
+-/*!
+-  Hides the system tray entry.
+-*/
+-void TrayIcon::hide()
+-{
+-    sysRemove();
+-}
+-
+-/*!
+-  \reimp
+-*/
+-bool TrayIcon::event( QEvent *e )
+-{
+-    switch ( e-&gt;type() ) {
+-    case QEvent::MouseMove:
+-	mouseMoveEvent( (QMouseEvent*)e );
+-	break;
+-
+-    case QEvent::MouseButtonPress:
+-	mousePressEvent( (QMouseEvent*)e );
+-	break;
+-
+-    case QEvent::MouseButtonRelease:
+-	mouseReleaseEvent( (QMouseEvent*)e );
+-	break;
+-
+-    case QEvent::MouseButtonDblClick:
+-	mouseDoubleClickEvent( (QMouseEvent*)e );
+-	break;
+-    default:
+-	return QObject::event( e );
+-    }
+-
+-    return TRUE;
+-}
+-
+-/*!
+-  This event handler can be reimplemented in a subclass to receive
+-  mouse move events for the system tray entry.
+-
+-  \sa mousePressEvent(), mouseReleaseEvent(), mouseDoubleClickEvent(),  QMouseEvent
+-*/
+-void TrayIcon::mouseMoveEvent( QMouseEvent *e )
+-{
+-    e-&gt;ignore();
+-}
+-
+-/*!
+-  This event handler can be reimplemented in a subclass to receive
+-  mouse press events for the system tray entry.
+-
+-  \sa mouseReleaseEvent(), mouseDoubleClickEvent(),
+-  mouseMoveEvent(), QMouseEvent
+-*/
+-void TrayIcon::mousePressEvent( QMouseEvent *e )
+-{
+-#ifndef Q_WS_WIN
+-// This is for X11, menus appear on mouse press
+-// I'm not sure whether Mac should be here or below.. Somebody check?
+-	switch ( e-&gt;button() ) {
+-		case Qt::RightButton:
+-			if ( pop ) {
+-				pop-&gt;popup( e-&gt;globalPos() );
+-				e-&gt;accept();
+-			}
+-			break;
+-		case Qt::LeftButton:
+-		case Qt::MidButton:
+-			emit clicked( e-&gt;globalPos(), e-&gt;button() );
+-			break;
+-		default:
+-			break;
+-	}
+-#endif
+-	e-&gt;ignore();
+-}
+-
+-/*!
+-  This event handler can be reimplemented in a subclass to receive
+-  mouse release events for the system tray entry.
+-
+-  The default implementations opens the context menu when the entry
+-  has been clicked with the right mouse button.
+-
+-  \sa setPopup(), mousePressEvent(), mouseDoubleClickEvent(),
+-  mouseMoveEvent(), QMouseEvent
+-*/
+-void TrayIcon::mouseReleaseEvent( QMouseEvent *e )
+-{
+-#ifdef Q_WS_WIN
+-// This is for Windows, where menus appear on mouse release
+-	switch ( e-&gt;button() ) {
+-		case Qt::RightButton:
+-			if ( pop ) {
+-				// Necessary to make keyboard focus
+-				// and menu closing work on Windows.
+-				pop-&gt;popup( e-&gt;globalPos() );
+-				e-&gt;accept();
+-			}
+-			break;
+-		case Qt::LeftButton:
+-		case Qt::MidButton:
+-			emit clicked( e-&gt;globalPos(), e-&gt;button() );
+-			break;
+-		default:
+-			break;
+-	}
+-#endif
+-	e-&gt;ignore();
+-}
+-
+-/*!
+-  This event handler can be reimplemented in a subclass to receive
+-  mouse double click events for the system tray entry.
+-
+-  Note that the system tray entry gets a mousePressEvent() and a
+-  mouseReleaseEvent() before the mouseDoubleClickEvent().
+-
+-  \sa mousePressEvent(), mouseReleaseEvent(),
+-  mouseMoveEvent(), QMouseEvent
+-*/
+-void TrayIcon::mouseDoubleClickEvent( QMouseEvent *e )
+-{
+-	if ( e-&gt;button() == Qt::LeftButton )
+-		emit doubleClicked( e-&gt;globalPos() );
+-	e-&gt;accept();
+-}
+-
+-/*!
+-  \fn void TrayIcon::clicked( const QPoint &amp;p )
+-
+-  This signal is emitted when the user clicks the system tray icon
+-  with the left mouse button, with \a p being the global mouse position
+-  at that moment.
+-*/
+-
+-/*!
+-  \fn void TrayIcon::doubleClicked( const QPoint &amp;p )
+-
+-  This signal is emitted when the user double clicks the system tray
+-  icon with the left mouse button, with \a p being the global mouse position
+-  at that moment.
+-*/
+-
+-void TrayIcon::gotCloseEvent()
+-{
+-	closed();
+-}
++#include &quot;trayicon.h&quot;
++
++#include &lt;QSystemTrayIcon&gt;
++#include &lt;QSettings&gt;
++#include &lt;QMenu&gt;
++
++#include &quot;../mainwindow.h&quot;
++
++TrayIcon::TrayIcon (QObject *parent) : QSystemTrayIcon (parent)
++{
++	QSettings s;
++
++	connect (this, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
++			 this, SLOT (systray_trigger (QSystemTrayIcon::ActivationReason)));
++
++	this-&gt;setToolTip(&quot;Wolfpack&quot;);
++	setIcon (QIcon (&quot;:/gui/images/icon_red.png&quot;));
++	
++	MainWindow *mw = dynamic_cast&lt;MainWindow*&gt; (parent);
++
++	QAction *a;
++	
++	QMenu *systray_menu = new QMenu (mw);
++
++	m_hide_action = systray_menu-&gt;addAction (tr (&quot;Hide main window&quot;), this, SLOT (toggle_hide ()));
++
++	connect (systray_menu, SIGNAL (aboutToShow ()), this, SLOT (build_menu ()));
++
++	setContextMenu (systray_menu);
++}
++
++void
++TrayIcon::build_menu ()
++{
++	MainWindow *mw = dynamic_cast&lt;MainWindow*&gt; (parent ());
++
++	if (mw-&gt;isHidden ()) {
++		m_hide_action-&gt;setText (tr (&quot;Show main window&quot;));
++	} else {
++		m_hide_action-&gt;setText (tr (&quot;Hide main window&quot;));
++	}
++}
++
++void
++TrayIcon::toggle_hide ()
++{
++	MainWindow *pw = dynamic_cast&lt;MainWindow*&gt; (parent ());
++	if (pw-&gt;isHidden ()) {
++		pw-&gt;show ();
++		m_hide_action-&gt;setText (tr (&quot;Hide main window&quot;));
++	} else {
++		pw-&gt;hide ();
++		m_hide_action-&gt;setText (tr (&quot;Show main window&quot;));
++	}
++}
++
++void 
++TrayIcon::systray_trigger (QSystemTrayIcon::ActivationReason reason)
++{
++	MainWindow *pw = dynamic_cast&lt;MainWindow*&gt; (parent ());
++
++	if (reason == QSystemTrayIcon::Trigger)
++	{
++		if (pw-&gt;isHidden())
++		{
++			pw-&gt;show ();
++			pw-&gt;activateWindow();
++		}
++		else
++			pw-&gt;hide();
++	}
++}
+\ No newline at end of file
+
+Modified: trunk/server/src/gui/trayicon/trayicon.h
+===================================================================
+--- trunk/server/src/gui/trayicon/trayicon.h	2007-07-08 14:57:09 UTC (rev 6844)
++++ trunk/server/src/gui/trayicon/trayicon.h	2007-07-13 15:31:49 UTC (rev 6845)
+@@ -1,97 +1,22 @@
+-/*
+- * trayicon.h - system-independent trayicon class (adapted from Qt example)
+- * Copyright (C) 2003  Justin Karneges
+- *
+- * This library is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU Lesser General Public
+- * License as published by the Free Software Foundation; either
+- * version 2.1 of the License, or (at your option) any later version.
+- *
+- * This library is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * Lesser General Public License for more details.
+- *
+- * You should have received a copy of the GNU Lesser General Public
+- * License along with this library; if not, write to the Free Software
+- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+- *
+- */
+-
+-#ifndef CS_TRAYICON_H
+-#define CS_TRAYICON_H
+-
+-#include &lt;QObject&gt;
+-#include &lt;QString&gt;
+-#include &lt;QImage&gt;
+-#include &lt;QPixmap&gt;
+-
+-class QMenu;
+-class QMouseEvent;
+-
+-class TrayIcon : public QObject
+-{
+-	Q_OBJECT
+-
+-	Q_PROPERTY( QString toolTip READ toolTip WRITE setToolTip )
+-	Q_PROPERTY( QPixmap icon READ icon WRITE setIcon )
+-
+-public:
+-	TrayIcon( QObject *parent = 0, const char *name = 0 );
+-	TrayIcon( const QPixmap &amp;, const QString &amp;, QMenu *popup = 0, QObject *parent = 0, const char *name = 0 );
+-	~TrayIcon();
+-
+-	// use WindowMaker dock mode.  ignored on non-X11 platforms
+-	void setWMDock(bool use) { v_isWMDock = use; }
+-	bool isWMDock() { return v_isWMDock; }
+-
+-	// Set a popup menu to handle RMB
+-	void setPopup( QMenu * );
+-	QMenu* popup() const;
+-
+-	QPixmap icon() const;
+-	QString toolTip() const;
+-
+-	void gotCloseEvent();
+-
+-public slots:
+-	void setIcon( const QPixmap &amp;icon );
+-	void setToolTip( const QString &amp;tip );
+-
+-	void show();
+-	void hide();
+-
+-	void newTrayOwner();
+-
+-signals:
+-	void clicked( const QPoint&amp;, int);
+-	void doubleClicked( const QPoint&amp; );
+-	void closed();
+-
+-protected:
+-	bool event( QEvent * );
+-	virtual void mouseMoveEvent( QMouseEvent *e );
+-	virtual void mousePressEvent( QMouseEvent *e );
+-	virtual void mouseReleaseEvent( QMouseEvent *e );
+-	virtual void mouseDoubleClickEvent( QMouseEvent *e );
+-
+-private:
+-	QMenu *pop;
+-	QPixmap pm;
+-	QString tip;
+-	bool v_isWMDock;
+-
+-	// system-dependant part
+-public:
+-	class TrayIconPrivate;
+-private:
+-	TrayIconPrivate *d;
+-	void sysInstall();
+-	void sysRemove();
+-	void sysUpdateIcon();
+-	void sysUpdateToolTip();
+-
+-	friend class TrayIconPrivate;
+-};
+-
+-#endif // CS_TRAYICON_H
++#ifndef _SYSTEMTRAY_H
++#define _SYSTEMTRAY_H
++
++#include &lt;QSystemTrayIcon&gt;
++#include &lt;QAction&gt;
++
++class TrayIcon : public QSystemTrayIcon
++{
++	Q_OBJECT
++	public:
++		TrayIcon (QObject *);
++		
++	private slots:
++		void systray_trigger (QSystemTrayIcon::ActivationReason reason);
++		void toggle_hide ();
++		void build_menu ();
++
++	private:
++		QAction *m_hide_action;
++};
++
++#endif
+\ No newline at end of file
+
+Modified: trunk/server/src/gui/trayicon/trayicon.pri
+===================================================================
+--- trunk/server/src/gui/trayicon/trayicon.pri	2007-07-08 14:57:09 UTC (rev 6844)
++++ trunk/server/src/gui/trayicon/trayicon.pri	2007-07-13 15:31:49 UTC (rev 6845)
+@@ -1,12 +1,3 @@
+ HEADERS += $$PWD/trayicon.h
+ SOURCES += $$PWD/trayicon.cpp
+ 
+-unix:!mac {
+-	SOURCES += $$PWD/trayicon_x11.cpp
+-}
+-win32: {
+-	SOURCES += $$PWD/trayicon_win.cpp
+-}
+-mac: {
+-	SOURCES += $$PWD/trayicon_mac.cpp
+-}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000049.html">[Wolfpack-svn] r6844 - trunk/server/release/scripts
+</A></li>
+	<LI>Next message: <A HREF="000051.html">[Wolfpack-svn] r6846 - trunk/server/src/gui/trayicon
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

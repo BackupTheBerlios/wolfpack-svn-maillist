@@ -1,0 +1,1110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6855 - in trunk/WPGM: . Release build src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6855%20-%20in%20trunk/WPGM%3A%20.%20Release%20build%20src&In-Reply-To=%3C200802090049.m190nkrb003940%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000060.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6855 - in trunk/WPGM: . Release build src</H1>
+    <B>lastkiller at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6855%20-%20in%20trunk/WPGM%3A%20.%20Release%20build%20src&In-Reply-To=%3C200802090049.m190nkrb003940%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6855 - in trunk/WPGM: . Release build src">lastkiller at mail.berlios.de
+       </A><BR>
+    <I>Sat Feb  9 01:49:46 CET 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000060.html">[Wolfpack-svn] r6856 - in trunk/WPGM: Components/Graphics32 Release	build src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#59">[ date ]</a>
+              <a href="thread.html#59">[ thread ]</a>
+              <a href="subject.html#59">[ subject ]</a>
+              <a href="author.html#59">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lastkiller
+Date: 2008-02-09 01:49:23 +0100 (Sat, 09 Feb 2008)
+New Revision: 6855
+
+Modified:
+   trunk/WPGM/Release/WPGM.exe
+   trunk/WPGM/Release/categories.db
+   trunk/WPGM/Release/config.ini
+   trunk/WPGM/build/WPGM.dproj
+   trunk/WPGM/build/WPGM.res
+   trunk/WPGM/changelog.txt
+   trunk/WPGM/src/Configuration.dfm
+   trunk/WPGM/src/Configuration.pas
+   trunk/WPGM/src/Main.dfm
+   trunk/WPGM/src/Main.pas
+Log:
+- Added support to Map1.mul which came with clients 6.0.0 and above
+
+Modified: trunk/WPGM/Release/WPGM.exe
+===================================================================
+(Binary files differ)
+
+Modified: trunk/WPGM/Release/categories.db
+===================================================================
+(Binary files differ)
+
+Modified: trunk/WPGM/Release/config.ini
+===================================================================
+--- trunk/WPGM/Release/config.ini	2007-09-16 18:01:11 UTC (rev 6854)
++++ trunk/WPGM/Release/config.ini	2008-02-09 00:49:23 UTC (rev 6855)
+@@ -4,14 +4,14 @@
+ SpawnMax=1
+ Command Prefix='
+ Window Position X=324
+-Window Position Y=399
++Window Position Y=396
+ Window Width=632
+-Window Height=226
+-Current Page=3
++Window Height=233
++Current Page=8
+ EventCount=0
+-Map0Modify=2/6/2007 14:49:40
+-Statics0Modify=2/6/2007 14:28:46
+-Staidx0Modify=2/6/2007 14:28:46
++Map0Modify=31/1/2008 22:12:48
++Statics0Modify=31/1/2008 22:24:12
++Staidx0Modify=31/1/2008 22:24:12
+ Map4Modify=16/5/2007 02:41:00
+ Statics4Modify=7/5/2007 11:15:08
+ Staidx4Modify=7/5/2007 11:14:56
+@@ -57,4 +57,15 @@
+ MAP4.MUL Path=D:\Jogos\Ultima\MAP4.MUL
+ STAIDX4.MUL Path=D:\Jogos\Ultima\STAIDX4.MUL
+ STATICS4.MUL Path=D:\Jogos\Ultima\STATICS4.MUL
++Map 1 Width=896
++Map 1 Height=512
++MAP1.MUL Path=D:\Jogos\Ultima\map1.mul
++STATICS1.MUL Path=D:\Jogos\Ultima\statics1.mul
++STAIDX1.MUL Path=D:\Jogos\Ultima\staidx1.mul
++Map2Modify=16/5/2007 02:40:56
++Statics2Modify=16/5/2007 02:41:16
++Staidx2Modify=16/5/2007 02:41:10
++Map1Modify=16/5/2007 02:40:56
++Statics1Modify=16/5/2007 02:41:16
++Staidx1Modify=16/5/2007 02:41:10
+ 
+
+Modified: trunk/WPGM/build/WPGM.dproj
+===================================================================
+--- trunk/WPGM/build/WPGM.dproj	2007-09-16 18:01:11 UTC (rev 6854)
++++ trunk/WPGM/build/WPGM.dproj	2008-02-09 00:49:23 UTC (rev 6855)
+@@ -42,7 +42,7 @@
+     &lt;Borland.Personality&gt;Delphi.Personality&lt;/Borland.Personality&gt;
+     &lt;Borland.ProjectType&gt;VCLApplication&lt;/Borland.ProjectType&gt;
+     &lt;BorlandProject&gt;
+-&lt;BorlandProject&gt;&lt;Delphi.Personality&gt;&lt;Parameters&gt;&lt;Parameters Name=&quot;UseLauncher&quot;&gt;False&lt;/Parameters&gt;&lt;Parameters Name=&quot;LoadAllSymbols&quot;&gt;True&lt;/Parameters&gt;&lt;Parameters Name=&quot;LoadUnspecifiedSymbols&quot;&gt;False&lt;/Parameters&gt;&lt;/Parameters&gt;&lt;VersionInfo&gt;&lt;VersionInfo Name=&quot;IncludeVerInfo&quot;&gt;True&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;AutoIncBuild&quot;&gt;True&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;MajorVer&quot;&gt;1&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;MinorVer&quot;&gt;0&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Release&quot;&gt;1&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Build&quot;&gt;19&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Debug&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;PreRelease&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Special&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Private&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;DLL&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Locale&quot;&gt;1031&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;CodePage&quot;&gt;1252&lt;/VersionInfo&gt;&lt;/VersionInfo&gt;&lt;VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;CompanyName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;FileDescription&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionIn!
+ foKeys Name=&quot;FileVersion&quot;&gt;1.0.1.19&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;InternalName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;LegalCopyright&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;LegalTrademarks&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;OriginalFilename&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;ProductName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;ProductVersion&quot;&gt;1.0.0.0&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;Comments&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;/VersionInfoKeys&gt;&lt;Source&gt;&lt;Source Name=&quot;MainSource&quot;&gt;WPGM.dpr&lt;/Source&gt;&lt;/Source&gt;&lt;/Delphi.Personality&gt;&lt;/BorlandProject&gt;&lt;/BorlandProject&gt;
++&lt;BorlandProject&gt;&lt;Delphi.Personality&gt;&lt;Parameters&gt;&lt;Parameters Name=&quot;UseLauncher&quot;&gt;False&lt;/Parameters&gt;&lt;Parameters Name=&quot;LoadAllSymbols&quot;&gt;True&lt;/Parameters&gt;&lt;Parameters Name=&quot;LoadUnspecifiedSymbols&quot;&gt;False&lt;/Parameters&gt;&lt;/Parameters&gt;&lt;VersionInfo&gt;&lt;VersionInfo Name=&quot;IncludeVerInfo&quot;&gt;True&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;AutoIncBuild&quot;&gt;True&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;MajorVer&quot;&gt;1&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;MinorVer&quot;&gt;0&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Release&quot;&gt;1&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Build&quot;&gt;20&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Debug&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;PreRelease&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Special&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Private&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;DLL&quot;&gt;False&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;Locale&quot;&gt;1031&lt;/VersionInfo&gt;&lt;VersionInfo Name=&quot;CodePage&quot;&gt;1252&lt;/VersionInfo&gt;&lt;/VersionInfo&gt;&lt;VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;CompanyName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;FileDescription&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionIn!
+ foKeys Name=&quot;FileVersion&quot;&gt;1.0.1.20&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;InternalName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;LegalCopyright&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;LegalTrademarks&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;OriginalFilename&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;ProductName&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;ProductVersion&quot;&gt;1.0.0.0&lt;/VersionInfoKeys&gt;&lt;VersionInfoKeys Name=&quot;Comments&quot;&gt;&lt;/VersionInfoKeys&gt;&lt;/VersionInfoKeys&gt;&lt;Source&gt;&lt;Source Name=&quot;MainSource&quot;&gt;WPGM.dpr&lt;/Source&gt;&lt;/Source&gt;&lt;/Delphi.Personality&gt;&lt;/BorlandProject&gt;&lt;/BorlandProject&gt;
+   &lt;/ProjectExtensions&gt;
+   &lt;Import Project=&quot;$(MSBuildBinPath)\Borland.Delphi.Targets&quot; /&gt;
+   &lt;ItemGroup&gt;
+
+Modified: trunk/WPGM/build/WPGM.res
+===================================================================
+(Binary files differ)
+
+Modified: trunk/WPGM/changelog.txt
+===================================================================
+--- trunk/WPGM/changelog.txt	2007-09-16 18:01:11 UTC (rev 6854)
++++ trunk/WPGM/changelog.txt	2008-02-09 00:49:23 UTC (rev 6855)
+@@ -1,3 +1,6 @@
++08.02.2008 1.0.1.x:
++	- Added support to Map1.mul which came with clients 6.0.0 and above.
++
+ 24.06.2007 1.0.1.x:
+ 	
+ 	- My mistake.. fix the config screen and the buttons do open the files.
+
+Modified: trunk/WPGM/src/Configuration.dfm
+===================================================================
+--- trunk/WPGM/src/Configuration.dfm	2007-09-16 18:01:11 UTC (rev 6854)
++++ trunk/WPGM/src/Configuration.dfm	2008-02-09 00:49:23 UTC (rev 6855)
+@@ -4,7 +4,7 @@
+   BorderIcons = []
+   Caption = 'Configuration'
+   ClientHeight = 460
+-  ClientWidth = 528
++  ClientWidth = 538
+   Color = clWindow
+   Font.Charset = DEFAULT_CHARSET
+   Font.Color = clWindowText
+@@ -19,19 +19,19 @@
+   PixelsPerInch = 96
+   TextHeight = 13
+   object ScrollBox1: TScrollBox
+-    Left = 8
++    Left = 4
+     Top = 8
+-    Width = 517
++    Width = 533
+     Height = 409
+-    VertScrollBar.Position = 916
++    VertScrollBar.Position = 1034
+     BevelInner = bvNone
+     BevelOuter = bvNone
+     TabOrder = 0
+     object GroupBox1: TGroupBox
+-      Left = 3
+-      Top = -916
++      Left = 14
++      Top = -1034
+       Width = 489
+-      Height = 1200
++      Height = 1319
+       TabOrder = 0
+       object Label1: TLabel
+         Left = 12
+@@ -875,14 +875,14 @@
+       end
+       object Label21: TLabel
+         Left = 13
+-        Top = 838
++        Top = 954
+         Width = 46
+         Height = 13
+         Caption = 'map2.mul'
+       end
+       object SBMap2: TSpeedButton
+         Left = 447
+-        Top = 851
++        Top = 967
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -917,14 +917,14 @@
+       end
+       object Label22: TLabel
+         Left = 12
+-        Top = 878
++        Top = 994
+         Width = 55
+         Height = 13
+         Caption = 'staidx2.mul'
+       end
+       object SBStaidx2: TSpeedButton
+         Left = 447
+-        Top = 891
++        Top = 1007
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -959,14 +959,14 @@
+       end
+       object Label23: TLabel
+         Left = 12
+-        Top = 918
++        Top = 1034
+         Width = 57
+         Height = 13
+         Caption = 'statics2.mul'
+       end
+       object SBStatics2: TSpeedButton
+         Left = 447
+-        Top = 931
++        Top = 1047
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -1001,14 +1001,14 @@
+       end
+       object Label24: TLabel
+         Left = 13
+-        Top = 958
++        Top = 1074
+         Width = 46
+         Height = 13
+         Caption = 'map3.mul'
+       end
+       object SBMap3: TSpeedButton
+         Left = 447
+-        Top = 971
++        Top = 1087
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -1043,14 +1043,14 @@
+       end
+       object Label25: TLabel
+         Left = 12
+-        Top = 998
++        Top = 1114
+         Width = 55
+         Height = 13
+         Caption = 'staidx3.mul'
+       end
+       object SBStaidx3: TSpeedButton
+         Left = 447
+-        Top = 1011
++        Top = 1127
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -1085,14 +1085,14 @@
+       end
+       object Label26: TLabel
+         Left = 12
+-        Top = 1038
++        Top = 1154
+         Width = 57
+         Height = 13
+         Caption = 'statics3.mul'
+       end
+       object SBStatics3: TSpeedButton
+         Left = 447
+-        Top = 1051
++        Top = 1167
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -1127,14 +1127,14 @@
+       end
+       object Label27: TLabel
+         Left = 13
+-        Top = 1078
++        Top = 1194
+         Width = 46
+         Height = 13
+         Caption = 'map4.mul'
+       end
+       object SBMap4: TSpeedButton
+         Left = 447
+-        Top = 1091
++        Top = 1207
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -1169,14 +1169,14 @@
+       end
+       object Label28: TLabel
+         Left = 12
+-        Top = 1118
++        Top = 1234
+         Width = 55
+         Height = 13
+         Caption = 'staidx4.mul'
+       end
+       object SBStaidx4: TSpeedButton
+         Left = 447
+-        Top = 1131
++        Top = 1247
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -1211,14 +1211,14 @@
+       end
+       object Label29: TLabel
+         Left = 12
+-        Top = 1158
++        Top = 1274
+         Width = 57
+         Height = 13
+         Caption = 'statics4.mul'
+       end
+       object SBStatics4: TSpeedButton
+         Left = 447
+-        Top = 1171
++        Top = 1289
+         Width = 25
+         Height = 21
+         Flat = True
+@@ -1251,6 +1251,132 @@
+           D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
+         OnClick = SBStatics4Click
+       end
++      object Label38: TLabel
++        Left = 12
++        Top = 838
++        Width = 46
++        Height = 13
++        Caption = 'map1.mul'
++      end
++      object SBMap1: TSpeedButton
++        Left = 447
++        Top = 851
++        Width = 25
++        Height = 21
++        Flat = True
++        Glyph.Data = {
++          36030000424D3603000000000000360000002800000010000000100000000100
++          18000000000000030000120B0000120B00000000000000000000C8D0D4C8D0D4
++          C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0
++          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D400000000000000000000000000
++          0000000000840000FFFF00FF0000FF0000000000000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484C6C6C6C6C6C6C6C6C6C6C6C6840000FFFF00FF0000FF0000C6C6
++          C6C6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFF84
++          0000FFFF00FF0000FF0000C6C6C6FFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484000000000000848484C6C6C6FF0000FF0000C6C6C6FFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484C6C6C6FFFF00C6C6C600000084
++          8484848484C6C6C6FFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
++          FFFFFFFFFF00C6C6C6FFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4848484FFFF00FFFFFFFFFF00C6C6C6FFFF0000
++          0000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
++          FFFFFFFFFF00FFFFFFFFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484FFFFFFFFFF00FFFFFF000000C6
++          C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484848484000000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
++          FFFFFFFFFFFFFFFFFFFFFF000000000000000000000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6FFFF
++          FF848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
++          FFFFFFFFFFFFFFFFFFFFFFC6C6C6848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4
++          C8D0D4848484848484848484848484848484848484848484848484848484C8D0
++          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8
++          D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
++        OnClick = SBMap1Click
++      end
++      object Label39: TLabel
++        Left = 12
++        Top = 878
++        Width = 55
++        Height = 13
++        Caption = 'staidx1.mul'
++      end
++      object SBStaidx1: TSpeedButton
++        Left = 447
++        Top = 891
++        Width = 25
++        Height = 21
++        Flat = True
++        Glyph.Data = {
++          36030000424D3603000000000000360000002800000010000000100000000100
++          18000000000000030000120B0000120B00000000000000000000C8D0D4C8D0D4
++          C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0
++          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D400000000000000000000000000
++          0000000000840000FFFF00FF0000FF0000000000000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484C6C6C6C6C6C6C6C6C6C6C6C6840000FFFF00FF0000FF0000C6C6
++          C6C6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFF84
++          0000FFFF00FF0000FF0000C6C6C6FFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484000000000000848484C6C6C6FF0000FF0000C6C6C6FFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484C6C6C6FFFF00C6C6C600000084
++          8484848484C6C6C6FFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
++          FFFFFFFFFF00C6C6C6FFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4848484FFFF00FFFFFFFFFF00C6C6C6FFFF0000
++          0000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
++          FFFFFFFFFF00FFFFFFFFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484FFFFFFFFFF00FFFFFF000000C6
++          C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484848484000000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
++          FFFFFFFFFFFFFFFFFFFFFF000000000000000000000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6FFFF
++          FF848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
++          FFFFFFFFFFFFFFFFFFFFFFC6C6C6848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4
++          C8D0D4848484848484848484848484848484848484848484848484848484C8D0
++          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8
++          D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
++        OnClick = SBStaidx1Click
++      end
++      object Label40: TLabel
++        Left = 12
++        Top = 918
++        Width = 57
++        Height = 13
++        Caption = 'statics1.mul'
++      end
++      object SBStatics1: TSpeedButton
++        Left = 447
++        Top = 931
++        Width = 25
++        Height = 21
++        Flat = True
++        Glyph.Data = {
++          36030000424D3603000000000000360000002800000010000000100000000100
++          18000000000000030000120B0000120B00000000000000000000C8D0D4C8D0D4
++          C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0
++          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D400000000000000000000000000
++          0000000000840000FFFF00FF0000FF0000000000000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484C6C6C6C6C6C6C6C6C6C6C6C6840000FFFF00FF0000FF0000C6C6
++          C6C6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFF84
++          0000FFFF00FF0000FF0000C6C6C6FFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484000000000000848484C6C6C6FF0000FF0000C6C6C6FFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484C6C6C6FFFF00C6C6C600000084
++          8484848484C6C6C6FFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
++          FFFFFFFFFF00C6C6C6FFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4848484FFFF00FFFFFFFFFF00C6C6C6FFFF0000
++          0000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
++          FFFFFFFFFF00FFFFFFFFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484FFFFFFFFFF00FFFFFF000000C6
++          C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484848484000000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
++          FFC6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
++          FFFFFFFFFFFFFFFFFFFFFF000000000000000000000000C8D0D4C8D0D4C8D0D4
++          C8D0D4848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6FFFF
++          FF848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
++          FFFFFFFFFFFFFFFFFFFFFFC6C6C6848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4
++          C8D0D4848484848484848484848484848484848484848484848484848484C8D0
++          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8
++          D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
++        OnClick = SBStatics1Click
++      end
+       object ETiledata: TEdit
+         Tag = 1
+         Left = 12
+@@ -1412,205 +1538,259 @@
+         TabOrder = 19
+       end
+       object Emap2: TEdit
+-        Tag = 21
++        Tag = 24
+         Left = 12
+-        Top = 851
++        Top = 967
+         Width = 429
+         Height = 21
+         TabOrder = 20
+       end
+       object Estaidx2: TEdit
+-        Tag = 22
++        Tag = 25
+         Left = 12
+-        Top = 891
++        Top = 1007
+         Width = 429
+         Height = 21
+         TabOrder = 21
+       end
+       object Estatics2: TEdit
+-        Tag = 23
++        Tag = 26
+         Left = 12
+-        Top = 931
++        Top = 1047
+         Width = 429
+         Height = 21
+         TabOrder = 22
+       end
+       object Emap3: TEdit
+-        Tag = 24
++        Tag = 27
+         Left = 12
+-        Top = 971
++        Top = 1087
+         Width = 429
+         Height = 21
+         TabOrder = 23
+       end
+       object Estaidx3: TEdit
+-        Tag = 25
++        Tag = 28
+         Left = 12
+-        Top = 1011
++        Top = 1127
+         Width = 429
+         Height = 21
+         TabOrder = 24
+       end
+       object Estatics3: TEdit
+-        Tag = 26
++        Tag = 29
+         Left = 12
+-        Top = 1051
++        Top = 1167
+         Width = 429
+         Height = 21
+         TabOrder = 25
+       end
+       object Emap4: TEdit
+-        Tag = 27
++        Tag = 30
+         Left = 12
+-        Top = 1091
++        Top = 1207
+         Width = 429
+         Height = 21
+         TabOrder = 26
+       end
+       object Estaidx4: TEdit
+-        Tag = 28
++        Tag = 31
+         Left = 12
+-        Top = 1131
++        Top = 1247
+         Width = 429
+         Height = 21
+         TabOrder = 27
+       end
+       object Estatics4: TEdit
+-        Tag = 29
++        Tag = 32
+         Left = 12
+-        Top = 1171
++        Top = 1289
+         Width = 429
+         Height = 21
+         TabOrder = 28
+       end
++      object Emap1: TEdit
++        Tag = 21
++        Left = 12
++        Top = 851
++        Width = 429
++        Height = 21
++        TabOrder = 29
++      end
++      object Estaidx1: TEdit
++        Tag = 22
++        Left = 12
++        Top = 891
++        Width = 429
++        Height = 21
++        TabOrder = 30
++      end
++      object Estatics1: TEdit
++        Tag = 23
++        Left = 12
++        Top = 931
++        Width = 429
++        Height = 21
++        TabOrder = 31
++      end
+     end
+     object GroupBox2: TGroupBox
+-      Left = 3
++      Left = 14
+       Top = 290
+       Width = 489
+       Height = 115
+       Caption = 'Maps Size'
+       TabOrder = 1
+       object Label30: TLabel
+-        Left = 49
+-        Top = 20
++        Left = 15
++        Top = 16
+         Width = 35
+         Height = 13
+         Caption = 'Map0 X'
+       end
+       object Label31: TLabel
+-        Left = 48
+-        Top = 60
++        Left = 14
++        Top = 56
+         Width = 35
+         Height = 13
+         Caption = 'Map0 Y'
+       end
+       object Label32: TLabel
+-        Left = 149
+-        Top = 20
++        Left = 204
++        Top = 16
+         Width = 35
+         Height = 13
+         Caption = 'Map2 X'
+       end
+       object Label33: TLabel
+-        Left = 149
+-        Top = 60
++        Left = 204
++        Top = 56
+         Width = 35
+         Height = 13
+         Caption = 'Map2 Y'
+       end
+       object Label34: TLabel
+-        Left = 248
+-        Top = 20
++        Left = 298
++        Top = 16
+         Width = 35
+         Height = 13
+         Caption = 'Map3 X'
+       end
+       object Label35: TLabel
+-        Left = 248
+-        Top = 60
++        Left = 298
++        Top = 56
+         Width = 35
+         Height = 13
+         Caption = 'Map3 Y'
+       end
+       object Label36: TLabel
+-        Left = 348
+-        Top = 60
++        Left = 392
++        Top = 56
+         Width = 35
+         Height = 13
+         Caption = 'Map4 Y'
+       end
+       object Label37: TLabel
+-        Left = 348
+-        Top = 20
++        Left = 392
++        Top = 16
+         Width = 35
+         Height = 13
+         Caption = 'Map4 X'
+       end
++      object Label41: TLabel
++        Left = 109
++        Top = 56
++        Width = 35
++        Height = 13
++        Caption = 'Map1 Y'
++      end
++      object Label42: TLabel
++        Left = 110
++        Top = 16
++        Width = 35
++        Height = 13
++        Caption = 'Map1 X'
++      end
+       object EMap0x: TEdit
+-        Left = 49
+-        Top = 36
++        Left = 15
++        Top = 32
+         Width = 88
+         Height = 21
+         TabOrder = 0
+         Text = '7168'
+       end
+       object EMap0Y: TEdit
+-        Left = 49
+-        Top = 76
++        Left = 15
++        Top = 72
+         Width = 88
+         Height = 21
+         TabOrder = 1
+         Text = '4096'
+       end
+       object EMap2x: TEdit
+-        Left = 149
+-        Top = 36
++        Left = 204
++        Top = 32
+         Width = 88
+         Height = 21
+         TabOrder = 2
+         Text = '2304'
+       end
+       object EMap2y: TEdit
+-        Left = 149
+-        Top = 74
++        Left = 204
++        Top = 72
+         Width = 88
+         Height = 21
+         TabOrder = 3
+         Text = '1600'
+       end
+       object EMap3x: TEdit
+-        Left = 248
+-        Top = 36
++        Left = 298
++        Top = 32
+         Width = 88
+         Height = 21
+         TabOrder = 4
+         Text = '2560'
+       end
+       object EMap3y: TEdit
+-        Left = 248
+-        Top = 76
++        Left = 298
++        Top = 72
+         Width = 88
+         Height = 21
+         TabOrder = 5
+         Text = '2048'
+       end
+       object EMap4y: TEdit
+-        Left = 348
+-        Top = 76
++        Left = 392
++        Top = 72
+         Width = 88
+         Height = 21
+         TabOrder = 6
+         Text = '1448'
+       end
+       object EMap4x: TEdit
+-        Left = 348
+-        Top = 36
++        Left = 392
++        Top = 32
+         Width = 88
+         Height = 21
+         TabOrder = 7
+         Text = '1448'
+       end
++      object EMap1y: TEdit
++        Left = 110
++        Top = 72
++        Width = 88
++        Height = 21
++        TabOrder = 8
++        Text = '4096'
++      end
++      object EMap1x: TEdit
++        Left = 110
++        Top = 32
++        Width = 88
++        Height = 21
++        TabOrder = 9
++        Text = '7168'
++      end
+     end
+   end
+   object Button1: TButton
+
+Modified: trunk/WPGM/src/Configuration.pas
+===================================================================
+--- trunk/WPGM/src/Configuration.pas	2007-09-16 18:01:11 UTC (rev 6854)
++++ trunk/WPGM/src/Configuration.pas	2008-02-09 00:49:23 UTC (rev 6855)
+@@ -117,6 +117,19 @@
+     Label37: TLabel;
+     Button1: TButton;
+     Cancel: TButton;
++    Label38: TLabel;
++    Emap1: TEdit;
++    SBMap1: TSpeedButton;
++    Label39: TLabel;
++    Estaidx1: TEdit;
++    SBStaidx1: TSpeedButton;
++    Label40: TLabel;
++    Estatics1: TEdit;
++    SBStatics1: TSpeedButton;
++    EMap1y: TEdit;
++    Label41: TLabel;
++    EMap1x: TEdit;
++    Label42: TLabel;
+     procedure FormActivate(Sender: TObject);
+     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+     procedure FormCreate(Sender: TObject);
+@@ -151,6 +164,9 @@
+     procedure SBStatics3Click(Sender: TObject);
+     procedure SBStatics4Click(Sender: TObject);
+     procedure CancelClick(Sender: TObject);
++    procedure SBMap1Click(Sender: TObject);
++    procedure SBStaidx1Click(Sender: TObject);
++    procedure SBStatics1Click(Sender: TObject);
+   private
+     { Private declarations }
+   public
+@@ -190,6 +206,7 @@
+ begin
+   er := true;
+   if (EMap0x.Text = '0') or (EMap0y.Text = '0') or
++    (EMap1x.Text = '0') or (EMap1y.Text = '0') or
+     (EMap2x.Text = '0') or (EMap2y.Text = '0') or
+     (EMap3x.Text = '0') or (EMap3y.Text = '0') or
+     (EMap4x.Text = '0') or (EMap4y.Text = '0') then
+@@ -200,6 +217,7 @@
+ 
+   if er then
+     if (IsNumber(pchar(EMap0x.Text))) or (IsNumber(pchar(EMap0y.Text))) or
++    (IsNumber(pchar(EMap1x.Text))) or (IsNumber(pchar(EMap1y.Text))) or
+     (IsNumber(pchar(EMap2x.Text))) or (IsNumber(pchar(EMap2y.Text))) or
+     (IsNumber(pchar(EMap3x.Text))) or (IsNumber(pchar(EMap3y.Text))) or
+     (IsNumber(pchar(EMap4x.Text))) or (IsNumber(pchar(EMap4y.Text))) then
+@@ -209,6 +227,7 @@
+     end;
+   if er then
+     if (strToint(EMap0x.Text) mod 8 &lt;&gt; 0 ) or (strtoint(EMap0y.Text) mod 8 &lt;&gt; 0) or
++    (strToint(EMap1x.Text) mod 8 &lt;&gt; 0) or (strToint(EMap1y.Text) mod 8 &lt;&gt; 0) or
+     (strToint(EMap2x.Text) mod 8 &lt;&gt; 0) or (strToint(EMap2y.Text) mod 8 &lt;&gt; 0) or
+     (strToint(EMap3x.Text) mod 8 &lt;&gt; 0) or (strToint(EMap3y.Text) mod 8 &lt;&gt; 0) or
+     (strToint(EMap4x.Text) mod 8 &lt;&gt; 0) or (strToint(EMap4y.Text) mod 8 &lt;&gt; 0) then
+@@ -264,6 +283,8 @@
+ 
+     EMap0x.Text :=  intTOstr(Config.getInt('Map 0 Width', 896) * 8);
+     EMap0y.Text :=  intTOstr(Config.getInt('Map 0 Height', 512) * 8);
++    EMap1x.Text :=  intTOstr(Config.getInt('Map 1 Width', 896) * 8);
++    EMap1y.Text :=  intTOstr(Config.getInt('Map 1 Height', 512) * 8);
+     EMap2x.Text :=  intTOstr(Config.getInt('Map 2 Width', 288) * 8);
+     EMap2y.Text :=  intTOstr(Config.getInt('Map 2 Height', 200) * 8);
+     EMap3x.Text :=  intTOstr(Config.getInt('Map 3 Width', 320) * 8);
+@@ -277,7 +298,7 @@
+ procedure TFrmConfig.FormClose(Sender: TObject; var Action: TCloseAction);
+ var
+   i,c : integer;
+-  texto : string;
++
+ begin
+   if not canceled then
+   begin
+@@ -293,6 +314,8 @@
+ 
+     Config.SetInt('Map 0 Width', strTOINt(EMap0x.Text) div 8);
+     Config.setInt('Map 0 Height', strTOINt(EMap0y.Text) div 8);
++    Config.SetInt('Map 1 Width', strTOINt(EMap1x.Text) div 8);
++    Config.setInt('Map 1 Height', strTOINt(EMap1y.Text) div 8);
+     Config.SetInt('Map 2 Width', strTOINt(EMap2x.Text) div 8);
+     Config.SetInt('Map 2 Height', strTOINt(EMap2y.Text) div 8);
+     Config.SetInt('Map 3 Width', strTOINt(EMap3x.Text) div 8);
+@@ -374,6 +397,15 @@
+      emap0.Text := od.FileName;
+ end;
+ 
++procedure TFrmConfig.SBMap1Click(Sender: TObject);
++begin
++  od.InitialDir := UOpath;
++  od.Filter := 'map1.mul';
++  od.DefaultExt := '.mul';
++  if od.Execute then
++     emap1.Text := od.FileName;
++end;
++
+ procedure TFrmConfig.SBMap2Click(Sender: TObject);
+ begin
+   od.InitialDir := UOpath;
+@@ -419,6 +451,15 @@
+      estaidx0.Text := od.FileName;
+ end;
+ 
++procedure TFrmConfig.SBStaidx1Click(Sender: TObject);
++begin
++  od.InitialDir := UOpath;
++  od.Filter := 'staidx1.mul';
++  od.DefaultExt := '.mul';
++  if od.Execute then
++     estaidx1.Text := od.FileName;
++end;
++
+ procedure TFrmConfig.SBStaidx2Click(Sender: TObject);
+ begin
+   od.InitialDir := UOpath;
+@@ -455,6 +496,15 @@
+      estatics0.Text := od.FileName;
+ end;
+ 
++procedure TFrmConfig.SBStatics1Click(Sender: TObject);
++begin
++  od.InitialDir := UOpath;
++  od.Filter := 'statics1.mul';
++  od.DefaultExt := '.mul';
++  if od.Execute then
++     estatics1.Text := od.FileName;
++end;
++
+ procedure TFrmConfig.SBStatics2Click(Sender: TObject);
+ begin
+   od.InitialDir := UOpath;
+
+Modified: trunk/WPGM/src/Main.dfm
+===================================================================
+--- trunk/WPGM/src/Main.dfm	2007-09-16 18:01:11 UTC (rev 6854)
++++ trunk/WPGM/src/Main.dfm	2008-02-09 00:49:23 UTC (rev 6855)
+@@ -23,19 +23,13 @@
+     Top = 21
+     Width = 604
+     Height = 163
+-    ActivePage = tsNpcs
++    ActivePage = TravelMap
+     Align = alClient
+     RaggedRight = True
+     TabOrder = 0
+-    ExplicitTop = 24
+-    ExplicitHeight = 148
+     object tsCommands: TTabSheet
+       Caption = 'Commands'
+       ImageIndex = 3
+-      ExplicitLeft = 0
+-      ExplicitTop = 0
+-      ExplicitWidth = 0
+-      ExplicitHeight = 0
+       object GroupBox1: TGroupBox
+         Left = 8
+         Top = 8
+@@ -356,10 +350,6 @@
+     object tsItemManip: TTabSheet
+       Caption = 'Item Manipulation'
+       ImageIndex = 4
+-      ExplicitLeft = 0
+-      ExplicitTop = 0
+-      ExplicitWidth = 0
+-      ExplicitHeight = 144
+       object GroupBox3: TGroupBox
+         Left = 8
+         Top = 8
+@@ -774,10 +764,6 @@
+     object TabSheet1: TTabSheet
+       Caption = 'Multis'
+       ImageIndex = 7
+-      ExplicitLeft = 0
+-      ExplicitTop = 0
+-      ExplicitWidth = 0
+-      ExplicitHeight = 0
+       DesignSize = (
+         596
+         135)
+@@ -861,10 +847,6 @@
+     object tsTags: TTabSheet
+       Caption = 'Object Manipulation'
+       ImageIndex = 5
+-      ExplicitLeft = 0
+-      ExplicitTop = 0
+-      ExplicitWidth = 0
+-      ExplicitHeight = 144
+       object GroupBox6: TGroupBox
+         Left = 8
+         Top = 8
+@@ -1062,7 +1044,7 @@
+           Top = 24
+           Width = 121
+           Height = 21
+-          ItemHeight = 0
++          ItemHeight = 13
+           TabOrder = 0
+           OnChange = eEventNameChange
+         end
+@@ -1087,10 +1069,6 @@
+     object TravelMap: TTabSheet
+       Caption = 'Travel'
+       ImageIndex = 2
+-      ExplicitLeft = 0
+-      ExplicitTop = 0
+-      ExplicitWidth = 0
+-      ExplicitHeight = 0
+       DesignSize = (
+         596
+         135)
+@@ -1248,10 +1226,6 @@
+     object tsSettings: TTabSheet
+       Caption = 'Settings'
+       ImageIndex = 1
+-      ExplicitLeft = 0
+-      ExplicitTop = 0
+-      ExplicitWidth = 0
+-      ExplicitHeight = 0
+       object gbSettingsGeneral: TGroupBox
+         Left = 8
+         Top = 8
+@@ -1314,10 +1288,6 @@
+     object TabSheet2: TTabSheet
+       Caption = 'Build'
+       ImageIndex = 8
+-      ExplicitLeft = 0
+-      ExplicitTop = 0
+-      ExplicitWidth = 0
+-      ExplicitHeight = 144
+       DesignSize = (
+         596
+         135)
+@@ -1329,7 +1299,6 @@
+         Anchors = [akLeft, akTop, akBottom]
+         Caption = 'Settings'
+         TabOrder = 0
+-        ExplicitHeight = 137
+         object Label11: TLabel
+           Left = 8
+           Top = 18
+@@ -1402,10 +1371,6 @@
+       Caption = 'Custom'
+       ImageIndex = 9
+       OnResize = tsCustomResize
+-      ExplicitLeft = 0
+-      ExplicitTop = 0
+-      ExplicitWidth = 0
+-      ExplicitHeight = 0
+     end
+   end
+   object TbQuick: TToolBar
+
+Modified: trunk/WPGM/src/Main.pas
+===================================================================
+--- trunk/WPGM/src/Main.pas	2007-09-16 18:01:11 UTC (rev 6854)
++++ trunk/WPGM/src/Main.pas	2008-02-09 00:49:23 UTC (rev 6855)
+@@ -381,10 +381,10 @@
+ 
+ const
+   // OK OK I can make it better.. but in the future :D
+-  FILESMAX = 28;
++  FILESMAX = 31;
+   FILESMIN = 0;
+-  UOFILES : array[FILESMIN..FILESMAX] of string = ('TILEDATA.MUL', 'ARTIDX.MUL', 'ART.MUL', 'ANIM.IDX', 'ANIM.MUL', 'ANIM2.IDX', 'ANIM2.MUL', 'ANIM3.IDX', 'ANIM3.MUL', 'ANIM4.IDX', 'ANIM4.MUL', 'ANIM5.IDX', 'ANIM5.MUL', 'BODYCONV.DEF', 'BODY.DEF', 'RADARCOL.MUL', 'HUES.MUL', 'MAP0.MUL', 'STAIDX0.MUL', 'STATICS0.MUL', 'MAP2.MUL', 'STAIDX2.MUL', 'STATICS2.MUL', 'MAP3.MUL', 'STAIDX3.MUL', 'STATICS3.MUL', 'MAP4.MUL', 'STAIDX4.MUL', 'STATICS4.MUL');
+-  UOREQ   : array[FILESMIN..FILESMAX] of boolean = (true,           true,          true,        true,         true,      false,          false,           false,       false,           false,       false,        false,         false,       true,         true,       true,           true,      true,       true,            true,          false,        false,         false,         false,      false,          false,         false,        false,       false);
++  UOFILES : array[FILESMIN..FILESMAX] of string = ('TILEDATA.MUL', 'ARTIDX.MUL', 'ART.MUL', 'ANIM.IDX', 'ANIM.MUL', 'ANIM2.IDX', 'ANIM2.MUL', 'ANIM3.IDX', 'ANIM3.MUL', 'ANIM4.IDX', 'ANIM4.MUL', 'ANIM5.IDX', 'ANIM5.MUL', 'BODYCONV.DEF', 'BODY.DEF', 'RADARCOL.MUL', 'HUES.MUL', 'MAP0.MUL', 'STAIDX0.MUL', 'STATICS0.MUL', 'MAP1.MUL', 'STAIDX1.MUL', 'STATICS1.MUL', 'MAP2.MUL', 'STAIDX2.MUL', 'STATICS2.MUL', 'MAP3.MUL', 'STAIDX3.MUL', 'STATICS3.MUL', 'MAP4.MUL', 'STAIDX4.MUL', 'STATICS4.MUL');
++  UOREQ   : array[FILESMIN..FILESMAX] of boolean = (true,           true,          true,        true,         true,      false,          false,           false,       false,           false,       false,        false,         false,       true,         true,       true,           true,      true,       true,           false,      false,          false,            true,          false,        false,         false,         false,      false,          false,         false,        false,       false);
+ 
+ 
+ 
+@@ -498,8 +498,8 @@
+ 
+       MapsSize[0].x := Config.getInt('Map 0 Width', 896);
+       MapsSize[0].y := Config.getInt('Map 0 Height', 512);
+-      MapsSize[1].x := MapsSize[0].x;
+-      MapsSize[1].y := MapsSize[0].y;
++      MapsSize[1].x := Config.getInt('Map 1 Width', 896);
++      MapsSize[1].y := Config.getInt('Map 1 Height', 512);
+       MapsSize[2].x := Config.getInt('Map 2 Width', 288);
+       MapsSize[2].y := Config.getInt('Map 2 Height', 200);
+       MapsSize[3].x := Config.getInt('Map 3 Width', 320);
+@@ -517,9 +517,27 @@
+           Config.getString('STATICS0.MUL Path', UOPath + 'statics0.mul'),
+           MapsSize[0].y,
+           MapsSize[0].x);
+-      Maps[1] := Maps[0];
+-      Statics[1] := Statics[0];
+ 
++      if FileExists(Config.getString('MAP1.MUL Path', UOPath + 'map1.mul')) then
++      begin
++          Maps[1].Open(
++            Config.getString('MAP1.MUL Path', UOPath + 'map1.mul'),
++            MapsSize[1].x,
++            MapsSize[1].y);
++
++          Statics[1].Open(
++            Config.getString('STAIDX1.MUL Path', UOPath + 'staidx1.mul'),
++            Config.getString('STATICS1.MUL Path', UOPath + 'statics1.mul'),
++            MapsSize[1].y,
++            MapsSize[1].x);
++      end
++      else
++      begin
++          Maps[1] := Maps[0];
++          Statics[1] := Statics[0];
++      end;
++
++
+       Maps[2].Open(Config.getString('MAP2.MUL Path', UOPath + 'map2.mul'),
+           MapsSize[2].x,
+           MapsSize[2].y);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000060.html">[Wolfpack-svn] r6856 - in trunk/WPGM: Components/Graphics32 Release	build src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#59">[ date ]</a>
+              <a href="thread.html#59">[ thread ]</a>
+              <a href="subject.html#59">[ subject ]</a>
+              <a href="author.html#59">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

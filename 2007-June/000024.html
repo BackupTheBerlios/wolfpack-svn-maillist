@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6819 - trunk/server/release/scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6819%20-%20trunk/server/release/scripts&In-Reply-To=%3C200706151137.l5FBbHas012058%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000023.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6819 - trunk/server/release/scripts</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6819%20-%20trunk/server/release/scripts&In-Reply-To=%3C200706151137.l5FBbHas012058%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6819 - trunk/server/release/scripts">naddel at mail.berlios.de
+       </A><BR>
+    <I>Fri Jun 15 13:37:17 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000023.html">[Wolfpack-svn] r6818 - in trunk/server/release: definitions	scripts/commands
+</A></li>
+        <LI>Next message: <A HREF="000025.html">[Wolfpack-svn] r6820 - in trunk/server/release/scripts: . wolfpack
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-15 13:37:16 +0200 (Fri, 15 Jun 2007)
+New Revision: 6819
+
+Modified:
+   trunk/server/release/scripts/gate.py
+Log:
+added extra options to gump (silent, playersonly)
+
+Modified: trunk/server/release/scripts/gate.py
+===================================================================
+--- trunk/server/release/scripts/gate.py	2007-06-15 11:08:05 UTC (rev 6818)
++++ trunk/server/release/scripts/gate.py	2007-06-15 11:37:16 UTC (rev 6819)
+@@ -79,11 +79,10 @@
+ 			z = target[2]
+ 			map = target[3]
+ 
+-
+ 		# create gump
+ 		gump = cGump( 0, 0, 0, 50, 50 )
+ 		# Header
+-		gump.addBackground( 0x24a4, 300, 200 )
++		gump.addBackground( 0x24a4, 300, 280 )
+ 		gump.addHtmlGump( 10, 30, 300, 20, tr('&lt;basefont size=&quot;7&quot; color=&quot;#336699&quot;&gt;&lt;center&gt;Set target for teleportaion&lt;/center&gt;&lt;/basefont&gt;') )
+ 		# Input Fields
+ 		gump.addHtmlGump( 40, 60, 300, 20, 'x-Pos:' )
+@@ -102,9 +101,18 @@
+ 		gump.addResizeGump( 90, 120, 0x2486, 156, 26 )
+ 		gump.addInputField( 93, 123, 150, 20, 0x539, 4, map )
+ 
+-		gump.addButton( 83, 150, 2128, 2129, 1000 ) # Ok
+-		gump.addButton( 150, 150, 2119, 2120, 0 ) # Cancel
++		playersonly = item.hastag('playersonly')
++		gump.addCheckbox(40, 160, 0xd2, 0xd3, 1, playersonly )
++		gump.addHtmlGump( 70, 160, 300, 20, 'Players only' )
++		
++		silent = item.hastag('silent')
++		gump.addCheckbox(40, 190, 0xd2, 0xd3, 2, silent )
++		gump.addHtmlGump( 70, 190, 300, 20, 'Silent' )
+ 
++
++		gump.addButton( 83, 225, 2128, 2129, 1000 ) # Ok
++		gump.addButton( 150, 225, 2119, 2120, 0 ) # Cancel
++
+ 		gump.setCallback( gate_callback )
+ 		gump.setArgs( [ item ] )
+ 		gump.send( player )
+@@ -119,6 +127,16 @@
+ 
+ 	item = args[0]
+ 
++	if 1 in response.switches:
++		item.settag('playersonly', 1)
++	elif item.hastag('playersonly'):
++		item.deltag('playersonly')
++		
++	if 2 in response.switches:
++		item.settag('silent', 1)
++	elif item.hastag('silent'):
++		item.deltag('silent')
++	
+ 	posx = response.text[1]
+ 	posy = response.text[2]
+ 	posz = response.text[3]
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000023.html">[Wolfpack-svn] r6818 - in trunk/server/release: definitions	scripts/commands
+</A></li>
+	<LI>Next message: <A HREF="000025.html">[Wolfpack-svn] r6820 - in trunk/server/release/scripts: . wolfpack
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

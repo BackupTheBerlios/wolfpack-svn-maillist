@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6822 - in trunk/server: release/definitions	release/definitions/locations release/scripts/commands src	src/network src/python
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6822%20-%20in%20trunk/server%3A%20release/definitions%0A%09release/definitions/locations%20release/scripts/commands%20src%0A%09src/network%20src/python&In-Reply-To=%3C200706162130.l5GLU7PG005635%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000026.html">
+   <LINK REL="Next"  HREF="000028.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6822 - in trunk/server: release/definitions	release/definitions/locations release/scripts/commands src	src/network src/python</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6822%20-%20in%20trunk/server%3A%20release/definitions%0A%09release/definitions/locations%20release/scripts/commands%20src%0A%09src/network%20src/python&In-Reply-To=%3C200706162130.l5GLU7PG005635%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6822 - in trunk/server: release/definitions	release/definitions/locations release/scripts/commands src	src/network src/python">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sat Jun 16 23:30:07 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000026.html">[Wolfpack-svn] r6821 - trunk/server/release/scripts
+</A></li>
+        <LI>Next message: <A HREF="000028.html">[Wolfpack-svn] r6823 - trunk/server/release/scripts/commands
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#27">[ date ]</a>
+              <a href="thread.html#27">[ thread ]</a>
+              <a href="subject.html#27">[ subject ]</a>
+              <a href="author.html#27">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-16 23:30:05 +0200 (Sat, 16 Jun 2007)
+New Revision: 6822
+
+Modified:
+   trunk/server/release/definitions/locations/trammel.xml
+   trunk/server/release/definitions/scripts.xml
+   trunk/server/release/scripts/commands/go.py
+   trunk/server/src/commands.cpp
+   trunk/server/src/network/uotxpackets.cpp
+   trunk/server/src/player.cpp
+   trunk/server/src/player.h
+   trunk/server/src/python/pyspawnregion.cpp
+Log:
+showall moved to python
+updated haven locations for go command
+removed showSkillTitles from source
+
+Modified: trunk/server/release/definitions/locations/trammel.xml
+===================================================================
+--- trunk/server/release/definitions/locations/trammel.xml	2007-06-16 19:36:27 UTC (rev 6821)
++++ trunk/server/release/definitions/locations/trammel.xml	2007-06-16 21:30:05 UTC (rev 6822)
+@@ -53,8 +53,9 @@
+ 	&lt;location id=&quot;trammel njuhelm palace&quot; category=&quot;Trammel\Towns\Njuhelm\Palace&quot;&gt;3703,1282,20,1&lt;/location&gt;
+ 
+ 	&lt;!-- Haven --&gt;
+-	&lt;location id=&quot;trammel haven&quot; category=&quot;Trammel\Towns\Haven\Bank&quot;&gt;3686,2519,0,1&lt;/location&gt;
+-	&lt;location id=&quot;trammel haven smithy&quot; category=&quot;Trammel\Towns\Haven\Smithy&quot;&gt;3642,2595,0,1&lt;/location&gt;
++	&lt;location id=&quot;trammel haven&quot; category=&quot;Trammel\Towns\Haven\Bank&quot;&gt;3496,2572,14,1&lt;/location&gt;
++	&lt;location id=&quot;trammel haven ruins&quot; category=&quot;Trammel\Towns\Haven\Ruins&quot;&gt;3630,2597,0,1&lt;/location&gt;
++	&lt;location id=&quot;trammel haven smithy&quot; category=&quot;Trammel\Towns\Haven\Smith&quot;&gt;3469,2540,37,1&lt;/location&gt;
+ 
+ 	&lt;!-- Heartwood --&gt;
+ 	&lt;location id=&quot;trammel Heartwood Teleport&quot; category=&quot;Trammel\Towns\Heartwood\Teleport&quot;&gt;534,992,0,1&lt;/location&gt;
+
+Modified: trunk/server/release/definitions/scripts.xml
+===================================================================
+--- trunk/server/release/definitions/scripts.xml	2007-06-16 19:36:27 UTC (rev 6821)
++++ trunk/server/release/definitions/scripts.xml	2007-06-16 21:30:05 UTC (rev 6822)
+@@ -135,6 +135,7 @@
+ 	&lt;script&gt;commands.action&lt;/script&gt;
+ 	&lt;script&gt;commands.add&lt;/script&gt;
+ 	&lt;script&gt;commands.adddecor&lt;/script&gt;
++	&lt;script&gt;commands.allshow&lt;/script&gt;
+ 	&lt;script&gt;commands.bank&lt;/script&gt;
+ 	&lt;script&gt;commands.boom&lt;/script&gt;
+ 	&lt;script&gt;commands.build&lt;/script&gt;
+@@ -164,6 +165,7 @@
+ 	&lt;script&gt;commands.invul&lt;/script&gt;
+ 	&lt;script&gt;commands.kickban&lt;/script&gt;
+ 	&lt;script&gt;commands.kill&lt;/script&gt;
++	&lt;!-- &lt;script&gt;commands.linkdoor&lt;/script&gt; --&gt;
+ 	&lt;script&gt;commands.makestatic&lt;/script&gt;
+ 	&lt;script&gt;commands.move&lt;/script&gt;
+ 	&lt;script&gt;commands.mute&lt;/script&gt;
+
+Modified: trunk/server/release/scripts/commands/go.py
+===================================================================
+--- trunk/server/release/scripts/commands/go.py	2007-06-16 19:36:27 UTC (rev 6821)
++++ trunk/server/release/scripts/commands/go.py	2007-06-16 21:30:05 UTC (rev 6822)
+@@ -278,7 +278,7 @@
+ 	return
+ 
+ #
+-# Kommando registrieren.
++# Register commands.
+ #
+ def onLoad():
+ 	wolfpack.registercommand('go', go)
+
+Modified: trunk/server/src/commands.cpp
+===================================================================
+--- trunk/server/src/commands.cpp	2007-06-16 19:36:27 UTC (rev 6821)
++++ trunk/server/src/commands.cpp	2007-06-16 21:30:05 UTC (rev 6822)
+@@ -615,29 +615,6 @@
+ }
+ 
+ /*
+-	\command allshow
+-	\description Reveals the offline characters on your screen.
+-*/
+-void commandAllShow( cUOSocket* socket, const QString&amp; command, const QStringList&amp; args ) throw()
+-{
+-	Q_UNUSED( command );
+-	Q_UNUSED( args );
+-
+-	P_PLAYER player = socket-&gt;player();
+-	if ( !player )
+-		return;
+-
+-	MapCharsIterator offlineChars = MapObjects::instance()-&gt;listCharsInCircle( player-&gt;pos(), player-&gt;visualRange(), true );
+-	for ( P_CHAR offChar = offlineChars.first(); offChar; offChar = offlineChars.next() )
+-	{
+-		socket-&gt;removeObject( offChar );
+-		socket-&gt;sendChar( offChar );
+-	}
+-
+-	socket-&gt;sysMessage( tr( &quot;The offline characters on your screen have been revealed.&quot; ) );
+-}
+-
+-/*
+ 	\command allmove
+ 	\description Toggles the allmove flag of your account.
+ 	\notes The allmove flag determines whether you can move immovable objects.
+@@ -1230,7 +1207,6 @@
+ { &quot;EXPORTDEFINITIONS&quot;, commandExportDefinitions },
+ { &quot;EXPORTPLAYER&quot;, commandExportPlayer },
+ { &quot;IMPORTPLAYER&quot;, commandImportPlayer },
+-{ &quot;ALLSHOW&quot;, commandAllShow },
+ { &quot;BROADCAST&quot;, commandBroadcast },
+ { &quot;DOORGEN&quot;, commandDoorGenerator },
+ { &quot;GMTALK&quot;, commandGmtalk },
+
+Modified: trunk/server/src/network/uotxpackets.cpp
+===================================================================
+--- trunk/server/src/network/uotxpackets.cpp	2007-06-16 19:36:27 UTC (rev 6821)
++++ trunk/server/src/network/uotxpackets.cpp	2007-06-16 21:30:05 UTC (rev 6822)
+@@ -539,8 +539,6 @@
+ 
+ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
+ {
+-	P_PLAYER requester = dynamic_cast&lt;P_PLAYER&gt;(pOrigin);
+-
+ 	setSerial( pChar-&gt;serial() );
+ 
+ 	QString nameByScript = pChar-&gt;onShowPaperdollName( pOrigin );
+@@ -553,7 +551,7 @@
+ 	else
+ 	{
+ 		QString title = pChar-&gt;title();
+-		if ( title.isEmpty() &amp;&amp; Config::instance()-&gt;showSkillTitles() &amp;&amp; requester-&gt;showSkillTitles() )
++		if ( title.isEmpty() &amp;&amp; Config::instance()-&gt;showSkillTitles() )
+ 		{
+ 			title = Skills::instance()-&gt;getSkillTitle( pChar );
+ 		}
+
+Modified: trunk/server/src/player.cpp
+===================================================================
+--- trunk/server/src/player.cpp	2007-06-16 19:36:27 UTC (rev 6821)
++++ trunk/server/src/player.cpp	2007-06-16 21:30:05 UTC (rev 6822)
+@@ -73,7 +73,6 @@
+ 	dexterityLock_ = 0;
+ 	intelligenceLock_ = 0;
+ 	maxControlSlots_ = 5;
+-	setShowSkillTitles(Config::instance()-&gt;showSkillTitles());
+ }
+ 
+ cPlayer::cPlayer( const cPlayer&amp; right )
+@@ -1470,14 +1469,6 @@
+ 		setJailed(value.toInt() != 0);
+ 		return 0;
+ 	}
+-	/*
+-		\property char.showskilltitles Indicates whether the skill titles in the paperdoll are visible or not.
+-	*/
+-	else if ( name == &quot;showskilltitles&quot; )
+-	{
+-		setShowSkillTitles( value.toInt() );
+-		return 0;
+-	}
+ 
+ 	else if ( name.left( 6 ) == &quot;skill.&quot; )
+ 	{
+@@ -1584,9 +1575,6 @@
+ 	case 0x70802b4: // jailed	}
+ 		 return createPyObject( isJailed() );
+ 
+-	// TODO
+-	//case 0x????:
+-	//	return createPyObject( showSkillTitles() );
+ 	default:
+ 
+ 		// Forward the property to the account
+
+Modified: trunk/server/src/player.h
+===================================================================
+--- trunk/server/src/player.h	2007-06-16 19:36:27 UTC (rev 6821)
++++ trunk/server/src/player.h	2007-06-16 21:30:05 UTC (rev 6822)
+@@ -162,7 +162,6 @@
+ 	QString profile() const;
+ 	qint8 fixedLightLevel() const;
+ 	quint8 maxControlSlots() const;
+-	bool showSkillTitles() const;
+ 
+ 	// bit flag getters
+ 	bool maySnoop() const;
+@@ -201,7 +200,6 @@
+ 	void setMaySnoop( bool data );
+ 	void setParty( cParty* data );
+ 	void setShowSerials( bool data );
+-	void setShowSkillTitles( bool data );
+ 	void setSquelched( bool data );
+ 
+ 	unsigned char strengthLock() const;
+@@ -496,11 +494,6 @@
+ 	return additionalFlags_ &amp; 0x0040;
+ }
+ 
+-inline bool cPlayer::showSkillTitles() const
+-{
+-	return additionalFlags_ &amp; 0x0200;
+-}
+-
+ inline void cPlayer::setMaySnoop( bool data )
+ {
+ 	if ( data )
+@@ -555,15 +548,6 @@
+ 	changed_ = true;
+ }
+ 
+-inline void cPlayer::setShowSkillTitles( bool data )
+-{
+-	if ( data )
+-		additionalFlags_ |= 0x0200;
+-	else
+-		additionalFlags_ &amp;= ~0x0200;
+-	changed_ = true;
+-}
+-
+ inline enCharTypes cPlayer::objectType()
+ {
+ 	return enPlayer;
+
+Modified: trunk/server/src/python/pyspawnregion.cpp
+===================================================================
+--- trunk/server/src/python/pyspawnregion.cpp	2007-06-16 19:36:27 UTC (rev 6821)
++++ trunk/server/src/python/pyspawnregion.cpp	2007-06-16 21:30:05 UTC (rev 6822)
+@@ -146,7 +146,7 @@
+ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
+ {
+ 	/*
+-	\rproperty spawnregion.id
++	\rproperty spawnregion.id The id of this region.
+ 	*/
+ 	if ( !strcmp( name, &quot;id&quot; ) )
+ 	{
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000026.html">[Wolfpack-svn] r6821 - trunk/server/release/scripts
+</A></li>
+	<LI>Next message: <A HREF="000028.html">[Wolfpack-svn] r6823 - trunk/server/release/scripts/commands
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#27">[ date ]</a>
+              <a href="thread.html#27">[ thread ]</a>
+              <a href="subject.html#27">[ subject ]</a>
+              <a href="author.html#27">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

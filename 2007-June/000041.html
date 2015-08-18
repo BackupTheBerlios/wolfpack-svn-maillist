@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6836 - in trunk/server:	release/definitions/decoration release/definitions/decoration/Malas	release/definitions/npcs/animals/mounts	release/definitions/npcs/monsters/mondains_legancy	release/definitions/npcs/monsters/mondains_legancy/Labyrinth	release/definitions/npcs/monsters/reptiles	release/definitions/system src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6836%20-%20in%20trunk/server%3A%0A%09release/definitions/decoration%20release/definitions/decoration/Malas%0A%09release/definitions/npcs/animals/mounts%0A%09release/definitions/npcs/monsters/mondains_legancy%0A%09release/definitions/npcs/monsters/mondains_legancy/Labyrinth%0A%09release/definitions/npcs/monsters/reptiles%0A%09release/definitions/system%20src&In-Reply-To=%3C200706201036.l5KAataA006220%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000040.html">
+   <LINK REL="Next"  HREF="000042.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6836 - in trunk/server:	release/definitions/decoration release/definitions/decoration/Malas	release/definitions/npcs/animals/mounts	release/definitions/npcs/monsters/mondains_legancy	release/definitions/npcs/monsters/mondains_legancy/Labyrinth	release/definitions/npcs/monsters/reptiles	release/definitions/system src</H1>
+    <B>btbn at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6836%20-%20in%20trunk/server%3A%0A%09release/definitions/decoration%20release/definitions/decoration/Malas%0A%09release/definitions/npcs/animals/mounts%0A%09release/definitions/npcs/monsters/mondains_legancy%0A%09release/definitions/npcs/monsters/mondains_legancy/Labyrinth%0A%09release/definitions/npcs/monsters/reptiles%0A%09release/definitions/system%20src&In-Reply-To=%3C200706201036.l5KAataA006220%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6836 - in trunk/server:	release/definitions/decoration release/definitions/decoration/Malas	release/definitions/npcs/animals/mounts	release/definitions/npcs/monsters/mondains_legancy	release/definitions/npcs/monsters/mondains_legancy/Labyrinth	release/definitions/npcs/monsters/reptiles	release/definitions/system src">btbn at mail.berlios.de
+       </A><BR>
+    <I>Wed Jun 20 12:36:55 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000040.html">[Wolfpack-svn] r6835 - trunk/server/src
+</A></li>
+        <LI>Next message: <A HREF="000042.html">[Wolfpack-svn] r6837 - in trunk/server: build release/scripts/deeds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#41">[ date ]</a>
+              <a href="thread.html#41">[ thread ]</a>
+              <a href="subject.html#41">[ subject ]</a>
+              <a href="author.html#41">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: btbn
+Date: 2007-06-20 12:36:54 +0200 (Wed, 20 Jun 2007)
+New Revision: 6836
+
+Added:
+   trunk/server/release/definitions/decoration/Malas/
+   trunk/server/release/definitions/decoration/Malas/doors.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/index.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/reptalon.xml
+Modified:
+   trunk/server/release/definitions/decoration/decoration.3.xml
+   trunk/server/release/definitions/npcs/animals/mounts/hiryu.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/index.xml
+   trunk/server/release/definitions/npcs/monsters/reptiles/index.xml
+   trunk/server/release/definitions/system/bodyinfo.xml
+   trunk/server/src/npc.cpp
+   trunk/server/src/npc.h
+Log:
+Added ML-Monster Reptalon.
+Added some doors in Luna in the decorations.
+Now completely fixed the owner-save-bug. Saving and loading NPCs with an owner now works.
+
+
+Added: trunk/server/release/definitions/decoration/Malas/doors.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Malas/doors.xml	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/release/definitions/decoration/Malas/doors.xml	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -0,0 +1,22 @@
++&lt;decoration&gt;
++	&lt;!-- wooden door --&gt;
++	&lt;item id=&quot;0x6a7&quot;&gt;
++		&lt;pos x=&quot;1002&quot; y=&quot;522&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1002&quot; y=&quot;517&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;991&quot; y=&quot;522&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1002&quot; y=&quot;522&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;994&quot; y=&quot;516&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- wooden door --&gt;
++	&lt;item id=&quot;0x6a5&quot;&gt;
++		&lt;pos x=&quot;978&quot; y=&quot;517&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;978&quot; y=&quot;522&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- wooden door --&gt;
++	&lt;item id=&quot;0x6af&quot;&gt;
++		&lt;pos x=&quot;980&quot; y=&quot;512&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;980&quot; y=&quot;527&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;999&quot; y=&quot;527&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;999&quot; y=&quot;512&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++&lt;/decoration&gt;
+
+Modified: trunk/server/release/definitions/decoration/decoration.3.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/decoration.3.xml	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/release/definitions/decoration/decoration.3.xml	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -1,9 +1,10 @@
+ &lt;decoration&gt;
+ 	&lt;!-- Misc--&gt;
+-	&lt;include file=&quot;definitions/decoration/Malas/luna.xml&quot;/&gt;
++	&lt;!-- &lt;include file=&quot;definitions/decoration/Malas/luna.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/decoration/Malas/luna2.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/decoration/Malas/umbra.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/decoration/Malas/doom.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/decoration/Malas/darktidesquest.xml&quot;/&gt;
+-	&lt;include file=&quot;definitions/decoration/Malas/signs.xml&quot;/&gt;
++	&lt;include file=&quot;definitions/decoration/Malas/signs.xml&quot;/&gt; --&gt;
++	&lt;include file=&quot;definitions/decoration/Malas/doors.xml&quot;/&gt;
+ &lt;/decoration&gt;
+\ No newline at end of file
+
+Modified: trunk/server/release/definitions/npcs/animals/mounts/hiryu.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/animals/mounts/hiryu.xml	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/release/definitions/npcs/animals/mounts/hiryu.xml	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -44,6 +44,7 @@
+ 		&lt;bindmenu&gt;tame_menu,pet_menu&lt;/bindmenu&gt;
+ 		&lt;category&gt;Animals\Mounts\Hiryu&lt;/category&gt;
+ 		&lt;basescript&gt;npc.mount&lt;/basescript&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile&quot; /&gt;
+ 		&lt;!-- Carve --&gt;
+ 		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;60&quot; /&gt;
+ 		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;16&quot; /&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/index.xml	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/index.xml	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -0,0 +1,13 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  |
++ *   )).-' {{ ;'`   |
++ *  ( (  ;._ \\     |
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Labyrinth/reptalon.xml&quot; /&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/reptalon.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/reptalon.xml	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/reptalon.xml	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -0,0 +1,52 @@
++
++&lt;definitions&gt;
++
++	&lt;!-- Reptalon --&gt;
++	&lt;npc id=&quot;reptalon&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Reptalon&lt;/name&gt;
++		&lt;id&gt;0x114&lt;/id&gt;
++		&lt;inherit id=&quot;KARMA_L5&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L5&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;1000&quot; max=&quot;1025&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;150&quot; max=&quot;160&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;250&quot; max=&quot;290&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;800&quot; max=&quot;1200&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;50&lt;/mindamage&gt;
++		&lt;maxdamage&gt;73&lt;/maxdamage&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1000&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1200&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;700&quot; max=&quot;900&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;1000&quot; max=&quot;1150&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;healing&quot;&gt;&lt;random min=&quot;900&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;50,65&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;35,45&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;35,45&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;50,65&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;70,85&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot --&gt;
++		&lt;!-- Missing: Magic Items, Bonsai Seed --&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++				&lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;3000&quot; max=&quot;3500&quot; /&gt;&lt;/amount&gt;&lt;/item&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;gems;gems;gems;gems;gems;gems;tm_5&lt;/lootpacks&gt;
++		&lt;basescript&gt;npc.monster,npc.mount&lt;/basescript&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;60&quot; /&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;16&quot; /&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;mintaming&gt;1019&lt;/mintaming&gt;
++		&lt;controlslots&gt;4&lt;/controlslots&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1&quot; /&gt;
++		&lt;bindmenu&gt;tame_menu,pet_menu&lt;/bindmenu&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Labyrinth\Reptalon&lt;/category&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile&quot; /&gt;
++		&lt;inherit id=&quot;speed_fast&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/npcs/monsters/mondains_legancy/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/index.xml	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/index.xml	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -8,10 +8,10 @@
+ --&gt;
+ &lt;definitions&gt;
+ 
+-	&lt;!-- Ratmen --&gt;
+ 	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/index.xml&quot; /&gt;
+ 	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Twisted Weald/index.xml&quot; /&gt;
+ 	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Blighted Grove/index.xml&quot; /&gt;
+ 	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Painted Caves/index.xml&quot; /&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Labyrinth/index.xml&quot; /&gt;
+ 
+ &lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/npcs/monsters/reptiles/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/reptiles/index.xml	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/release/definitions/npcs/monsters/reptiles/index.xml	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -18,5 +18,4 @@
+ 	&lt;include file=&quot;definitions/npcs/monsters/reptiles/lava_serpent.xml&quot; /&gt;
+ 	&lt;include file=&quot;definitions/npcs/monsters/reptiles/lava_snake.xml&quot; /&gt;
+ 	&lt;include file=&quot;definitions/npcs/monsters/reptiles/silver_serpent.xml&quot; /&gt;
+-
+ &lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/system/bodyinfo.xml
+===================================================================
+--- trunk/server/release/definitions/system/bodyinfo.xml	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/release/definitions/system/bodyinfo.xml	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -279,7 +279,7 @@
+ 	&lt;body id=&quot;240&quot; type=&quot;1&quot; figurine=&quot;0x276b&quot; deathsound=&quot;0x508&quot; hitsound=&quot;0x509&quot; idlesound=&quot;0x50a&quot; attacksound=&quot;0x50b&quot; gethitsound=&quot;0x50c&quot; /&gt; &lt;!-- Kappa --&gt;
+ 	&lt;body id=&quot;241&quot; type=&quot;1&quot; figurine=&quot;0x276d&quot; deathsound=&quot;0x4e0&quot; hitsound=&quot;0x4e1&quot; idlesound=&quot;0x4e2&quot; attacksound=&quot;0x4e3&quot; gethitsound=&quot;0x4e4&quot; /&gt; &lt;!-- Oni --&gt;
+ 	&lt;body id=&quot;242&quot; type=&quot;1&quot; figurine=&quot;0x2765&quot; deathsound=&quot;0x4f0&quot; hitsound=&quot;0x4f1&quot; idlesound=&quot;0x4f2&quot; attacksound=&quot;0x4f3&quot; gethitsound=&quot;0x4f4&quot; /&gt; &lt;!-- Deathwatch Beetle --&gt;
+-	&lt;body id=&quot;243&quot; type=&quot;3&quot; figurine=&quot;0x276a&quot; mountid=&quot;16020&quot; deathsound=&quot;0x4fb&quot; hitsound=&quot;0x4fc&quot; idlesound=&quot;0x4fd&quot; attacksound=&quot;0x4fe&quot; gethitsound=&quot;0x4ff&quot; /&gt; &lt;!-- Hiryu --&gt;
++	&lt;body id=&quot;243&quot; type=&quot;1&quot; figurine=&quot;0x276a&quot; mountid=&quot;16020&quot; deathsound=&quot;0x4fb&quot; hitsound=&quot;0x4fc&quot; idlesound=&quot;0x4fd&quot; attacksound=&quot;0x4fe&quot; gethitsound=&quot;0x4ff&quot; /&gt; &lt;!-- Hiryu --&gt;
+ 	&lt;body id=&quot;244&quot; type=&quot;1&quot; figurine=&quot;0x276f&quot; deathsound=&quot;0x4e5&quot; hitsound=&quot;0x4e6&quot; idlesound=&quot;0x4e7&quot; attacksound=&quot;0x4e8&quot; gethitsound=&quot;0x4e9&quot; /&gt; &lt;!-- Rune Beetle --&gt;
+ 	&lt;body id=&quot;245&quot; type=&quot;1&quot; figurine=&quot;0x281b&quot; /&gt; &lt;!-- Yomotsu --&gt;
+ 	&lt;body id=&quot;246&quot; type=&quot;3&quot; figurine=&quot;0x2763&quot; deathsound=&quot;0x4db&quot; hitsound=&quot;0x4dc&quot; idlesound=&quot;0x4dd&quot; attacksound=&quot;0x4de&quot; gethitsound=&quot;0x4df&quot; /&gt; &lt;!-- Bake Kitsune --&gt;
+@@ -315,7 +315,7 @@
+ 	&lt;body id=&quot;271&quot; basesound=&quot;0x585&quot; type=&quot;1&quot; figurine=&quot;0x2d90&quot; /&gt; &lt;!-- Satyr --&gt;
+ 	&lt;body id=&quot;272&quot; basesound=&quot;0x57f&quot; type=&quot;1&quot; figurine=&quot;0x2d91&quot; /&gt; &lt;!-- Interred Grizzle --&gt;
+ 	&lt;body id=&quot;273&quot; type=&quot;1&quot; figurine=&quot;0x2d92&quot; /&gt; &lt;!-- Fetid Essence --&gt;
+-	&lt;body id=&quot;276&quot; type=&quot;3&quot; figurine=&quot;0x2d95&quot; /&gt; &lt;!-- Chimera --&gt;
++	&lt;body id=&quot;276&quot; type=&quot;1&quot; figurine=&quot;0x2d95&quot; mountid=&quot;16016&quot; deathsound=&quot;0x4fb&quot; hitsound=&quot;0x4fc&quot; idlesound=&quot;0x4fd&quot; attacksound=&quot;0x4fe&quot; gethitsound=&quot;0x4ff&quot; /&gt; &lt;!-- Reptalon --&gt;
+ 	&lt;body id=&quot;277&quot; type=&quot;3&quot; figurine=&quot;0x2d96&quot; /&gt; &lt;!-- Cu Sidhe --&gt;
+ 	&lt;body id=&quot;278&quot; type=&quot;3&quot; figurine=&quot;0x2d97&quot; /&gt; &lt;!-- Squirrel --&gt;
+ 	&lt;body id=&quot;279&quot; type=&quot;3&quot; figurine=&quot;0x2d98&quot; /&gt; &lt;!-- Ferret --&gt;
+
+Modified: trunk/server/src/npc.cpp
+===================================================================
+--- trunk/server/src/npc.cpp	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/src/npc.cpp	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -69,6 +69,7 @@
+ 	summonTime_ = 0;
+ 	additionalFlags_ = 0;
+ 	owner_ = 0;
++	ownerSerial_ = INVALID_SERIAL;
+ 	stablemasterSerial_ = INVALID_SERIAL;
+ 	wanderType_ = stWanderType();
+ 
+@@ -135,12 +136,9 @@
+ 
+ 	cBaseChar::postload( version );
+ 
+-	SERIAL owner = INVALID_SERIAL;
+-	if(owner_) {
+-			owner = owner_-&gt;serial();
+-	}
+-	owner_ = 0;
+-	setOwner( dynamic_cast&lt;P_PLAYER&gt;( World::instance()-&gt;findChar( owner ) ) );
++	if(ownerSerial_ != INVALID_SERIAL)
++		setOwner(dynamic_cast&lt;P_PLAYER&gt;(World::instance()-&gt;findChar(ownerSerial_)));
++
+ 	if ( wanderType() == enFollowTarget )
+ 		setWanderType( enFreely );
+ 
+@@ -178,7 +176,7 @@
+ 		summonTime_ += Server::instance()-&gt;time();
+ 	}
+ 	additionalFlags_ = reader.readInt();
+-	owner_ = reinterpret_cast&lt;P_PLAYER&gt;( FindItemBySerial(reader.readInt()) );
++	ownerSerial_ = reader.readInt();
+ 	stablemasterSerial_ = reader.readInt();
+ 	setAI( reader.readAscii().data() );
+ 	setWanderType( ( enWanderTypes ) reader.readByte() );
+@@ -221,7 +219,7 @@
+ 	if ( summonTime_ )
+ 		summonTime_ += Server::instance()-&gt;time();
+ 	additionalFlags_ = result.value( offset++ ).toInt();
+-	owner_ = reinterpret_cast&lt;P_PLAYER&gt;( result.value( offset++ ).toInt() );
++	ownerSerial_ = result.value( offset++ ).toInt();
+ 	stablemasterSerial_ = result.value( offset++ ).toInt();
+ 	setAI( result.value( offset++ ).toString() );
+ 	setWanderType( ( enWanderTypes ) result.value( offset++ ).toInt() );
+
+Modified: trunk/server/src/npc.h
+===================================================================
+--- trunk/server/src/npc.h	2007-06-19 20:45:46 UTC (rev 6835)
++++ trunk/server/src/npc.h	2007-06-20 10:36:54 UTC (rev 6836)
+@@ -225,19 +225,19 @@
+ 
+ 	static void buildSqlString( const char* objectid, QStringList&amp; fields, QStringList&amp; tables, QStringList&amp; conditions );
+ 
+-	static void setInsertQuery( QSqlQuery* q ) 
++	static void setInsertQuery( QSqlQuery* q )
+ 	{
+ 		cNPC::insertQuery_ = q;
+ 	}
+-	static QSqlQuery* getInsertQuery() 
++	static QSqlQuery* getInsertQuery()
+ 	{
+ 		return cNPC::insertQuery_;
+ 	}
+-	static void setUpdateQuery( QSqlQuery* q ) 
++	static void setUpdateQuery( QSqlQuery* q )
+ 	{
+ 		cNPC::updateQuery_ = q;
+ 	}
+-	static QSqlQuery* getUpdateQuery() 
++	static QSqlQuery* getUpdateQuery()
+ 	{
+ 		return cNPC::updateQuery_;
+ 	}
+@@ -288,6 +288,9 @@
+ 	// Owner of this NPC.
+ 	P_PLAYER owner_;
+ 
++	// Serial of the owner of this NPC
++	SERIAL ownerSerial_;
++
+ 	// Serial of the stablemaster that stables the NPC.
+ 	SERIAL stablemasterSerial_;
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000040.html">[Wolfpack-svn] r6835 - trunk/server/src
+</A></li>
+	<LI>Next message: <A HREF="000042.html">[Wolfpack-svn] r6837 - in trunk/server: build release/scripts/deeds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#41">[ date ]</a>
+              <a href="thread.html#41">[ thread ]</a>
+              <a href="subject.html#41">[ subject ]</a>
+              <a href="author.html#41">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

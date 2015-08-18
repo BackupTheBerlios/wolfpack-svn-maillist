@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6866 - in trunk/server/src/gui: . trayicon
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6866%20-%20in%20trunk/server/src/gui%3A%20.%20trayicon&In-Reply-To=%3C200806011328.m51DSs61017625%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000070.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6866 - in trunk/server/src/gui: . trayicon</H1>
+    <B>correa at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6866%20-%20in%20trunk/server/src/gui%3A%20.%20trayicon&In-Reply-To=%3C200806011328.m51DSs61017625%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6866 - in trunk/server/src/gui: . trayicon">correa at mail.berlios.de
+       </A><BR>
+    <I>Sun Jun  1 15:28:54 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000070.html">[Wolfpack-svn] r6867 - in trunk/server: build src src/network	src/python src/win
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: correa
+Date: 2008-06-01 15:28:48 +0200 (Sun, 01 Jun 2008)
+New Revision: 6866
+
+Modified:
+   trunk/server/src/gui/mainwindow.cpp
+   trunk/server/src/gui/trayicon/trayicon.cpp
+   trunk/server/src/gui/trayicon/trayicon.pri
+Log:
+Clean-up.
+Open Homepage in GUI now works in all platforms.
+
+Modified: trunk/server/src/gui/mainwindow.cpp
+===================================================================
+--- trunk/server/src/gui/mainwindow.cpp	2008-05-31 13:55:16 UTC (rev 6865)
++++ trunk/server/src/gui/mainwindow.cpp	2008-06-01 13:28:48 UTC (rev 6866)
+@@ -25,6 +25,8 @@
+ * Wolfpack Homepage: <A HREF="http://developer.berlios.de/projects/wolfpack/">http://developer.berlios.de/projects/wolfpack/</A>
+ */
+ #include &lt;QtGui&gt;
++#include &lt;QUrl&gt;
++#include &lt;QDesktopServices&gt;
+ 
+ #include &quot;mainwindow.h&quot;
+ #include &quot;qwpevents.h&quot;
+@@ -328,17 +330,9 @@
+ 	Console::instance()-&gt;send( tr( &quot;Total Users Online: %1\n&quot; ).arg( i ) );
+ }
+ 
+-#if defined( Q_OS_WIN )
+-#include &lt;windows.h&gt;
+-#endif
+-
+ void MainWindow::homepage()
+ {
+-#if defined ( Q_OS_WIN )
+-	ShellExecuteA(NULL, &quot;open&quot;, &quot;<A HREF="http://www.wpdev.org">http://www.wpdev.org</A>&quot;, NULL, NULL, SW_SHOWNORMAL);
+-#else
+-	QMessageBox::information( this, tr(&quot;Wolfpack homepage&quot;), tr(&quot;Wolfpack doesn't know how to start your default browser\nPlease access <A HREF="http://www.wpdev.org/">http://www.wpdev.org/</A> manually&quot;) );
+-#endif
++	QDesktopServices::openUrl( QString(&quot;<A HREF="http://www.wpdev.org">http://www.wpdev.org</A>&quot;) );
+ }
+ 
+ void MainWindow::about()
+@@ -379,7 +373,7 @@
+ 	// Append to the linebuffer
+ 	linebuffer_.append( sMessage );
+ 
+-	// Resend the Progress message if neccesary.
++	// Resend the Progress message if necessary.
+ 	if ( !progress.isEmpty() )
+ 	{
+ 		QString temp = progress;
+
+Modified: trunk/server/src/gui/trayicon/trayicon.cpp
+===================================================================
+--- trunk/server/src/gui/trayicon/trayicon.cpp	2008-05-31 13:55:16 UTC (rev 6865)
++++ trunk/server/src/gui/trayicon/trayicon.cpp	2008-06-01 13:28:48 UTC (rev 6866)
+@@ -29,8 +29,7 @@
+ 	setContextMenu (systray_menu);
+ }
+ 
+-void
+-TrayIcon::build_menu ()
++void TrayIcon::build_menu ()
+ {
+ 	MainWindow *mw = dynamic_cast&lt;MainWindow*&gt; (parent ());
+ 
+@@ -41,8 +40,7 @@
+ 	}
+ }
+ 
+-void
+-TrayIcon::toggle_hide ()
++void TrayIcon::toggle_hide ()
+ {
+ 	MainWindow *pw = dynamic_cast&lt;MainWindow*&gt; (parent ());
+ 	if (pw-&gt;isHidden ()) {
+@@ -54,8 +52,7 @@
+ 	}
+ }
+ 
+-void 
+-TrayIcon::systray_trigger (QSystemTrayIcon::ActivationReason reason)
++void TrayIcon::systray_trigger (QSystemTrayIcon::ActivationReason reason)
+ {
+ 	MainWindow *pw = dynamic_cast&lt;MainWindow*&gt; (parent ());
+ 
+@@ -69,4 +66,4 @@
+ 		else
+ 			pw-&gt;hide();
+ 	}
+-}
+\ No newline at end of file
++}
+
+Modified: trunk/server/src/gui/trayicon/trayicon.pri
+===================================================================
+--- trunk/server/src/gui/trayicon/trayicon.pri	2008-05-31 13:55:16 UTC (rev 6865)
++++ trunk/server/src/gui/trayicon/trayicon.pri	2008-06-01 13:28:48 UTC (rev 6866)
+@@ -1,3 +1,3 @@
+-HEADERS += $$PWD/trayicon.h
+-SOURCES += $$PWD/trayicon.cpp
+-
++HEADERS += $$PWD/trayicon.h
++SOURCES += $$PWD/trayicon.cpp
++
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000070.html">[Wolfpack-svn] r6867 - in trunk/server: build src src/network	src/python src/win
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,421 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6815 - in trunk/server: docs release/definitions	release/scripts/commands src src/network
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6815%20-%20in%20trunk/server%3A%20docs%20release/definitions%0A%09release/scripts/commands%20src%20src/network&In-Reply-To=%3C200706101009.l5AA9ApF001861%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000019.html">
+   <LINK REL="Next"  HREF="000021.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6815 - in trunk/server: docs release/definitions	release/scripts/commands src src/network</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6815%20-%20in%20trunk/server%3A%20docs%20release/definitions%0A%09release/scripts/commands%20src%20src/network&In-Reply-To=%3C200706101009.l5AA9ApF001861%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6815 - in trunk/server: docs release/definitions	release/scripts/commands src src/network">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sun Jun 10 12:09:10 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000019.html">[Wolfpack-svn] r6814 - trunk/server/src
+</A></li>
+        <LI>Next message: <A HREF="000021.html">[Wolfpack-svn] r6816 - in trunk/server/release: definitions	definitions/system scripts/commands scripts/skills scripts/system
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-10 12:09:07 +0200 (Sun, 10 Jun 2007)
+New Revision: 6815
+
+Added:
+   trunk/server/release/scripts/commands/showskilltitles.py
+Modified:
+   trunk/server/docs/footer.inc.php
+   trunk/server/release/definitions/scripts.xml
+   trunk/server/src/accounts.cpp
+   trunk/server/src/basechar.cpp
+   trunk/server/src/basechar.h
+   trunk/server/src/network/uotxpackets.cpp
+   trunk/server/src/player.cpp
+   trunk/server/src/player.h
+Log:
+perhaps this should all be done through python scripts...
+need anyone to add char.showskilltitles to python attributes...
+
+Modified: trunk/server/docs/footer.inc.php
+===================================================================
+(Binary files differ)
+
+Modified: trunk/server/release/definitions/scripts.xml
+===================================================================
+--- trunk/server/release/definitions/scripts.xml	2007-06-09 22:56:48 UTC (rev 6814)
++++ trunk/server/release/definitions/scripts.xml	2007-06-10 10:09:07 UTC (rev 6815)
+@@ -176,6 +176,7 @@
+ 	&lt;script&gt;commands.resurrect&lt;/script&gt;
+ 	&lt;script&gt;commands.serverinfo&lt;/script&gt;
+ 	&lt;script&gt;commands.say&lt;/script&gt;
++	&lt;script&gt;commands.showskilltitles&lt;/script&gt;
+ 	&lt;script&gt;commands.skillinfo&lt;/script&gt;
+ 	&lt;script&gt;commands.skill&lt;/script&gt;
+ 	&lt;script&gt;commands.sound&lt;/script&gt;
+
+Added: trunk/server/release/scripts/commands/showskilltitles.py
+===================================================================
+--- trunk/server/release/scripts/commands/showskilltitles.py	2007-06-09 22:56:48 UTC (rev 6814)
++++ trunk/server/release/scripts/commands/showskilltitles.py	2007-06-10 10:09:07 UTC (rev 6815)
+@@ -0,0 +1,29 @@
++#===============================================================#
++#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
++#  ((    _/{  &quot;-;  | Created by: Naddel                         #
++#   )).-' {{ ;'`   | Revised by:                                #
++#  ( (  ;._ \\ ctr | Last Modification: Created                 #
++#===============================================================#
++# .showskilltitles Command                                      #
++#===============================================================#
++
++import wolfpack
++from wolfpack.utilities import booleantoggle
++from wolfpack.settings import getbool
++
++def showskilltitles( socket, command, arguments ):
++	if getbool( &quot;General&quot;, &quot;ShowSkillTitles&quot;, True ):
++		booleantoggle( socket.player.showskilltitles )
++		socket.sysmessage( &quot;ShowSkillTitles is now '%i'.&quot; % char.showskilltitles )
++
++def onLoad():
++	wolfpack.registercommand( &quot;showskilltitles&quot;, showskilltitles )
++
++&quot;&quot;&quot;
++	\command bank
++	\description Shows the content of a container on another character.
++	\usage - &lt;code&gt;bank [layer]&lt;/code&gt;
++	If layer is omitted, the bank box of the targetted character is shown. Otherwise
++	the server sends the contents of the container on the given layer.
++	\notes The container on the given layer is not automatically created if it doesn't exist.
++&quot;&quot;&quot;
+
+Modified: trunk/server/src/accounts.cpp
+===================================================================
+--- trunk/server/src/accounts.cpp	2007-06-09 22:56:48 UTC (rev 6814)
++++ trunk/server/src/accounts.cpp	2007-06-10 10:09:07 UTC (rev 6815)
+@@ -795,13 +795,9 @@
+ bool cAccount::implements( const QString&amp; name ) const
+ {
+ 	if ( name == &quot;account&quot; )
+-	{
+ 		return true;
+-	}
+ 	else
+-	{
+ 		return cPythonScriptable::implements( name );
+-	}
+ }
+ 
+ PyObject* cAccount::getPyObject()
+@@ -819,9 +815,7 @@
+ 	PY_PROPERTY( &quot;password&quot;, password() );
+ 	PY_PROPERTY( &quot;rawpassword&quot;, password() );
+ 	PY_PROPERTY( &quot;flags&quot;, flags() );
+-	/*
+-		\rproperty account.creationdate The Creation date for this account.
+-	*/
++	// \rproperty account.creationdate The Creation date for this account.
+ 	PY_PROPERTY( &quot;creationdate&quot;, creationdate() );
+ 	PY_PROPERTY( &quot;totalgametime&quot;, totalgametime() );
+ 	PY_PROPERTY( &quot;charslots&quot;, charslots() );
+
+Modified: trunk/server/src/basechar.cpp
+===================================================================
+--- trunk/server/src/basechar.cpp	2007-06-09 22:56:48 UTC (rev 6814)
++++ trunk/server/src/basechar.cpp	2007-06-10 10:09:07 UTC (rev 6815)
+@@ -121,7 +121,6 @@
+ 	regenHitpointsTime_ = 0;
+ 	regenStaminaTime_ = 0;
+ 	regenManaTime_ = 0;
+-	setShowSkillTitles(Config::instance()-&gt;showSkillTitles());
+ }
+ 
+ cBaseChar::cBaseChar( const cBaseChar&amp; right ) : cUObject( right )
+@@ -2064,14 +2063,6 @@
+ 		return 0;
+ 	}
+ 	/*
+-		\property char.showskilltitles Indicates whether the skill titles in the paperdoll are visible or not.
+-	*/
+-	else if ( name == &quot;showskilltitles&quot; )
+-	{
+-		setShowSkillTitles( value.toInt() );
+-		return 0;
+-	}
+-	/*
+ 		\property char.invisible Indicates whether the character is invisible or not.
+ 	*/
+ 	else if ( name == &quot;invisible&quot; )
+
+Modified: trunk/server/src/basechar.h
+===================================================================
+--- trunk/server/src/basechar.h	2007-06-09 22:56:48 UTC (rev 6814)
++++ trunk/server/src/basechar.h	2007-06-10 10:09:07 UTC (rev 6815)
+@@ -448,7 +448,6 @@
+ 	bool isInvisible() const;
+ 	bool isMeditating() const;
+ 	bool isFrozen() const;
+-	bool showSkillTitles() const;
+ 	bool isDead() const;
+ 	bool isAtWar() const;
+ 	bool isInvulnerable() const;
+@@ -530,7 +529,6 @@
+ 	void setInvisible( bool data );
+ 	void setMeditating( bool data );
+ 	void setFrozen( bool data );
+-	void setShowSkillTitles( bool data );
+ 	void setDead( bool data );
+ 	void setAtWar( bool data );
+ 	void setInvulnerable( bool data );
+@@ -1479,11 +1477,6 @@
+ 	return propertyFlags_ &amp; 0x0100;
+ }
+ 
+-inline bool cBaseChar::showSkillTitles() const
+-{
+-	return propertyFlags_ &amp; 0x0200;
+-}
+-
+ inline bool cBaseChar::isDead() const
+ {
+ 	return propertyFlags_ &amp; 0x0400;
+@@ -1576,15 +1569,6 @@
+ 	changed_ = true;
+ }
+ 
+-inline void cBaseChar::setShowSkillTitles( bool data )
+-{
+-	if ( data )
+-		propertyFlags_ |= 0x0200;
+-	else
+-		propertyFlags_ &amp;= ~0x0200;
+-	changed_ = true;
+-}
+-
+ inline void cBaseChar::setDead( bool data )
+ {
+ 	if ( data )
+
+Modified: trunk/server/src/network/uotxpackets.cpp
+===================================================================
+--- trunk/server/src/network/uotxpackets.cpp	2007-06-09 22:56:48 UTC (rev 6814)
++++ trunk/server/src/network/uotxpackets.cpp	2007-06-10 10:09:07 UTC (rev 6815)
+@@ -33,6 +33,7 @@
+ #include &quot;../basechar.h&quot;
+ #include &quot;../player.h&quot;
+ #include &quot;../serverconfig.h&quot;
++#include &quot;../console.h&quot;
+ 
+ #include &quot;../definitions.h&quot;
+ #include &quot;../skills.h&quot;
+@@ -538,6 +539,8 @@
+ 
+ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
+ {
++	P_PLAYER requester = dynamic_cast&lt;P_PLAYER&gt;(pOrigin);
++
+ 	setSerial( pChar-&gt;serial() );
+ 
+ 	QString nameByScript = pChar-&gt;onShowPaperdollName( pOrigin );
+@@ -550,7 +553,7 @@
+ 	else
+ 	{
+ 		QString title = pChar-&gt;title();
+-		if ( title.isEmpty() &amp;&amp; Config::instance()-&gt;showSkillTitles() )
++		if ( title.isEmpty() &amp;&amp; Config::instance()-&gt;showSkillTitles() &amp;&amp; requester-&gt;showSkillTitles() )
+ 		{
+ 			title = Skills::instance()-&gt;getSkillTitle( pChar );
+ 		}
+
+Modified: trunk/server/src/player.cpp
+===================================================================
+--- trunk/server/src/player.cpp	2007-06-09 22:56:48 UTC (rev 6814)
++++ trunk/server/src/player.cpp	2007-06-10 10:09:07 UTC (rev 6815)
+@@ -73,6 +73,7 @@
+ 	dexterityLock_ = 0;
+ 	intelligenceLock_ = 0;
+ 	maxControlSlots_ = 5;
++	setShowSkillTitles(Config::instance()-&gt;showSkillTitles());
+ }
+ 
+ cPlayer::cPlayer( const cPlayer&amp; right )
+@@ -1469,6 +1470,14 @@
+ 		setJailed(value.toInt() != 0);
+ 		return 0;
+ 	}
++	/*
++		\property char.showskilltitles Indicates whether the skill titles in the paperdoll are visible or not.
++	*/
++	else if ( name == &quot;showskilltitles&quot; )
++	{
++		setShowSkillTitles( value.toInt() );
++		return 0;
++	}
+ 
+ 	else if ( name.left( 6 ) == &quot;skill.&quot; )
+ 	{
+@@ -1574,6 +1583,10 @@
+ 		 return createPyObject( isSquelched() );
+ 	case 0x70802b4: // jailed	}
+ 		 return createPyObject( isJailed() );
++
++	// TODO
++	//case 0x????:
++	//	return createPyObject( showSkillTitles() );
+ 	default:
+ 
+ 		// Forward the property to the account
+
+Modified: trunk/server/src/player.h
+===================================================================
+--- trunk/server/src/player.h	2007-06-09 22:56:48 UTC (rev 6814)
++++ trunk/server/src/player.h	2007-06-10 10:09:07 UTC (rev 6815)
+@@ -162,6 +162,7 @@
+ 	QString profile() const;
+ 	qint8 fixedLightLevel() const;
+ 	quint8 maxControlSlots() const;
++	bool showSkillTitles() const;
+ 
+ 	// bit flag getters
+ 	bool maySnoop() const;
+@@ -193,14 +194,15 @@
+ 	void setProfile( const QString&amp; data );
+ 	void setFixedLightLevel( quint8 data );
+ 	// bit flag setters
++	void setGuild( cGuild* data );
++	void setJailed( bool data );
++	void setKarmaLock( bool data );	
++	void setMayBroadcast( bool data );
+ 	void setMaySnoop( bool data );
+-	void setMayBroadcast( bool data );
++	void setParty( cParty* data );
+ 	void setShowSerials( bool data );
+-	void setKarmaLock( bool data );
+-	void setJailed( bool data );
++	void setShowSkillTitles( bool data );
+ 	void setSquelched( bool data );
+-	void setParty( cParty* data );
+-	void setGuild( cGuild* data );
+ 
+ 	unsigned char strengthLock() const;
+ 	unsigned char dexterityLock() const;
+@@ -479,6 +481,11 @@
+ 	return additionalFlags_ &amp; 0x0008;
+ }
+ 
++inline bool cPlayer::karmaLock() const
++{
++	return additionalFlags_ &amp; 0x0010;
++}
++
+ inline bool cPlayer::isJailed() const
+ {
+ 	return additionalFlags_ &amp; 0x0020;
+@@ -489,29 +496,11 @@
+ 	return additionalFlags_ &amp; 0x0040;
+ }
+ 
+-inline bool cPlayer::karmaLock() const
++inline bool cPlayer::showSkillTitles() const
+ {
+-	return additionalFlags_ &amp; 0x0010;
++	return additionalFlags_ &amp; 0x0200;
+ }
+ 
+-inline void cPlayer::setJailed( bool data )
+-{
+-	if ( data )
+-		additionalFlags_ |= 0x0020;
+-	else
+-		additionalFlags_ &amp;= ~0x0020;
+-	changed_ = true;
+-}
+-
+-inline void cPlayer::setSquelched( bool data )
+-{
+-	if ( data )
+-		additionalFlags_ |= 0x0040;
+-	else
+-		additionalFlags_ &amp;= ~0x0040;
+-	changed_ = true;
+-}
+-
+ inline void cPlayer::setMaySnoop( bool data )
+ {
+ 	if ( data )
+@@ -548,6 +537,33 @@
+ 	changed_ = true;
+ }
+ 
++inline void cPlayer::setJailed( bool data )
++{
++	if ( data )
++		additionalFlags_ |= 0x0020;
++	else
++		additionalFlags_ &amp;= ~0x0020;
++	changed_ = true;
++}
++
++inline void cPlayer::setSquelched( bool data )
++{
++	if ( data )
++		additionalFlags_ |= 0x0040;
++	else
++		additionalFlags_ &amp;= ~0x0040;
++	changed_ = true;
++}
++
++inline void cPlayer::setShowSkillTitles( bool data )
++{
++	if ( data )
++		additionalFlags_ |= 0x0200;
++	else
++		additionalFlags_ &amp;= ~0x0200;
++	changed_ = true;
++}
++
+ inline enCharTypes cPlayer::objectType()
+ {
+ 	return enPlayer;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000019.html">[Wolfpack-svn] r6814 - trunk/server/src
+</A></li>
+	<LI>Next message: <A HREF="000021.html">[Wolfpack-svn] r6816 - in trunk/server/release: definitions	definitions/system scripts/commands scripts/skills scripts/system
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

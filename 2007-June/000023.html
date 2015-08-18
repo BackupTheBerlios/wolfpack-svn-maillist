@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6818 - in trunk/server/release: definitions	scripts/commands
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6818%20-%20in%20trunk/server/release%3A%20definitions%0A%09scripts/commands&In-Reply-To=%3C200706151108.l5FB86uI013482%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000022.html">
+   <LINK REL="Next"  HREF="000024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6818 - in trunk/server/release: definitions	scripts/commands</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6818%20-%20in%20trunk/server/release%3A%20definitions%0A%09scripts/commands&In-Reply-To=%3C200706151108.l5FB86uI013482%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6818 - in trunk/server/release: definitions	scripts/commands">naddel at mail.berlios.de
+       </A><BR>
+    <I>Fri Jun 15 13:08:06 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000022.html">[Wolfpack-svn] r6817 - in trunk: . WPGM WPGM/Components WPGM/Components/Graphics32 WPGM/Components/Graphics32/Examples WPGM/Components/Graphics32/Examples/Clx WPGM/Components/Graphics32/Examples/Clx/FineResample_Ex WPGM/Components/Graphics32/Examples/Clx/GradLines_Ex WPGM/Components/Graphics32/Examples/Clx/Image32_Ex WPGM/Components/Graphics32/Examples/Clx/ImgView_Layers_Ex WPGM/Components/Graphics32/Examples/Clx/LineStippling_Ex WPGM/Components/Graphics32/Examples/Clx/PixelCombine_Ex WPGM/Components/Graphics32/Examples/Clx/PixelF_Ex WPGM/Components/Graphics32/Examples/Clx/Polygons_Ex WPGM/Components/Graphics32/Examples/Clx/RenderText_Ex WPGM/Components/Graphics32/Examples/Clx/RotLayer_Ex WPGM/Components/Graphics32/Examples/Clx/Rotate_Ex WPGM/Components/Graphics32/Examples/Clx/Sprites_Ex WPGM/Components/Graphics32/Examples/Clx/Transform_Ex WPGM/Components/Graphics32/Examples/Vcl WPGM/Components/Graphics32/Examples/Vcl/ByteMaps_Ex WPGM/Components/Graphics32/Examples/Vcl/FineResampl! e_Ex WPGM/Components/Graphics32/Examples/Vcl/GradLines_Ex WPGM/Components/Graphics32/Examples/Vcl/Image32_Ex WPGM/Components/Graphics32/Examples/Vcl/ImgView_Layers_Ex WPGM/Components/Graphics32/Examples/Vcl/LineStippling_Ex WPGM/Components/Graphics32/Examples/Vcl/PixelCombine_Ex WPGM/Components/Graphics32/Examples/Vcl/PixelF_Ex WPGM/Components/Graphics32/Examples/Vcl/Polygons_Ex WPGM/Components/Graphics32/Examples/Vcl/ProgressBar_Ex WPGM/Components/Graphics32/Examples/Vcl/RenderText_Ex WPGM/Components/Graphics32/Examples/Vcl/RotLayer_Ex WPGM/Components/Graphics32/Examples/Vcl/Rotate_Ex WPGM/Components/Graphics32/Examples/Vcl/Sprites_Ex WPGM/Components/Graphics32/Examples/Vcl/Transform_Ex WPGM/Components/Graphics32/Packages WPGM/Components/VirtualTreeview WPGM/Components/VirtualTreeview/Demo WPGM/Components/VirtualTreeview/Demo/Advanced WPGM/Components/VirtualTreeview/Demo/Advanced/Res WPGM/Components/VirtualTreeview/Demo/Minimal WPGM/Components/VirtualTreeview/Demo/OLE WPGM! /Components/VirtualTreeview/Demo/OLE/Res WPGM/Components/Virtu! alTreevi
+</A></li>
+        <LI>Next message: <A HREF="000024.html">[Wolfpack-svn] r6819 - trunk/server/release/scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-15 13:08:05 +0200 (Fri, 15 Jun 2007)
+New Revision: 6818
+
+Removed:
+   trunk/server/release/scripts/commands/travel.py
+Modified:
+   trunk/server/release/definitions/scripts.xml
+Log:
+removed outdated travel command (use .go instead)
+
+Modified: trunk/server/release/definitions/scripts.xml
+===================================================================
+--- trunk/server/release/definitions/scripts.xml	2007-06-15 07:30:36 UTC (rev 6817)
++++ trunk/server/release/definitions/scripts.xml	2007-06-15 11:08:05 UTC (rev 6818)
+@@ -192,7 +192,6 @@
+ 	&lt;script&gt;commands.tilecolor&lt;/script&gt;
+ 	&lt;script&gt;commands.tilemove&lt;/script&gt;
+ 	&lt;script&gt;commands.tilepattern&lt;/script&gt;
+-	&lt;script&gt;commands.travel&lt;/script&gt;
+ 	&lt;script&gt;commands.turnitem&lt;/script&gt;
+ 	&lt;script&gt;commands.where&lt;/script&gt;
+ 	&lt;script&gt;commands.who&lt;/script&gt;
+
+Deleted: trunk/server/release/scripts/commands/travel.py
+===================================================================
+--- trunk/server/release/scripts/commands/travel.py	2007-06-15 07:30:36 UTC (rev 6817)
++++ trunk/server/release/scripts/commands/travel.py	2007-06-15 11:08:05 UTC (rev 6818)
+@@ -1,25 +0,0 @@
+-#===============================================================#
+-#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+-#  ((    _/{  &quot;-;  | Created by: codex                          #
+-#   )).-' {{ ;'`   | Revised by:                                #
+-#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+-#===============================================================#
+-# travel Command  						#
+-#===============================================================#
+-
+-&quot;&quot;&quot;
+-	\command travel
+-	\description Shows the moongate gump.
+-&quot;&quot;&quot;
+-
+-import wolfpack
+-from moongate import sendGump
+-
+-def travel( socket, command, args ):
+-	char = socket.player
+-	sendGump( char, 0 )
+-	return True
+-
+-def onLoad():
+-	wolfpack.registercommand( &quot;travel&quot;, travel )
+-	return
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000022.html">[Wolfpack-svn] r6817 - in trunk: . WPGM WPGM/Components WPGM/Components/Graphics32 WPGM/Components/Graphics32/Examples WPGM/Components/Graphics32/Examples/Clx WPGM/Components/Graphics32/Examples/Clx/FineResample_Ex WPGM/Components/Graphics32/Examples/Clx/GradLines_Ex WPGM/Components/Graphics32/Examples/Clx/Image32_Ex WPGM/Components/Graphics32/Examples/Clx/ImgView_Layers_Ex WPGM/Components/Graphics32/Examples/Clx/LineStippling_Ex WPGM/Components/Graphics32/Examples/Clx/PixelCombine_Ex WPGM/Components/Graphics32/Examples/Clx/PixelF_Ex WPGM/Components/Graphics32/Examples/Clx/Polygons_Ex WPGM/Components/Graphics32/Examples/Clx/RenderText_Ex WPGM/Components/Graphics32/Examples/Clx/RotLayer_Ex WPGM/Components/Graphics32/Examples/Clx/Rotate_Ex WPGM/Components/Graphics32/Examples/Clx/Sprites_Ex WPGM/Components/Graphics32/Examples/Clx/Transform_Ex WPGM/Components/Graphics32/Examples/Vcl WPGM/Components/Graphics32/Examples/Vcl/ByteMaps_Ex WPGM/Components/Graphics32/Examples/Vcl/FineResampl! e_Ex WPGM/Components/Graphics32/Examples/Vcl/GradLines_Ex WPGM/Components/Graphics32/Examples/Vcl/Image32_Ex WPGM/Components/Graphics32/Examples/Vcl/ImgView_Layers_Ex WPGM/Components/Graphics32/Examples/Vcl/LineStippling_Ex WPGM/Components/Graphics32/Examples/Vcl/PixelCombine_Ex WPGM/Components/Graphics32/Examples/Vcl/PixelF_Ex WPGM/Components/Graphics32/Examples/Vcl/Polygons_Ex WPGM/Components/Graphics32/Examples/Vcl/ProgressBar_Ex WPGM/Components/Graphics32/Examples/Vcl/RenderText_Ex WPGM/Components/Graphics32/Examples/Vcl/RotLayer_Ex WPGM/Components/Graphics32/Examples/Vcl/Rotate_Ex WPGM/Components/Graphics32/Examples/Vcl/Sprites_Ex WPGM/Components/Graphics32/Examples/Vcl/Transform_Ex WPGM/Components/Graphics32/Packages WPGM/Components/VirtualTreeview WPGM/Components/VirtualTreeview/Demo WPGM/Components/VirtualTreeview/Demo/Advanced WPGM/Components/VirtualTreeview/Demo/Advanced/Res WPGM/Components/VirtualTreeview/Demo/Minimal WPGM/Components/VirtualTreeview/Demo/OLE WPGM! /Components/VirtualTreeview/Demo/OLE/Res WPGM/Components/Virtu! alTreevi
+</A></li>
+	<LI>Next message: <A HREF="000024.html">[Wolfpack-svn] r6819 - trunk/server/release/scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

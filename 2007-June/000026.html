@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6821 - trunk/server/release/scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6821%20-%20trunk/server/release/scripts&In-Reply-To=%3C200706161936.l5GJaR5S031019%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000025.html">
+   <LINK REL="Next"  HREF="000027.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6821 - trunk/server/release/scripts</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6821%20-%20trunk/server/release/scripts&In-Reply-To=%3C200706161936.l5GJaR5S031019%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6821 - trunk/server/release/scripts">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sat Jun 16 21:36:27 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000025.html">[Wolfpack-svn] r6820 - in trunk/server/release/scripts: . wolfpack
+</A></li>
+        <LI>Next message: <A HREF="000027.html">[Wolfpack-svn] r6822 - in trunk/server: release/definitions	release/definitions/locations release/scripts/commands src	src/network src/python
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-16 21:36:27 +0200 (Sat, 16 Jun 2007)
+New Revision: 6821
+
+Modified:
+   trunk/server/release/scripts/moongate.py
+Log:
+updated moongate: Haven and Buc's Den added (thx to BtbN)
+
+Modified: trunk/server/release/scripts/moongate.py
+===================================================================
+--- trunk/server/release/scripts/moongate.py	2007-06-16 17:19:32 UTC (rev 6820)
++++ trunk/server/release/scripts/moongate.py	2007-06-16 19:36:27 UTC (rev 6821)
+@@ -72,6 +72,8 @@
+ 	gateGump.addRadioButton(200, 190, 210, 211, 16 )
+ 	gateGump.addText( 225, 215, &quot;Jhelom&quot; )
+ 	gateGump.addRadioButton(200, 215, 210, 211, 17 )
++	gateGump.addText( 225, 240, &quot;Haven&quot; )
++	gateGump.addRadioButton(200, 240, 210, 211, 18 )
+ 	# felucca
+ 	gateGump.startPage( 2 )
+ 	gateGump.addBackground( 9200, 380, 280 )
+@@ -93,21 +95,23 @@
+ 	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )
+ 	# gates
+ 	gateGump.addText( 225, 40, &quot;Britain&quot; )
+-	gateGump.addRadioButton(200, 40, 210, 211, 18 )
++	gateGump.addRadioButton(200, 40, 210, 211, 19 )
+ 	gateGump.addText( 225, 65, &quot;Magincia&quot; )
+-	gateGump.addRadioButton(200, 65, 210, 211, 19 )
++	gateGump.addRadioButton(200, 65, 210, 211, 20 )
+ 	gateGump.addText( 225, 90, &quot;Moonglow&quot; )
+-	gateGump.addRadioButton(200, 90, 210, 211, 20 )
++	gateGump.addRadioButton(200, 90, 210, 211, 21 )
+ 	gateGump.addText( 225, 115, &quot;Skara Brae&quot; )
+-	gateGump.addRadioButton(200, 115, 210, 211, 21 )
++	gateGump.addRadioButton(200, 115, 210, 211, 22 )
+ 	gateGump.addText( 225, 140, &quot;Trinsic&quot; )
+-	gateGump.addRadioButton(200, 140, 210, 211, 22 )
++	gateGump.addRadioButton(200, 140, 210, 211, 23 )
+ 	gateGump.addText( 225, 165, &quot;Vesper&quot; )
+-	gateGump.addRadioButton(200, 165, 210, 211, 23 )
++	gateGump.addRadioButton(200, 165, 210, 211, 24 )
+ 	gateGump.addText( 225, 190, &quot;Yew&quot; )
+-	gateGump.addRadioButton(200, 190, 210, 211, 24 )
++	gateGump.addRadioButton(200, 190, 210, 211, 25 )
+ 	gateGump.addText( 225, 215, &quot;Jhelom&quot; )
+-	gateGump.addRadioButton(200, 215, 210, 211, 25 )
++	gateGump.addRadioButton(200, 215, 210, 211, 26 )
++	gateGump.addText( 225, 240, &quot;Bucaneers Den&quot; )
++	gateGump.addRadioButton(200, 240, 210, 211, 27 )
+ 	# ilshenar
+ 	gateGump.startPage( 3 )
+ 	gateGump.addBackground( 9200, 380, 280 )
+@@ -129,23 +133,23 @@
+ 	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )
+ 	#gates
+ 	gateGump.addText( 225, 40, &quot;Compassion&quot; )
+-	gateGump.addRadioButton( 200, 40, 210, 211, 26 )
++	gateGump.addRadioButton( 200, 40, 210, 211, 28 )
+ 	gateGump.addText( 225, 65, &quot;Honesty&quot; )
+-	gateGump.addRadioButton( 200, 65, 210, 211, 27 )
++	gateGump.addRadioButton( 200, 65, 210, 211, 29 )
+ 	gateGump.addText( 225, 90, &quot;Honor&quot; )
+-	gateGump.addRadioButton( 200, 90, 210, 211, 28 )
++	gateGump.addRadioButton( 200, 90, 210, 211, 30 )
+ 	gateGump.addText( 225, 115, &quot;Humility&quot; )
+-	gateGump.addRadioButton( 200, 115, 210, 211, 29 )
++	gateGump.addRadioButton( 200, 115, 210, 211, 31 )
+ 	gateGump.addText( 225, 140, &quot;Justice&quot; )
+-	gateGump.addRadioButton( 200, 140, 210, 211, 30 )
++	gateGump.addRadioButton( 200, 140, 210, 211, 32 )
+ 	gateGump.addText( 225, 165, &quot;Sacrifice&quot; )
+-	gateGump.addRadioButton( 200, 165, 210, 211, 31 )
++	gateGump.addRadioButton( 200, 165, 210, 211, 33 )
+ 	gateGump.addText( 225, 190, &quot;Spirituality&quot; )
+-	gateGump.addRadioButton( 200, 190, 210, 211, 32 )
++	gateGump.addRadioButton( 200, 190, 210, 211, 34 )
+ 	gateGump.addText( 225, 215, &quot;Valor&quot; )
+-	gateGump.addRadioButton( 200, 215, 210, 211, 33 )
++	gateGump.addRadioButton( 200, 215, 210, 211, 35 )
+ 	gateGump.addText( 225, 240, &quot;Chaos&quot; )
+-	gateGump.addRadioButton( 200, 240, 210, 211, 34 )
++	gateGump.addRadioButton( 200, 240, 210, 211, 36 )
+ 	# Malas
+ 	gateGump.startPage( 4 )
+ 	gateGump.addBackground( 9200, 380, 280 )
+@@ -167,21 +171,21 @@
+ 	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )
+ 	# #gates
+ 	gateGump.addText( 225, 40, &quot;Luna Moongate&quot; )
+-	gateGump.addRadioButton( 200, 40, 210, 211, 35 )
++	gateGump.addRadioButton( 200, 40, 210, 211, 37 )
+ 	gateGump.addText( 225, 65, &quot;Bank of Luna&quot; )
+-	gateGump.addRadioButton( 200, 65, 210, 211, 36 )
++	gateGump.addRadioButton( 200, 65, 210, 211, 38 )
+ 	gateGump.addText( 225, 90, &quot;Stables of Luna&quot; )
+-	gateGump.addRadioButton( 200, 90, 210, 211, 37 )
++	gateGump.addRadioButton( 200, 90, 210, 211, 39 )
+ 	gateGump.addText( 225, 115, &quot;North Entrance&quot; )
+-	gateGump.addRadioButton( 200, 115, 210, 211, 38 )
++	gateGump.addRadioButton( 200, 115, 210, 211, 40 )
+ 	gateGump.addText( 225, 140, &quot;Luna Arena&quot; )
+-	gateGump.addRadioButton( 200, 140, 210, 211, 39 )
++	gateGump.addRadioButton( 200, 140, 210, 211, 41 )
+ 	gateGump.addText( 225, 165, &quot;Umbra Moongate&quot; )
+-	gateGump.addRadioButton( 200, 165, 210, 211, 40 )
++	gateGump.addRadioButton( 200, 165, 210, 211, 42 )
+ 	gateGump.addText( 225, 190, &quot;Umbra Bridge&quot; )
+-	gateGump.addRadioButton( 200, 190, 210, 211, 41 )
++	gateGump.addRadioButton( 200, 190, 210, 211, 43 )
+ 	gateGump.addText( 225, 215, &quot;Stables of Umbra&quot; )
+-	gateGump.addRadioButton( 200, 215, 210, 211, 42 )
++	gateGump.addRadioButton( 200, 215, 210, 211, 44 )
+ 
+ 	# tokuno islands
+ 	gateGump.startPage( 5 )
+@@ -204,11 +208,11 @@
+ 	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )
+ 	#gates
+ 	gateGump.addText( 225, 40, &quot;Makoto-Jima&quot; )
+-	gateGump.addRadioButton( 200, 40, 210, 211, 43 )
++	gateGump.addRadioButton( 200, 40, 210, 211, 45 )
+ 	gateGump.addText( 225, 65, &quot;Isamu-Jima&quot; )
+-	gateGump.addRadioButton( 200, 65, 210, 211, 44 )
++	gateGump.addRadioButton( 200, 65, 210, 211, 46 )
+ 	gateGump.addText( 225, 90, &quot;Homare-Jima&quot; )
+-	gateGump.addRadioButton( 200, 90, 210, 211, 45 )
++	gateGump.addRadioButton( 200, 90, 210, 211, 47 )
+ 
+ 
+ 	# set callback function and its arguments
+@@ -243,15 +247,15 @@
+ 
+ 	# set world number
+ 	numWorld = 0
+-	if( ( button &gt; 9 ) and ( button &lt; 18 ) ):
++	if( ( button &gt; 9 ) and ( button &lt; 19 ) ):
+ 		numWorld = 1
+-	elif ( ( button &gt; 17 ) and ( button &lt; 26 ) ):
++	elif ( ( button &gt; 18 ) and ( button &lt; 28 ) ):
+ 		numWorld = 0
+-	elif( ( button &gt; 25 ) and ( button &lt; 35 ) ):
++	elif( ( button &gt; 27 ) and ( button &lt; 37 ) ):
+ 		numWorld = 2
+-	elif( ( button &gt; 34 ) and ( button &lt; 43 ) ):
++	elif( ( button &gt; 36 ) and ( button &lt; 45 ) ):
+ 		numWorld = 3
+-	elif( ( button &gt; 42 ) and ( button &lt; 46 ) ):
++	elif( ( button &gt; 44 ) and ( button &lt; 48 ) ):
+ 		numWorld = 3
+ 	else:
+ 		char.socket.sysmessage( &quot;script error 4. contact GM.&quot; )
+@@ -261,61 +265,65 @@
+ 	# teleport
+ 	coord = []
+ 	oldcoord = [ char.pos.x, char.pos.y, char.pos.z ]
+-	if( ( button == 10 ) or ( button == 18 ) ):
++	if( ( button == 10 ) or ( button == 19 ) ):
+ 		coord = [ 1336, 1998, 5, numWorld ]
+-	elif( ( button == 11 ) or ( button == 19 ) ):
++	elif( ( button == 11 ) or ( button == 20 ) ):
+ 		coord = [ 3564, 2141, 33, numWorld ]
+-	elif( ( button == 12 ) or ( button == 20 ) ):
++	elif( ( button == 12 ) or ( button == 21 ) ):
+ 		coord = [ 4467, 1284, 5, numWorld ]
+-	elif( ( button == 13 ) or ( button == 21 ) ):
++	elif( ( button == 13 ) or ( button == 22 ) ):
+ 		coord = [ 643, 2068, 5, numWorld ]
+-	elif( ( button == 14 ) or ( button == 22 ) ):
++	elif( ( button == 14 ) or ( button == 23 ) ):
+ 		coord = [ 1828, 2949, -20, numWorld ]
+-	elif( ( button == 15 ) or ( button == 23 ) ):
++	elif( ( button == 15 ) or ( button == 24 ) ):
+ 		coord = [ 2701, 694, 4, numWorld ]
+-	elif( ( button == 16 ) or ( button == 24 ) ):
++	elif( ( button == 16 ) or ( button == 25 ) ):
+ 		coord = [ 771, 754, 4, numWorld ]
+-	elif( ( button == 17 ) or ( button == 25 ) ):
++	elif( ( button == 17 ) or ( button == 26 ) ):
+ 		coord = [ 1499, 3772, 5, numWorld ]
+-	elif( button == 26 ):
++	elif( button == 18 ):
++		coord = [ 3763, 2771, 50, 1 ]
++	elif( button == 27 ):
++		coord = [ 2712, 2234,  0, 0 ]
++	elif( button == 28 ):
+ 		coord = [ 1216, 468, -13, 2 ]
+-	elif( button == 27 ):
++	elif( button == 29 ):
+ 		coord = [ 722, 1364, -60, 2 ]
+-	elif( button == 28 ):
++	elif( button == 30 ):
+ 		coord = [ 750, 724, -28, 2 ]
+-	elif( button == 29 ):
++	elif( button == 31 ):
+ 		coord = [ 282, 1015, 0, 2 ]
+-	elif( button == 30 ):
++	elif( button == 32 ):
+ 		coord = [ 987, 1010, -32, 2 ]
+-	elif( button == 31 ):
++	elif( button == 32 ):
+ 		coord = [ 1174, 1286, -30, 2 ]
+-	elif( button == 32 ):
++	elif( button == 34 ):
+ 		coord = [1532, 1340, -4, 2 ]
+-	elif( button == 33 ):
++	elif( button == 35 ):
+ 		coord = [ 528, 219, -42, 2 ]
+-	elif( button == 34 ):
++	elif( button == 36 ):
+ 		coord = [ 1721, 218, 96, 2 ]
+-	elif( button == 35 ):
++	elif( button == 37 ):
+ 		coord = [ 1015, 527, -65, 3 ]
+-	elif( button == 36 ):
++	elif( button == 38 ):
+ 		coord = [ 991, 519, -50, 3 ]
+-	elif( button == 37 ):
++	elif( button == 39 ):
+ 		coord = [ 1023, 503, -70, 3 ]
+-	elif( button == 38 ):
++	elif( button == 40 ):
+ 		coord = [ 989, 595, -90, 3 ]
+-	elif( button == 39 ):
++	elif( button == 41 ):
+ 		coord = [ 961, 638, -90, 3 ]
+-	elif( button == 40 ):
++	elif( button == 42 ):
+ 		coord = [ 1997, 1386, -85, 3 ]
+-	elif( button == 41 ):
++	elif( button == 43 ):
+ 		coord = [ 1941, 1321, -88, 3 ]
+-	elif( button == 42 ):
++	elif( button == 44 ):
+ 		coord = [ 1992, 1326, -90, 3 ]
+-	elif( button == 43 ):
++	elif( button == 45 ):
+ 		coord = [ 718, 1159, 25, 4 ]
+-	elif( button == 44 ):
++	elif( button == 46 ):
+ 		coord = [ 1169, 998, 41, 4 ]
+-	elif( button == 45 ):
++	elif( button == 47 ):
+ 		coord = [ 270, 628, 15, 4 ]
+ 	char.soundeffect( 0x1fc )
+ 	char.removefromview()
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000025.html">[Wolfpack-svn] r6820 - in trunk/server/release/scripts: . wolfpack
+</A></li>
+	<LI>Next message: <A HREF="000027.html">[Wolfpack-svn] r6822 - in trunk/server: release/definitions	release/definitions/locations release/scripts/commands src	src/network src/python
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

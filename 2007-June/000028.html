@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6823 - trunk/server/release/scripts/commands
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6823%20-%20trunk/server/release/scripts/commands&In-Reply-To=%3C200706171015.l5HAFFwH014263%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000027.html">
+   <LINK REL="Next"  HREF="000029.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6823 - trunk/server/release/scripts/commands</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6823%20-%20trunk/server/release/scripts/commands&In-Reply-To=%3C200706171015.l5HAFFwH014263%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6823 - trunk/server/release/scripts/commands">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sun Jun 17 12:15:15 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000027.html">[Wolfpack-svn] r6822 - in trunk/server: release/definitions	release/definitions/locations release/scripts/commands src	src/network src/python
+</A></li>
+        <LI>Next message: <A HREF="000029.html">[Wolfpack-svn] r6824 - in trunk/server/release: definitions scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#28">[ date ]</a>
+              <a href="thread.html#28">[ thread ]</a>
+              <a href="subject.html#28">[ subject ]</a>
+              <a href="author.html#28">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-17 12:15:15 +0200 (Sun, 17 Jun 2007)
+New Revision: 6823
+
+Added:
+   trunk/server/release/scripts/commands/allshow.py
+Log:
+forgot this...
+
+Added: trunk/server/release/scripts/commands/allshow.py
+===================================================================
+--- trunk/server/release/scripts/commands/allshow.py	2007-06-16 21:30:05 UTC (rev 6822)
++++ trunk/server/release/scripts/commands/allshow.py	2007-06-17 10:15:15 UTC (rev 6823)
+@@ -0,0 +1,19 @@
++import wolfpack
++from wolfpack import tr
++
++&quot;&quot;&quot;
++	\command allshow
++	\description Reveals the offline characters on your screen.
++&quot;&quot;&quot;
++
++def allshow(socket, command, arguments):
++	player = socket.player
++	offlineChars = wolfpack.chars(player.pos.x, player.pos.y, player.pos.map, player.visrange, True)
++	for oc in offlineChars:
++		socket.removeobject(oc)
++		socket.sendobject(oc)
++	socket.sysmessage( tr( &quot;The offline characters on your screen have been revealed.&quot; ) )
++
++
++def onLoad():
++	wolfpack.registercommand('allshow', allshow)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000027.html">[Wolfpack-svn] r6822 - in trunk/server: release/definitions	release/definitions/locations release/scripts/commands src	src/network src/python
+</A></li>
+	<LI>Next message: <A HREF="000029.html">[Wolfpack-svn] r6824 - in trunk/server/release: definitions scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#28">[ date ]</a>
+              <a href="thread.html#28">[ thread ]</a>
+              <a href="subject.html#28">[ subject ]</a>
+              <a href="author.html#28">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

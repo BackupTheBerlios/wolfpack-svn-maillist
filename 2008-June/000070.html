@@ -1,0 +1,646 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6867 - in trunk/server: build src src/network	src/python src/win
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6867%20-%20in%20trunk/server%3A%20build%20src%20src/network%0A%09src/python%20src/win&In-Reply-To=%3C200806041309.m54D9AZD016329%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000069.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6867 - in trunk/server: build src src/network	src/python src/win</H1>
+    <B>correa at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6867%20-%20in%20trunk/server%3A%20build%20src%20src/network%0A%09src/python%20src/win&In-Reply-To=%3C200806041309.m54D9AZD016329%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6867 - in trunk/server: build src src/network	src/python src/win">correa at mail.berlios.de
+       </A><BR>
+    <I>Wed Jun  4 15:09:10 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000069.html">[Wolfpack-svn] r6866 - in trunk/server/src/gui: . trayicon
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: correa
+Date: 2008-06-04 15:08:59 +0200 (Wed, 04 Jun 2008)
+New Revision: 6867
+
+Removed:
+   trunk/server/src/md5.cpp
+   trunk/server/src/md5.h
+Modified:
+   trunk/server/build/wolfpack.pro
+   trunk/server/src/accounts.cpp
+   trunk/server/src/network/encryption.cpp
+   trunk/server/src/python/pyaccount.cpp
+   trunk/server/src/win/config_win.cpp
+Log:
+Code cleanup: Use new QCryptographicHash to generate the MD5 hashes.
+
+Modified: trunk/server/build/wolfpack.pro
+===================================================================
+--- trunk/server/build/wolfpack.pro	2008-06-01 13:28:48 UTC (rev 6866)
++++ trunk/server/build/wolfpack.pro	2008-06-04 13:08:59 UTC (rev 6867)
+@@ -99,7 +99,6 @@
+ 	../src/items.h \
+ 	../src/log.h \
+ 	../src/mapobjects.h \
+-	../src/md5.h \
+ 	../src/multi.h \
+ 	../src/npc.h \
+ 	../src/optionparser.h \
+@@ -157,7 +156,6 @@
+ 	../src/items.cpp \
+ 	../src/log.cpp \
+ 	../src/mapobjects.cpp \
+-	../src/md5.cpp \
+ 	../src/multi.cpp \
+ 	../src/npc.cpp \
+ 	../src/optionparser.cpp \
+
+Modified: trunk/server/src/accounts.cpp
+===================================================================
+--- trunk/server/src/accounts.cpp	2008-06-01 13:28:48 UTC (rev 6866)
++++ trunk/server/src/accounts.cpp	2008-06-04 13:08:59 UTC (rev 6867)
+@@ -34,7 +34,6 @@
+ #include &quot;commands.h&quot;
+ #include &quot;player.h&quot;
+ #include &quot;world.h&quot;
+-#include &quot;md5.h&quot;
+ #include &quot;scriptmanager.h&quot;
+ #include &quot;pythonscript.h&quot;
+ #include &quot;network/network.h&quot;
+@@ -45,6 +44,7 @@
+ #include &lt;QSqlQuery&gt;
+ #include &lt;QSqlError&gt;
+ #include &lt;QSqlDatabase&gt;
++#include &lt;QCryptographicHash&gt;
+ 
+ #define ACCT_DATABASE_VERSION 2
+ 
+@@ -89,7 +89,7 @@
+ {
+ 	if ( Config::instance()-&gt;hashAccountPasswords() )
+ 	{
+-		password_ = cMd5::fastDigest( password );
++		password_ = QLatin1String( QCryptographicHash::hash( password.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
+ 	}
+ 	else
+ 	{
+@@ -358,7 +358,7 @@
+ 		// Regard hashed passwords
+ 		if ( Config::instance()-&gt;hashAccountPasswords() )
+ 		{
+-			authorized = it.value()-&gt;password() == cMd5::fastDigest( password );
++			authorized = it.value()-&gt;password() == QCryptographicHash::hash( password.toLocal8Bit(), QCryptographicHash::Md5 ).toHex();
+ 		}
+ 		else
+ 		{
+@@ -641,7 +641,7 @@
+ 				{
+ 					if ( Config::instance()-&gt;convertUnhashedPasswords() )
+ 					{
+-						account-&gt;password_ = cMd5::fastDigest( account-&gt;password_ );
++						account-&gt;password_ = QLatin1String( QCryptographicHash::hash( account-&gt;password_.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
+ 						Console::instance()-&gt;log( LOG_NOTICE, tr( &quot;Hashed account password for '%1'.\n&quot; ).arg( account-&gt;login_ ) );
+ 					}
+ 					else
+
+Deleted: trunk/server/src/md5.cpp
+===================================================================
+--- trunk/server/src/md5.cpp	2008-06-01 13:28:48 UTC (rev 6866)
++++ trunk/server/src/md5.cpp	2008-06-04 13:08:59 UTC (rev 6867)
+@@ -1,301 +0,0 @@
+-/*
+- *     Wolfpack Emu (WP)
+- * UO Server Emulation Program
+- *
+- * Copyright 2001-2007 by holders identified in AUTHORS.txt
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program; if not, write to the Free Software
+- * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+- *
+- * In addition to that license, if you are running this program or modified
+- * versions of it on a public system you HAVE TO make the complete source of
+- * the version used by you available or provide people with a location to
+- * download it.
+- *
+- * Wolfpack Homepage: <A HREF="http://developer.berlios.de/projects/wolfpack/">http://developer.berlios.de/projects/wolfpack/</A>
+- */
+-
+-/* This file is (c) 2003 Sebastian Hartte. */
+-
+-#include &lt;algorithm&gt;
+-#include &lt;stdio.h&gt;
+-#include &lt;string.h&gt;
+-
+-#include &quot;md5.h&quot;
+-
+-cMd5::cMd5()
+-{
+-	reset();
+-}
+-
+-cMd5::~cMd5()
+-{
+-}
+-
+-void cMd5::reset()
+-{
+-	// Reset our finalizd state.
+-	finalized = false;
+-
+-	// Initialize our initial state.
+-	buffer[0] = 0x67452301;
+-	buffer[1] = 0xefcdab89;
+-	buffer[2] = 0x98badcfe;
+-	buffer[3] = 0x10325476;
+-
+-	// Reset the Bit Counter.
+-	bits[0] = 0;
+-	bits[1] = 0;
+-}
+-
+-inline void byteReverse( unsigned char* buffer, unsigned int longs )
+-{
+-	unsigned int temp;
+-	do
+-	{
+-		temp = ( unsigned int ) ( ( unsigned int ) buffer[3] &lt;&lt; 8 | buffer[2] ) &lt;&lt; 16 | ( ( unsigned int ) buffer[1] &lt;&lt; 8 | buffer[0] );
+-		*( unsigned int * ) buffer = temp;
+-		buffer += 4;
+-	}
+-	while ( --longs );
+-}
+-
+-// I used the defines found in the public domain implementation here
+-#define F1(x, y, z) (z ^ (x &amp; (y ^ z)))
+-#define F2(x, y, z) F1(z, x, y)
+-#define F3(x, y, z) (x ^ y ^ z)
+-#define F4(x, y, z) (y ^ (x | ~z))
+-#define MD5STEP(f, w, x, y, z, data, s) (w += f(x, y, z) + data,  w = w&lt;&lt;s | w&gt;&gt;(32-s),  w += x)
+-
+-void cMd5::update()
+-{
+-	register unsigned int a, b, c, d;
+-	unsigned int * ptrInput = ( unsigned int * ) input;
+-
+-	a = buffer[0];
+-	b = buffer[1];
+-	c = buffer[2];
+-	d = buffer[3];
+-
+-	MD5STEP( F1, a, b, c, d, ptrInput[0] + 0xd76aa478, 7 );
+-	MD5STEP( F1, d, a, b, c, ptrInput[1] + 0xe8c7b756, 12 );
+-	MD5STEP( F1, c, d, a, b, ptrInput[2] + 0x242070db, 17 );
+-	MD5STEP( F1, b, c, d, a, ptrInput[3] + 0xc1bdceee, 22 );
+-	MD5STEP( F1, a, b, c, d, ptrInput[4] + 0xf57c0faf, 7 );
+-	MD5STEP( F1, d, a, b, c, ptrInput[5] + 0x4787c62a, 12 );
+-	MD5STEP( F1, c, d, a, b, ptrInput[6] + 0xa8304613, 17 );
+-	MD5STEP( F1, b, c, d, a, ptrInput[7] + 0xfd469501, 22 );
+-	MD5STEP( F1, a, b, c, d, ptrInput[8] + 0x698098d8, 7 );
+-	MD5STEP( F1, d, a, b, c, ptrInput[9] + 0x8b44f7af, 12 );
+-	MD5STEP( F1, c, d, a, b, ptrInput[10] + 0xffff5bb1, 17 );
+-	MD5STEP( F1, b, c, d, a, ptrInput[11] + 0x895cd7be, 22 );
+-	MD5STEP( F1, a, b, c, d, ptrInput[12] + 0x6b901122, 7 );
+-	MD5STEP( F1, d, a, b, c, ptrInput[13] + 0xfd987193, 12 );
+-	MD5STEP( F1, c, d, a, b, ptrInput[14] + 0xa679438e, 17 );
+-	MD5STEP( F1, b, c, d, a, ptrInput[15] + 0x49b40821, 22 );
+-
+-	MD5STEP( F2, a, b, c, d, ptrInput[1] + 0xf61e2562, 5 );
+-	MD5STEP( F2, d, a, b, c, ptrInput[6] + 0xc040b340, 9 );
+-	MD5STEP( F2, c, d, a, b, ptrInput[11] + 0x265e5a51, 14 );
+-	MD5STEP( F2, b, c, d, a, ptrInput[0] + 0xe9b6c7aa, 20 );
+-	MD5STEP( F2, a, b, c, d, ptrInput[5] + 0xd62f105d, 5 );
+-	MD5STEP( F2, d, a, b, c, ptrInput[10] + 0x02441453, 9 );
+-	MD5STEP( F2, c, d, a, b, ptrInput[15] + 0xd8a1e681, 14 );
+-	MD5STEP( F2, b, c, d, a, ptrInput[4] + 0xe7d3fbc8, 20 );
+-	MD5STEP( F2, a, b, c, d, ptrInput[9] + 0x21e1cde6, 5 );
+-	MD5STEP( F2, d, a, b, c, ptrInput[14] + 0xc33707d6, 9 );
+-	MD5STEP( F2, c, d, a, b, ptrInput[3] + 0xf4d50d87, 14 );
+-	MD5STEP( F2, b, c, d, a, ptrInput[8] + 0x455a14ed, 20 );
+-	MD5STEP( F2, a, b, c, d, ptrInput[13] + 0xa9e3e905, 5 );
+-	MD5STEP( F2, d, a, b, c, ptrInput[2] + 0xfcefa3f8, 9 );
+-	MD5STEP( F2, c, d, a, b, ptrInput[7] + 0x676f02d9, 14 );
+-	MD5STEP( F2, b, c, d, a, ptrInput[12] + 0x8d2a4c8a, 20 );
+-
+-	MD5STEP( F3, a, b, c, d, ptrInput[5] + 0xfffa3942, 4 );
+-	MD5STEP( F3, d, a, b, c, ptrInput[8] + 0x8771f681, 11 );
+-	MD5STEP( F3, c, d, a, b, ptrInput[11] + 0x6d9d6122, 16 );
+-	MD5STEP( F3, b, c, d, a, ptrInput[14] + 0xfde5380c, 23 );
+-	MD5STEP( F3, a, b, c, d, ptrInput[1] + 0xa4beea44, 4 );
+-	MD5STEP( F3, d, a, b, c, ptrInput[4] + 0x4bdecfa9, 11 );
+-	MD5STEP( F3, c, d, a, b, ptrInput[7] + 0xf6bb4b60, 16 );
+-	MD5STEP( F3, b, c, d, a, ptrInput[10] + 0xbebfbc70, 23 );
+-	MD5STEP( F3, a, b, c, d, ptrInput[13] + 0x289b7ec6, 4 );
+-	MD5STEP( F3, d, a, b, c, ptrInput[0] + 0xeaa127fa, 11 );
+-	MD5STEP( F3, c, d, a, b, ptrInput[3] + 0xd4ef3085, 16 );
+-	MD5STEP( F3, b, c, d, a, ptrInput[6] + 0x04881d05, 23 );
+-	MD5STEP( F3, a, b, c, d, ptrInput[9] + 0xd9d4d039, 4 );
+-	MD5STEP( F3, d, a, b, c, ptrInput[12] + 0xe6db99e5, 11 );
+-	MD5STEP( F3, c, d, a, b, ptrInput[15] + 0x1fa27cf8, 16 );
+-	MD5STEP( F3, b, c, d, a, ptrInput[2] + 0xc4ac5665, 23 );
+-
+-	MD5STEP( F4, a, b, c, d, ptrInput[0] + 0xf4292244, 6 );
+-	MD5STEP( F4, d, a, b, c, ptrInput[7] + 0x432aff97, 10 );
+-	MD5STEP( F4, c, d, a, b, ptrInput[14] + 0xab9423a7, 15 );
+-	MD5STEP( F4, b, c, d, a, ptrInput[5] + 0xfc93a039, 21 );
+-	MD5STEP( F4, a, b, c, d, ptrInput[12] + 0x655b59c3, 6 );
+-	MD5STEP( F4, d, a, b, c, ptrInput[3] + 0x8f0ccc92, 10 );
+-	MD5STEP( F4, c, d, a, b, ptrInput[10] + 0xffeff47d, 15 );
+-	MD5STEP( F4, b, c, d, a, ptrInput[1] + 0x85845dd1, 21 );
+-	MD5STEP( F4, a, b, c, d, ptrInput[8] + 0x6fa87e4f, 6 );
+-	MD5STEP( F4, d, a, b, c, ptrInput[15] + 0xfe2ce6e0, 10 );
+-	MD5STEP( F4, c, d, a, b, ptrInput[6] + 0xa3014314, 15 );
+-	MD5STEP( F4, b, c, d, a, ptrInput[13] + 0x4e0811a1, 21 );
+-	MD5STEP( F4, a, b, c, d, ptrInput[4] + 0xf7537e82, 6 );
+-	MD5STEP( F4, d, a, b, c, ptrInput[11] + 0xbd3af235, 10 );
+-	MD5STEP( F4, c, d, a, b, ptrInput[2] + 0x2ad7d2bb, 15 );
+-	MD5STEP( F4, b, c, d, a, ptrInput[9] + 0xeb86d391, 21 );
+-
+-	buffer[0] += a;
+-	buffer[1] += b;
+-	buffer[2] += c;
+-	buffer[3] += d;
+-}
+-
+-void cMd5::update( unsigned char* data, unsigned int length )
+-{
+-	if ( finalized )
+-		return;
+-	// throw std::exception(&quot;cMd5::update() although finalized flag is set.&quot;);
+-
+-	unsigned int temp = bits[0];
+-
+-	// First Part overlapped?
+-	if ( ( bits[0] = temp + ( length &lt;&lt; 3 ) ) &lt; temp )
+-	{
+-		++bits[1];
+-	}
+-
+-	bits[1] += length &gt;&gt; 29;
+-
+-	// Calculate Bitcount
+-	temp = ( temp &gt;&gt; 3 ) &amp; 0x3F;
+-
+-	// We still have data waiting
+-	if ( temp )
+-	{
+-		unsigned char * ptrInput = ( unsigned char * ) input + temp;
+-
+-		// How much is left
+-		temp = 64 - temp;
+-
+-		// If we don't have enough data to fill our buffer,
+-		// copy the data we have into our &quot;waiting buffer&quot;
+-		// and return.
+-		if ( length &lt; temp )
+-		{
+-			memcpy( ptrInput, data, length );
+-			return;
+-		}
+-
+-		// We have enough data to clear our temporary buffer
+-		memcpy( ptrInput, data, temp );
+-		byteReverse( input, 16 );
+-		update();
+-
+-		data += temp;
+-		length -= temp;
+-	}
+-
+-	// Process the data in 64 byte chunks or save it for further processing
+-	while ( length &gt;= 64 )
+-	{
+-		memcpy( input, data, 64 );
+-		byteReverse( input, 16 );
+-		update();
+-		length -= 64;
+-		data += 64;
+-	}
+-
+-	memcpy( input, data, length );
+-}
+-
+-void cMd5::finalize()
+-{
+-	if ( finalized )
+-		return;
+-	//throw std::exception(&quot;cMd5::finalize() although finalized flag is set.&quot;);
+-
+-	// Pad if neccesary to a 448 bit boundary and add the 64 bit of our bitcount
+-	unsigned int count = ( bits[0] &gt;&gt; 3 ) &amp; 0x3F;
+-
+-	unsigned char * ptrInput = ( unsigned char * ) input + count;
+-
+-	// Set the first byte of the padding to 0x80
+-	*ptrInput++ = 0x80;
+-
+-	count = 64 - 1 - count;
+-
+-	// Too few bytes are left in our buffer, pad out the current block and then
+-	// append another
+-	if ( count &lt; 8 )
+-	{
+-		memset( ptrInput, 0, count );
+-		byteReverse( input, 16 );
+-		update();
+-
+-		// Fill the next block with zeros and leave free space for
+-		// our bitcount
+-		memset( ptrInput, 0, 56 );
+-	}
+-	// We have enough space left for our bitcount
+-	else
+-	{
+-		memset( ptrInput, 0, count - 8 );
+-	}
+-
+-	// Reverse the first 14 dwords
+-	byteReverse( input, 14 );
+-
+-	// Append Length and update
+-	( ( unsigned int * ) input )[14] = bits[0];
+-	( ( unsigned int * ) input )[15] = bits[1];
+-
+-	update();
+-
+-	// Reverse our Digest
+-	byteReverse( ( unsigned char * ) buffer, 4 );
+-
+-	finalized = true;
+-}
+-
+-void cMd5::rawDigest( unsigned char* digest )
+-{
+-	if ( !finalized )
+-		return;
+-
+-	unsigned char *buffer = ( unsigned char * )this-&gt;buffer;
+-
+-	// 16 byte a 2 characters
+-	for ( unsigned int i = 0; i &lt; 16; ++i ) {
+-		digest[i] = buffer[i];
+-	}
+-}
+-
+-void cMd5::digest( char* digest )
+-{
+-	if ( !finalized )
+-		return;
+-	// throw std::exception(&quot;Call to cMd5::digest() without finalized flag being set.&quot;);
+-
+-	digest[0] = 0;
+-
+-	unsigned char * buffer = ( unsigned char * )this-&gt;buffer;
+-
+-	// 16 byte a 2 characters
+-	for ( unsigned int i = 0; i &lt; 16; ++i )
+-	{
+-		char temp[3];
+-		sprintf( temp, &quot;%02x&quot;, buffer[i] );
+-		strcat( digest, temp );
+-	}
+-}
+
+Deleted: trunk/server/src/md5.h
+===================================================================
+--- trunk/server/src/md5.h	2008-06-01 13:28:48 UTC (rev 6866)
++++ trunk/server/src/md5.h	2008-06-04 13:08:59 UTC (rev 6867)
+@@ -1,116 +0,0 @@
+-/*
+- *     Wolfpack Emu (WP)
+- * UO Server Emulation Program
+- *
+- * Copyright 2001-2007 by holders identified in AUTHORS.txt
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program; if not, write to the Free Software
+- * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+- *
+- * In addition to that license, if you are running this program or modified
+- * versions of it on a public system you HAVE TO make the complete source of
+- * the version used by you available or provide people with a location to
+- * download it.
+- *
+- * Wolfpack Homepage: <A HREF="http://developer.berlios.de/projects/wolfpack/">http://developer.berlios.de/projects/wolfpack/</A>
+- */
+-
+-/* This file is (c) 2003 Sebastian Hartte. */
+-
+-#if !defined( __CMD5_H__ )
+-#define __CMD5_H__
+-
+-#include &lt;string.h&gt;
+-#include &lt;QString&gt;
+-#include &lt;QByteArray&gt;
+-
+-/*!
+-  \brief This class implements the Md5 digest context.
+-*/
+-class cMd5
+-{
+-private:
+-	unsigned int buffer[4];
+-	unsigned int bits[2];
+-	unsigned char input[64];
+-	bool finalized;
+-
+-	void update();
+-public:
+-	/*!
+-	\brief The constructor for a new digest context.
+-	*/
+-	cMd5();
+-
+-	/*!
+-	\brief The destructor for a digest context.
+-	*/
+-	~cMd5();
+-
+-	/*!
+-	\brief Resets the context to create a new digest.
+-	*/
+-	void reset();
+-
+-	/*!
+-	\brief Updates the digest with new data.
+-	\param data The data to update the digest width.
+-	\param length The length of the data.
+-	*/
+-	void update( unsigned char* data, unsigned int length );
+-
+-	/*!
+-	\brief Finalize the context to get
+-	*/
+-	void finalize();
+-
+-	/*!
+-	\brief Retrieve the digest of this context.
+-	\param digest The 33 byte digest we should write to.
+-	*/
+-	void digest( char* digest );
+-
+-	/*!
+-	\brief Retrieve the binary digest for this hash.
+-	\param digest A 16 byte array of unsigned chars that should contain the raw digest.
+-	*/
+-	void rawDigest( unsigned char* digest );
+-
+-	/*!
+-	\brief This function creates a hash for the given message.
+-	\param digest The target digest. Has to be at least 33 bytes long.
+-	\param message A null terminated string containing the message.
+-	*/
+-	inline static void fastDigest( char* digest, const char* message )
+-	{
+-		cMd5 ctx;
+-		ctx.update( ( unsigned char * ) message, strlen( message ) );
+-		ctx.finalize();
+-		ctx.digest( digest );
+-	}
+-
+-	/*!
+-	\brief This function creates a hash for the given text.
+-	\param text The text that should be hashed. It's converted to UTF-8 before hashing.
+-	\returns The hash digest in hex notation.
+-	*/
+-	inline static QString fastDigest( const QString&amp; text )
+-	{
+-		QByteArray data = text.toUtf8();
+-		QByteArray result( 33, 0 );
+-		fastDigest( result.data(), data.data() );
+-		return QString( result );
+-	}
+-};
+-
+-#endif
+
+Modified: trunk/server/src/network/encryption.cpp
+===================================================================
+--- trunk/server/src/network/encryption.cpp	2008-06-01 13:28:48 UTC (rev 6866)
++++ trunk/server/src/network/encryption.cpp	2008-06-04 13:08:59 UTC (rev 6867)
+@@ -32,11 +32,11 @@
+ 
+ #include &lt;QString&gt;
+ #include &lt;QDataStream&gt;
++#include &lt;QCryptographicHash&gt;
+ 
+ #include &quot;encryption.h&quot;
+ #include &quot;../definitions.h&quot;
+ #include &quot;../console.h&quot;
+-#include &quot;../md5.h&quot;
+ #include &quot;../log.h&quot;
+ #include &quot;../basics.h&quot;
+ 
+@@ -153,10 +153,7 @@
+ 
+ 	// Create a MD5 hash of the twofish crypt data and use it as a 16-byte xor table
+ 	// for encrypting the server-&gt;client stream.
+-	cMd5 md5;
+-	md5.update(tmpBuffer, 0x100);
+-	md5.finalize();
+-	md5.rawDigest(xorData);
++	memcpy( xorData, QCryptographicHash::hash( QByteArray( (char*)tmpBuffer, 0x100 ), QCryptographicHash::Md5 ).data(), 16 );
+ }
+ 
+ /*!
+
+Modified: trunk/server/src/python/pyaccount.cpp
+===================================================================
+--- trunk/server/src/python/pyaccount.cpp	2008-06-01 13:28:48 UTC (rev 6866)
++++ trunk/server/src/python/pyaccount.cpp	2008-06-04 13:08:59 UTC (rev 6867)
+@@ -27,13 +27,13 @@
+ 
+ #include &lt;QString&gt;
+ #include &lt;QByteArray&gt;
++#include &lt;QCryptographicHash&gt;
+ #include &lt;limits.h&gt;
+ 
+ #include &quot;engine.h&quot;
+ #include &quot;utilities.h&quot;
+ #include &quot;../accounts.h&quot;
+ #include &quot;../basechar.h&quot;
+-#include &quot;../md5.h&quot;
+ #include &quot;../serverconfig.h&quot;
+ 
+ #include &quot;../player.h&quot;
+@@ -231,7 +231,7 @@
+ 
+ 	if ( Config::instance()-&gt;hashAccountPasswords() )
+ 	{
+-		authorized = cMd5::fastDigest( password ) == self-&gt;account-&gt;password();
++		authorized = QCryptographicHash::hash( password, QCryptographicHash::Md5 ).toHex() == self-&gt;account-&gt;password();
+ 	}
+ 	else
+ 	{
+
+Modified: trunk/server/src/win/config_win.cpp
+===================================================================
+--- trunk/server/src/win/config_win.cpp	2008-06-01 13:28:48 UTC (rev 6866)
++++ trunk/server/src/win/config_win.cpp	2008-06-04 13:08:59 UTC (rev 6867)
+@@ -39,7 +39,7 @@
+ 
+ /*!
+ 	\internal
+-	Tries to figure where UO client was instaled, thru the registry keys
++	Tries to figure where UO client was installed, using the registry keys
+ */
+ static QString getUOPath()
+ {
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000069.html">[Wolfpack-svn] r6866 - in trunk/server/src/gui: . trayicon
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

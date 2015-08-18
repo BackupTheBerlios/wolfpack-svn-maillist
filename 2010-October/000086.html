@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6884 - in trunk/server: build build/languages	tools/scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2010-October/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6884%20-%20in%20trunk/server%3A%20build%20build/languages%0A%09tools/scripts&In-Reply-To=%3C20101029194745.AC59A480FA4%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000087.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6884 - in trunk/server: build build/languages	tools/scripts</H1>
+    <B>owner_mutilador at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6884%20-%20in%20trunk/server%3A%20build%20build/languages%0A%09tools/scripts&In-Reply-To=%3C20101029194745.AC59A480FA4%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6884 - in trunk/server: build build/languages	tools/scripts">owner_mutilador at mail.berlios.de
+       </A><BR>
+    <I>Fri Oct 29 21:47:45 CEST 2010</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000087.html">[Wolfpack-svn] r6885 - in	trunk/server/release/definitions/decoration: . Ilshenar Malas Tokuno
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: owner_mutilador
+Date: 2010-10-29 21:47:45 +0200 (Fri, 29 Oct 2010)
+New Revision: 6884
+
+Added:
+   trunk/server/tools/scripts/converte.py
+Modified:
+   trunk/server/build/languages/wolfpack_pt_br.ts
+   trunk/server/build/wolfpack-vc8.vcproj
+Log:
+updating in wolfpack_pt_br.ts, add vcproj VC8 and new script conversor decorations RunUO to Wolfpack
+
+Modified: trunk/server/build/languages/wolfpack_pt_br.ts
+===================================================================
+--- trunk/server/build/languages/wolfpack_pt_br.ts	2010-02-10 21:46:17 UTC (rev 6883)
++++ trunk/server/build/languages/wolfpack_pt_br.ts	2010-10-29 19:47:45 UTC (rev 6884)
+@@ -1,4 +1,6 @@
+-&lt;!DOCTYPE TS&gt;&lt;TS&gt;
++&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
++&lt;!DOCTYPE TS&gt;
++&lt;TS version=&quot;2.0&quot; language=&quot;pt_BR&quot;&gt;
+ &lt;context&gt;
+     &lt;name&gt;@default&lt;/name&gt;
+     &lt;message&gt;
+@@ -5154,38 +5156,38 @@
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;&lt;byte value=&quot;x9&quot;/&gt;Q: Shutdown the server.
++        &lt;source&gt;	Q: Shutdown the server.
+ &lt;/source&gt;
+-        &lt;translation&gt;&lt;byte value=&quot;x9&quot;/&gt;Q: Desconecta o server.
++        &lt;translation&gt;	Q: Desconecta o server.
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;&lt;byte value=&quot;x9&quot;/&gt;# - Save world
++        &lt;source&gt;	# - Save world
+ &lt;/source&gt;
+-        &lt;translation&gt;&lt;byte value=&quot;x9&quot;/&gt;# - Salva o mundo
++        &lt;translation&gt;	# - Salva o mundo
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;&lt;byte value=&quot;x9&quot;/&gt;W - Display logged in characters
++        &lt;source&gt;	W - Display logged in characters
+ &lt;/source&gt;
+-        &lt;translation&gt;&lt;byte value=&quot;x9&quot;/&gt;W - Mostra os players logados
++        &lt;translation&gt;	W - Mostra os players logados
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;&lt;byte value=&quot;x9&quot;/&gt;A - Reload accounts
++        &lt;source&gt;	A - Reload accounts
+ &lt;/source&gt;
+-        &lt;translation&gt;&lt;byte value=&quot;x9&quot;/&gt;A - Reload nas contas
++        &lt;translation&gt;	A - Reload nas contas
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;&lt;byte value=&quot;x9&quot;/&gt;R - Reload scripts
++        &lt;source&gt;	R - Reload scripts
+ &lt;/source&gt;
+-        &lt;translation&gt;&lt;byte value=&quot;x9&quot;/&gt;R - Reload nos Scripts
++        &lt;translation&gt;	R - Reload nos Scripts
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;&lt;byte value=&quot;x9&quot;/&gt;S - Toggle Secure mode &lt;/source&gt;
+-        &lt;translation&gt;&lt;byte value=&quot;x9&quot;/&gt;S - Modo seguro de alavanca
++        &lt;source&gt;	S - Toggle Secure mode &lt;/source&gt;
++        &lt;translation&gt;	S - Modo seguro de alavanca
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+@@ -5201,9 +5203,9 @@
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;&lt;byte value=&quot;x9&quot;/&gt;? - Commands list (this)
++        &lt;source&gt;	? - Commands list (this)
+ &lt;/source&gt;
+-        &lt;translation&gt;&lt;byte value=&quot;x9&quot;/&gt;? - Lista de comandos
++        &lt;translation&gt;	? - Lista de comandos
+ &lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+@@ -5438,7 +5440,7 @@
+         &lt;translation&gt;&lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;&lt;byte value=&quot;x9&quot;/&gt;%1 using address %2
++        &lt;source&gt;	%1 using address %2
+ &lt;/source&gt;
+         &lt;translation&gt;&lt;/translation&gt;
+     &lt;/message&gt;
+@@ -5568,11 +5570,11 @@
+         &lt;translation&gt;Luta come&#231;ada com char %1 (0x%2).&lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;Lady &lt;byte value=&quot;x9&quot;/&gt;%1&lt;byte value=&quot;x9&quot;/&gt;%2&lt;/source&gt;
++        &lt;source&gt;Lady 	%1	%2&lt;/source&gt;
+         &lt;translation&gt;&lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+-        &lt;source&gt;Lord &lt;byte value=&quot;x9&quot;/&gt;%1&lt;byte value=&quot;x9&quot;/&gt;%2&lt;/source&gt;
++        &lt;source&gt;Lord 	%1	%2&lt;/source&gt;
+         &lt;translation&gt;&lt;/translation&gt;
+     &lt;/message&gt;
+     &lt;message&gt;
+
+Modified: trunk/server/build/wolfpack-vc8.vcproj
+===================================================================
+--- trunk/server/build/wolfpack-vc8.vcproj	2010-02-10 21:46:17 UTC (rev 6883)
++++ trunk/server/build/wolfpack-vc8.vcproj	2010-10-29 19:47:45 UTC (rev 6884)
+@@ -1,10 +1,11 @@
+ &lt;?xml version=&quot;1.0&quot; encoding=&quot;Windows-1252&quot;?&gt;
+ &lt;VisualStudioProject
+ 	ProjectType=&quot;Visual C++&quot;
+-	Version=&quot;8,00&quot;
++	Version=&quot;9,00&quot;
+ 	Name=&quot;wolfpack-vc8&quot;
+ 	ProjectGUID=&quot;{766437DE-37EB-400E-BF08-4AB9B529C83D}&quot;
+ 	Keyword=&quot;Win32Proj&quot;
++	TargetFrameworkVersion=&quot;131072&quot;
+ 	&gt;
+ 	&lt;Platforms&gt;
+ 		&lt;Platform
+@@ -75,6 +76,8 @@
+ 				MapFileName=&quot;wolfpack.map&quot;
+ 				MapExports=&quot;false&quot;
+ 				SubSystem=&quot;2&quot;
++				RandomizedBaseAddress=&quot;1&quot;
++				DataExecutionPrevention=&quot;0&quot;
+ 				TargetMachine=&quot;1&quot;
+ 			/&gt;
+ 			&lt;Tool
+@@ -96,9 +99,6 @@
+ 				Name=&quot;VCAppVerifierTool&quot;
+ 			/&gt;
+ 			&lt;Tool
+-				Name=&quot;VCWebDeploymentTool&quot;
+-			/&gt;
+-			&lt;Tool
+ 				Name=&quot;VCPostBuildEventTool&quot;
+ 			/&gt;
+ 		&lt;/Configuration&gt;
+@@ -173,10 +173,12 @@
+ 				EnableCOMDATFolding=&quot;2&quot;
+ 				OptimizeForWindows98=&quot;1&quot;
+ 				SetChecksum=&quot;true&quot;
++				RandomizedBaseAddress=&quot;1&quot;
++				FixedBaseAddress=&quot;2&quot;
++				DataExecutionPrevention=&quot;0&quot;
+ 				SupportUnloadOfDelayLoadedDLL=&quot;false&quot;
+ 				MergeSections=&quot;&quot;
+ 				TargetMachine=&quot;1&quot;
+-				FixedBaseAddress=&quot;2&quot;
+ 			/&gt;
+ 			&lt;Tool
+ 				Name=&quot;VCALinkTool&quot;
+@@ -197,9 +199,6 @@
+ 				Name=&quot;VCAppVerifierTool&quot;
+ 			/&gt;
+ 			&lt;Tool
+-				Name=&quot;VCWebDeploymentTool&quot;
+-			/&gt;
+-			&lt;Tool
+ 				Name=&quot;VCPostBuildEventTool&quot;
+ 			/&gt;
+ 		&lt;/Configuration&gt;
+
+Added: trunk/server/tools/scripts/converte.py
+===================================================================
+--- trunk/server/tools/scripts/converte.py	                        (rev 0)
++++ trunk/server/tools/scripts/converte.py	2010-10-29 19:47:45 UTC (rev 6884)
+@@ -0,0 +1,83 @@
++#!/usr/bin/env python
++# -*- coding: utf-8 -*-
++import re
++import sys
++if len(sys.argv) &lt; 3:
++    raise ValueError('N&#227;o tem argumentos suficientes')
++
++path = sys.argv[1]
++map = sys.argv[2]
++
++def comment(text):
++    return '\t&lt;!--' + text + '--&gt;'
++
++def item(name, id, rest):
++    match = re.match(r'.*Hue=(?P&lt;hue&gt;0x[0-9A-F]+).*', rest)
++    if match:
++        hue = ' hue=&quot;%s&quot;' % (match.groupdict()['hue'],)
++    else:
++        hue = ''
++    result = '\t&lt;item id=&quot;%s&quot;%s&gt;' % (id, hue)
++    return result
++def pos(x, y, z, map):
++	return '\t\t&lt;pos x=&quot;%s&quot; y=&quot;%s&quot; z=&quot;%s&quot; map=&quot;%s&quot; /&gt;' % (x,y,z,map)
++
++def roda_arquivo(nome_input, nome_output, map):
++    input = open(nome_input)
++    lines = input.readlines()
++
++    result = []
++    in_item = False
++    for line in lines:
++        # Coment&#225;rio
++        match = re.match(r'#(?P&lt;comentario&gt;.*)$', line)
++        if match:
++            result.append(comment(match.groupdict()['comentario'])) 
++            continue
++
++        #2051 933 -23
++        match = re.match(r'(?P&lt;x&gt;-?[0-9]+) (?P&lt;y&gt;-?[0-9]+) (?P&lt;z&gt;-?[0-9]+)', line)
++        if match:
++            groups = match.groupdict()
++            x = groups['x']
++            y = groups['y']
++            z = groups['z']
++            result.append(pos(x, y, z, map))
++            continue
++
++        # Nome 0x1231 (qqrporra=XYZ)
++        match = re.match(r'(?P&lt;name&gt;[A-Za-z][A-Za-z0-9]+) (?P&lt;id&gt;0x[0-9A-F]+)(?P&lt;rest&gt;.*)', line)
++        if match:
++            in_item = True
++            groups = match.groupdict()
++            name = groups['name']
++            id = groups['id']
++            rest = groups['rest']
++            result.append(item(name, id, rest))
++            continue
++
++        match = re.match(r'\s*', line)
++        if match:
++            if in_item:
++                result.append('\t&lt;/item&gt;')
++            result.append('')
++            in_item = False
++            continue
++
++    output = open(nome_output, 'w')
++    output.write(&quot;&lt;decoration&gt;\n&quot;)
++    for l in result:
++        output.write(l + &quot;\n&quot;)
++    output.write(&quot;&lt;/decoration&gt;\n&quot;)
++    output.close()
++
++import os
++files = os.listdir(path)
++for file in files:
++    match = re.match(r'_(?P&lt;name&gt;.*)\.cfg$', file)
++    if match:
++        name = match.groupdict()['name']
++        input_name = '_%s.cfg' % (name,)
++        output_name = '%s.xml' % (name,)
++        roda_arquivo(input_name, output_name, map)
++
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000087.html">[Wolfpack-svn] r6885 - in	trunk/server/release/definitions/decoration: . Ilshenar Malas Tokuno
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

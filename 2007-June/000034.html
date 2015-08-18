@@ -1,0 +1,1069 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6829 - in trunk/server/release/definitions/npcs:	animals/land monsters monsters/mondains_legancy	monsters/mondains_legancy/Blighted Grove	monsters/mondains_legancy/Painted Caves	monsters/mondains_legancy/Palace of Paroxysmus	monsters/mondains_legancy/Twisted Weald
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6829%20-%20in%20trunk/server/release/definitions/npcs%3A%0A%09animals/land%20monsters%20monsters/mondains_legancy%0A%09monsters/mondains_legancy/Blighted%20Grove%0A%09monsters/mondains_legancy/Painted%20Caves%0A%09monsters/mondains_legancy/Palace%20of%20Paroxysmus%0A%09monsters/mondains_legancy/Twisted%20Weald&In-Reply-To=%3C200706172030.l5HKUTbe031122%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000033.html">
+   <LINK REL="Next"  HREF="000035.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6829 - in trunk/server/release/definitions/npcs:	animals/land monsters monsters/mondains_legancy	monsters/mondains_legancy/Blighted Grove	monsters/mondains_legancy/Painted Caves	monsters/mondains_legancy/Palace of Paroxysmus	monsters/mondains_legancy/Twisted Weald</H1>
+    <B>correa at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6829%20-%20in%20trunk/server/release/definitions/npcs%3A%0A%09animals/land%20monsters%20monsters/mondains_legancy%0A%09monsters/mondains_legancy/Blighted%20Grove%0A%09monsters/mondains_legancy/Painted%20Caves%0A%09monsters/mondains_legancy/Palace%20of%20Paroxysmus%0A%09monsters/mondains_legancy/Twisted%20Weald&In-Reply-To=%3C200706172030.l5HKUTbe031122%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6829 - in trunk/server/release/definitions/npcs:	animals/land monsters monsters/mondains_legancy	monsters/mondains_legancy/Blighted Grove	monsters/mondains_legancy/Painted Caves	monsters/mondains_legancy/Palace of Paroxysmus	monsters/mondains_legancy/Twisted Weald">correa at mail.berlios.de
+       </A><BR>
+    <I>Sun Jun 17 22:30:29 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000033.html">[Wolfpack-svn] r6828 -	trunk/server/release/definitions/regions/trammel/towns
+</A></li>
+        <LI>Next message: <A HREF="000035.html">[Wolfpack-svn] r6830 -	trunk/server/release/definitions/npcs/animals/land
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: correa
+Date: 2007-06-17 22:30:17 +0200 (Sun, 17 Jun 2007)
+New Revision: 6829
+
+Added:
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Bedlam/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Abscess.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Coil.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/EnslavedSatyr.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Hydra.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/InsaneDryad.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/index.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Labyrinth/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Grobu.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Lurg.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Troglodyte.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/index.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/BulbousPutrification.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/CorrosiveSlime.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/Putrifier.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/chief_paroxysmus.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/index.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Prism of Light/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Sanctuary/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/The Citadel/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Townfolk/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/dread_horn.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/index.xml
+   trunk/server/release/definitions/npcs/monsters/mondains_legancy/index.xml
+Modified:
+   trunk/server/release/definitions/npcs/animals/land/index.xml
+   trunk/server/release/definitions/npcs/monsters/index.xml
+Log:
+Monster and Animal definition updates contributed by Owner_Mutilador. Thanks :)
+
+Modified: trunk/server/release/definitions/npcs/animals/land/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/animals/land/index.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/animals/land/index.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -12,6 +12,7 @@
+ 	&lt;include file=&quot;definitions/npcs/animals/land/cow.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/dire_wolf.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/dog.xml&quot;/&gt;
++	&lt;include file=&quot;definitions/npcs/animals/land/Ferret.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/goat.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/gorilla.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/great_hart.xml&quot;/&gt;
+@@ -29,6 +30,7 @@
+ 	&lt;include file=&quot;definitions/npcs/animals/land/sheep.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/snake.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/snow_leopard.xml&quot;/&gt;
++	&lt;include file=&quot;definitions/npcs/animals/land/Squirrel.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/timber_wolf.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/walrus.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/white_wolf.xml&quot;/&gt;
+
+Modified: trunk/server/release/definitions/npcs/monsters/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/index.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/index.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -70,6 +70,9 @@
+ 
+ 	&lt;!-- Summoned --&gt;
+ 	&lt;include file=&quot;definitions/npcs/monsters/summoned/index.xml&quot;/&gt;
++	
++	&lt;!-- Mondain's Legancy --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/index.xml&quot;/&gt;
+ 
+ 	&lt;!-- Terathan --&gt;
+ 	&lt;include file=&quot;definitions/npcs/monsters/terathan/index.xml&quot;/&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Abscess.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Abscess.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Abscess.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,46 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  | Created by: Dreoth
++ *   )).-' {{ ;'`   | Revised by:
++ *  ( (  ;._ \\     | Last modification:
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- an orc captain --&gt;
++	&lt;npc id=&quot;abscess&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Abscess&lt;/name&gt;
++		&lt;id&gt;0x109&lt;/id&gt;
++		&lt;skin&gt;0x8FD&lt;/skin&gt;
++		&lt;inherit id=&quot;KARMA_L5&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L5&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;845&quot; max=&quot;871&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;121&quot; max=&quot;134&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;128&quot; max=&quot;142&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;7470&quot; max=&quot;7540&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;890&quot; max=&quot;890&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1090&quot; max=&quot;1090&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;760&quot; max=&quot;760&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;26&lt;/mindamage&gt;
++		&lt;maxdamage&gt;31&lt;/maxdamage&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;25,35&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;35,45&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;70,80&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;65,75&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;35,45&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot Packs --&gt;
++		&lt;lootpacks&gt;lootpack_ultra_rich&lt;/lootpacks&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Blighted Grove\Abscess&lt;/category&gt;
++		&lt;intproperty name=&quot;food&quot; value=&quot;1&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;1&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Coil.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Coil.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Coil.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,45 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  | Created by: Dreoth
++ *   )).-' {{ ;'`   | Revised by:
++ *  ( (  ;._ \\     | Last modification:
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- an orc captain --&gt;
++	&lt;npc id=&quot;coil&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Coil&lt;/name&gt;
++		&lt;id&gt;0x5B&lt;/id&gt;
++		&lt;skin&gt;0x3F&lt;/skin&gt;
++		&lt;inherit id=&quot;KARMA_L5&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L5&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;205&quot; max=&quot;343&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;202&quot; max=&quot;283&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;88&quot; max=&quot;142&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;628&quot; max=&quot;1291&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;890&quot; max=&quot;890&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1090&quot; max=&quot;1090&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;760&quot; max=&quot;760&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;19&lt;/mindamage&gt;
++		&lt;maxdamage&gt;28&lt;/maxdamage&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;25,30&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;27,30&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;25,29&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;56,62&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;100&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot Packs --&gt;
++		&lt;lootpacks&gt;lootpack_ultra_rich&lt;/lootpacks&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Blighted Grove\Coil&lt;/category&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;1&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/EnslavedSatyr.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/EnslavedSatyr.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/EnslavedSatyr.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,51 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  | Created by: Owner_Mutilador
++ *   )).-' {{ ;'`   | Revised by: SCRIPT INCOMPLET
++ *  ( (  ;._ \\     | Last modification:
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- EnslavedSatyr --&gt;
++	&lt;npc id=&quot;EnslavedSatyr&quot; inherit=&quot;animal_base&quot;&gt;
++		&lt;name&gt;Enslaved Satyr&lt;/name&gt;
++		&lt;id&gt;0x10F&lt;/id&gt;
++		&lt;ai&gt;Animal_Wild&lt;/ai&gt;
++		&lt;inherit id=&quot;KARMA_L0&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L1&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;178&quot; max=&quot;194&quot; /&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;254&quot; max=&quot;268&quot; /&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;151&quot; max=&quot;169&quot; /&gt;&lt;/int&gt;
++		&lt;!-- Status --&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;356&quot; max=&quot;400&quot; /&gt;&lt;/maxhitpoints&gt;
++		&lt;maxmana&gt;&lt;random min=&quot;356&quot; max=&quot;400&quot; /&gt;&lt;/maxmana&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;20&lt;/mindamage&gt;
++		&lt;maxdamage&gt;25&lt;/maxdamage&gt;
++		&lt;!-- Defense --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;55,60&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;30,39&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;30,35&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;31,39&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;31,39&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;812&quot; max=&quot;951&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;819&quot; max=&quot;980&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;553&quot; max=&quot;639&quot; /&gt;&lt;/skill&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;2,3,1&quot; /&gt;
++		&lt;strproperty name=&quot;packinstinct&quot; value=&quot;bear&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Blighted Grove\Enslaved Satyr&lt;/category&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;12&quot; /&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;1&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
++
++		
++
++		
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Hydra.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Hydra.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/Hydra.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,45 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  | Created by: Dreoth
++ *   )).-' {{ ;'`   | Revised by:
++ *  ( (  ;._ \\     | Last modification:
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- an orc captain --&gt;
++	&lt;npc id=&quot;hydra&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;a Hydra&lt;/name&gt;
++		&lt;id&gt;0x109&lt;/id&gt;
++		&lt;inherit id=&quot;KARMA_L5&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L5&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;813&quot; max=&quot;813&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;108&quot; max=&quot;108&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;114&quot; max=&quot;114&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;1492&quot; max=&quot;1492&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;890&quot; max=&quot;890&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1090&quot; max=&quot;1090&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;760&quot; max=&quot;760&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;160&lt;/mindamage&gt;
++		&lt;maxdamage&gt;195&lt;/maxdamage&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;28&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;38&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;78&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;73&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;43&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot Packs --&gt;
++		&lt;lootpacks&gt;lootpack_ultra_rich&lt;/lootpacks&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Blighted Grove\Hydra&lt;/category&gt;
++		&lt;intproperty name=&quot;food&quot; value=&quot;1&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;1&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/InsaneDryad.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/InsaneDryad.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/InsaneDryad.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,48 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  | Created by: Dreoth
++ *   )).-' {{ ;'`   | Revised by:30135855
++ *  ( (  ;._ \\     | Last modification:
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- an orc captain --&gt;
++	&lt;npc id=&quot;insanedryad&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;a Insaned Dryad&lt;/name&gt;
++		&lt;id&gt;266&lt;/id&gt;
++		&lt;ai&gt;monster_mage&lt;/ai&gt;
++		&lt;inherit id=&quot;KARMA_L3&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L3&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;135&quot; max=&quot;150&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;153&quot; max=&quot;166&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;253&quot; max=&quot;281&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;302&quot; max=&quot;314&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;890&quot; max=&quot;890&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1090&quot; max=&quot;1090&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;Magery&quot;&gt;&lt;random min=&quot;760&quot; max=&quot;760&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;Meditation&quot;&gt;&lt;random min=&quot;890&quot; max=&quot;890&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;11&lt;/mindamage&gt;
++		&lt;maxdamage&gt;20&lt;/maxdamage&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;28&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;38&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;78&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;73&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;43&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot Packs --&gt;
++		&lt;lootpacks&gt;lootpack_ultra_rich&lt;/lootpacks&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Blighted Grove\Insaned Dryad&lt;/category&gt;
++		&lt;intproperty name=&quot;food&quot; value=&quot;1&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;1&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/index.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Blighted Grove/index.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,22 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  |
++ *   )).-' {{ ;'`   |
++ *  ( (  ;._ \\     |
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Hydra --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Blighted Grove/Abscess.xml&quot; /&gt;
++	&lt;!-- Coil --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Blighted Grove/Coil.xml&quot; /&gt;
++	&lt;!-- Hydra --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Blighted Grove/Hydra.xml&quot; /&gt;
++	&lt;!-- InsaneDryad --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Blighted Grove/InsaneDryad.xml&quot; /&gt;
++	&lt;!-- EnslavedSatyr--&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Blighted Grove/EnslavedSatyr.xml&quot; /&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Grobu.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Grobu.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Grobu.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,61 @@
++&lt;!--
++/*=========================================================
++* ) (\_ | WOLFPACK 13.0.0 Scripts
++* (( _/{ &quot;-; | Created by: Owner_Mutilador
++* )).-' {{ ;'` | Revised by:
++* ( ( ;._ \\ | Last modification:
++*=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Paroxysmus --&gt;
++	&lt;npc id=&quot;Grobu&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Grobu&lt;/name&gt;
++		&lt;id&gt;0xD3&lt;/id&gt;
++		&lt;skin&gt;0x455&lt;/skin&gt;
++		&lt;inherit id=&quot;KARMA_L1&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L1&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;192&quot; max=&quot;210&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;132&quot; max=&quot;150&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;50&quot; max=&quot;52&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;1244&quot; max=&quot;129&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;6&lt;/mindamage&gt;
++		&lt;maxdamage&gt;12&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_physical&quot; value=&quot;100&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1074&quot; max=&quot;1190&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;973&quot; max=&quot;1165&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;662&quot; max=&quot;837&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;40,45&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;20,32&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;32,35&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;25,29&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;22,34&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot --&gt;
++		&lt;!-- Missing: Magic Items, Bonsai Seed --&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++				&lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;2000&quot; max=&quot;2500&quot; /&gt;&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;9b5&quot;&gt; &lt;!-- Eggs --&gt;
++					&lt;amount&gt;2&lt;/amount&gt;
++				&lt;/item&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;gems;gems;gems;gems;gems;gems;tm_5&lt;/lootpacks&gt;
++		&lt;!-- Poisoning --&gt;
++		&lt;basescript&gt;npc.poison&lt;/basescript&gt;
++		&lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;50&quot; /&gt;
++		&lt;intproperty name=&quot;hit_poison_chance&quot; value=&quot;50&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;20&quot; /&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1,2&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Painted Caves\Grobu&lt;/category&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile,snake&quot; /&gt;
++		&lt;inherit id=&quot;speed_fast&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Lurg.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Lurg.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Lurg.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,63 @@
++&lt;!--
++/*=========================================================
++* ) (\_ | WOLFPACK 13.0.0 Scripts
++* (( _/{ &quot;-; | Created by: Owner_Mutilador
++* )).-' {{ ;'` | Revised by:
++* ( ( ;._ \\ | Last modification:
++*=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Paroxysmus --&gt;
++	&lt;npc id=&quot;Lurg&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Lurg&lt;/name&gt;
++		&lt;id&gt;0x10B&lt;/id&gt;
++		&lt;skin&gt;0x455&lt;/skin&gt;
++		&lt;inherit id=&quot;KARMA_L3&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L3&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;584&quot; max=&quot;625&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;163&quot; max=&quot;176&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;102&quot; max=&quot;106&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;3034&quot; max=&quot;3189&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;12&lt;/mindamage&gt;
++		&lt;maxdamage&gt;24&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_physical&quot; value=&quot;100&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1093&quot; max=&quot;1185&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1227&quot; max=&quot;1305&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;729&quot; max=&quot;876&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;1105&quot; max=&quot;1240&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;healing&quot;&gt;&lt;random min=&quot;936&quot; max=&quot;996&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;50,53&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;45,47&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;56,57&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;50,60&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;41,54&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot --&gt;
++		&lt;!-- Missing: Magic Items, Bonsai Seed --&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++				&lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;2000&quot; max=&quot;2500&quot; /&gt;&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;9b5&quot;&gt; &lt;!-- Eggs --&gt;
++					&lt;amount&gt;2&lt;/amount&gt;
++				&lt;/item&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;gems;gems;gems;gems;gems;gems;tm_5&lt;/lootpacks&gt;
++		&lt;!-- Poisoning --&gt;
++		&lt;basescript&gt;npc.poison&lt;/basescript&gt;
++		&lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;50&quot; /&gt;
++		&lt;intproperty name=&quot;hit_poison_chance&quot; value=&quot;50&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;20&quot; /&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1,2&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Painted Caves\Lurg&lt;/category&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile,snake&quot; /&gt;
++		&lt;inherit id=&quot;speed_fast&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Troglodyte.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Troglodyte.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/Troglodyte.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,62 @@
++&lt;!--
++/*=========================================================
++* ) (\_ | WOLFPACK 13.0.0 Scripts
++* (( _/{ &quot;-; | Created by: Owner_Mutilador
++* )).-' {{ ;'` | Revised by:
++* ( ( ;._ \\ | Last modification:
++*=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Paroxysmus --&gt;
++	&lt;npc id=&quot;Troglodyte&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Troglodyte&lt;/name&gt;
++		&lt;id&gt;0x10B&lt;/id&gt;
++		&lt;inherit id=&quot;KARMA_L1&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L1&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;161&quot; max=&quot;207&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;98&quot; max=&quot;118&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;55&quot; max=&quot;69&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;304&quot; max=&quot;338&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;6&lt;/mindamage&gt;
++		&lt;maxdamage&gt;12&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_physical&quot; value=&quot;100&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;820&quot; max=&quot;943&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;707&quot; max=&quot;932&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;503&quot; max=&quot;646&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;748&quot; max=&quot;943&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;healing&quot;&gt;&lt;random min=&quot;709&quot; max=&quot;932&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;30,33&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;21,29&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;35,40&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;30,40&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;30,40&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot --&gt;
++		&lt;!-- Missing: Magic Items, Bonsai Seed --&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++				&lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;2000&quot; max=&quot;2500&quot; /&gt;&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;9b5&quot;&gt; &lt;!-- Eggs --&gt;
++					&lt;amount&gt;2&lt;/amount&gt;
++				&lt;/item&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;gems;gems;gems;gems;gems;gems;tm_5&lt;/lootpacks&gt;
++		&lt;!-- Poisoning --&gt;
++		&lt;basescript&gt;npc.poison&lt;/basescript&gt;
++		&lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;50&quot; /&gt;
++		&lt;intproperty name=&quot;hit_poison_chance&quot; value=&quot;50&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;20&quot; /&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1,2&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Painted Caves\Troglodyte&lt;/category&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile,snake&quot; /&gt;
++		&lt;inherit id=&quot;speed_fast&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/index.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Painted Caves/index.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,18 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  |
++ *   )).-' {{ ;'`   |
++ *  ( (  ;._ \\     |
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Grobu --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Painted Caves/Grobu.xml&quot; /&gt;
++	&lt;!-- BulbousPutrification --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Painted Caves/Troglodyte.xml&quot; /&gt;
++	&lt;!-- Putrifier --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Painted Caves/Lurg.xml&quot; /&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/BulbousPutrification.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/BulbousPutrification.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/BulbousPutrification.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,64 @@
++&lt;!--
++/*=========================================================
++* ) (\_ | WOLFPACK 13.0.0 Scripts
++* (( _/{ &quot;-; | Created by: Owner_Mutilador
++* )).-' {{ ;'` | Revised by:
++* ( ( ;._ \\ | Last modification:
++*=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Paroxysmus --&gt;
++	&lt;npc id=&quot;BulbousPutrification&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Bulbous Putrification&lt;/name&gt;
++		&lt;id&gt;0x28&lt;/id&gt;
++		&lt;skin&gt;0x55C&lt;/skin&gt;
++		&lt;inherit id=&quot;KARMA_L3&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L3&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;755&quot; max=&quot;800&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;53&quot; max=&quot;60&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;51&quot; max=&quot;59&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;1211&quot; max=&quot;1231&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;22&lt;/mindamage&gt;
++		&lt;maxdamage&gt;29&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_poison&quot; value=&quot;40&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;dmg_physical&quot; value=&quot;60&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1048&quot; max=&quot;1147&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1150&quot; max=&quot;1191&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;555&quot; max=&quot;641&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;1050&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;poisoning&quot;&gt;&lt;random min=&quot;790&quot; max=&quot;800&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;55,65&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;40,50&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;40,50&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;55,70&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;50,60&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot --&gt;
++		&lt;!-- Missing: Magic Items, Bonsai Seed --&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++				&lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;2000&quot; max=&quot;2500&quot; /&gt;&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;9b5&quot;&gt; &lt;!-- Eggs --&gt;
++					&lt;amount&gt;2&lt;/amount&gt;
++				&lt;/item&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;gems;gems;gems;gems;gems;gems;tm_5&lt;/lootpacks&gt;
++		&lt;!-- Poisoning --&gt;
++		&lt;basescript&gt;npc.poison&lt;/basescript&gt;
++		&lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;50&quot; /&gt;
++		&lt;intproperty name=&quot;hit_poison_chance&quot; value=&quot;50&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;20&quot; /&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1,2&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Palace of Paroxysmus\BulbosPutrification&lt;/category&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile,snake&quot; /&gt;
++		&lt;inherit id=&quot;speed_fast&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/CorrosiveSlime.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/CorrosiveSlime.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/CorrosiveSlime.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,48 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  | Created by: Dreoth
++ *   )).-' {{ ;'`   | Revised by:
++ *  ( (  ;._ \\     | Last modification:
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Slime --&gt;
++	&lt;npc id=&quot;CorrosiveSlime&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Corrosive Slime&lt;/name&gt;
++		&lt;id&gt;0x33&lt;/id&gt;
++		&lt;skin&gt;&lt;random list=&quot;SKINS_SLIME&quot; /&gt;&lt;/skin&gt;
++		&lt;inherit id=&quot;KARMA_L1&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L2&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;22&quot; max=&quot;34&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;16&quot; max=&quot;21&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;16&quot; max=&quot;20&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;15&quot; max=&quot;19&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;poisoning&quot;&gt;&lt;random min=&quot;301&quot; max=&quot;500&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;151&quot; max=&quot;200&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;193&quot; max=&quot;340&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;193&quot; max=&quot;340&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;10&lt;/mindamage&gt;
++		&lt;maxdamage&gt;16&lt;/maxdamage&gt;
++		&lt;tag name=&quot;mindamage&quot; value=&quot;1&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;maxdamage&quot; value=&quot;5&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;5,10&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;10,20&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Lootpacks  --&gt;
++		&lt;lootpacks&gt;lootpack_poor;gems&lt;/lootpacks&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;desc&gt;Slimes are creatures of pure instinct, lacking even the intelligence of a fish or tiny vermin. They live by dissolving anything that comes into contact with them, living or dead. Gold is one of the few things their acids cannot touch, and they are often found in its presence. Perhaps over the centuries they have come to dimly recognize that gold will lure their prey to them.&lt;/desc&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1,2,3,5,4&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Palace of Paroxysmus\Slime&lt;/category&gt;
++		&lt;inherit id=&quot;speed_slow&quot; /&gt;
++		&lt;!-- Poisoning --&gt;
++		&lt;basescript&gt;npc.poison&lt;/basescript&gt;
++		&lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;0&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/Putrifier.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/Putrifier.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/Putrifier.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,67 @@
++&lt;!--
++/*=========================================================
++* ) (\_ | WOLFPACK 13.0.0 Scripts
++* (( _/{ &quot;-; | Created by: Owner_Mutilador
++* )).-' {{ ;'` | Revised by:
++* ( ( ;._ \\ | Last modification:
++*=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Paroxysmus --&gt;
++	&lt;npc id=&quot;Putrifier&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Putrifier&lt;/name&gt;
++		&lt;id&gt;0x28&lt;/id&gt;
++		&lt;ai&gt;monster_mage&lt;/ai&gt;
++		&lt;skin&gt;0x55C&lt;/skin&gt;
++		&lt;inherit id=&quot;KARMA_L4&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L4&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;1057&quot; max=&quot;1330&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;232&quot; max=&quot;450&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;201&quot; max=&quot;415&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;3010&quot; max=&quot;3778&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;22&lt;/mindamage&gt;
++		&lt;maxdamage&gt;29&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_poison&quot; value=&quot;50&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;dmg_physical&quot; value=&quot;50&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1112&quot; max=&quot;1280&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1156&quot; max=&quot;1252&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;1434&quot; max=&quot;1630&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;446&quot; max=&quot;670&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magery&quot;&gt;&lt;random min=&quot;1176&quot; max=&quot;1188&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;evaluatingintel&quot;&gt;&lt;random min=&quot;1130&quot; max=&quot;1280&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;meditation&quot;&gt;&lt;random min=&quot;414&quot; max=&quot;805&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;65,80&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;65,75&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;50,60&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;90,100&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;40,50&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot --&gt;
++		&lt;!-- Missing: Magic Items, Bonsai Seed --&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++				&lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;2000&quot; max=&quot;2500&quot; /&gt;&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;9b5&quot;&gt; &lt;!-- Eggs --&gt;
++					&lt;amount&gt;2&lt;/amount&gt;
++				&lt;/item&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;gems;gems;gems;gems;gems;gems;tm_5&lt;/lootpacks&gt;
++		&lt;!-- Poisoning --&gt;
++		&lt;basescript&gt;npc.poison&lt;/basescript&gt;
++		&lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;50&quot; /&gt;
++		&lt;intproperty name=&quot;hit_poison_chance&quot; value=&quot;50&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;20&quot; /&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1,2&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Palace of Paroxysmus\Putrifier&lt;/category&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile,snake&quot; /&gt;
++		&lt;inherit id=&quot;speed_fast&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/chief_paroxysmus.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/chief_paroxysmus.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/chief_paroxysmus.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,63 @@
++&lt;!--
++/*=========================================================
++* ) (\_ | WOLFPACK 13.0.0 Scripts
++* (( _/{ &quot;-; | Created by: Owner_Mutilador
++* )).-' {{ ;'` | Revised by:
++* ( ( ;._ \\ | Last modification:
++*=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Paroxysmus --&gt;
++	&lt;npc id=&quot;chief_paroxysmus&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Chief Paroxysmus&lt;/name&gt;
++		&lt;id&gt;0x100&lt;/id&gt;
++		&lt;inherit id=&quot;KARMA_L5&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L5&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;785&quot; max=&quot;930&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;250&quot; max=&quot;365&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;100&quot; max=&quot;120&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;1600&quot; max=&quot;1800&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;90&lt;/mindamage&gt;
++		&lt;maxdamage&gt;167&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_poison&quot; value=&quot;20&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;dmg_energy&quot; value=&quot;10&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1350&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;1150&quot; max=&quot;1350&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;1150&quot; max=&quot;1350&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;1150&quot; max=&quot;1300&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;poisoning&quot;&gt;&lt;random min=&quot;1200&quot; max=&quot;1400&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;65,85&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;70,90&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;50,70&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;50,70&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;50,70&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot --&gt;
++		&lt;!-- Missing: Magic Items, Bonsai Seed --&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++				&lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;2000&quot; max=&quot;2500&quot; /&gt;&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;9b5&quot;&gt; &lt;!-- Eggs --&gt;
++					&lt;amount&gt;2&lt;/amount&gt;
++				&lt;/item&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;gems;gems;gems;gems;gems;gems;tm_5&lt;/lootpacks&gt;
++		&lt;!-- Poisoning --&gt;
++		&lt;basescript&gt;npc.poison&lt;/basescript&gt;
++		&lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;4&quot; /&gt;
++		&lt;intproperty name=&quot;hit_poison_chance&quot; value=&quot;50&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;20&quot; /&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1,2&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Palace of Paroxysmus\Chief Paroxysmus&lt;/category&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile,snake&quot; /&gt;
++		&lt;inherit id=&quot;speed_fast&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/index.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/index.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,20 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  |
++ *   )).-' {{ ;'`   |
++ *  ( (  ;._ \\     |
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- ChiefParoxysmus --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/chief_paroxysmus.xml&quot; /&gt;
++	&lt;!-- BulbousPutrification --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/BulbousPutrification.xml&quot; /&gt;
++	&lt;!-- Putrifier --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/Putrifier.xml&quot; /&gt;
++	&lt;!-- CorrosiveSlime --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/CorrosiveSlime.xml&quot; /&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/dread_horn.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/dread_horn.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/dread_horn.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,65 @@
++&lt;!--
++/*=========================================================
++* ) (\_ | WOLFPACK 13.0.0 Scripts
++* (( _/{ &quot;-; | Created by: Owner_Mutilador
++* )).-' {{ ;'` | Revised by:
++* ( ( ;._ \\ | Last modification:
++*=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Paroxysmus --&gt;
++	&lt;npc id=&quot;dread_horn&quot; inherit=&quot;monster_base&quot;&gt;
++		&lt;name&gt;Dread Horn&lt;/name&gt;
++		&lt;id&gt;257&lt;/id&gt;
++		&lt;inherit id=&quot;KARMA_L4&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L4&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;812&quot; max=&quot;999&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;507&quot; max=&quot;669&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;1206&quot; max=&quot;1389&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;48000&quot; max=&quot;50000&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;27&lt;/mindamage&gt;
++		&lt;maxdamage&gt;31&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_poison&quot; value=&quot;60&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;dmg_physical&quot; value=&quot;40&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;900&quot; max=&quot;900&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;900&quot; max=&quot;900&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1110&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magery&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;poisoning&quot;&gt;&lt;random min=&quot;1200&quot; max=&quot;1200&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;evaluatingintel&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;meditation&quot;&gt;&lt;random min=&quot;1100&quot; max=&quot;1100&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Resists --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;40,53&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;50,63&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;50,62&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;67,73&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;66,73&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot --&gt;
++		&lt;!-- Missing: Magic Items, Bonsai Seed --&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++				&lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;2000&quot; max=&quot;2500&quot; /&gt;&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;9b5&quot;&gt; &lt;!-- Eggs --&gt;
++					&lt;amount&gt;2&lt;/amount&gt;
++				&lt;/item&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;gems;gems;gems;gems;gems;gems;tm_5&lt;/lootpacks&gt;
++		&lt;!-- Poisoning --&gt;
++		&lt;basescript&gt;npc.poison&lt;/basescript&gt;
++		&lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;4&quot; /&gt;
++		&lt;intproperty name=&quot;hit_poison_chance&quot; value=&quot;50&quot; /&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;20&quot; /&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1,2&quot; /&gt;
++		&lt;category&gt;Monsters\Mondains Legancy\Twisted Weald\Dread Horn&lt;/category&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;reptile,snake&quot; /&gt;
++		&lt;inherit id=&quot;speed_fast&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/index.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/Twisted Weald/index.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,14 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  |
++ *   )).-' {{ ;'`   |
++ *  ( (  ;._ \\     |
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- dread_horn --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Twisted Weald/dread_horn.xml&quot; /&gt;
++
++&lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/npcs/monsters/mondains_legancy/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/monsters/mondains_legancy/index.xml	2007-06-17 20:29:52 UTC (rev 6828)
++++ trunk/server/release/definitions/npcs/monsters/mondains_legancy/index.xml	2007-06-17 20:30:17 UTC (rev 6829)
+@@ -0,0 +1,17 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  |
++ *   )).-' {{ ;'`   |
++ *  ( (  ;._ \\     |
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Ratmen --&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/index.xml&quot; /&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Twisted Weald/index.xml&quot; /&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Blighted Grove/index.xml&quot; /&gt;
++	&lt;include file=&quot;definitions/npcs/monsters/mondains_legancy/Painted Caves/index.xml&quot; /&gt;
++
++&lt;/definitions&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000033.html">[Wolfpack-svn] r6828 -	trunk/server/release/definitions/regions/trammel/towns
+</A></li>
+	<LI>Next message: <A HREF="000035.html">[Wolfpack-svn] r6830 -	trunk/server/release/definitions/npcs/animals/land
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

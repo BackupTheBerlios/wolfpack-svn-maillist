@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6833 - trunk/server/release/scripts/commands
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6833%20-%20trunk/server/release/scripts/commands&In-Reply-To=%3C200706181536.l5IFa9Nk030355%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000037.html">
+   <LINK REL="Next"  HREF="000039.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6833 - trunk/server/release/scripts/commands</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6833%20-%20trunk/server/release/scripts/commands&In-Reply-To=%3C200706181536.l5IFa9Nk030355%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6833 - trunk/server/release/scripts/commands">naddel at mail.berlios.de
+       </A><BR>
+    <I>Mon Jun 18 17:36:09 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000037.html">[Wolfpack-svn] r6832 -	trunk/server/release/definitions/npcs/animals/land
+</A></li>
+        <LI>Next message: <A HREF="000039.html">[Wolfpack-svn] r6834 - in trunk/server/release/definitions:	locations teleports
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-18 17:36:09 +0200 (Mon, 18 Jun 2007)
+New Revision: 6833
+
+Modified:
+   trunk/server/release/scripts/commands/wipe.py
+Log:
+wiping equipped item cause a server crash
+
+Modified: trunk/server/release/scripts/commands/wipe.py
+===================================================================
+--- trunk/server/release/scripts/commands/wipe.py	2007-06-18 15:20:36 UTC (rev 6832)
++++ trunk/server/release/scripts/commands/wipe.py	2007-06-18 15:36:09 UTC (rev 6833)
+@@ -59,12 +59,16 @@
+ import wolfpack.gumps
+ from gumps.warning_gump import WarningGump
+ import wolfpack.consts
++from wolfpack import tr
+ 
+-def getBoundingBox( socket, callback, args ) :
++def getBoundingBox( socket, callback, args ):
+ 	socket.attachtarget( &quot;commands.wipe.getBoundingBoxResponse&quot;, [0, callback, None, args] )
+ 	return
+ 
+ def getBoundingBoxResponse( char, args, target ):
++	if target.item and target.item.layer != 0:
++		char.socket.sysmessage( tr(&quot;Wiping equipped items is not allowed!&quot;) )
++		return
+ 	if args[0] == 0:
+ 		char.socket.attachtarget(&quot;commands.wipe.getBoundingBoxResponse&quot;, [1, args[1], target, args[3]] )
+ 	else:
+@@ -75,34 +79,34 @@
+ 	argstring = argstring.strip() # Remove trailing and leading whitespaces
+ 	if len( argstring ) &gt; 0:
+ 		if argstring.lower() == &quot;all&quot;:
+-			gump = WarningGump( 1060635, 30720, &quot;Wiping &lt;i&gt;all&lt;/i&gt; items in the world.&lt;br&gt;Do you wish to proceed?&quot;, 0xFFC000, 420, 400, wipeAllWorld, [] )
++			gump = WarningGump( 1060635, 30720, tr(&quot;Wiping &lt;i&gt;all&lt;/i&gt; items in the world.&lt;br&gt;Do you wish to proceed?&quot;), 0xFFC000, 420, 400, wipeAllWorld, [] )
+ 			gump.send( socket )
+ 			return
+ 		elif argstring.lower() == &quot;map&quot;:
+-			gump = WarningGump( 1060635, 30720, &quot;Wiping &lt;i&gt;all&lt;/i&gt; items in this map.&lt;br&gt;Do you wish to proceed?&quot;, 0xFFC000, 420, 400, wipeMap, [] )
++			gump = WarningGump( 1060635, 30720, tr(&quot;Wiping &lt;i&gt;all&lt;/i&gt; items in this map.&lt;br&gt;Do you wish to proceed?&quot;), 0xFFC000, 420, 400, wipeMap, [] )
+ 			gump.send( socket )
+ 			return
+ 		else:
+ 			if argstring.lower() == &quot;nomulti&quot;:
+-				socket.sysmessage(&quot;You choose to nuke anything except items in multis&quot;)
++				socket.sysmessage(tr(&quot;You choose to nuke anything except items in multis&quot;))
+ 				baseid = argstring
+ 			else:
+ 				if argstring.lower() == &quot;onlymulti&quot;:
+-					socket.sysmessage(&quot;You choose to nuke just items in multis&quot;)
++					socket.sysmessage(tr(&quot;You choose to nuke just items in multis&quot;))
+ 					baseid = argstring
+ 				else:
+ 					baseid = argstring
+ 	else:
+ 		baseid = None
+ 
+-	socket.sysmessage(&quot;Select the area to remove&quot;)
++	socket.sysmessage(tr(&quot;Select the area to remove&quot;))
+ 	getBoundingBox( socket, wipeBoundingBox, baseid )
+ 	return True
+ 
+ def nukez( socket, command, arguments ):
+ 	arguments = arguments.strip() # Remove trailing and leading whitespaces
+ 	if( len(arguments) == 0 or arguments.count(' ') &gt; 1 ):
+-		socket.sysmessage('Usage: .nukez z [ baseid ]')
++		socket.sysmessage(tr('Usage: .nukez z [ baseid ]'))
+ 		return
+ 
+ 	if( arguments.count(' ') == 1 ):
+@@ -113,19 +117,19 @@
+ 	try:
+ 		z = int(z)
+ 	except:
+-		socket.sysmessage('Invalid z value.')
++		socket.sysmessage(tr('Invalid z value.'))
+ 		return
+ 
+-	socket.sysmessage(&quot;Select the area to remove&quot;)
++	socket.sysmessage(tr(&quot;Select the area to remove&quot;))
+ 	getBoundingBox( socket, wipeBoundingBox, [z, baseid] )
+ 	return True
+ 
+ def wipeAllWorld( player, accept, state ):
+ 	if not accept:
+-		player.socket.sysmessage( &quot;Wipe command have been canceled&quot; )
++		player.socket.sysmessage( tr(&quot;Wipe command have been canceled&quot;) )
+ 		return 1
+ 
+-	player.socket.sysmessage( &quot;Removing all items from world, this may take a while&quot; )
++	player.socket.sysmessage( tr(&quot;Removing all items from world, this may take a while&quot;) )
+ 	iterator = wolfpack.itemiterator()
+ 	item = iterator.first
+ 	counter = 0
+@@ -135,15 +139,15 @@
+ 			counter += 1
+ 		item = iterator.next
+ 
+-	player.socket.sysmessage( &quot;%i items have been removed from world&quot; % counter )
++	player.socket.sysmessage( tr(&quot;%i items have been removed from world&quot;) % counter )
+ 	return
+ 
+ def wipeMap( player, accept, state ):
+ 	if not accept:
+-		player.socket.sysmessage( &quot;Wipe command have been canceled&quot; )
++		player.socket.sysmessage( tr(&quot;Wipe command have been canceled&quot;) )
+ 		return 1
+ 
+-	player.socket.sysmessage( &quot;Removing all items from this map, this may take a while&quot; )
++	player.socket.sysmessage( tr(&quot;Removing all items from this map, this may take a while&quot;) )
+ 	iterator = wolfpack.itemiterator()
+ 	item = iterator.first
+ 	counter = 0
+@@ -154,7 +158,7 @@
+ 				counter += 1
+ 		item = iterator.next
+ 
+-	player.socket.sysmessage( &quot;%i items have been removed from this map&quot; % counter )
++	player.socket.sysmessage( tr(&quot;%i items have been removed from this map&quot;) % counter )
+ 	return
+ 
+ def wipeBoundingBox( socket, target1, target2, argstring ):
+@@ -191,12 +195,12 @@
+ 						count += 1
+ 
+ 		item = iterator.next
+-	socket.sysmessage( &quot;%i items removed&quot; % count )
++	socket.sysmessage( tr(&quot;%i items removed&quot;) % count )
+ 
+ 	if socket.player:
+-		socket.player.log(wolfpack.consts.LOG_MESSAGE,&quot;Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s \n&quot; % (x1,y1,x2,y2,count,argstring) )
++		socket.player.log(wolfpack.consts.LOG_MESSAGE, tr(&quot;Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s \n&quot;) % (x1,y1,x2,y2,count,argstring) )
+ 	else:
+-		wolfpack.log(wolfpack.consts.LOG_MESSAGE,&quot;Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s (Socket-ID: %s)\n&quot; % (x1,y1,x2,y2,count,argstring,socket.id) )
++		wolfpack.log(wolfpack.consts.LOG_MESSAGE, tr(&quot;Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s (Socket-ID: %s)\n&quot;) % (x1,y1,x2,y2,count,argstring,socket.id) )
+ 	return True
+ 
+ def onLoad():
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000037.html">[Wolfpack-svn] r6832 -	trunk/server/release/definitions/npcs/animals/land
+</A></li>
+	<LI>Next message: <A HREF="000039.html">[Wolfpack-svn] r6834 - in trunk/server/release/definitions:	locations teleports
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

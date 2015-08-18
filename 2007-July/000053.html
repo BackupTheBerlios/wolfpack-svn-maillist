@@ -1,0 +1,960 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6848 - in	trunk/server/release/definitions/decoration: . Malas Tokuno
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6848%20-%20in%0A%09trunk/server/release/definitions/decoration%3A%20.%20Malas%20Tokuno&In-Reply-To=%3C200707260029.l6Q0T2Ot009980%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000052.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6848 - in	trunk/server/release/definitions/decoration: . Malas Tokuno</H1>
+    <B>lastkiller at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6848%20-%20in%0A%09trunk/server/release/definitions/decoration%3A%20.%20Malas%20Tokuno&In-Reply-To=%3C200707260029.l6Q0T2Ot009980%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6848 - in	trunk/server/release/definitions/decoration: . Malas Tokuno">lastkiller at mail.berlios.de
+       </A><BR>
+    <I>Thu Jul 26 02:29:02 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000052.html">[Wolfpack-svn] r6847 - in trunk/server: release/definitions	release/definitions/npcs/humans release/scripts/speech src src/gui
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lastkiller
+Date: 2007-07-26 02:28:29 +0200 (Thu, 26 Jul 2007)
+New Revision: 6848
+
+Added:
+   trunk/server/release/definitions/decoration/Malas/darktidesquest.xml
+   trunk/server/release/definitions/decoration/Malas/doom.xml
+   trunk/server/release/definitions/decoration/Malas/luna.xml
+   trunk/server/release/definitions/decoration/Malas/signs.xml
+   trunk/server/release/definitions/decoration/Malas/umbra.xml
+   trunk/server/release/definitions/decoration/Tokuno/
+   trunk/server/release/definitions/decoration/Tokuno/signs.xml
+   trunk/server/release/definitions/decoration/Tokuno/tokuno.xml
+Modified:
+   trunk/server/release/definitions/decoration/decoration.3.xml
+Log:
+Decoration update for Malas and Tokumo by Owner_Mutilador
+
+Added: trunk/server/release/definitions/decoration/Malas/darktidesquest.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Malas/darktidesquest.xml	2007-07-14 19:20:39 UTC (rev 6847)
++++ trunk/server/release/definitions/decoration/Malas/darktidesquest.xml	2007-07-26 00:28:29 UTC (rev 6848)
+@@ -0,0 +1,110 @@
++&lt;decoration&gt;
++	&lt;!-- ONLY ITEMS --&gt;
++	&lt;!-- a magical teleporter --&gt;
++	&lt;item id=&quot;0x1822&quot;&gt;
++		&lt;pos x=&quot;2105&quot; y=&quot;1307&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2018&quot; y=&quot;1226&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2018&quot; y=&quot;458&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Crystal cave barrier --&gt;
++	&lt;item id=&quot;0x3967&quot;&gt;
++		&lt;pos x=&quot;1193&quot; y=&quot;512&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1194&quot; y=&quot;512&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1195&quot; y=&quot;512&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1196&quot; y=&quot;512&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1197&quot; y=&quot;512&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Kronus scroll box  - CREATE ITEM--&gt;
++	&lt;item id=&quot;0xE80&quot;&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;451&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Vault of secrets barrier --&gt;
++	&lt;item id=&quot;0x49E&quot;&gt;
++		&lt;pos x=&quot;1073&quot; y=&quot;450&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1073&quot; y=&quot;451&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1073&quot; y=&quot;452&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1078&quot; y=&quot;450&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1078&quot; y=&quot;451&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1078&quot; y=&quot;452&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal chest --&gt;
++	&lt;item id=&quot;0x1822&quot; hue=&quot;0x499&quot;&gt;
++		&lt;pos x=&quot;1076&quot; y=&quot;453&quot; z=&quot;-84&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1076&quot; y=&quot;449&quot; z=&quot;-84&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Vault of secrets sign --&gt;
++	&lt;item id=&quot;0x0BD0&quot; hue=&quot;0x482&quot;&gt;
++		&lt;pos x=&quot;1079&quot; y=&quot;454&quot; z=&quot;-84&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- crate --&gt;
++	&lt;item id=&quot;0x0E3E&quot;&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;450&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;450&quot; z=&quot;-87&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1200&quot; y=&quot;438&quot; z=&quot;-87&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1203&quot; y=&quot;439&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;454&quot; z=&quot;-87&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- crate --&gt;
++	&lt;item id=&quot;0x0E3F&quot;&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;448&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1186&quot; y=&quot;439&quot; z=&quot;-87&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1201&quot; y=&quot;438&quot; z=&quot;-87&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1194&quot; y=&quot;447&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1194&quot; y=&quot;448&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal chest --&gt;
++	&lt;item id=&quot;0x0E40&quot; hue=&quot;0x835&quot;&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;447&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1184&quot; y=&quot;446&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1184&quot; y=&quot;443&quot; z=&quot;-86&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal chest --&gt;
++	&lt;item id=&quot;0x0E41&quot; hue=&quot;0x835&quot;&gt;
++		&lt;pos x=&quot;1184&quot; y=&quot;445&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1188&quot; y=&quot;437&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1188&quot; y=&quot;437&quot; z=&quot;-86&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1189&quot; y=&quot;437&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1194&quot; y=&quot;438&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal chest --&gt;
++	&lt;item id=&quot;0x0E40&quot;&gt;
++		&lt;pos x=&quot;1184&quot; y=&quot;444&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal chest --&gt;
++	&lt;item id=&quot;0x0E40&quot; hue=&quot;0x849&quot;&gt;
++		&lt;pos x=&quot;1184&quot; y=&quot;443&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- bookcase --&gt;
++	&lt;item id=&quot;0x0A9A&quot;&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;440&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- crate --&gt;
++	&lt;item id=&quot;0x0E3D&quot;&gt;
++		&lt;pos x=&quot;1186&quot; y=&quot;439&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1200&quot; y=&quot;438&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1201&quot; y=&quot;438&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1202&quot; y=&quot;439&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1202&quot; y=&quot;439&quot; z=&quot;-87&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;454&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1185&quot; y=&quot;453&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1186&quot; y=&quot;453&quot; z=&quot;-87&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1186&quot; y=&quot;453&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!--  metal chest --&gt;
++	&lt;item id=&quot;0x0E41&quot; hue=&quot;0x849&quot;&gt;
++		&lt;pos x=&quot;1188&quot; y=&quot;437&quot; z=&quot;-82&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1190&quot; y=&quot;437&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!--  metal chest --&gt;
++	&lt;item id=&quot;0x0E41&quot; hue=&quot;0x482&quot;&gt;
++		&lt;pos x=&quot;1189&quot; y=&quot;437&quot; z=&quot;-86&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!--  small fish --&gt;
++	&lt;item id=&quot;0x0DD9&quot;&gt;
++		&lt;pos x=&quot;1192&quot; y=&quot;438&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!--  bookcase --&gt;
++	&lt;item id=&quot;0x0A97&quot;&gt;
++		&lt;pos x=&quot;1197&quot; y=&quot;437&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++&lt;/decoration&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/decoration/Malas/doom.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Malas/doom.xml	2007-07-14 19:20:39 UTC (rev 6847)
++++ trunk/server/release/definitions/decoration/Malas/doom.xml	2007-07-26 00:28:29 UTC (rev 6848)
+@@ -0,0 +1,138 @@
++&lt;decoration&gt;
++	&lt;!-- pedestal --&gt;
++	&lt;item id=&quot;0x1F2A&quot;&gt;
++		&lt;pos x=&quot;497&quot; y=&quot;92&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- alchemical symbol --&gt;
++	&lt;item id=&quot;0x181D&quot; hue=&quot;0x482&quot;&gt;
++		&lt;pos x=&quot;468&quot; y=&quot;92&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- alchemical symbol --&gt;
++	&lt;item id=&quot;0x1821&quot; hue=&quot;0x3FD&quot;&gt;
++		&lt;pos x=&quot;469&quot; y=&quot;92&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- alchemical symbol --&gt;
++	&lt;item id=&quot;0x1825&quot; hue=&quot;0x66D&quot;&gt;
++		&lt;pos x=&quot;470&quot; y=&quot;92&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal door --&gt;
++	&lt;item id=&quot;0x067D&quot;&gt;
++		&lt;pos x=&quot;269&quot; y=&quot;74&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;278&quot; y=&quot;96&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;334&quot; y=&quot;15&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;344&quot; y=&quot;15&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal door --&gt;
++	&lt;item id=&quot;0x067F&quot;&gt;
++		&lt;pos x=&quot;269&quot; y=&quot;73&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;278&quot; y=&quot;95&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;334&quot; y=&quot;14&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;344&quot; y=&quot;14&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal door --&gt;
++	&lt;item id=&quot;0x0675&quot;&gt;
++		&lt;pos x=&quot;308&quot; y=&quot;88&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal door --&gt;
++	&lt;item id=&quot;0x0677&quot;&gt;
++		&lt;pos x=&quot;309&quot; y=&quot;88&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x108C&quot; hue=&quot;0x83E&quot;&gt;
++		&lt;pos x=&quot;307&quot; y=&quot;143&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x1095&quot; hue=&quot;0x83F&quot;&gt;
++		&lt;pos x=&quot;308&quot; y=&quot;143&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x1095&quot; hue=&quot;0x843&quot;&gt;
++		&lt;pos x=&quot;309&quot; y=&quot;143&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;308&quot; y=&quot;146&quot; z=&quot;8&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x1093&quot; hue=&quot;0x845&quot;&gt;
++		&lt;pos x=&quot;310&quot; y=&quot;143&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x108C&quot; hue=&quot;0x83D&quot;&gt;
++		&lt;pos x=&quot;307&quot; y=&quot;144&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x108E&quot; hue=&quot;0x83E&quot;&gt;
++		&lt;pos x=&quot;307&quot; y=&quot;145&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;311&quot; y=&quot;144&quot; z=&quot;9&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x1093&quot; hue=&quot;0x835&quot;&gt;
++		&lt;pos x=&quot;309&quot; y=&quot;146&quot; z=&quot;8&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x1093&quot; hue=&quot;0x83B&quot;&gt;
++		&lt;pos x=&quot;310&quot; y=&quot;146&quot; z=&quot;8&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- lever --&gt;
++	&lt;item id=&quot;0x108C&quot; hue=&quot;0x845&quot;&gt;
++		&lt;pos x=&quot;311&quot; y=&quot;145&quot; z=&quot;9&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- crumbling floor  --&gt;
++	&lt;item id=&quot;0x11C5&quot; hue=&quot;0x455&quot;&gt;
++		&lt;pos x=&quot;2347&quot; y=&quot;1264&quot; z=&quot;-110&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2347&quot; y=&quot;1271&quot; z=&quot;-110&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2340&quot; y=&quot;1272&quot; z=&quot;-110&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2340&quot; y=&quot;1264&quot; z=&quot;-110&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal door --&gt;
++	&lt;item id=&quot;0x0681&quot; hue=&quot;0x455&quot;&gt;
++		&lt;pos x=&quot;2333&quot; y=&quot;1269&quot; z=&quot;-110&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal door --&gt;
++	&lt;item id=&quot;0x067F&quot; hue=&quot;0x455&quot;&gt;
++		&lt;pos x=&quot;2333&quot; y=&quot;1268&quot; z=&quot;-110&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- floor spikes --&gt;
++	&lt;item id=&quot;0x11A0&quot;&gt;
++		&lt;pos x=&quot;378&quot; y=&quot;140&quot; z=&quot;1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;378&quot; y=&quot;139&quot; z=&quot;2&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;379&quot; y=&quot;140&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;384&quot; y=&quot;138&quot; z=&quot;4&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;385&quot; y=&quot;138&quot; z=&quot;-2&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- iron gate --&gt;
++	&lt;item id=&quot;0x082C&quot;&gt;
++		&lt;pos x=&quot;351&quot; y=&quot;40&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- switch --&gt;
++	&lt;item id=&quot;0x108F&quot;&gt;
++		&lt;pos x=&quot;351&quot; y=&quot;47&quot; z=&quot;10&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- skinning knife --&gt;
++	&lt;item id=&quot;0x0EC4&quot;&gt;
++		&lt;pos x=&quot;445&quot; y=&quot;15&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;445&quot; y=&quot;15&quot; z=&quot;6&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;453&quot; y=&quot;15&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;452&quot; y=&quot;16&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- skinning knife --&gt;
++	&lt;item id=&quot;0x0EC5&quot;&gt;
++		&lt;pos x=&quot;444&quot; y=&quot;16&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;449&quot; y=&quot;16&quot; z=&quot;5&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;449&quot; y=&quot;16&quot; z=&quot;6&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- floor spikes --&gt;
++	&lt;item id=&quot;0x119A&quot;&gt;
++		&lt;pos x=&quot;379&quot; y=&quot;139&quot; z=&quot;0&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;383&quot; y=&quot;138&quot; z=&quot;3&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;383&quot; y=&quot;140&quot; z=&quot;-2&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;386&quot; y=&quot;144&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- empty tub --&gt;
++	&lt;item id=&quot;0x0E83&quot;&gt;
++		&lt;pos x=&quot;385&quot; y=&quot;28&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;387&quot; y=&quot;28&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- iron gate --&gt;
++	&lt;item id=&quot;0x084C&quot;&gt;
++		&lt;pos x=&quot;391&quot; y=&quot;29&quot; z=&quot;-1&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++&lt;/decoration&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/decoration/Malas/luna.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Malas/luna.xml	2007-07-14 19:20:39 UTC (rev 6847)
++++ trunk/server/release/definitions/decoration/Malas/luna.xml	2007-07-26 00:28:29 UTC (rev 6848)
+@@ -0,0 +1,192 @@
++&lt;decoration&gt;
++	&lt;!-- wooden door (Facing=SouthCW) --&gt;
++	&lt;item id=&quot;0x06AD&quot;&gt;
++		&lt;pos x=&quot;989&quot; y=&quot;519&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;999&quot; y=&quot;527&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- wooden door (Facing=NorthCCW) --&gt;
++	&lt;item id=&quot;0x06AF&quot;&gt;
++		&lt;pos x=&quot;999&quot; y=&quot;512&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;989&quot; y=&quot;518&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- wooden door ((Facing=EastCCW) --&gt;
++	&lt;item id=&quot;0x06A7&quot;&gt;
++		&lt;pos x=&quot;991&quot; y=&quot;522&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;978&quot; y=&quot;517&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1002&quot; y=&quot;522&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1002&quot; y=&quot;522&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;		
++		&lt;pos x=&quot;1002&quot; y=&quot;517&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- backpack --&gt;
++	&lt;item id=&quot;0x0E75&quot;&gt;
++		&lt;pos x=&quot;992&quot; y=&quot;509&quot; z=&quot;-47&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- LibraryBookcase --&gt;
++	&lt;item id=&quot;0x0A9B&quot;&gt;
++		&lt;pos x=&quot;950&quot; y=&quot;493&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;951&quot; y=&quot;498&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;953&quot; y=&quot;493&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;952&quot; y=&quot;496&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;		
++		&lt;pos x=&quot;952&quot; y=&quot;498&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;953&quot; y=&quot;496&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;986&quot; y=&quot;525&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1004&quot; y=&quot;523&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;	
++	&lt;/item&gt;
++	&lt;!-- EmptyBookcase --&gt;
++	&lt;item id=&quot;0x0A9E&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;947&quot; y=&quot;496&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;947&quot; y=&quot;498&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;947&quot; y=&quot;499&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;947&quot; y=&quot;540&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;		
++		&lt;pos x=&quot;947&quot; y=&quot;542&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;948&quot; y=&quot;543&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;949&quot; y=&quot;541&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;947&quot; y=&quot;544&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;	
++		&lt;pos x=&quot;1022&quot; y=&quot;494&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1022&quot; y=&quot;495&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;		
++		&lt;pos x=&quot;1022&quot; y=&quot;543&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1022&quot; y=&quot;544&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1024&quot; y=&quot;499&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;949&quot; y=&quot;543&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1024&quot; y=&quot;500&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- empty tub --&gt;
++	&lt;item id=&quot;0x0E83&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;947&quot; y=&quot;497&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Barrel --&gt;
++	&lt;item id=&quot;0x0FAE&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;947&quot; y=&quot;538&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;948&quot; y=&quot;538&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1028&quot; y=&quot;541&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1028&quot; y=&quot;542&quot; z=&quot;-64&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1028&quot; y=&quot;542&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- EmptyBookcase --&gt;
++	&lt;item id=&quot;0x0A9D&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;954&quot; y=&quot;538&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1025&quot; y=&quot;493&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1028&quot; y=&quot;493&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1026&quot; y=&quot;538&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- SmallForgeAddon --&gt;
++	&lt;item id=&quot;0x0FB1&quot;&gt;
++		&lt;pos x=&quot;974&quot; y=&quot;509&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;977&quot; y=&quot;509&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- AnvilSouthAddon --&gt;
++	&lt;item id=&quot;0x0FB0&quot;&gt;
++		&lt;pos x=&quot;975&quot; y=&quot;509&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;976&quot; y=&quot;509&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- AnvilEastAddon --&gt;
++	&lt;item id=&quot;0x0FAF&quot;&gt;
++		&lt;pos x=&quot;973&quot; y=&quot;513&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Below --&gt;
++	&lt;item id=&quot;0x1986&quot;&gt;
++		&lt;pos x=&quot;973&quot; y=&quot;514&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Forge --&gt;
++	&lt;item id=&quot;0x198A&quot;&gt;
++		&lt;pos x=&quot;973&quot; y=&quot;515&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Forge --&gt;
++	&lt;item id=&quot;0x198E&quot;&gt;
++		&lt;pos x=&quot;973&quot; y=&quot;516&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- MetalChest --&gt;
++	&lt;item id=&quot;0x09AB&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;987&quot; y=&quot;516&quot; z=&quot;-44&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;993&quot; y=&quot;516&quot; z=&quot;-44&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;994&quot; y=&quot;516&quot; z=&quot;-44&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1004&quot; y=&quot;509&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- MetalChest --&gt;
++	&lt;item id=&quot;0x0E7C&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;985&quot; y=&quot;523&quot; z=&quot;-40&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;985&quot; y=&quot;523&quot; z=&quot;-45&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;985&quot; y=&quot;523&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- dresser --&gt;
++	&lt;item id=&quot;0x0A3D&quot;&gt;
++		&lt;pos x=&quot;987&quot; y=&quot;525&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- dresser --&gt;
++	&lt;item id=&quot;0x0A3C&quot;&gt;
++		&lt;pos x=&quot;988&quot; y=&quot;525&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Armoire --&gt;
++	&lt;item id=&quot;0x0A4F&quot;&gt;
++		&lt;pos x=&quot;999&quot; y=&quot;523&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1001&quot; y=&quot;523&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- chest of drawers --&gt;
++	&lt;item id=&quot;0x0A34&quot;&gt;
++		&lt;pos x=&quot;996&quot; y=&quot;530&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- LibraryBookcase --&gt;
++	&lt;item id=&quot;0x0A99&quot;&gt;
++		&lt;pos x=&quot;1000&quot; y=&quot;524&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1000&quot; y=&quot;525&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1000&quot; y=&quot;529&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1000&quot; y=&quot;530&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Barrel --&gt;
++	&lt;item id=&quot;0x0E77&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;1022&quot; y=&quot;538&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1022&quot; y=&quot;538&quot; z=&quot;-64&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1022&quot; y=&quot;539&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1022&quot; y=&quot;540&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1022&quot; y=&quot;538&quot; z=&quot;-70&quot; map=&quot;3&quot; /&gt;		
++	&lt;/item&gt;	
++	&lt;!-- spinning wheel --&gt;
++	&lt;item id=&quot;0x1015&quot;&gt;
++		&lt;pos x=&quot;973&quot; y=&quot;530&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- upright loom --&gt;
++	&lt;item id=&quot;0x1061&quot;&gt;
++		&lt;pos x=&quot;975&quot; y=&quot;523&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- upright loom --&gt;
++	&lt;item id=&quot;0x1062&quot;&gt;
++		&lt;pos x=&quot;976&quot; y=&quot;523&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- DarkWoodDoor  --&gt;
++	&lt;item id=&quot;0x06AB&quot;&gt;
++		&lt;pos x=&quot;978&quot; y=&quot;522&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;994&quot; y=&quot;516&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;	
++	&lt;!-- DarkWoodDoor  --&gt;
++	&lt;item id=&quot;0x06B3&quot;&gt;
++		&lt;pos x=&quot;980&quot; y=&quot;527&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;	
++	&lt;!-- DarkWoodDoor  --&gt;
++	&lt;item id=&quot;0x06B1&quot;&gt;
++		&lt;pos x=&quot;980&quot; y=&quot;512&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;	
++	&lt;!-- LightWoodDoor --&gt;
++	&lt;item id=&quot;0x06D5&quot;&gt;
++		&lt;pos x=&quot;926&quot; y=&quot;642&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;	
++	&lt;!-- Bakery-LocalizedSign  --&gt;
++	&lt;item id=&quot;0x0BA3&quot;&gt;
++		&lt;pos x=&quot;962&quot; y=&quot;633&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;	
++	&lt;!-- Tavern-LocalizedSign  --&gt;
++	&lt;item id=&quot;0x0BC3&quot;&gt;
++		&lt;pos x=&quot;962&quot; y=&quot;641&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;	
++	&lt;!-- LightWoodDoor  --&gt;
++	&lt;item id=&quot;0x06D7&quot;&gt;
++		&lt;pos x=&quot;927&quot; y=&quot;642&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- LightWoodDoor  --&gt;
++	&lt;item id=&quot;0x0843&quot;&gt;
++		&lt;pos x=&quot;952&quot; y=&quot;637&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;		
++	&lt;!-- LightWoodDoor  --&gt;
++	&lt;item id=&quot;0x06DD&quot;&gt;
++		&lt;pos x=&quot;928&quot; y=&quot;637&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;			
++&lt;/decoration&gt;
+
+Added: trunk/server/release/definitions/decoration/Malas/signs.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Malas/signs.xml	2007-07-14 19:20:39 UTC (rev 6847)
++++ trunk/server/release/definitions/decoration/Malas/signs.xml	2007-07-26 00:28:29 UTC (rev 6848)
+@@ -0,0 +1,82 @@
++&lt;decoration&gt;
++	&lt;!-- Luna --&gt;
++	&lt;!-- SIGNS --&gt;
++	&lt;!-- Carpentry --&gt;
++	&lt;item id=&quot;0xBB0&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;1001&quot; y=&quot;518&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Mage --&gt;
++	&lt;item id=&quot;0xBAE&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;1000&quot; y=&quot;523&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Bank --&gt;
++	&lt;item id=&quot;0xC0B&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;996&quot; y=&quot;517&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Provisoner --&gt;
++	&lt;item id=&quot;0xBCC&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;994&quot; y=&quot;509&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Tailor--&gt;
++	&lt;item id=&quot;0xBA5&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;981&quot; y=&quot;526&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Blacksmithing --&gt;
++	&lt;item id=&quot;0xBC7&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;981&quot; y=&quot;511&quot; z=&quot;-50&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Inkeeper --&gt;
++	&lt;item id=&quot;0xBB3&quot; hue=&quot;0x47E&quot;&gt;
++		&lt;pos x=&quot;1005&quot; y=&quot;522&quot; z=&quot;-30&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Umbra --&gt;
++	&lt;!-- SIGNS --&gt;
++	&lt;!-- Tamer--&gt;
++	&lt;item id=&quot;0xBB8&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;1994&quot; y=&quot;1326&quot; z=&quot;-91&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Mage --&gt;
++	&lt;item id=&quot;0xBAD&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2038&quot; y=&quot;1385&quot; z=&quot;-88&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Bank --&gt;
++	&lt;item id=&quot;0xC0B&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2056&quot; y=&quot;1338&quot; z=&quot;-85&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Provisoner --&gt;
++	&lt;item id=&quot;0xBCC&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2014&quot; y=&quot;1338&quot; z=&quot;-76&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Tailor--&gt;
++	&lt;item id=&quot;0xBA6&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2075&quot; y=&quot;1339&quot; z=&quot;-82&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Blacksmithing --&gt;
++	&lt;item id=&quot;0xBC7&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;1997&quot; y=&quot;1369&quot; z=&quot;-87&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Inkeeper --&gt;
++	&lt;item id=&quot;0xBB3&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2047&quot; y=&quot;1312&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Tavern --&gt;
++	&lt;item id=&quot;0xBC3&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2030&quot; y=&quot;1348&quot; z=&quot;-89&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Baker --&gt;
++	&lt;item id=&quot;0xBA3&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2023&quot; y=&quot;1347&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Carpentry --&gt;
++	&lt;item id=&quot;0xBB0&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2069&quot; y=&quot;1298&quot; z=&quot;-81&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Healer --&gt;
++	&lt;item id=&quot;0xBAC&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2085&quot; y=&quot;1379&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Jeweler --&gt;
++	&lt;item id=&quot;0xBC1&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2055&quot; y=&quot;1390&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++&lt;/decoration&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/decoration/Malas/umbra.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Malas/umbra.xml	2007-07-14 19:20:39 UTC (rev 6847)
++++ trunk/server/release/definitions/decoration/Malas/umbra.xml	2007-07-26 00:28:29 UTC (rev 6848)
+@@ -0,0 +1,99 @@
++&lt;decoration&gt;
++	&lt;!-- spinning wheel (Facing=SouthCW) --&gt;
++	&lt;item id=&quot;0x1015&quot;&gt;
++		&lt;pos x=&quot;2088&quot; y=&quot;1318&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- LoomEastAddon (Facing=East) --&gt;
++	&lt;item id=&quot;0x1060&quot;&gt;
++		&lt;pos x=&quot;2088&quot; y=&quot;1326&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2088&quot; y=&quot;1329&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- StrongWoodDoor (Facing=EastCW) --&gt;
++	&lt;item id=&quot;0x06EB&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;2038&quot; y=&quot;1320&quot; z=&quot;-85&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2041&quot; y=&quot;1321&quot; z=&quot;-85&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- StoneOvenEastAddon (Facing=EastCW) --&gt;
++	&lt;item id=&quot;0x092C&quot; hue=&quot;0x44E&quot;&gt;
++		&lt;pos x=&quot;2015&quot; y=&quot;1360&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- training dummy --&gt;
++	&lt;item id=&quot;0x1074&quot; hue=&quot;0x44F&quot;&gt;
++		&lt;pos x=&quot;1961&quot; y=&quot;1339&quot; z=&quot;-75&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1977&quot; y=&quot;1307&quot; z=&quot;-75&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- wooden bench --&gt;
++	&lt;item id=&quot;0x0B2D&quot; hue=&quot;0x1A&quot;&gt;
++		&lt;pos x=&quot;2040&quot; y=&quot;1326&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- wooden door --&gt;
++	&lt;item id=&quot;0x06EF&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;2036&quot; y=&quot;1317&quot; z=&quot;-85&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2036&quot; y=&quot;1323&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- barrel --&gt;
++	&lt;item id=&quot;0x0E77&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;2059&quot; y=&quot;1281&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2059&quot; y=&quot;1280&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2061&quot; y=&quot;1290&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2062&quot; y=&quot;1291&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal chest --&gt;
++	&lt;item id=&quot;0x0E40&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;1975&quot; y=&quot;1365&quot; z=&quot;-74&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1975&quot; y=&quot;1366&quot; z=&quot;-74&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2034&quot; y=&quot;1321&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- barrel --&gt;
++	&lt;item id=&quot;0x0FAE&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;1975&quot; y=&quot;1369&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1975&quot; y=&quot;1370&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1975&quot; y=&quot;1370&quot; z=&quot;-73&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;1991&quot; y=&quot;1315&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2013&quot; y=&quot;1365&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2013&quot; y=&quot;1366&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2014&quot; y=&quot;1366&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- stone wall --&gt;
++	&lt;item id=&quot;0x005A&quot; hue=&quot;0x451&quot;&gt;
++		&lt;pos x=&quot;1994&quot; y=&quot;1325&quot; z=&quot;-90&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- chest of drawers --&gt;
++	&lt;item id=&quot;0x0A2C&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;2035&quot; y=&quot;1311&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2041&quot; y=&quot;1311&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal chest --&gt;
++	&lt;item id=&quot;0x0E41&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;2033&quot; y=&quot;1313&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2039&quot; y=&quot;1313&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- wooden door --&gt;
++	&lt;item id=&quot;0x06E5&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;2035&quot; y=&quot;1315&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2040&quot; y=&quot;1315&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- chest of drawers --&gt;
++	&lt;item id=&quot;0x0A34&quot; hue=&quot;0x497&quot;&gt;
++		&lt;pos x=&quot;2032&quot; y=&quot;1323&quot; z=&quot;-65&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- metal chest --&gt;
++	&lt;item id=&quot;0x09AB&quot; hue=&quot;0x455&quot;&gt;
++		&lt;pos x=&quot;2042&quot; y=&quot;1339&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2043&quot; y=&quot;1339&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2048&quot; y=&quot;1344&quot; z=&quot;-80&quot; map=&quot;3&quot; /&gt;
++		&lt;pos x=&quot;2048&quot; y=&quot;1344&quot; z=&quot;-76&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- cleaver --&gt;
++	&lt;item id=&quot;0x0EC3&quot;&gt;
++		&lt;pos x=&quot;2066&quot; y=&quot;1372&quot; z=&quot;-74&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- bottles of liquor --&gt;
++	&lt;item id=&quot;0x099E&quot;&gt;
++		&lt;pos x=&quot;2028&quot; y=&quot;1354&quot; z=&quot;-81&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- butcher knife --&gt;
++	&lt;item id=&quot;0x13F7&quot;&gt;
++		&lt;pos x=&quot;2070&quot; y=&quot;1370&quot; z=&quot;-74&quot; map=&quot;3&quot; /&gt;
++	&lt;/item&gt;
++&lt;/decoration&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/decoration/Tokuno/signs.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Tokuno/signs.xml	2007-07-14 19:20:39 UTC (rev 6847)
++++ trunk/server/release/definitions/decoration/Tokuno/signs.xml	2007-07-26 00:28:29 UTC (rev 6848)
+@@ -0,0 +1,61 @@
++&lt;decoration&gt;
++	&lt;!-- SIGNS --&gt;
++	&lt;!-- Kuku Kitchens --&gt;
++	&lt;item id=&quot;0xBD1&quot;&gt;
++		&lt;attribute key=&quot;name&quot; value=&quot;Kuku Kitchens&quot; /&gt;
++		&lt;pos x=&quot;710&quot; y=&quot;1270&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;710&quot; y=&quot;1257&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;710&quot; y=&quot;1251&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Mage --&gt;
++	&lt;item id=&quot;0xBAD&quot;&gt;
++		&lt;pos x=&quot;707&quot; y=&quot;1300&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Provisoner --&gt;
++	&lt;item id=&quot;0xBCB&quot;&gt;
++		&lt;pos x=&quot;736&quot; y=&quot;1281&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Healing --&gt;
++	&lt;item id=&quot;0xBAC&quot;&gt;
++		&lt;pos x=&quot;780&quot; y=&quot;1227&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Blacksmithing --&gt;
++	&lt;item id=&quot;0xBC8&quot;&gt;
++		&lt;pos x=&quot;764&quot; y=&quot;1255&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Inkeeper --&gt;
++	&lt;item id=&quot;0xBB4&quot;&gt;
++		&lt;pos x=&quot;677&quot; y=&quot;1220&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Taming --&gt;
++	&lt;item id=&quot;0xBB8&quot;&gt;
++		&lt;pos x=&quot;790&quot; y=&quot;1284&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Bowyer --&gt;
++	&lt;item id=&quot;0xBCD&quot;&gt;
++		&lt;pos x=&quot;789&quot; y=&quot;1302&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Iroha Dojo --&gt;
++	&lt;item id=&quot;0xBD1&quot;&gt;
++		&lt;attribute key=&quot;name&quot; value=&quot;Iroha Armorer And Musha-Shugyu Dojo&quot; /&gt;
++		&lt;pos x=&quot;768&quot; y=&quot;1298&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Suteki Na Craftworks --&gt;
++	&lt;item id=&quot;0xBD0&quot;&gt;
++		&lt;attribute key=&quot;name&quot; value=&quot;Suteki Na Craftworks&quot; /&gt;
++		&lt;pos x=&quot;729&quot; y=&quot;1229&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Jowyler --&gt;
++	&lt;item id=&quot;0xBC2&quot;&gt;
++		&lt;pos x=&quot;718&quot; y=&quot;1301&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Traveler --&gt;
++	&lt;item id=&quot;0xBC4&quot;&gt;
++		&lt;pos x=&quot;694&quot; y=&quot;1229&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Library --&gt;
++	&lt;item id=&quot;0xB96&quot;&gt;
++		&lt;pos x=&quot;675&quot; y=&quot;1280&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;680&quot; y=&quot;1280&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++&lt;/decoration&gt;
+\ No newline at end of file
+
+Added: trunk/server/release/definitions/decoration/Tokuno/tokuno.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Tokuno/tokuno.xml	2007-07-14 19:20:39 UTC (rev 6847)
++++ trunk/server/release/definitions/decoration/Tokuno/tokuno.xml	2007-07-26 00:28:29 UTC (rev 6848)
+@@ -0,0 +1,134 @@
++&lt;decoration&gt;
++	&lt;!-- ankh --&gt;
++	&lt;item id=&quot;0x0002&quot;&gt;
++		&lt;pos x=&quot;296&quot; y=&quot;712&quot; z=&quot;55&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;780&quot; y=&quot;1219&quot; z=&quot;46&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;1042&quot; y=&quot;508&quot; z=&quot;15&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;1051&quot; y=&quot;508&quot; z=&quot;15&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- ankh --&gt;
++	&lt;item id=&quot;0x0003&quot;&gt;
++		&lt;pos x=&quot;296&quot; y=&quot;711&quot; z=&quot;55&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;780&quot; y=&quot;1218&quot; z=&quot;46&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;1042&quot; y=&quot;507&quot; z=&quot;15&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;1051&quot; y=&quot;507&quot; z=&quot;15&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- ankh --&gt;
++	&lt;item id=&quot;0x0004&quot;&gt;
++		&lt;pos x=&quot;717&quot; y=&quot;1158&quot; z=&quot;27&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- ankh --&gt;
++	&lt;item id=&quot;0x0005&quot;&gt;
++		&lt;pos x=&quot;718&quot; y=&quot;1158&quot; z=&quot;27&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- backgammon board --&gt;
++	&lt;item id=&quot;0x0E1C&quot;&gt;
++		&lt;pos x=&quot;691&quot; y=&quot;1255&quot; z=&quot;48&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- backgammon game --&gt;
++	&lt;item id=&quot;0x0FAD&quot;&gt;
++		&lt;pos x=&quot;668&quot; y=&quot;1258&quot; z=&quot;47&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- archery butte --&gt;
++	&lt;item id=&quot;0x100B&quot;&gt;
++		&lt;pos x=&quot;660&quot; y=&quot;1193&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;663&quot; y=&quot;1193&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- spinning wheel --&gt;
++	&lt;item id=&quot;0x1019&quot;&gt;
++		&lt;pos x=&quot;742&quot; y=&quot;1205&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;749&quot; y=&quot;1203&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- spinning wheel --&gt;
++	&lt;item id=&quot;0x1019&quot;&gt;
++		&lt;pos x=&quot;742&quot; y=&quot;1205&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;749&quot; y=&quot;1203&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- upright loom --&gt;
++	&lt;item id=&quot;0x1060&quot;&gt;
++		&lt;pos x=&quot;742&quot; y=&quot;1208&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;742&quot; y=&quot;1219&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;750&quot; y=&quot;1208&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- upright loom --&gt;
++	&lt;item id=&quot;0x1061&quot;&gt;
++		&lt;pos x=&quot;746&quot; y=&quot;1213&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;746&quot; y=&quot;1218&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- training dummy --&gt;
++	&lt;item id=&quot;0x1074&quot;&gt;
++		&lt;pos x=&quot;662&quot; y=&quot;1206&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;662&quot; y=&quot;1212&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Valor -&gt; Shrine of Isamu --&gt;
++	&lt;item id=&quot;0x14B7&quot;&gt;
++		&lt;pos x=&quot;1050&quot; y=&quot;517&quot; z=&quot;15&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Valor -&gt; Shrine of Isamu --&gt;
++	&lt;item id=&quot;0x14B8&quot;&gt;
++		&lt;pos x=&quot;1050&quot; y=&quot;518&quot; z=&quot;15&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Valor -&gt; Shrine of Isamu --&gt;
++	&lt;item id=&quot;0x14B9&quot;&gt;
++		&lt;pos x=&quot;1051&quot; y=&quot;518&quot; z=&quot;15&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- Valor -&gt; Shrine of Isamu --&gt;
++	&lt;item id=&quot;0x14BA&quot;&gt;
++		&lt;pos x=&quot;1051&quot; y=&quot;517&quot; z=&quot;15&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- bellows --&gt;
++	&lt;item id=&quot;0x197A&quot;&gt;
++		&lt;pos x=&quot;767&quot; y=&quot;1257&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;767&quot; y=&quot;1262&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- bellows --&gt;
++	&lt;item id=&quot;0x197D&quot;&gt;
++		&lt;pos x=&quot;767&quot; y=&quot;1257&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- forge --&gt;
++	&lt;item id=&quot;0x197E&quot;&gt;
++		&lt;pos x=&quot;768&quot; y=&quot;1257&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;768&quot; y=&quot;1262&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- forge --&gt;
++	&lt;item id=&quot;0x1982&quot;&gt;
++		&lt;pos x=&quot;769&quot; y=&quot;1257&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;769&quot; y=&quot;1262&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt; 
++	&lt;!-- bellows --&gt;
++	&lt;item id=&quot;0x1986&quot;&gt;
++		&lt;pos x=&quot;638&quot; y=&quot;1204&quot; z=&quot;52&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;638&quot; y=&quot;1208&quot; z=&quot;32&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- forge --&gt;
++	&lt;item id=&quot;0x198A&quot;&gt;
++		&lt;pos x=&quot;638&quot; y=&quot;1205&quot; z=&quot;52&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;638&quot; y=&quot;1209&quot; z=&quot;32&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt; 
++	&lt;!-- forge --&gt;
++	&lt;item id=&quot;0x198E&quot;&gt;
++		&lt;pos x=&quot;764&quot; y=&quot;1258&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt; 
++	&lt;!-- forge --&gt;
++	&lt;item id=&quot;0x1991&quot;&gt;
++		&lt;pos x=&quot;764&quot; y=&quot;1258&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt; 
++	&lt;!-- bellows --&gt;
++	&lt;item id=&quot;0x1992&quot;&gt;
++		&lt;pos x=&quot;638&quot; y=&quot;1207&quot; z=&quot;52&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;638&quot; y=&quot;1211&quot; z=&quot;32&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt;
++	&lt;!-- forge --&gt;
++	&lt;item id=&quot;0x1996&quot;&gt;
++		&lt;pos x=&quot;638&quot; y=&quot;1206&quot; z=&quot;52&quot; map=&quot;4&quot; /&gt;
++		&lt;pos x=&quot;638&quot; y=&quot;1210&quot; z=&quot;32&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt; 
++	&lt;!-- forge --&gt;
++	&lt;item id=&quot;0x199D&quot;&gt;
++		&lt;pos x=&quot;764&quot; y=&quot;1257&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt; 
++	&lt;!-- tower sculpture --&gt;
++	&lt;item id=&quot;0x241A&quot;&gt;
++		&lt;pos x=&quot;748&quot; y=&quot;1231&quot; z=&quot;25&quot; map=&quot;4&quot; /&gt;
++	&lt;/item&gt; 
++&lt;/decoration&gt;
+\ No newline at end of file
+
+Modified: trunk/server/release/definitions/decoration/decoration.3.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/decoration.3.xml	2007-07-14 19:20:39 UTC (rev 6847)
++++ trunk/server/release/definitions/decoration/decoration.3.xml	2007-07-26 00:28:29 UTC (rev 6848)
+@@ -1,10 +1,8 @@
+ &lt;decoration&gt;
+ 	&lt;!-- Misc--&gt;
+-	&lt;!-- &lt;include file=&quot;definitions/decoration/Malas/luna.xml&quot;/&gt;
+-	&lt;include file=&quot;definitions/decoration/Malas/luna2.xml&quot;/&gt;
++	&lt;include file=&quot;definitions/decoration/Malas/luna.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/decoration/Malas/umbra.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/decoration/Malas/doom.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/decoration/Malas/darktidesquest.xml&quot;/&gt;
+-	&lt;include file=&quot;definitions/decoration/Malas/signs.xml&quot;/&gt; --&gt;
+-	&lt;include file=&quot;definitions/decoration/Malas/doors.xml&quot;/&gt;
++	&lt;include file=&quot;definitions/decoration/Malas/signs.xml&quot;/&gt;
+ &lt;/decoration&gt;
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000052.html">[Wolfpack-svn] r6847 - in trunk/server: release/definitions	release/definitions/npcs/humans release/scripts/speech src src/gui
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

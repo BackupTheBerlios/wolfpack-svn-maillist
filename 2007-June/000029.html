@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6824 - in trunk/server/release: definitions scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6824%20-%20in%20trunk/server/release%3A%20definitions%20scripts&In-Reply-To=%3C200706171027.l5HARBI2015619%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000028.html">
+   <LINK REL="Next"  HREF="000030.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6824 - in trunk/server/release: definitions scripts</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6824%20-%20in%20trunk/server/release%3A%20definitions%20scripts&In-Reply-To=%3C200706171027.l5HARBI2015619%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6824 - in trunk/server/release: definitions scripts">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sun Jun 17 12:27:11 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000028.html">[Wolfpack-svn] r6823 - trunk/server/release/scripts/commands
+</A></li>
+        <LI>Next message: <A HREF="000030.html">[Wolfpack-svn] r6825 - trunk/server/release/definitions/locations
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#29">[ date ]</a>
+              <a href="thread.html#29">[ thread ]</a>
+              <a href="subject.html#29">[ subject ]</a>
+              <a href="author.html#29">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-17 12:27:10 +0200 (Sun, 17 Jun 2007)
+New Revision: 6824
+
+Modified:
+   trunk/server/release/definitions/scripts.xml
+   trunk/server/release/scripts/door.py
+Log:
+commands (un)linkdoors (thx to BtbN)
+
+Modified: trunk/server/release/definitions/scripts.xml
+===================================================================
+--- trunk/server/release/definitions/scripts.xml	2007-06-17 10:15:15 UTC (rev 6823)
++++ trunk/server/release/definitions/scripts.xml	2007-06-17 10:27:10 UTC (rev 6824)
+@@ -165,7 +165,6 @@
+ 	&lt;script&gt;commands.invul&lt;/script&gt;
+ 	&lt;script&gt;commands.kickban&lt;/script&gt;
+ 	&lt;script&gt;commands.kill&lt;/script&gt;
+-	&lt;!-- &lt;script&gt;commands.linkdoor&lt;/script&gt; --&gt;
+ 	&lt;script&gt;commands.makestatic&lt;/script&gt;
+ 	&lt;script&gt;commands.move&lt;/script&gt;
+ 	&lt;script&gt;commands.mute&lt;/script&gt;
+
+Modified: trunk/server/release/scripts/door.py
+===================================================================
+--- trunk/server/release/scripts/door.py	2007-06-17 10:15:15 UTC (rev 6823)
++++ trunk/server/release/scripts/door.py	2007-06-17 10:27:10 UTC (rev 6824)
+@@ -1,10 +1,10 @@
+ #===============================================================#
+ #   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+ #  ((    _/{  &quot;-;  | Created by: unknown                        #
+-#   )).-' {{ ;'`   | Revised by:                                #
+-#  ( (  ;._ \\ ctr | Last Modification: Created                 #
++#   )).-' {{ ;'`   | Revised by: BtbN                           #
++#  ( (  ;._ \\ ctr | Last Modification: Added (un)linkdoors     #
+ #===============================================================#
+-# Doors                                                         #                    									#
++# Doors                                                         #
+ #===============================================================#
+ 
+ import wolfpack
+@@ -395,3 +395,53 @@
+ 
+ def onTelekinesis(char, item):
+ 	return onUse(char, item, 1)
++
++def doLinkDoors(char, args, target):
++	if not target.item or not target.item.hasscript(&quot;door&quot;):
++		char.socket.sysmessage(tr(&quot;That's not a door!&quot;))
++		return True
++	if not args[0]:
++		char.socket.sysmessage(tr(&quot;Now the second door.&quot;))
++		char.socket.attachtarget(&quot;door.doLinkDoors&quot;, [target.item])
++		return True
++	else:
++		args[0].settag(&quot;link&quot;,target.item.serial)
++		target.item.settag(&quot;link&quot;,args[0].serial)
++		char.socket.sysmessage(tr(&quot;Doors linked successfully.&quot;))
++
++def commandLinkDoors(socket, command, arguments):
++	socket.sysmessage(tr(&quot;Please select the doors you want to link.&quot;))
++	socket.attachtarget(&quot;door.doLinkDoors&quot;, [False])
++
++def doUnlinkDoors(char, args, target):
++	if not target.item or not target.item.hasscript(&quot;door&quot;):
++		char.socket.sysmessage(tr(&quot;That's not a door!&quot;))
++		return True
++
++	otherItem = wolfpack.finditem(target.item.gettag(&quot;link&quot;))
++	if not otherItem:
++		char.socket.sysmessage( tr(&quot;This door seems not to be linked.&quot;) )
++		return True
++
++	if otherItem.hastag(&quot;link&quot;):
++		otherItem.deltag(&quot;link&quot;)
++	target.item.deltag(&quot;link&quot;)
++
++def commandUnlinkDoors(socket, command, arguments):
++	socket.sysmessage(tr(&quot;Please select the door you want to unlink.&quot;))
++	socket.attachtarget(&quot;door.doUnlinkDoors&quot;, [])
++
++def onLoad():
++	wolfpack.registercommand(&quot;linkdoors&quot;, commandLinkDoors)
++	wolfpack.registercommand(&quot;unlinkdoors&quot;, commandUnlinkDoors)
++
++&quot;&quot;&quot;
++	\command linkdoors
++	\description Links two doors together. If one of the linked doors is opened, the other will open, too.
++	If you want to remove the link, use unlinkdoors.
++&quot;&quot;&quot;
++
++&quot;&quot;&quot;
++	\command unlinkdoors
++	\description Removes the link between two doors. Each door will open alone again.
++&quot;&quot;&quot;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000028.html">[Wolfpack-svn] r6823 - trunk/server/release/scripts/commands
+</A></li>
+	<LI>Next message: <A HREF="000030.html">[Wolfpack-svn] r6825 - trunk/server/release/definitions/locations
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#29">[ date ]</a>
+              <a href="thread.html#29">[ thread ]</a>
+              <a href="subject.html#29">[ subject ]</a>
+              <a href="author.html#29">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

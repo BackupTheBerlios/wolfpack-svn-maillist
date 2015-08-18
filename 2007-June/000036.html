@@ -1,0 +1,362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6831 - in trunk/server/release/scripts: . commands
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6831%20-%20in%20trunk/server/release/scripts%3A%20.%20commands&In-Reply-To=%3C200706181441.l5IEfAG4022379%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000035.html">
+   <LINK REL="Next"  HREF="000037.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6831 - in trunk/server/release/scripts: . commands</H1>
+    <B>btbn at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6831%20-%20in%20trunk/server/release/scripts%3A%20.%20commands&In-Reply-To=%3C200706181441.l5IEfAG4022379%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6831 - in trunk/server/release/scripts: . commands">btbn at mail.berlios.de
+       </A><BR>
+    <I>Mon Jun 18 16:41:10 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000035.html">[Wolfpack-svn] r6830 -	trunk/server/release/definitions/npcs/animals/land
+</A></li>
+        <LI>Next message: <A HREF="000037.html">[Wolfpack-svn] r6832 -	trunk/server/release/definitions/npcs/animals/land
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: btbn
+Date: 2007-06-18 16:41:10 +0200 (Mon, 18 Jun 2007)
+New Revision: 6831
+
+Modified:
+   trunk/server/release/scripts/commands/decoration.py
+   trunk/server/release/scripts/commands/events.py
+   trunk/server/release/scripts/door.py
+Log:
+Added command hasscript.
+Modified command 'decoration' to separately save doors.
+Corrected sounds of doors 0x685 to 0x694.
+
+
+Modified: trunk/server/release/scripts/commands/decoration.py
+===================================================================
+--- trunk/server/release/scripts/commands/decoration.py	2007-06-18 01:45:34 UTC (rev 6830)
++++ trunk/server/release/scripts/commands/decoration.py	2007-06-18 14:41:10 UTC (rev 6831)
+@@ -1,19 +1,19 @@
+ #===============================================================#
+ #   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+ #  ((    _/{  &quot;-;  | Created by: Correa                         #
+-#   )).-' {{ ;'`   | Revised by:                                #
+-#  ( (  ;._ \\ ctr | Last Modification: Created                 #
++#   )).-' {{ ;'`   | Revised by: BtbN                           #
++#  ( (  ;._ \\ ctr | Last Modification: Added savedoors         #
+ #===============================================================#
+ 
+ &quot;&quot;&quot;
+ 	\command decoration
+ 	\description Places decoration read from a xml template found
+ 	in wolfpack's data folder.
+-	\usage - &lt;code&gt;decoration&lt;/code&gt;
+-	- &lt;code&gt;decoration save&lt;/code&gt;
+-	- &lt;code&gt;decoration &lt;map&gt;&lt;/code&gt;
++	\usage - &lt;code&gt;decoration save&lt;/code&gt;
++	- &lt;code&gt;decoration savedoors&lt;/code&gt;
++	- &lt;code&gt;decoration load &lt;map&gt;&lt;/code&gt;
+ 	
+-	Where map is the map you want to decorate (0-3).
++	Where map is the map you want to decorate (0-4).
+ 	\notes The decoration will be read from a XML files called
+ 	'data\decoration.?.xml, where ? is the map number'.
+ &quot;&quot;&quot;
+@@ -32,6 +32,8 @@
+ 		self.hue = 0
+ 		self.amount = 0
+ 		self.statements = []
++		self.doLink = False
++		self.linkTo = None
+ 	def startElement( self, name, atts ):
+ 		if name == &quot;item&quot;:
+ 			self.itemid = str(atts.getValue(&quot;id&quot;));
+@@ -91,17 +93,14 @@
+ 
+ 
+ class DecorationSaveHandler:
+-	def __init__(self, socket):
+-		self.socket = socket
++	def __init__( self ):
+ 		self.maps = {}
+ 
+ 	def sort( self ):
+-		self.socket.sysmessage(&quot;In sort()&quot;)
+ 		it = wolfpack.itemiterator()
+ 		item = it.first
+ 		while item:
+ 			if not self.filter(item):
+-				self.socket.sysmessage(&quot;Adding item&quot;)
+ 				if not self.maps.has_key(item.pos.map):
+ 					self.maps[item.pos.map] = {}
+ 				if not self.maps[item.pos.map].has_key(item.id):
+@@ -110,9 +109,8 @@
+ 			item = it.next
+ 
+ 	def filter( self, item ):
+-		if item.multi or item.newbie or item.free or item.spawnregion:
++		if item.multi or item.newbie or item.free or item.spawnregion or item.hasscript(&quot;door&quot;):
+ 			return True
+-
+ 		return False
+ 
+ 	def save( self ):
+@@ -139,32 +137,91 @@
+ 			file.write(&quot;&lt;/decoration&gt;\n&quot;)
+ 			file.close()
+ 
++
++class DoorSaveHandler:
++	def __init__( self ):
++		self.maps = {}
++
++	def sort( self ):
++		it = wolfpack.itemiterator()
++		item = it.first
++		while item:
++			if not self.filter(item):
++				if not self.maps.has_key(item.pos.map):
++					self.maps[item.pos.map] = {}
++				if not self.maps[item.pos.map].has_key(item.id):
++					self.maps[item.pos.map][item.id] = []
++				self.maps[item.pos.map][item.id].append(item)
++			item = it.next
++
++	def filter( self, item ):
++		if item.hasscript(&quot;door&quot;) and not item.hasscript(&quot;housing.security&quot;):
++			return False
++		return True
++
++	def save( self ):
++		for map in self.maps:
++			file = open( &quot;save_doors.%i.xml&quot; % map, &quot;w&quot; )
++			file.write(&quot;&lt;decoration&gt;\n&quot;)
++			for id in self.maps[map]:
++				itemsbyhue = {}
++				for item in self.maps[map][id]:
++					if not itemsbyhue.has_key(item.color):
++						itemsbyhue[item.color] = []
++					itemsbyhue[item.color].append(item)
++				tiledata = wolfpack.tiledata(id)
++				for hue in itemsbyhue:
++					file.write(&quot;&quot;&quot;\t&lt;!-- %s --&gt;\n&quot;&quot;&quot; % tiledata[&quot;name&quot;] )
++					if hue != 0:
++						file.write(&quot;&quot;&quot;\t&lt;item id=&quot;0x%x&quot; hue=&quot;0x%x&quot;&gt;\n&quot;&quot;&quot; % (id, hue) )
++					else:
++						file.write(&quot;&quot;&quot;\t&lt;item id=&quot;0x%x&quot;&gt;\n&quot;&quot;&quot; % id )
++					for item in itemsbyhue[hue]:
++						pos = item.pos
++						file.write(&quot;&quot;&quot;\t\t&lt;pos x=&quot;%i&quot; y=&quot;%i&quot; z=&quot;%i&quot; map=&quot;%i&quot; /&gt;\n&quot;&quot;&quot; % (pos.x, pos.y, pos.z, pos.map) )
++					file.write(&quot;\t&lt;/item&gt;\n&quot;)
++			file.write(&quot;&lt;/decoration&gt;\n&quot;)
++			file.close()
++
++
++
+ def decoration( socket, command, arguments ):
+ 	if len(arguments) &gt; 0:
+-		args = str(arguments)
++		args = str(arguments.split()[0])
+ 		if args == 'save':
+-			saveObject = DecorationSaveHandler(socket)
++			saveObject = DecorationSaveHandler()
+ 			socket.sysmessage(tr(&quot;Sorting items, please wait...&quot;))
+ 			saveObject.sort()
+ 			socket.sysmessage(tr(&quot;Writing file...&quot;))
+ 			saveObject.save()
+-			return
++			socket.sysmessage(tr(&quot;Done.&quot;))
++		elif args == 'savedoors':
++			saveObject = DoorSaveHandler()
++			socket.sysmessage(tr(&quot;Sorting doors, please wait...&quot;))
++			saveObject.sort()
++			socket.sysmessage(tr(&quot;Writing file...&quot;))
++			saveObject.save()
++			socket.sysmessage(tr(&quot;Done.&quot;))
++		elif args == 'load':
++			parser = xml.sax.make_parser()
++			handler = DecorationHandler()
++			parser.setContentHandler(handler)
++			maps = []
++			try:
++				maponly = int(arguments.split()[1])
++				maps.append(maponly)
++			except ValueError:
++				maps = [0, 1, 2, 3, 4]
++				pass
+ 		
+-	parser = xml.sax.make_parser()
+-	handler = DecorationHandler()
+-	parser.setContentHandler(handler)
+-	maps = []
+-	try:
+-		maponly = int(arguments)
+-		maps.append(maponly)
+-	except ValueError:
+-                maps = [0, 1, 2, 3, 4]
+-		pass
++			for map in maps:
++				if wolfpack.hasmap(map):
++					socket.sysmessage(tr(&quot;Decorating map %i, please wait...&quot;) % map)
++					parser.parse(&quot;definitions/decoration/decoration.%i.xml&quot; % map)
++		else:
++			socket.sysmessage( tr('Usage: decoration save|savedoors|load') )
++	else:
++		socket.sysmessage( tr('Usage: decoration save|savedoors|load') )
+ 
+-	for map in maps:
+-            if wolfpack.hasmap(map):
+-                socket.sysmessage(tr(&quot;Decorating map %i, please wait...&quot;) % map)
+-                parser.parse(&quot;definitions/decoration/decoration.%i.xml&quot; % map)
+-
+ def onLoad():
+ 	wolfpack.registercommand( &quot;decoration&quot;, decoration )
+
+Modified: trunk/server/release/scripts/commands/events.py
+===================================================================
+--- trunk/server/release/scripts/commands/events.py	2007-06-18 01:45:34 UTC (rev 6830)
++++ trunk/server/release/scripts/commands/events.py	2007-06-18 14:41:10 UTC (rev 6831)
+@@ -94,6 +94,53 @@
+ 	socket.attachtarget( 'commands.events.removescript_response', [ script ] )
+ 	return True
+ 
++def hasscript_response( player, arguments, target ):
++	script = arguments[0]
++	object = None
++
++	if target.item:
++		object = target.item
++	elif target.char:
++		if target.char.rank &gt; player.rank and player != target.char:
++			player.socket.sysmessage( &quot;You've burnt your fingers!&quot; )
++			return False
++
++		object = target.char
++	else:
++		player.socket.sysmessage( 'You have to target a character or item.' )
++		return False
++
++	if object.hasscript( str( script ) ):
++		player.socket.sysmessage( 'True' )
++		return True
++	else:
++		player.socket.sysmessage( 'False' )
++		return False
++
++&quot;&quot;&quot;
++	\command hasscript
++	\description Check if an object has a script.
++	\usage - &lt;code&gt;hasscript [script]&lt;/code&gt;
++	Script is the id of the script you want to check for.
++&quot;&quot;&quot;
++def commandHasscript(socket, command, arguments):
++	if len(arguments) == 0:
++		socket.sysmessage('Usage: hasscript &lt;identifier&gt;')
++		return False
++	
++	script = arguments.strip()
++	
++	try:
++		wolfpack.hasevent( script, EVENT_USE )
++	except:
++		socket.sysmessage( 'No such script: %s.' % script )
++		return False
++	
++	socket.sysmessage( &quot;Please select the object you want to check for '%s'.&quot; % script)
++	socket.attachtarget( 'commands.events.hasscript_response', [ script ] )
++	return True
++
+ def onLoad():
+ 	wolfpack.registercommand( 'addscript', commandAddscript )
+ 	wolfpack.registercommand( 'removescript', commandRemovescript )
++	wolfpack.registercommand( 'hasscript', commandHasscript )
+
+Modified: trunk/server/release/scripts/door.py
+===================================================================
+--- trunk/server/release/scripts/door.py	2007-06-18 01:45:34 UTC (rev 6830)
++++ trunk/server/release/scripts/door.py	2007-06-18 14:41:10 UTC (rev 6831)
+@@ -1,11 +1,11 @@
+-#===============================================================#
+-#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+-#  ((    _/{  &quot;-;  | Created by: unknown                        #
+-#   )).-' {{ ;'`   | Revised by: BtbN                           #
+-#  ( (  ;._ \\ ctr | Last Modification: Added (un)linkdoors     #
+-#===============================================================#
+-# Doors                                                         #
+-#===============================================================#
++#================================================================================#
++#   )      (\_     | WOLFPACK 13.0.0 Scripts                                     #
++#  ((    _/{  &quot;-;  | Created by: unknown                                         #
++#   )).-' {{ ;'`   | Revised by: BtbN                                            #
++#  ( (  ;._ \\ ctr | Last Modification: Corrected sounds of doors 0x685 to 0x694 #
++#================================================================================#
++# Doors                                                                          #
++#================================================================================#
+ 
+ import wolfpack
+ from wolfpack import tr
+@@ -35,14 +35,14 @@
+ 			[ 0x681, 0x682, 0, 0, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+ 			[ 0x683, 0x684, 0, -1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+ 
+-			[ 0x685, 0x686, -1, 1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
+-			[ 0x687, 0x688, 1, 1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
+-			[ 0x689, 0x68A, -1, 0, SOUND_OPENGATE, SOUND_CLOSEGATE ],
+-			[ 0x68B, 0x68C, 1, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
+-			[ 0x68D, 0x68E, 1, 1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
+-			[ 0x68F, 0x690, 1, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
+-			[ 0x691, 0x692, 0, 0, SOUND_OPENGATE, SOUND_CLOSEGATE ],
+-			[ 0x693, 0x694, 0, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
++			[ 0x685, 0x686, -1, 1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
++			[ 0x687, 0x688, 1, 1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
++			[ 0x689, 0x68A, -1, 0, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
++			[ 0x68B, 0x68C, 1, -1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
++			[ 0x68D, 0x68E, 1, 1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
++			[ 0x68F, 0x690, 1, -1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
++			[ 0x691, 0x692, 0, 0, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
++			[ 0x693, 0x694, 0, -1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+ 
+ 			[ 0x695, 0x696, -1, 1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
+ 			[ 0x697, 0x698, 1, 1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000035.html">[Wolfpack-svn] r6830 -	trunk/server/release/definitions/npcs/animals/land
+</A></li>
+	<LI>Next message: <A HREF="000037.html">[Wolfpack-svn] r6832 -	trunk/server/release/definitions/npcs/animals/land
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

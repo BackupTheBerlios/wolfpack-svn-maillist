@@ -1,0 +1,441 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6861 - in trunk/server: release	release/definitions/multis src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6861%20-%20in%20trunk/server%3A%20release%0A%09release/definitions/multis%20src&In-Reply-To=%3C200803250356.m2P3ufTe008611%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000064.html">
+   <LINK REL="Next"  HREF="000066.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6861 - in trunk/server: release	release/definitions/multis src</H1>
+    <B>lastkiller at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6861%20-%20in%20trunk/server%3A%20release%0A%09release/definitions/multis%20src&In-Reply-To=%3C200803250356.m2P3ufTe008611%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6861 - in trunk/server: release	release/definitions/multis src">lastkiller at mail.berlios.de
+       </A><BR>
+    <I>Tue Mar 25 04:56:41 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000064.html">[Wolfpack-svn] r6860 - trunk/server/release/scripts/system
+</A></li>
+        <LI>Next message: <A HREF="000066.html">[Wolfpack-svn] r6862 - trunk/server/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#65">[ date ]</a>
+              <a href="thread.html#65">[ thread ]</a>
+              <a href="subject.html#65">[ subject ]</a>
+              <a href="author.html#65">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lastkiller
+Date: 2008-03-25 04:56:28 +0100 (Tue, 25 Mar 2008)
+New Revision: 6861
+
+Modified:
+   trunk/server/release/ChangeLog
+   trunk/server/release/definitions/multis/houses.xml
+   trunk/server/src/multi.cpp
+   trunk/server/src/multi.h
+Log:
+Added support to set the area of a multi. See houses.xml for an example.
+
+
+
+Modified: trunk/server/release/ChangeLog
+===================================================================
+--- trunk/server/release/ChangeLog	2008-03-11 01:43:57 UTC (rev 6860)
++++ trunk/server/release/ChangeLog	2008-03-25 03:56:28 UTC (rev 6861)
+@@ -5,6 +5,7 @@
+   - Fixed bug #0000096 &quot;Wolfpack does not use &quot;Compress Backups&quot; Option&quot;.
+   - Fixed wolfpack.statics ignoring &quot;exact&quot; parameter in some occasions.
+   - Fixed MySql world saves.
++  - Added suport for multi area
+  * Definition Changes:
+  * Python Script Changes:
+   - Fixed a bug in animal taming that prevented taming from gaining on some configurations of python/operating system.
+
+Modified: trunk/server/release/definitions/multis/houses.xml
+===================================================================
+--- trunk/server/release/definitions/multis/houses.xml	2008-03-11 01:43:57 UTC (rev 6860)
++++ trunk/server/release/definitions/multis/houses.xml	2008-03-25 03:56:28 UTC (rev 6861)
+@@ -1250,4 +1250,101 @@
+ 		&lt;category&gt;Foundation 3Story 18x18&lt;/category&gt;
+ 	&lt;/multi&gt;
+ 
++	&lt;!-- 
++	
++		MultiArea example
++
++	--&gt;
++	&lt;multi id=&quot;small_stone_and_plaster_house_fence&quot;&gt;
++		&lt;inherit id=&quot;smallhouse_items&quot; /&gt;
++		&lt;name&gt;Small Stone and Plaster House&lt;/name&gt;
++		&lt;id&gt;0x4064&lt;/id&gt;
++		&lt;nodecay /&gt;
++
++		&lt;item x=&quot;-3&quot; y=&quot;4&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt;
++		&lt;item x=&quot;-3&quot; y=&quot;5&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt; 
++		&lt;item x=&quot;-3&quot; y=&quot;6&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt; 
++		&lt;item x=&quot;-3&quot; y=&quot;7&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt; 
++		&lt;item x=&quot;-3&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt; 
++		
++		&lt;item x=&quot;3&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;3b3&quot; /&gt;
++
++		&lt;item x=&quot;3&quot; y=&quot;4&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt;
++		&lt;item x=&quot;3&quot; y=&quot;5&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt; 
++		&lt;item x=&quot;3&quot; y=&quot;6&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt; 
++		&lt;item x=&quot;3&quot; y=&quot;7&quot; z=&quot;0&quot; id=&quot;3b5&quot; /&gt; 
++		
++		&lt;item x=&quot;3&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;3b4&quot; /&gt; 
++
++		&lt;item x=&quot;2&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;3b4&quot; /&gt;
++		&lt;item x=&quot;1&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;3b4&quot; /&gt; 
++		
++		&lt;door x=&quot;0&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;0x83b&quot; /&gt;
++
++		&lt;item x=&quot;-1&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;3b4&quot; /&gt;
++		&lt;item x=&quot;-2&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;3b4&quot; /&gt;
++
++		&lt;scripts&gt;housing.house&lt;/scripts&gt; &lt;!-- Because of onAttach this is not a basescript --&gt;
++		&lt;placement xoffset=&quot;0&quot; yoffset=&quot;0&quot; zoffset=&quot;0&quot; /&gt;
++
++		&lt;!-- Custom area for a multi --&gt;
++		&lt;rectangle x1=&quot;-3&quot; y1=&quot;8&quot; x2=&quot;3&quot; y2=&quot;-3&quot; h=&quot;30&quot;/&gt;
++
++		&lt;category&gt;Special Small Stone and Plaster House&lt;/category&gt;
++		
++	&lt;/multi&gt;
++
++	&lt;multi id=&quot;special_large_tower&quot;&gt;
++		&lt;name&gt;Special Large Tower&lt;/name&gt;
++		&lt;id&gt;0x407a&lt;/id&gt;
++		&lt;nodecay /&gt;
++		&lt;door x=&quot;0&quot; y=&quot;6&quot; z=&quot;7&quot; id=&quot;0x6c5&quot; /&gt; &lt;!-- Iron door facing south --&gt;
++		&lt;door x=&quot;1&quot; y=&quot;6&quot; z=&quot;7&quot; id=&quot;0x6c7&quot; /&gt; &lt;!-- Wooden door facing south --&gt;
++		&lt;sign x=&quot;4&quot; y=&quot;7&quot; z=&quot;5&quot; id=&quot;0xbd0&quot; /&gt;
++		&lt;door x=&quot;1&quot; y=&quot;4&quot; z=&quot;46&quot; id=&quot;0x67d&quot; /&gt;
++		&lt;door x=&quot;1&quot; y=&quot;4&quot; z=&quot;26&quot; id=&quot;0x67d&quot; /&gt;
++		&lt;door x=&quot;3&quot; y=&quot;-2&quot; z=&quot;7&quot; id=&quot;0x6c5&quot; /&gt;
++		&lt;!-- Fence --&gt;
++		&lt;!-- Top --&gt;
++		&lt;item x=&quot;-7&quot; y=&quot;7&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;-7&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;-7&quot; y=&quot;9&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;-7&quot; y=&quot;10&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;-7&quot; y=&quot;11&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;-7&quot; y=&quot;12&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;-7&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;!-- Bottom --&gt;
++		&lt;item x=&quot;8&quot; y=&quot;7&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;8&quot; y=&quot;8&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;8&quot; y=&quot;9&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;8&quot; y=&quot;10&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;8&quot; y=&quot;11&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;item x=&quot;8&quot; y=&quot;12&quot; z=&quot;0&quot; id=&quot;864&quot; /&gt;
++		&lt;!-- Bottom to Front --&gt;
++		&lt;item x=&quot;8&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;862&quot; /&gt;
++		&lt;!-- Front --&gt;
++		&lt;item x=&quot;7&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;6&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;5&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;4&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;3&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;2&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;1&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;-1&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;-2&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;-3&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;-4&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;-5&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;item x=&quot;-6&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;863&quot; /&gt;
++		&lt;!-- Gate --&gt;
++		&lt;item x=&quot;0&quot; y=&quot;13&quot; z=&quot;0&quot; id=&quot;868&quot; /&gt;
++
++		&lt;!-- Custom area for a multi --&gt;
++		&lt;rectangle x1=&quot;-7&quot; y1=&quot;13&quot; x2=&quot;8&quot; y2=&quot;-7&quot; h=&quot;70&quot;/&gt;
++
++		&lt;scripts&gt;housing.house&lt;/scripts&gt; &lt;!-- Because of onAttach this is not a basescript --&gt;
++		&lt;placement xoffset=&quot;0&quot; yoffset=&quot;0&quot; zoffset=&quot;0&quot; /&gt;
++		&lt;category&gt;Special Large Tower&lt;/category&gt;
++	&lt;/multi&gt;
++
+ &lt;/definitions&gt;
+
+Modified: trunk/server/src/multi.cpp
+===================================================================
+--- trunk/server/src/multi.cpp	2008-03-11 01:43:57 UTC (rev 6860)
++++ trunk/server/src/multi.cpp	2008-03-25 03:56:28 UTC (rev 6861)
+@@ -37,6 +37,7 @@
+ #include &quot;basechar.h&quot;
+ #include &quot;mapobjects.h&quot;
+ #include &quot;timers.h&quot;
++#include &quot;basics.h&quot;
+ #include &lt;QList&gt;
+ 
+ void cMulti::remove()
+@@ -125,6 +126,8 @@
+ 
+ bool cMulti::inMulti( const Coord&amp; pos )
+ {
++	short x1t,y1t,x2t,y2t;
++
+ 	// Seek tiles with same x,y as pos
+ 	// Items on tables are 6 z higher than the ground
+ 	// Seek for tile which z value &lt;= pos.z + 6 &amp;&amp; z value &gt;= pos.z - 6
+@@ -135,7 +138,7 @@
+ 	{
+ 		return false;
+ 	}
+-
++		
+ 	bool itemunder = false;
+ 	bool itemabove = false;
+ 	QList&lt;multiItem_st&gt; items = multi-&gt;getEntries();
+@@ -168,6 +171,25 @@
+ 		}
+ 	}
+ 
++	// I'm not in a multi, but I could be in a extended area...
++	// If this multi has the tag 'MultiArea' defined we can use this to know if
++	// we are inside a multi or not.
++	if (this-&gt;hasTag(&quot;MultiArea&quot;) )
++	{
++		x1t = pos_.x + x1_;
++		y1t = pos_.y + y1_;
++		x2t = pos_.x + x2_;
++		y2t = pos_.y + y2_;
++		
++		if ( ( ( pos.x &gt;= x1t &amp;&amp; pos.x &lt;= x2t )	|| ( pos.x &gt;= x2t &amp;&amp; pos.x &lt;= x2t ) ) 
++			&amp;&amp; ( ( pos.y &gt;= y1t &amp;&amp; pos.y &lt;= y2t ) 
++			|| ( pos.y &gt;= y2t &amp;&amp; pos.y &lt;= y1t ) ) 
++			&amp;&amp; ((pos.z &lt;= (h_ + 6 )) &amp;&amp; (pos.z &gt;= (pos_.z - 6))) ) 
++		{
++			return true;
++		}
++	}
++
+ 	return false;
+ }
+ 
+@@ -807,3 +829,100 @@
+ 
+ 	return true;
+ }
++ 
++void cMulti::processNode( const cElement* Tag, uint hash )
++{
++/*
++#define OUTPUT_HASH(x) QString(&quot;%1 = %2\n&quot;).arg(x).arg( elfHash( x ), 0, 16)
++	Console::instance()-&gt;send(
++		OUTPUT_HASH(&quot;rectangle&quot;)
++		);
++#undef OUTPUT_HASH
++*/
++
++	flagChanged();
++	// we do this as we're going to modify the element
++	QString Value = Tag-&gt;value();
++
++	if ( !hash )
++		hash = Tag-&gt;nameHash();
++
++	switch ( hash )
++	{
++
++		case 0xaa83695: // rectangle
++		
++			//TODO: Support multiple rectangle tags
++			// &lt;rectangle x1=&quot;-3&quot; y1=&quot;-4&quot; x2=&quot;+2&quot; y2=&quot;+6&quot; h=&quot;30&quot; /&gt;
++			this-&gt;setX1( Tag-&gt;getAttribute( &quot;x1&quot; ).toShort());
++			this-&gt;setX2( Tag-&gt;getAttribute( &quot;x2&quot; ).toShort());
++			this-&gt;setY1( Tag-&gt;getAttribute( &quot;y1&quot; ).toShort());
++			this-&gt;setY2( Tag-&gt;getAttribute( &quot;y2&quot; ).toShort());
++			this-&gt;setHeight( Tag-&gt;getAttribute( &quot;h&quot; ).toUShort());
++
++			if ( y1_ &gt; y2_ )
++			{
++				std::swap( y1_, y2_ );
++			}
++
++			if ( x1_ &gt; x2_ )
++			{
++				std::swap( x1_, x2_ );
++			}
++
++			// Lets store the MultiArea
++			if (this-&gt;hasTag( &quot;MultiArea&quot; ))
++			{
++				this-&gt;removeTag(&quot;MultiArea&quot;);
++			}
++
++			this-&gt;setTag(&quot;MultiArea&quot;,QString(&quot;%1,%2,%3,%4,%5&quot;).arg(x1_).arg(y1_).arg(x2_).arg(y2_).arg(h_));
++			
++			break;
++
++		default:
++		{
++			cItem::processNode( Tag );
++		}
++		break;
++	}
++}
++
++void cMulti::postload( unsigned int /*version*/ )
++{
++
++	if ( container_ )
++	{
++		pos_.setInternalMap();
++	}
++
++	if ( !container_ &amp;&amp; !pos_.isInternalMap() )
++	{
++		MapObjects::instance()-&gt;add( this );
++	}
++
++	// Lets load the data from MultiArea tag.
++	if (this-&gt;hasTag(&quot;MultiArea&quot;))
++	{
++		//&quot; 1; 2; 3; 4; 5&quot;
++		// x1,y1,x2,y2,h
++		QString multiarea(&quot;&quot;);
++		
++		multiarea.append(this-&gt;getTag(&quot;MultiArea&quot;).toString());
++		QStringList elements = multiarea.split(&quot;,&quot;);
++		
++		if (elements.count() == 5)
++		{
++			this-&gt;setX1(elements.at(0).toShort());
++			this-&gt;setY1(elements.at(1).toShort());
++			this-&gt;setX2(elements.at(2).toShort());
++			this-&gt;setY2(elements.at(3).toShort());
++			this-&gt;setHeight(elements.at(4).toUShort());
++		}
++		else
++		{
++			Console::instance()-&gt;log( LOG_WARNING, tr(&quot;The TAG 'MultiArea' is mal-formed for multi &lt;%1&gt; at &lt;%2,%3,%4,%5&gt;&quot;).arg(this-&gt;id_).arg(this-&gt;pos_.x).arg(this-&gt;pos_.y).arg(this-&gt;pos_.z).arg(this-&gt;pos_.map)  + &quot;\n&quot; );
++		}
++
++	}
++}
+\ No newline at end of file
+
+Modified: trunk/server/src/multi.h
+===================================================================
+--- trunk/server/src/multi.h	2008-03-11 01:43:57 UTC (rev 6860)
++++ trunk/server/src/multi.h	2008-03-25 03:56:28 UTC (rev 6861)
+@@ -37,12 +37,30 @@
+ {
+ private:
+ 	static unsigned char classid;
++	unsigned char changed_ : 1;
+ 
++	void flagChanged()
++	{
++		changed_ = true;
++	} // easier to debug, compiler should make it inline;
++
+ protected:
+ 	// Objects in the Multi.
+ 	// Items that are in the Multi
+ 	// are removed along with it.
+ 	QList&lt;cUObject*&gt; objects;
++	
++	// To read the rectangle tag.
++	virtual void processNode( const cElement* Tag, uint hash = 0 );
++	// To load data from MultiArea tag.
++	virtual void postload( unsigned int version );
++	// Multi size and height
++	short x1_;
++	short y1_;
++	short x2_;
++	short y2_;
++	
++	ushort h_;
+ 
+ public:
+ 	static void setClassid( unsigned char id )
+@@ -108,6 +126,50 @@
+ 
+ 	// Boat Specifics
+ 	bool canBoatMoveTo( const Coord&amp; pos );
++
++	// Multi size and height
++	void setX1(short value)
++	{
++		this-&gt;x1_ = value;
++	} 
++	void setY1(short value)
++	{
++		this-&gt;y1_ = value;
++	} 
++	void setX2(short value)
++	{
++		this-&gt;x2_ = value;
++	} 
++	void setY2(short value)
++	{
++		this-&gt;y2_ = value;
++	} 
++	void setHeight(ushort value)
++	{
++		this-&gt;h_ = value;
++	}
++
++	short getX1() const
++	{
++		return x1_;
++	} 
++	short getY1() const
++	{
++		return y1_;
++	} 
++	short getX2() const
++	{
++		return x2_;
++	} 
++	short getY2() const
++	{
++		return y2_;
++	} 
++	ushort getHeight() const
++	{
++		return h_;
++	} 
++	
+ };
+ 
+ #endif
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000064.html">[Wolfpack-svn] r6860 - trunk/server/release/scripts/system
+</A></li>
+	<LI>Next message: <A HREF="000066.html">[Wolfpack-svn] r6862 - trunk/server/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#65">[ date ]</a>
+              <a href="thread.html#65">[ thread ]</a>
+              <a href="subject.html#65">[ subject ]</a>
+              <a href="author.html#65">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

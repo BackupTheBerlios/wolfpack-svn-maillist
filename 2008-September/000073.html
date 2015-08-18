@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6870 - trunk/client
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6870%20-%20trunk/client&In-Reply-To=%3C200809122303.m8CN3TBB004464%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000072.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6870 - trunk/client</H1>
+    <B>darkstorm at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6870%20-%20trunk/client&In-Reply-To=%3C200809122303.m8CN3TBB004464%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6870 - trunk/client">darkstorm at mail.berlios.de
+       </A><BR>
+    <I>Sat Sep 13 01:03:29 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000072.html">[Wolfpack-svn] r6869 - in trunk/client: . 3rdparty 3rdparty/openal	3rdparty/openal/include 3rdparty/openal/include/AL	3rdparty/openal/libs 3rdparty/openal/libs/Win32	3rdparty/openal/libs/Win64 7zip include src src/python
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#73">[ date ]</a>
+              <a href="thread.html#73">[ thread ]</a>
+              <a href="subject.html#73">[ subject ]</a>
+              <a href="author.html#73">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: darkstorm
+Date: 2008-09-13 01:03:26 +0200 (Sat, 13 Sep 2008)
+New Revision: 6870
+
+Modified:
+   trunk/client/Compile Instructions.txt
+Log:
+updated build instructions
+
+Modified: trunk/client/Compile Instructions.txt
+===================================================================
+--- trunk/client/Compile Instructions.txt	2008-09-12 22:51:46 UTC (rev 6869)
++++ trunk/client/Compile Instructions.txt	2008-09-12 23:03:26 UTC (rev 6870)
+@@ -1,21 +1,26 @@
+ 
+---------------------------------------------------------------------
+-Using Microsoft Visual Sutdio .NET
+---------------------------------------------------------------------
++1. Please download Qt 4.4
+ 
+-1. Please download QT 4.0.1 from <A HREF="http://www.trolltech.com/download/qt/windows.html">http://www.trolltech.com/download/qt/windows.html</A>
+-and install it. Then download the patch from <A HREF="http://andy.jgknet.de/misc/msvc-bcc32-Qt-4.0.1patch.zip">http://andy.jgknet.de/misc/msvc-bcc32-Qt-4.0.1patch.zip</A>
+-and apply it to your QT installation and compile. (Both Debug and Release binaries). Once you are done with that,
+-make sure QTDIR is set to your QT directory and QMAKESPEC is set to win32-msvc.net (Both are environmental
+-variables). If you change those variables, you have to restart your IDE.
++1.1. Download from Trolltech
++<A HREF="http://www.trolltech.com">http://www.trolltech.com</A>
++This is appropiate if you are not on the Windows platform or if you are using MinGW on windows.
+ 
+-2. You need OpenAL to compile the client (with sound). Get that at <A HREF="http://www.openal.org">http://www.openal.org</A> and put 
+-the libs/ and include/ directory into your library and header search path.
++1.2. Download precompiled for Microsoft Visual Studio
++If you are using Microsoft Visual Studio (Or the Intel compiler) and find compiling Qt
++yourself tiresome, you can download a precompiled version of Qt 4.4 for Visual Studio here:
++<A HREF="http://pallas.copai.de/index.php?option=com_content&amp;view=article&amp;id=49&amp;Itemid=58">http://pallas.copai.de/index.php?option=com_content&amp;view=article&amp;id=49&amp;Itemid=58</A>
+ 
+-3. Download the Python 2.4.1 source package from <A HREF="http://www.python.org">http://www.python.org</A> and compile it with Visual Studio.
+-(Open PCBuil/python.sln and compile the entire solution in both debug and release mode. Ignore errors for
+-certain projects since only pythoncore is important). Once you're done, make sure that Include/ and Pc/
+-are included in your header search path and that PCBuild/ is included in your library search path.
++2. Download Python 2.5 from <A HREF="http://www.python.org">http://www.python.org</A> (Not neccessary if your system already
++includes the Python 2.5 libraries). If you want to compile the client in debug mode, you 
++will need to build Python yourself. Please follow their build instructions for this. If you
++only want to build the release version, the Python 2.5 Windows installer includes a precompiled
++python25.lib for you.
+ 
+-4. Open the UoClient.sln with the IDE and press compile. It should work
+-out of the box.
++4. Compile the client
++
++4.1 Using Visual Studio
++Run &quot;qmake -tp vc&quot; in the client directory and open the resulting uoclient.vcproj file with your IDE.
++
++4.2 Using QMake
++Run &quot;qmake&quot; in the client directory and run either &quot;nmake&quot; to build everything or any other appropiate
++build command for your platform (i.e. &quot;make&quot; on Linux).
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000072.html">[Wolfpack-svn] r6869 - in trunk/client: . 3rdparty 3rdparty/openal	3rdparty/openal/include 3rdparty/openal/include/AL	3rdparty/openal/libs 3rdparty/openal/libs/Win32	3rdparty/openal/libs/Win64 7zip include src src/python
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#73">[ date ]</a>
+              <a href="thread.html#73">[ thread ]</a>
+              <a href="subject.html#73">[ subject ]</a>
+              <a href="author.html#73">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

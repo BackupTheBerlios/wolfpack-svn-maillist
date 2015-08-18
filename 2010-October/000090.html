@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6888 - in trunk/server: build	release/definitions/decoration/Ilshenar
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2010-October/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6888%20-%20in%20trunk/server%3A%20build%0A%09release/definitions/decoration/Ilshenar&In-Reply-To=%3C20101031195928.6B270480BF9%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000089.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6888 - in trunk/server: build	release/definitions/decoration/Ilshenar</H1>
+    <B>owner_mutilador at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6888%20-%20in%20trunk/server%3A%20build%0A%09release/definitions/decoration/Ilshenar&In-Reply-To=%3C20101031195928.6B270480BF9%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6888 - in trunk/server: build	release/definitions/decoration/Ilshenar">owner_mutilador at mail.berlios.de
+       </A><BR>
+    <I>Sun Oct 31 20:59:28 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000089.html">[Wolfpack-svn] r6887 - trunk/server/tools/scripts
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#90">[ date ]</a>
+              <a href="thread.html#90">[ thread ]</a>
+              <a href="subject.html#90">[ subject ]</a>
+              <a href="author.html#90">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: owner_mutilador
+Date: 2010-10-31 20:59:28 +0100 (Sun, 31 Oct 2010)
+New Revision: 6888
+
+Modified:
+   trunk/server/build/configure.py
+   trunk/server/release/definitions/decoration/Ilshenar/exodus.xml
+Log:
+Fix bugs in exodus decoration and fix warning in configure.py remove warning during creating config.pri
+
+Modified: trunk/server/build/configure.py
+===================================================================
+--- trunk/server/build/configure.py	2010-10-30 03:19:55 UTC (rev 6887)
++++ trunk/server/build/configure.py	2010-10-31 19:59:28 UTC (rev 6888)
+@@ -358,12 +358,12 @@
+ 		PY_LIBDIR = distutils.sysconfig.get_config_vars(&quot;LINKFORSHARED&quot;)[0]
+ 		PY_LIBDIR += &quot; -flat_namespace&quot;
+ 	else:
+-		PY_LIBDIR = buildLibLine( py_libpath, py_libfile )
++		PY_LIBDIR = buildLibLine( py_libpath, py_libfile ).replace(&quot;\\&quot;,&quot;/&quot;)
+ 	config.write(&quot;PY_LIBDIR = %s\n&quot; % PY_LIBDIR)
+-	config.write(&quot;PY_INCDIR = %s\n&quot; % py_incpath )
++	config.write(&quot;PY_INCDIR = %s\n&quot; % py_incpath.replace(&quot;\\&quot;,&quot;/&quot;))
+ 
+ 	# QT stuff
+-	config.write(&quot;QTDIR = %s\n&quot; % qt_dir )
++	config.write(&quot;QTDIR = %s\n&quot; % qt_dir.replace(&quot;\\&quot;,&quot;/&quot;) )
+ 
+ 	# if --debug
+ 	sys.stdout.write(&quot;Build mode:                             &quot;)
+
+Modified: trunk/server/release/definitions/decoration/Ilshenar/exodus.xml
+===================================================================
+--- trunk/server/release/definitions/decoration/Ilshenar/exodus.xml	2010-10-30 03:19:55 UTC (rev 6887)
++++ trunk/server/release/definitions/decoration/Ilshenar/exodus.xml	2010-10-31 19:59:28 UTC (rev 6888)
+@@ -446,7 +446,7 @@
+ 	&lt;/item&gt;
+ 
+ 	&lt;!-- Field of Poison--&gt;
+-	&lt;item id=&quot;0x3921&quot; hue=&quot;0x6&quot;&gt;
++	&lt;item id=&quot;0x3920&quot; hue=&quot;0x6&quot;&gt;
+ 		&lt;pos x=&quot;2031&quot; y=&quot;48&quot; z=&quot;-20&quot; map=&quot;2&quot; /&gt;
+ 		&lt;pos x=&quot;2032&quot; y=&quot;48&quot; z=&quot;-20&quot; map=&quot;2&quot; /&gt;
+ 		&lt;pos x=&quot;2032&quot; y=&quot;180&quot; z=&quot;-20&quot; map=&quot;2&quot; /&gt;
+@@ -827,7 +827,7 @@
+ 	&lt;/item&gt;
+ 
+ 	&lt;!-- winch--&gt;
+-	&lt;item id=&quot;0x1EAF&quot; hue=&quot;0x839&quot;&gt;
++	&lt;item id=&quot;0x1EAD&quot; hue=&quot;0x839&quot;&gt;
+ 		&lt;pos x=&quot;2074&quot; y=&quot;123&quot; z=&quot;-22&quot; map=&quot;2&quot; /&gt;
+ 	&lt;/item&gt;
+ 
+@@ -869,7 +869,7 @@
+ 	&lt;/item&gt;
+ 
+ 	&lt;!-- magical crystal--&gt;
+-	&lt;item id=&quot;0x1F1A&quot; hue=&quot;0x835&quot;&gt;
++	&lt;item id=&quot;0x1F19&quot; hue=&quot;0x835&quot;&gt;
+ 		&lt;pos x=&quot;1872&quot; y=&quot;112&quot; z=&quot;-8&quot; map=&quot;2&quot; /&gt;
+ 		&lt;pos x=&quot;1872&quot; y=&quot;119&quot; z=&quot;-8&quot; map=&quot;2&quot; /&gt;
+ 		&lt;pos x=&quot;1873&quot; y=&quot;112&quot; z=&quot;-8&quot; map=&quot;2&quot; /&gt;
+@@ -990,7 +990,7 @@
+ 	&lt;/item&gt;
+ 
+ 	&lt;!-- lava--&gt;
+-	&lt;item id=&quot;0x12EF&quot; hue=&quot;0x6&quot;&gt;
++	&lt;item id=&quot;0x12EE&quot; hue=&quot;0x6&quot;&gt;
+ 		&lt;pos x=&quot;1851&quot; y=&quot;115&quot; z=&quot;-17&quot; map=&quot;2&quot; /&gt;
+ 		&lt;pos x=&quot;1852&quot; y=&quot;115&quot; z=&quot;-17&quot; map=&quot;2&quot; /&gt;
+ 		&lt;pos x=&quot;1850&quot; y=&quot;115&quot; z=&quot;-17&quot; map=&quot;2&quot; /&gt;
+@@ -998,7 +998,7 @@
+ 	&lt;/item&gt;
+ 
+ 	&lt;!-- lava--&gt;
+-	&lt;item id=&quot;0x1307&quot; hue=&quot;0x6&quot;&gt;
++	&lt;item id=&quot;0x1306&quot; hue=&quot;0x6&quot;&gt;
+ 		&lt;pos x=&quot;1855&quot; y=&quot;109&quot; z=&quot;-17&quot; map=&quot;2&quot; /&gt;
+ 		&lt;pos x=&quot;1855&quot; y=&quot;110&quot; z=&quot;-17&quot; map=&quot;2&quot; /&gt;
+ 		&lt;pos x=&quot;1855&quot; y=&quot;111&quot; z=&quot;-17&quot; map=&quot;2&quot; /&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000089.html">[Wolfpack-svn] r6887 - trunk/server/tools/scripts
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#90">[ date ]</a>
+              <a href="thread.html#90">[ thread ]</a>
+              <a href="subject.html#90">[ subject ]</a>
+              <a href="author.html#90">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

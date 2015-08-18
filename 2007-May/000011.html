@@ -1,0 +1,493 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6806 - in	trunk/server/release/definitions/npcs/humans: . vendors
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6806%20-%20in%0A%09trunk/server/release/definitions/npcs/humans%3A%20.%20vendors&In-Reply-To=%3C200705131352.l4DDqZcn022894%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000010.html">
+   <LINK REL="Next"  HREF="000012.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6806 - in	trunk/server/release/definitions/npcs/humans: . vendors</H1>
+    <B>khpae at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6806%20-%20in%0A%09trunk/server/release/definitions/npcs/humans%3A%20.%20vendors&In-Reply-To=%3C200705131352.l4DDqZcn022894%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6806 - in	trunk/server/release/definitions/npcs/humans: . vendors">khpae at mail.berlios.de
+       </A><BR>
+    <I>Sun May 13 15:52:35 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000010.html">[Wolfpack-svn] r6805 -	trunk/server/release/definitions/decoration/Trammel
+</A></li>
+        <LI>Next message: <A HREF="000012.html">[Wolfpack-svn] r6807 - in	trunk/server/release/definitions/npcs/humans: . SEvendors
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: khpae
+Date: 2007-05-13 15:52:32 +0200 (Sun, 13 May 2007)
+New Revision: 6806
+
+Modified:
+   trunk/server/release/definitions/npcs/humans/evilnpcs.xml
+   trunk/server/release/definitions/npcs/humans/index.xml
+   trunk/server/release/definitions/npcs/humans/playervendors.xml
+   trunk/server/release/definitions/npcs/humans/vendors/farmer.xml
+   trunk/server/release/definitions/npcs/humans/vendors/ranger.xml
+   trunk/server/release/definitions/npcs/humans/vendors/shipwright.xml
+Log:
+npcs vendors fixed by masterPuppet
+
+
+Modified: trunk/server/release/definitions/npcs/humans/evilnpcs.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/humans/evilnpcs.xml	2007-05-13 13:49:32 UTC (rev 6805)
++++ trunk/server/release/definitions/npcs/humans/evilnpcs.xml	2007-05-13 13:52:32 UTC (rev 6806)
+@@ -244,4 +244,67 @@
+ 		&lt;!-- &lt;intproperty name=&quot;hit_poison_level&quot; value=&quot;5&quot; /&gt; --&gt;
+ 	&lt;/npc&gt;
+ 
++	&lt;!-- A Chaos Dragoon --&gt;
++	&lt;npc id=&quot;chaos_dragoon&quot;&gt;
++		&lt;name&gt;a chaos dragoon&lt;/name&gt;
++		&lt;id&gt;0x190&lt;/id&gt;
++		&lt;ai&gt;Monster_Mage&lt;/ai&gt;
++		&lt;bindmenu&gt;paperdoll_menu&lt;/bindmenu&gt;
++		&lt;skin&gt;&lt;random list=&quot;SKINS_HUMAN&quot; /&gt;&lt;/skin&gt;
++		&lt;wandertype&gt;1&lt;/wandertype&gt;
++		&lt;!-- Facing a random direction --&gt;
++		&lt;direction&gt;&lt;random min=&quot;0&quot; max=&quot;7&quot; /&gt;&lt;/direction&gt;
++		&lt;gender&gt;male&lt;/gender&gt;
++		&lt;haircolor&gt;&lt;random list=&quot;HAIRCOLOR&quot; /&gt;&lt;/haircolor&gt;
++		&lt;inherit id=&quot;KARMA_L4&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L4&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;176&quot; max=&quot;225&quot;/&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;81&quot; max=&quot;95&quot;/&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;61&quot; max=&quot;85&quot;/&gt;&lt;/int&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;176&quot; max=&quot;225&quot;/&gt;&lt;/maxhitpoints&gt;
++		&lt;maxstamina&gt;&lt;random min=&quot;81&quot; max=&quot;95&quot;/&gt;&lt;/maxstamina&gt;
++		&lt;maxmana&gt;&lt;random min=&quot;61&quot; max=&quot;85&quot;/&gt;&lt;/maxmana&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;0&quot; max=&quot;0&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;776&quot; max=&quot;875&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;776&quot; max=&quot;975&quot;/&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;anatomy&quot;&gt;&lt;random min=&quot;776&quot; max=&quot;975&quot;/&gt;&lt;/skill&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;9&lt;/mindamage&gt;
++		&lt;maxdamage&gt;18&lt;/maxdamage&gt;
++		&lt;!-- Resist Properties --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;45,55&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;15,25&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;50,50&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;25,35&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;25,35&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Loot Packs --&gt;
++		&lt;!-- The Equipment for dragoon --&gt;
++		&lt;equipped&gt;
++			&lt;item id=&quot;e75&quot; /&gt; &lt;!-- Backpack --&gt;
++			&lt;item list=&quot;HAIR&quot; /&gt; &lt;!-- Random Hair --&gt;
++	            &lt;item id=&quot;13f2_shadow&quot; /&gt; &lt;!-- gloves --&gt;
++	            &lt;item id=&quot;13f0_shadow&quot; /&gt; &lt;!-- legs --&gt;
++	            &lt;item id=&quot;13ee_shadow&quot; /&gt; &lt;!-- sleeves --&gt;
++	            &lt;item id=&quot;13ec_shadow&quot; /&gt; &lt;!-- tunic --&gt;
++	            &lt;item id=&quot;140e_shadow&quot; /&gt; &lt;!-- nose --&gt;
++	            &lt;item id=&quot;170b&quot; /&gt; &lt;!-- boots --&gt;
++	            &lt;item id=&quot;1401&quot; /&gt; &lt;!-- kyrss --&gt;
++	            &lt;item id=&quot;1bc3&quot; /&gt; &lt;!-- chaos sheild --&gt;
++		&lt;/equipped&gt;
++		&lt;backpack&gt;
++			&lt;content&gt;
++	                   &lt;item id=&quot;eed&quot;&gt;&lt;amount&gt;&lt;random min=&quot;250&quot; max=&quot;300&quot; /&gt;&lt;/amount&gt;&lt;/item&gt; &lt;!-- Gold --&gt;
++			&lt;/content&gt;
++		&lt;/backpack&gt;
++		&lt;lootpacks&gt;scroll_medium;scroll_medium;tm_2&lt;/lootpacks&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;strproperty name=&quot;slayer_group&quot; value=&quot;mages&quot; /&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;1&quot; /&gt;
++		&lt;category&gt;Humans\Evil\chaos dragoon&lt;/category&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;1&quot; /&gt;
++	&lt;/npc&gt;
++
+ &lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/npcs/humans/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/humans/index.xml	2007-05-13 13:49:32 UTC (rev 6805)
++++ trunk/server/release/definitions/npcs/humans/index.xml	2007-05-13 13:52:32 UTC (rev 6806)
+@@ -1,25 +1,28 @@
+-&lt;!--
+-=================================================================
+-|   )      (\_     | WOLFPACK 13.0.0 Scripts
+-|  ((    _/{  &quot;-;  | Created by: Naddel
+-|   )).-' {{ ;'`   | Revised by:
+-|  ( (  ;._ \\ ctr | Last Modification:
+-=================================================================
+---&gt;
+-&lt;definitions&gt;
+-
+-	&lt;!-- Civilists --&gt;
+-	&lt;include file=&quot;definitions/npcs/humans/civilists.xml&quot;/&gt;
+-
+-	&lt;!-- Evil NPCs --&gt;
+-	&lt;include file=&quot;definitions/npcs/humans/evilnpcs.xml&quot;/&gt;
+-
+-	&lt;!-- Guards --&gt;
+-	&lt;include file=&quot;definitions/npcs/humans/guards.xml&quot;/&gt;
+-	
+-	&lt;!-- Vendors --&gt;
+-	&lt;include file=&quot;definitions/npcs/humans/vendors/index.xml&quot;/&gt;
+-	
+-	&lt;!-- Playervendors --&gt;
+-	&lt;include file=&quot;definitions/npcs/humans/playervendors.xml&quot;/&gt;
++&lt;!--
++=================================================================
++|   )      (\_     | WOLFPACK 13.0.0 Scripts
++|  ((    _/{  &quot;-;  | Created by: Naddel
++|   )).-' {{ ;'`   | Revised by:
++|  ( (  ;._ \\ ctr | Last Modification:
++=================================================================
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Civilists --&gt;
++	&lt;include file=&quot;definitions/npcs/humans/civilists.xml&quot;/&gt;
++
++	&lt;!-- Evil NPCs --&gt;
++	&lt;include file=&quot;definitions/npcs/humans/evilnpcs.xml&quot;/&gt;
++
++	&lt;!-- Guards --&gt;
++	&lt;include file=&quot;definitions/npcs/humans/guards.xml&quot;/&gt;
++	
++	&lt;!-- Vendors --&gt;
++	&lt;include file=&quot;definitions/npcs/humans/vendors/index.xml&quot;/&gt;
++
++	&lt;!-- SE Vendors --&gt;
++	&lt;include file=&quot;definitions/npcs/humans/SEvendors/index.xml&quot;/&gt;
++	
++	&lt;!-- Playervendors --&gt;
++	&lt;include file=&quot;definitions/npcs/humans/playervendors.xml&quot;/&gt;
+ &lt;/definitions&gt;
+\ No newline at end of file
+
+Modified: trunk/server/release/definitions/npcs/humans/playervendors.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/humans/playervendors.xml	2007-05-13 13:49:32 UTC (rev 6805)
++++ trunk/server/release/definitions/npcs/humans/playervendors.xml	2007-05-13 13:52:32 UTC (rev 6806)
+@@ -1,21 +1,21 @@
+-&lt;!-- Don't categorize them, they need special scripts to add them --&gt;
+-&lt;definitions&gt;
+-
+-	&lt;npc id=&quot;playervendor_base&quot;&gt;
+-		&lt;basescript&gt;npc.playervendor&lt;/basescript&gt;
+-		&lt;equipped&gt;
+-			&lt;item id=&quot;pv_pack&quot;/&gt;
+-		&lt;/equipped&gt;
+-		&lt;invulnerable/&gt;
+-		&lt;controlslots&gt;0&lt;/controlslots&gt;
+-	&lt;/npc&gt;
+-
+-	&lt;npc id=&quot;playervendor_male&quot; inherit=&quot;base_male&quot;&gt;
+-		&lt;inherit id=&quot;playervendor_base&quot;/&gt;
+-	&lt;/npc&gt;
+-
+-	&lt;npc id=&quot;playervendor_female&quot; inherit=&quot;base_female&quot;&gt;
+-		&lt;inherit id=&quot;playervendor_base&quot;/&gt;
+-	&lt;/npc&gt;
+-
++&lt;!-- Don't categorize them, they need special scripts to add them --&gt;
++&lt;definitions&gt;
++
++	&lt;npc id=&quot;playervendor_base&quot;&gt;
++		&lt;basescript&gt;npc.playervendor&lt;/basescript&gt;
++		&lt;equipped&gt;
++			&lt;item id=&quot;pv_pack&quot;/&gt;
++		&lt;/equipped&gt;
++		&lt;invulnerable/&gt;
++		&lt;controlslots&gt;0&lt;/controlslots&gt;
++	&lt;/npc&gt;
++
++	&lt;npc id=&quot;playervendor_male&quot; inherit=&quot;base_male&quot;&gt;
++		&lt;inherit id=&quot;playervendor_base&quot;/&gt;
++	&lt;/npc&gt;
++
++	&lt;npc id=&quot;playervendor_female&quot; inherit=&quot;base_female&quot;&gt;
++		&lt;inherit id=&quot;playervendor_base&quot;/&gt;
++	&lt;/npc&gt;
++
+ &lt;/definitions&gt;
+\ No newline at end of file
+
+Modified: trunk/server/release/definitions/npcs/humans/vendors/farmer.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/humans/vendors/farmer.xml	2007-05-13 13:49:32 UTC (rev 6805)
++++ trunk/server/release/definitions/npcs/humans/vendors/farmer.xml	2007-05-13 13:52:32 UTC (rev 6806)
+@@ -1,48 +1,48 @@
+-&lt;!--
+-=================================================================
+-|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+-|  ((    _/{  &quot;-;  | Created by: Naddel                         |
+-|   )).-' {{ ;'`   | Revised by:                                |
+-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+-=================================================================
+---&gt;
+-&lt;definitions&gt;
+-	&lt;npc id=&quot;farmer_inventory&quot;&gt;
+-		&lt;title context=&quot;Vendor Male Titles&quot;&gt;the Farmer&lt;/title&gt;
+-		&lt;skill id=&quot;lumberjacking&quot;&gt;&lt;random min=&quot;360&quot; max=&quot;680&quot; /&gt;&lt;/skill&gt;
+-		&lt;skill id=&quot;tasteidentification&quot;&gt;&lt;random min=&quot;360&quot; max=&quot;680&quot; /&gt;&lt;/skill&gt;
+-		&lt;skill id=&quot;cooking&quot;&gt;&lt;random min=&quot;360&quot; max=&quot;680&quot; /&gt;&lt;/skill&gt;
+-	&lt;/npc&gt;
+-
+-	&lt;!-- A farmer vendor --&gt;
+-	&lt;npc id=&quot;farmer_male&quot; inherit=&quot;vendor_male&quot;&gt;
+-		&lt;inherit id=&quot;farmer_inventory&quot; /&gt;
+-		&lt;category&gt;Vendors\Farmer (Male)&lt;/category&gt;
+-		&lt;equipped&gt;
+-			&lt;item id=&quot;1714&quot;&gt; &lt;!-- Wide brim hat --&gt;
+-				&lt;color&gt;&lt;random min=&quot;1201&quot; max=&quot;1255&quot; /&gt;&lt;/color&gt;
+-			&lt;/item&gt;
+-		&lt;/equipped&gt;
+-	&lt;/npc&gt;
+-
+-	&lt;npc id=&quot;farmer_female&quot; inherit=&quot;vendor_female&quot;&gt;
+-		&lt;inherit id=&quot;farmer_inventory&quot; /&gt;
+-		&lt;category&gt;Vendors\Farmer (Female)&lt;/category&gt;
+-		&lt;equipped&gt;
+-			&lt;item id=&quot;1714&quot;&gt; &lt;!-- Wide brim hat --&gt;
+-				&lt;color&gt;&lt;random min=&quot;1201&quot; max=&quot;1255&quot; /&gt;&lt;/color&gt;
+-			&lt;/item&gt;
+-		&lt;/equipped&gt;
+-	&lt;/npc&gt;
+-
+-	&lt;npc id=&quot;farmer&quot;&gt;
+-		&lt;inherit&gt;&lt;random valuelist=&quot;farmer_male,farmer_female&quot; /&gt;&lt;/inherit&gt;
+-		&lt;category&gt;Vendors\Farmer (Random)&lt;/category&gt;
+-		&lt;equipped&gt;
+-			&lt;item id=&quot;1714&quot;&gt; &lt;!-- Wide brim hat --&gt;
+-				&lt;color&gt;&lt;random min=&quot;1201&quot; max=&quot;1255&quot; /&gt;&lt;/color&gt;
+-			&lt;/item&gt;
+-		&lt;/equipped&gt;
+-	&lt;/npc&gt;
+-
+-&lt;/definitions&gt;
++&lt;!--
++=================================================================
++|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
++|  ((    _/{  &quot;-;  | Created by: Naddel                         |
++|   )).-' {{ ;'`   | Revised by:                                |
++|  ( (  ;._ \\ ctr | Last Modification: Created                 |
++=================================================================
++--&gt;
++&lt;definitions&gt;
++	&lt;npc id=&quot;farmer_inventory&quot;&gt;
++		&lt;title context=&quot;Vendor Male Titles&quot;&gt;the Farmer&lt;/title&gt;
++		&lt;skill id=&quot;lumberjacking&quot;&gt;&lt;random min=&quot;360&quot; max=&quot;680&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tasteidentification&quot;&gt;&lt;random min=&quot;360&quot; max=&quot;680&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;cooking&quot;&gt;&lt;random min=&quot;360&quot; max=&quot;680&quot; /&gt;&lt;/skill&gt;
++	&lt;/npc&gt;
++
++	&lt;!-- A farmer vendor --&gt;
++	&lt;npc id=&quot;farmer_male&quot; inherit=&quot;vendor_male&quot;&gt;
++		&lt;inherit id=&quot;farmer_inventory&quot; /&gt;
++		&lt;category&gt;Vendors\Farmer (Male)&lt;/category&gt;
++		&lt;equipped&gt;
++			&lt;item id=&quot;1714&quot;&gt; &lt;!-- Wide brim hat --&gt;
++				&lt;color&gt;&lt;random min=&quot;1201&quot; max=&quot;1255&quot; /&gt;&lt;/color&gt;
++			&lt;/item&gt;
++		&lt;/equipped&gt;
++	&lt;/npc&gt;
++
++	&lt;npc id=&quot;farmer_female&quot; inherit=&quot;vendor_female&quot;&gt;
++		&lt;inherit id=&quot;farmer_inventory&quot; /&gt;
++		&lt;category&gt;Vendors\Farmer (Female)&lt;/category&gt;
++		&lt;equipped&gt;
++			&lt;item id=&quot;1714&quot;&gt; &lt;!-- Wide brim hat --&gt;
++				&lt;color&gt;&lt;random min=&quot;1201&quot; max=&quot;1255&quot; /&gt;&lt;/color&gt;
++			&lt;/item&gt;
++		&lt;/equipped&gt;
++	&lt;/npc&gt;
++
++	&lt;npc id=&quot;farmer&quot;&gt;
++		&lt;inherit&gt;&lt;random valuelist=&quot;farmer_male,farmer_female&quot; /&gt;&lt;/inherit&gt;
++		&lt;category&gt;Vendors\Farmer (Random)&lt;/category&gt;
++		&lt;equipped&gt;
++			&lt;item id=&quot;1714&quot;&gt; &lt;!-- Wide brim hat --&gt;
++				&lt;color&gt;&lt;random min=&quot;1201&quot; max=&quot;1255&quot; /&gt;&lt;/color&gt;
++			&lt;/item&gt;
++		&lt;/equipped&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/npcs/humans/vendors/ranger.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/humans/vendors/ranger.xml	2007-05-13 13:49:32 UTC (rev 6805)
++++ trunk/server/release/definitions/npcs/humans/vendors/ranger.xml	2007-05-13 13:52:32 UTC (rev 6806)
+@@ -1,45 +1,45 @@
+-&lt;!--
+-=================================================================
+-|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+-|  ((    _/{  &quot;-;  | Created by: Naddel                         |
+-|   )).-' {{ ;'`   | Revised by: 	                        |
+-|  ( (  ;._ \\ ctr | Last Modification: 05/04/05                |
+-=================================================================
+---&gt;
+-&lt;definitions&gt;
+-
+-	&lt;npc id=&quot;ranger_inventory&quot;&gt;
+-		&lt;shopkeeper&gt;
+-			&lt;restockable&gt;
+-			&lt;/restockable&gt;
+-			&lt;sellable&gt;
+-			&lt;/sellable&gt;
+-		&lt;/shopkeeper&gt;
+-		&lt;title context=&quot;Vendor Male Titles&quot;&gt;the Ranger&lt;/title&gt;
+-		&lt;skill id=&quot;animallore&quot;&gt;&lt;random min=&quot;850&quot; max=&quot;1000&quot; /&gt;&lt;/skill&gt;
+-		&lt;skill id=&quot;animaltaming&quot;&gt;&lt;random min=&quot;850&quot; max=&quot;1000&quot; /&gt;&lt;/skill&gt;
+-		&lt;skill id=&quot;archery&quot;&gt;&lt;random min=&quot;600&quot; max=&quot;830&quot; /&gt;&lt;/skill&gt;
+-		&lt;skill id=&quot;camping&quot;&gt;&lt;random min=&quot;550&quot; max=&quot;780&quot; /&gt;&lt;/skill&gt;
+-		&lt;skill id=&quot;herding&quot;&gt;&lt;random min=&quot;550&quot; max=&quot;780&quot; /&gt;&lt;/skill&gt;
+-		&lt;skill id=&quot;hiding&quot;&gt;&lt;random min=&quot;450&quot; max=&quot;680&quot; /&gt;&lt;/skill&gt;
+-		&lt;skill id=&quot;tracking&quot;&gt;&lt;random min=&quot;650&quot; max=&quot;880&quot; /&gt;&lt;/skill&gt;
+-	&lt;/npc&gt;
+-
+-	&lt;!-- A ranger vendor --&gt;
+-	&lt;npc id=&quot;ranger_male&quot; inherit=&quot;vendor_male&quot;&gt;
+-		&lt;inherit id=&quot;ranger_inventory&quot; /&gt;
+-		&lt;category&gt;Vendors\Ranger (Male)&lt;/category&gt;
+-		&lt;equipped&gt;
+-			&lt;item id=&quot;13b1&quot; /&gt; &lt;!-- bow --&gt;
+-		&lt;/equipped&gt;
+-	&lt;/npc&gt;
+-
+-	&lt;npc id=&quot;ranger_female&quot; inherit=&quot;vendor_female&quot;&gt;
+-		&lt;inherit id=&quot;ranger_inventory&quot; /&gt;
+-		&lt;category&gt;Vendors\Ranger (Female)&lt;/category&gt;
+-		&lt;equipped&gt;
+-			&lt;item id=&quot;13b1&quot; /&gt; &lt;!-- bow --&gt;
+-		&lt;/equipped&gt;
+-	&lt;/npc&gt;
+-
+-&lt;/definitions&gt;
++&lt;!--
++=================================================================
++|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
++|  ((    _/{  &quot;-;  | Created by: Naddel                         |
++|   )).-' {{ ;'`   | Revised by: 	                        |
++|  ( (  ;._ \\ ctr | Last Modification: 05/04/05                |
++=================================================================
++--&gt;
++&lt;definitions&gt;
++
++	&lt;npc id=&quot;ranger_inventory&quot;&gt;
++		&lt;shopkeeper&gt;
++			&lt;restockable&gt;
++			&lt;/restockable&gt;
++			&lt;sellable&gt;
++			&lt;/sellable&gt;
++		&lt;/shopkeeper&gt;
++		&lt;title context=&quot;Vendor Male Titles&quot;&gt;the Ranger&lt;/title&gt;
++		&lt;skill id=&quot;animallore&quot;&gt;&lt;random min=&quot;850&quot; max=&quot;1000&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;animaltaming&quot;&gt;&lt;random min=&quot;850&quot; max=&quot;1000&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;archery&quot;&gt;&lt;random min=&quot;600&quot; max=&quot;830&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;camping&quot;&gt;&lt;random min=&quot;550&quot; max=&quot;780&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;herding&quot;&gt;&lt;random min=&quot;550&quot; max=&quot;780&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;hiding&quot;&gt;&lt;random min=&quot;450&quot; max=&quot;680&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tracking&quot;&gt;&lt;random min=&quot;650&quot; max=&quot;880&quot; /&gt;&lt;/skill&gt;
++	&lt;/npc&gt;
++
++	&lt;!-- A ranger vendor --&gt;
++	&lt;npc id=&quot;ranger_male&quot; inherit=&quot;vendor_male&quot;&gt;
++		&lt;inherit id=&quot;ranger_inventory&quot; /&gt;
++		&lt;category&gt;Vendors\Ranger (Male)&lt;/category&gt;
++		&lt;equipped&gt;
++			&lt;item id=&quot;13b1&quot; /&gt; &lt;!-- bow --&gt;
++		&lt;/equipped&gt;
++	&lt;/npc&gt;
++
++	&lt;npc id=&quot;ranger_female&quot; inherit=&quot;vendor_female&quot;&gt;
++		&lt;inherit id=&quot;ranger_inventory&quot; /&gt;
++		&lt;category&gt;Vendors\Ranger (Female)&lt;/category&gt;
++		&lt;equipped&gt;
++			&lt;item id=&quot;13b1&quot; /&gt; &lt;!-- bow --&gt;
++		&lt;/equipped&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/npcs/humans/vendors/shipwright.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/humans/vendors/shipwright.xml	2007-05-13 13:49:32 UTC (rev 6805)
++++ trunk/server/release/definitions/npcs/humans/vendors/shipwright.xml	2007-05-13 13:52:32 UTC (rev 6806)
+@@ -7,6 +7,17 @@
+ =================================================================
+ --&gt;
+ &lt;definitions&gt;
++	&lt;npc id=&quot;shipwright_inventory&quot;&gt;
++		&lt;shopkeeper&gt;
++			&lt;restockable&gt;
++				&lt;item id=&quot;boat_small&quot;&gt;&lt;amount&gt;40&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;mapmakers_pen&quot;&gt;&lt;amount&gt;20&lt;/amount&gt;&lt;/item&gt;
++				&lt;item id=&quot;14ec&quot;&gt;&lt;amount&gt;20&lt;/amount&gt;&lt;/item&gt;
++			&lt;/restockable&gt;
++		&lt;/shopkeeper&gt;
++		&lt;skill id=&quot;cartography&quot;&gt;&lt;random min=&quot;900&quot; max=&quot;1000&quot; /&gt;&lt;/skill&gt;
++	&lt;/npc&gt;
++
+ 	&lt;!-- A shipwright vendor --&gt;
+ 	&lt;npc id=&quot;shipwright_male&quot; inherit=&quot;vendor_male&quot;&gt;
+ 		&lt;title context=&quot;Vendor Male Titles&quot;&gt;the Shipwright&lt;/title&gt;
+@@ -14,6 +25,7 @@
+ 			&lt;item id=&quot;13e3&quot; /&gt; &lt;!-- Smith's Hammer --&gt;
+ 		&lt;/equipped&gt;
+ 		&lt;category&gt;Vendors\Shipwright (Male)&lt;/category&gt;
++		&lt;inherit id=&quot;shipwright_inventory&quot; /&gt;
+ 	&lt;/npc&gt;
+ 	
+ 	&lt;npc id=&quot;shipwright_female&quot; inherit=&quot;vendor_female&quot;&gt;
+@@ -22,6 +34,7 @@
+ 			&lt;item id=&quot;13e3&quot; /&gt; &lt;!-- Smith's Hammer --&gt;
+ 		&lt;/equipped&gt;
+ 		&lt;category&gt;Vendors\Shipwright (Female)&lt;/category&gt;
++		&lt;inherit id=&quot;shipwright_inventory&quot; /&gt;
+ 	&lt;/npc&gt;
+ 
+ &lt;/definitions&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000010.html">[Wolfpack-svn] r6805 -	trunk/server/release/definitions/decoration/Trammel
+</A></li>
+	<LI>Next message: <A HREF="000012.html">[Wolfpack-svn] r6807 - in	trunk/server/release/definitions/npcs/humans: . SEvendors
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

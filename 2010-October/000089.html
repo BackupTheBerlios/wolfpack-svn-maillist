@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6887 - trunk/server/tools/scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2010-October/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6887%20-%20trunk/server/tools/scripts&In-Reply-To=%3C20101030031955.A4CBB481031%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000088.html">
+   <LINK REL="Next"  HREF="000090.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6887 - trunk/server/tools/scripts</H1>
+    <B>owner_mutilador at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6887%20-%20trunk/server/tools/scripts&In-Reply-To=%3C20101030031955.A4CBB481031%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6887 - trunk/server/tools/scripts">owner_mutilador at mail.berlios.de
+       </A><BR>
+    <I>Sat Oct 30 05:19:55 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000088.html">[Wolfpack-svn] r6886 - trunk/server/release/definitions/decoration
+</A></li>
+        <LI>Next message: <A HREF="000090.html">[Wolfpack-svn] r6888 - in trunk/server: build	release/definitions/decoration/Ilshenar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#89">[ date ]</a>
+              <a href="thread.html#89">[ thread ]</a>
+              <a href="subject.html#89">[ subject ]</a>
+              <a href="author.html#89">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: owner_mutilador
+Date: 2010-10-30 05:19:55 +0200 (Sat, 30 Oct 2010)
+New Revision: 6887
+
+Modified:
+   trunk/server/tools/scripts/converte.py
+Log:
+fix bugs in converte script.
+
+Modified: trunk/server/tools/scripts/converte.py
+===================================================================
+--- trunk/server/tools/scripts/converte.py	2010-10-30 03:18:30 UTC (rev 6886)
++++ trunk/server/tools/scripts/converte.py	2010-10-30 03:19:55 UTC (rev 6887)
+@@ -1,5 +1,8 @@
+ #!/usr/bin/env python
+ # -*- coding: utf-8 -*-
++# Script que recebe como argumento a pasta aonde se encontra os arquivos de decora&#231;&#227;o do RunUO .cfg 
++# e converte todos eles para .xml com as tags necessarias.
++
+ import re
+ import sys
+ if len(sys.argv) &lt; 3:
+@@ -68,16 +71,16 @@
+     output.write(&quot;&lt;decoration&gt;\n&quot;)
+     for l in result:
+         output.write(l + &quot;\n&quot;)
+-    output.write(&quot;&lt;/decoration&gt;\n&quot;)
++    output.write(&quot;\t&lt;/item\n&lt;/decoration&gt;\n&quot;)
+     output.close()
+ 
+ import os
+ files = os.listdir(path)
+ for file in files:
+-    match = re.match(r'_(?P&lt;name&gt;.*)\.cfg$', file)
++    match = re.match(r'(?P&lt;name&gt;.*)\.cfg$', file)
+     if match:
+         name = match.groupdict()['name']
+-        input_name = '_%s.cfg' % (name,)
++        input_name = '%s.cfg' % (name,)
+         output_name = '%s.xml' % (name,)
+         roda_arquivo(input_name, output_name, map)
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000088.html">[Wolfpack-svn] r6886 - trunk/server/release/definitions/decoration
+</A></li>
+	<LI>Next message: <A HREF="000090.html">[Wolfpack-svn] r6888 - in trunk/server: build	release/definitions/decoration/Ilshenar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#89">[ date ]</a>
+              <a href="thread.html#89">[ thread ]</a>
+              <a href="subject.html#89">[ subject ]</a>
+              <a href="author.html#89">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,2234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6838 - in trunk/server:	boost/include/boost/python/detail	boost/include/boost/tuple/detail src src/ai src/muls	src/network src/python src/twofish
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6838%20-%20in%20trunk/server%3A%0A%09boost/include/boost/python/detail%0A%09boost/include/boost/tuple/detail%20src%20src/ai%20src/muls%0A%09src/network%20src/python%20src/twofish&In-Reply-To=%3C200706212019.l5LKJNnI021773%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000042.html">
+   <LINK REL="Next"  HREF="000044.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6838 - in trunk/server:	boost/include/boost/python/detail	boost/include/boost/tuple/detail src src/ai src/muls	src/network src/python src/twofish</H1>
+    <B>btbn at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6838%20-%20in%20trunk/server%3A%0A%09boost/include/boost/python/detail%0A%09boost/include/boost/tuple/detail%20src%20src/ai%20src/muls%0A%09src/network%20src/python%20src/twofish&In-Reply-To=%3C200706212019.l5LKJNnI021773%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6838 - in trunk/server:	boost/include/boost/python/detail	boost/include/boost/tuple/detail src src/ai src/muls	src/network src/python src/twofish">btbn at mail.berlios.de
+       </A><BR>
+    <I>Thu Jun 21 22:19:23 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000042.html">[Wolfpack-svn] r6837 - in trunk/server: build release/scripts/deeds
+</A></li>
+        <LI>Next message: <A HREF="000044.html">[Wolfpack-svn] r6839 - in trunk/WPGM: . Components	Components/Graphics32 Components/VirtualTreeview	Components/VirtualTreeview/Packages ImportDefinitions UOLib
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: btbn
+Date: 2007-06-21 22:19:19 +0200 (Thu, 21 Jun 2007)
+New Revision: 6838
+
+Modified:
+   trunk/server/boost/include/boost/python/detail/wrapper_base.hpp
+   trunk/server/boost/include/boost/tuple/detail/tuple_basic.hpp
+   trunk/server/src/accounts.cpp
+   trunk/server/src/ai/ai.cpp
+   trunk/server/src/ai/ai_animals.cpp
+   trunk/server/src/ai/ai_commoner.cpp
+   trunk/server/src/basedef.cpp
+   trunk/server/src/baseregion.h
+   trunk/server/src/basics.cpp
+   trunk/server/src/basics.h
+   trunk/server/src/commands.cpp
+   trunk/server/src/content.h
+   trunk/server/src/contextmenu.cpp
+   trunk/server/src/dbdriver.cpp
+   trunk/server/src/definitions.cpp
+   trunk/server/src/inlines.h
+   trunk/server/src/muls/maps.cpp
+   trunk/server/src/muls/maps.h
+   trunk/server/src/muls/multiscache.cpp
+   trunk/server/src/muls/multiscache.h
+   trunk/server/src/multi.cpp
+   trunk/server/src/network/uopacket.cpp
+   trunk/server/src/network/uopacket.h
+   trunk/server/src/network/uorxpackets.cpp
+   trunk/server/src/network/uorxpackets.h
+   trunk/server/src/network/uosocket.cpp
+   trunk/server/src/network/uosocket.h
+   trunk/server/src/network/uotxpackets.cpp
+   trunk/server/src/npc.cpp
+   trunk/server/src/optionparser.cpp
+   trunk/server/src/pathfinding.cpp
+   trunk/server/src/persistentbroker.cpp
+   trunk/server/src/player.cpp
+   trunk/server/src/preferences.cpp
+   trunk/server/src/python/char.cpp
+   trunk/server/src/python/converters.cpp
+   trunk/server/src/python/engine.cpp
+   trunk/server/src/python/global.cpp
+   trunk/server/src/python/item.cpp
+   trunk/server/src/python/objectcache.h
+   trunk/server/src/python/pypacket.cpp
+   trunk/server/src/python/pyprofiler.cpp
+   trunk/server/src/python/pyregion.cpp
+   trunk/server/src/python/regioniterator.h
+   trunk/server/src/pythonscript.cpp
+   trunk/server/src/scriptmanager.cpp
+   trunk/server/src/server.cpp
+   trunk/server/src/server.h
+   trunk/server/src/skills.cpp
+   trunk/server/src/spawnregions.cpp
+   trunk/server/src/spawnregions.h
+   trunk/server/src/speech.cpp
+   trunk/server/src/twofish/aes.h
+   trunk/server/src/uobject.cpp
+   trunk/server/src/walking.cpp
+   trunk/server/src/world.cpp
+   trunk/server/src/world.h
+Log:
+Removed a lot of warnings when compiling. Still much to do!
+
+Modified: trunk/server/boost/include/boost/python/detail/wrapper_base.hpp
+===================================================================
+--- trunk/server/boost/include/boost/python/detail/wrapper_base.hpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/boost/include/boost/python/detail/wrapper_base.hpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -15,21 +15,21 @@
+ namespace detail
+ {
+   class BOOST_PYTHON_DECL wrapper_base;
+-  
++
+   namespace wrapper_base_ // ADL disabler
+   {
+     inline PyObject* get_owner(wrapper_base const volatile&amp; w);
+ 
+     inline PyObject*
+-    owner_impl(void const volatile* x, mpl::false_)
++    owner_impl(void const volatile* /*x*/, mpl::false_)
+     {
+         return 0;
+     }
+-    
++
+     template &lt;class T&gt;
+     inline PyObject*
+     owner_impl(T const volatile* x, mpl::true_);
+-    
++
+     template &lt;class T&gt;
+     inline PyObject*
+     owner(T const volatile* x)
+@@ -37,20 +37,20 @@
+         return wrapper_base_::owner_impl(x,is_polymorphic&lt;T&gt;());
+     }
+   }
+-  
++
+   class BOOST_PYTHON_DECL wrapper_base
+   {
+       friend void initialize_wrapper(PyObject* self, wrapper_base* w);
+       friend PyObject* wrapper_base_::get_owner(wrapper_base const volatile&amp; w);
+    protected:
+       wrapper_base() : m_self(0) {}
+-          
++
+       override get_override(
+           char const* name, PyTypeObject* class_object) const;
+ 
+    private:
+       void detach();
+-      
++
+    private:
+       PyObject* m_self;
+   };
+@@ -67,22 +67,22 @@
+         }
+         return 0;
+     }
+-    
++
+     inline PyObject* get_owner(wrapper_base const volatile&amp; w)
+     {
+         return w.m_self;
+     }
+   }
+-  
++
+   inline void initialize_wrapper(PyObject* self, wrapper_base* w)
+   {
+       w-&gt;m_self = self;
+   }
+ 
+-  inline void initialize_wrapper(PyObject* self, ...) {}
++  inline void initialize_wrapper(PyObject* /*self*/, ...) {}
+ 
+-  
+-  
++
++
+ } // namespace detail
+ 
+ }} // namespace boost::python
+
+Modified: trunk/server/boost/include/boost/tuple/detail/tuple_basic.hpp
+===================================================================
+--- trunk/server/boost/include/boost/tuple/detail/tuple_basic.hpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/boost/include/boost/tuple/detail/tuple_basic.hpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -1,6 +1,6 @@
+ //  tuple_basic.hpp -----------------------------------------------------
+ 
+-// Copyright (C) 1999, 2000 Jaakko J&#228;rvi (<A HREF="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">jaakko.jarvi at cs.utu.fi</A>)
++// Copyright (C) 1999, 2000 Jaakko J&#239;&#191;&#189;rvi (<A HREF="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">jaakko.jarvi at cs.utu.fi</A>)
+ //
+ // Distributed under the Boost Software License, Version 1.0. (See
+ // accompanying file LICENSE_1_0.txt or copy at
+@@ -213,7 +213,7 @@
+ 
+ 
+ template&lt;int N, class T&gt;
+-struct element: 
++struct element:
+   public detail::element_impl&lt;N, T, ::boost::is_const&lt;T&gt;::value&gt;
+ {
+ };
+@@ -362,7 +362,7 @@
+ 
+   template &lt;class T2, class T3, class T4, class T5,
+             class T6, class T7, class T8, class T9, class T10&gt;
+-  cons( const null_type&amp; t1, T2&amp; t2, T3&amp; t3, T4&amp; t4, T5&amp; t5,
++  cons( const null_type&amp; /*t1*/, T2&amp; t2, T3&amp; t3, T4&amp; t4, T5&amp; t5,
+         T6&amp; t6, T7&amp; t7, T8&amp; t8, T9&amp; t9, T10&amp; t10 )
+     : head (),
+       tail (t2, t3, t4, t5, t6, t7, t8, t9, t10, detail::cnull())
+
+Modified: trunk/server/src/accounts.cpp
+===================================================================
+--- trunk/server/src/accounts.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/accounts.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -466,7 +466,7 @@
+ 			}
+ 		}
+ 
+-		db.commit();		
++		db.commit();
+ 	}
+ 	catch ( wpException&amp; error )
+ 	{
+@@ -557,7 +557,7 @@
+ 				db.exec( QString(&quot;insert into `settings` (`option`, `value`) values ('db_version',%1);&quot;).arg( db_version ) );
+ 			}
+ 			else
+-			{ 
++			{
+ 				db.exec( createSqlSettings );
+ 				db.exec( QString(&quot;insert into settings (option, value) values ('db_version',%1);&quot;).arg( db_version ) );
+ 			}
+@@ -600,7 +600,7 @@
+ 				throw wpException( tr( &quot;Unable to load account database. Version mismatch: %1 != %2.&quot; ).arg( db_version ).arg( ACCT_DATABASE_VERSION ) );
+ 			}
+ 		}
+-	
++
+ 		// if we have the new created admin account, there aren't any other accounts to load
+ 		if ( adminAccount == NULL )
+ 		{
+@@ -828,7 +828,7 @@
+ 	if ( name == &quot;characters&quot; )
+ 	{
+ 		PyObject* tuple = PyTuple_New( characters_.size() );
+-		for ( uint i = 0; i &lt; characters_.size(); ++i ) {
++		for ( int i = 0; i &lt; characters_.size(); ++i ) {
+ 			PyTuple_SetItem( tuple, i, characters_[i]-&gt;getPyObject() );
+ 		}
+ 		return tuple;
+@@ -864,8 +864,8 @@
+ 	*/
+ 	else if ( name == &quot;email&quot; )
+ 	{
+-		QString text = value.toString(); 
+-		if( text == QString::null )	
++		QString text = value.toString();
++		if( text == QString::null )
+ 			PROPERTY_ERROR( -2, &quot;String expected&quot; );
+ 		email_ = text.toLatin1();
+ 		return 0;
+
+Modified: trunk/server/src/ai/ai.cpp
+===================================================================
+--- trunk/server/src/ai/ai.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/ai/ai.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -398,7 +398,7 @@
+ 	AIFactory::instance()-&gt;registerType( name, productCreator_SCP );
+ }
+ 
+-void ScriptAI::processNode( const cElement* Tag, uint hash )
++void ScriptAI::processNode( const cElement* Tag, uint /*hash*/ )
+ {
+ 	QString TagName = Tag-&gt;name();
+ 	// &lt;action precondition=&quot;scriptfunction&quot; postcondition=&quot;scriptfunction&quot; execute=&quot;scriptfunction&quot; onspeech=&quot;scriptfunction&quot; /&gt;
+
+Modified: trunk/server/src/ai/ai_animals.cpp
+===================================================================
+--- trunk/server/src/ai/ai_animals.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/ai/ai_animals.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -205,7 +205,7 @@
+ 
+ 	// If we are tamed or there is nothing we like we do not hunt
+ 	if ( m_npc-&gt;isTamed() || prey.isEmpty() )
+-	{	
++	{
+ 		return target;
+ 	}
+ 
+@@ -268,7 +268,7 @@
+ 		// build a list of baseids of chars we hunt
+ 		QString preyProp = m_npc-&gt;basedef()-&gt;getStrProperty( &quot;prey&quot; );
+ 		prey = preyProp.split( &quot;,&quot;, QString::SkipEmptyParts );
+-		
++
+ 		// player get special handling to lower costs
+ 		if ( prey.contains( &quot;player&quot; ) )
+ 		{
+@@ -280,4 +280,4 @@
+ 			huntPlayers = false;
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}
+
+Modified: trunk/server/src/ai/ai_commoner.cpp
+===================================================================
+--- trunk/server/src/ai/ai_commoner.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/ai/ai_commoner.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -58,4 +58,4 @@
+ void Commoner::ITEMscheck()
+ {
+ 	AbstractAI::ITEMscheck();
+-}
+\ No newline at end of file
++}
+
+Modified: trunk/server/src/basedef.cpp
+===================================================================
+--- trunk/server/src/basedef.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/basedef.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -37,7 +37,7 @@
+ #include &lt;QtXml&gt;
+ #include &lt;QByteArray&gt;
+ 
+-void cBaseDef::processNode( const cElement* node, uint hash )
++void cBaseDef::processNode( const cElement* node, uint /*hash*/ )
+ {
+ 	if ( node-&gt;name() == &quot;intproperty&quot; )
+ 	{
+@@ -152,7 +152,7 @@
+ 	deathSound_.clear();
+ }
+ 
+-void cCharBaseDef::processNode( const cElement* node, uint hash )
++void cCharBaseDef::processNode( const cElement* node, uint /*hash*/ )
+ {
+ 	// &lt;basesound&gt;0x12&lt;/basesound&gt;
+ 	if ( node-&gt;name() == &quot;basesound&quot; )
+@@ -163,7 +163,7 @@
+ 	else if ( node-&gt;name() == &quot;attacksound&quot; )
+ 	{
+ 		QStringList parts = node-&gt;text().split( &quot;,&quot; );
+-		for ( unsigned int i = 0; i &lt; parts.size(); ++i )
++		for ( int i = 0; i &lt; parts.size(); ++i )
+ 		{
+ 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
+ 			attackSound_.append( value );
+@@ -173,7 +173,7 @@
+ 	else if ( node-&gt;name() == &quot;idlesound&quot; )
+ 	{
+ 		QStringList parts = node-&gt;text().split( &quot;,&quot; );
+-		for ( unsigned int i = 0; i &lt; parts.size(); ++i )
++		for ( int i = 0; i &lt; parts.size(); ++i )
+ 		{
+ 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
+ 			idleSound_.append( value );
+@@ -183,7 +183,7 @@
+ 	else if ( node-&gt;name() == &quot;hitsound&quot; )
+ 	{
+ 		QStringList parts = node-&gt;text().split( &quot;,&quot; );
+-		for ( unsigned int i = 0; i &lt; parts.size(); ++i )
++		for ( int i = 0; i &lt; parts.size(); ++i )
+ 		{
+ 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
+ 			hitSound_.append( value );
+@@ -193,7 +193,7 @@
+ 	else if ( node-&gt;name() == &quot;gethitsound&quot; )
+ 	{
+ 		QStringList parts = node-&gt;text().split( &quot;,&quot; );
+-		for ( unsigned int i = 0; i &lt; parts.size(); ++i )
++		for ( int i = 0; i &lt; parts.size(); ++i )
+ 		{
+ 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
+ 			gethitSound_.append( value );
+@@ -203,7 +203,7 @@
+ 	else if ( node-&gt;name() == &quot;deathsound&quot; )
+ 	{
+ 		QStringList parts = node-&gt;text().split( &quot;,&quot; );
+-		for ( unsigned int i = 0; i &lt; parts.size(); ++i )
++		for ( int i = 0; i &lt; parts.size(); ++i )
+ 		{
+ 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
+ 			deathSound_.append( value );
+@@ -350,7 +350,7 @@
+ 	QDomNode parent = document.namedItem( &quot;bodyinfo&quot; );
+ 	if ( parent.isElement() )
+ 	{
+-		for ( unsigned int i = 0; i &lt; parent.childNodes().count(); ++i )
++		for ( int i = 0; i &lt; parent.childNodes().count(); ++i )
+ 		{
+ 			QDomElement element = parent.childNodes().item( i ).toElement();
+ 
+@@ -592,7 +592,7 @@
+ 	clilocName_ = 0;
+ }
+ 
+-void cItemBaseDef::processNode( const cElement* node, uint hash )
++void cItemBaseDef::processNode( const cElement* node, uint /*hash*/ )
+ {
+ 	// &lt;weight&gt;10.5&lt;/weight&gt;
+ 	if ( node-&gt;name() == &quot;weight&quot; )
+@@ -769,6 +769,42 @@
+ 0,
+ wpBasedef_compare,
+ 0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0,
++0
+ };
+ 
+ /*
+
+Modified: trunk/server/src/baseregion.h
+===================================================================
+--- trunk/server/src/baseregion.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/baseregion.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -148,7 +148,7 @@
+ 	}
+ 
+ protected:
+-	virtual void processNode( const cElement* Tag, uint hash = 0 )
++	virtual void processNode( const cElement* Tag, uint /*hash*/ = 0 )
+ 	{
+ 		QString TagName = Tag-&gt;name();
+ 		QString Value = Tag-&gt;value();
+
+Modified: trunk/server/src/basics.cpp
+===================================================================
+--- trunk/server/src/basics.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/basics.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -589,7 +589,7 @@
+ 	}
+ }
+ 
+-void cBufferedReader::readRaw( void* data, unsigned int size )
++void cBufferedReader::readRaw( void* data, int size )
+ {
+ 	unsigned int pos = 0;
+ 
+
+Modified: trunk/server/src/basics.h
+===================================================================
+--- trunk/server/src/basics.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/basics.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -161,7 +161,7 @@
+ 	double readDouble();
+ 	QString readUtf8();
+ 	QByteArray readAscii( bool nodictionary = false );
+-	void readRaw( void* data, unsigned int size );
++	void readRaw( void* data, int size );
+ 
+ 	unsigned int position();
+ 	const QMap&lt;unsigned char, QByteArray&gt;&amp; typemap();
+
+Modified: trunk/server/src/commands.cpp
+===================================================================
+--- trunk/server/src/commands.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/commands.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -78,11 +78,11 @@
+ 	if ( !pChar-&gt;account()-&gt;authorized( &quot;command&quot;, pCommand ) )
+ 	{
+ 		socket-&gt;sysMessage( tr( &quot;Access to command '%1' was denied&quot; ).arg( pCommand.toLower() ) );
+-		socket-&gt;log( 
++		socket-&gt;log(
+ 			tr( &quot;Character '%1', account '%2' used command '%3', access denied\n&quot;
+ 				).arg( socket-&gt;player()-&gt;orgName()
+ 				).arg( socket-&gt;player()-&gt;account()-&gt;login()
+-				).arg( pCommand.toLower() 
++				).arg( pCommand.toLower()
+ 			)
+ 		);
+ 
+@@ -90,20 +90,20 @@
+ 	}
+ 
+ 	// Dispatch the command
+-	socket-&gt;log( 
++	socket-&gt;log(
+ 		tr( &quot;Character '%1', account '%2' used command '%3'\n&quot;
+ 			).arg( socket-&gt;player()-&gt;orgName()
+ 			).arg( socket-&gt;player()-&gt;account()-&gt;login()
+-			).arg( pCommand.toLower() 
++			).arg( pCommand.toLower()
+ 		)
+ 	);
+ 	if ( !dispatch( socket, pCommand, pArgs ) )
+ 	{
+-		socket-&gt;log( 
++		socket-&gt;log(
+ 			tr( &quot;Character '%1', account '%2' used unknown command '%3'\n&quot;
+ 				).arg( socket-&gt;player()-&gt;orgName()
+ 				).arg( socket-&gt;player()-&gt;account()-&gt;login()
+-				).arg( pCommand.toLower() 
++				).arg( pCommand.toLower()
+ 			)
+ 		);
+ 
+@@ -1175,8 +1175,8 @@
+ 		Coord coord = socket-&gt;player()-&gt;pos();
+ 
+ 		// Show RecallRunes where the stupid thing is
+-		for (unsigned int i = 0; i &lt; path.size(); ++i) {
+-			unsigned char dir = path[i];
++		for (int i = 0; i &lt; path.size(); ++i) {
++			quint8 dir = path[i];
+ 			dirs.append(QString::number(path[i]));
+ 
+ 			Coord newcoord = Movement::instance()-&gt;calcCoordFromDir(dir, coord);
+@@ -1193,7 +1193,7 @@
+ /*
+ 	Find a path
+ */
+-void commandFindPath( cUOSocket* socket, const QString&amp; /*command*/, const QStringList&amp; args ) throw()
++void commandFindPath( cUOSocket* socket, const QString&amp; /*command*/, const QStringList&amp; /*args*/ ) throw()
+ {
+ 	// attach a target to find the target
+ 	socket-&gt;sysMessage(&quot;Select the target for the pathfinding calculation.&quot;);
+
+Modified: trunk/server/src/content.h
+===================================================================
+--- trunk/server/src/content.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/content.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -44,6 +44,8 @@
+ class ContainerComparer
+ {
+ public:
++	virtual ~ContainerComparer() {}
++
+ 	virtual bool operator()( cItem* item ) const
+ 	{
+ 		Q_UNUSED( item );
+
+Modified: trunk/server/src/contextmenu.cpp
+===================================================================
+--- trunk/server/src/contextmenu.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/contextmenu.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -37,7 +37,7 @@
+ /*!
+ 	Builds a context menu out of the definition scripts
+ */
+-void cContextMenu::processNode( const cElement* Tag, uint hash )
++void cContextMenu::processNode( const cElement* Tag, uint /*hash*/ )
+ {
+ 	QString TagName = Tag-&gt;name();
+ 
+
+Modified: trunk/server/src/dbdriver.cpp
+===================================================================
+--- trunk/server/src/dbdriver.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/dbdriver.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -72,7 +72,7 @@
+ 	\description This function frees the resources allocated by this dbresult object. Always call this
+ 	when you no longer need this object.
+ */
+-static PyObject* wpDbResult_free( wpDbResult* self, PyObject* args )
++static PyObject* wpDbResult_free( wpDbResult* /*self*/, PyObject* args )
+ {
+ 	Q_UNUSED( args );
+ 	Py_RETURN_NONE;
+
+Modified: trunk/server/src/definitions.cpp
+===================================================================
+--- trunk/server/src/definitions.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/definitions.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -382,7 +382,7 @@
+ {
+ 	impl-&gt;imports = Config::instance()-&gt;getString( &quot;General&quot;, &quot;Definitions&quot;, &quot;definitions/index.xml&quot;, true ).split( &quot;;&quot; );
+ 
+-	for ( unsigned int i = 0; i &lt; impl-&gt;imports.size(); ++i )
++	for ( int i = 0; i &lt; impl-&gt;imports.size(); ++i )
+ 	{
+ 		cXmlHandler handler( impl );
+ 		handler.load( impl-&gt;imports[i] );
+
+Modified: trunk/server/src/inlines.h
+===================================================================
+--- trunk/server/src/inlines.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/inlines.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -169,7 +169,7 @@
+ {
+ 	QString result;
+ 
+-	for ( unsigned int i = 0; i &lt; input.length(); ++i )
++	for ( int i = 0; i &lt; input.length(); ++i )
+ 	{
+ 		QChar c = input.at( i );
+ 
+
+Modified: trunk/server/src/muls/maps.cpp
+===================================================================
+--- trunk/server/src/muls/maps.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/muls/maps.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -765,7 +765,7 @@
+ 			staticArray.clear();
+ 			const uint remainX = x % 8;
+ 			const uint remainY = y % 8;
+-			for (quint32 i = 0; i &lt; p-&gt;size(); ++i ) {
++			for (qint32 i = 0; i &lt; p-&gt;size(); ++i ) {
+ 				const staticrecord &amp;r = p-&gt;at(i);
+ 				if (r.xoff == remainX &amp;&amp; r.yoff == remainY) {
+ 					staticArray.append(r);
+
+Modified: trunk/server/src/muls/maps.h
+===================================================================
+--- trunk/server/src/muls/maps.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/muls/maps.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -72,7 +72,7 @@
+ private:
+ 	QList&lt;staticrecord&gt; staticArray;
+ 	uint baseX, baseY;
+-	uint pos;
++	int pos;
+ 
+ private:
+ 	void inc();
+
+Modified: trunk/server/src/muls/multiscache.cpp
+===================================================================
+--- trunk/server/src/muls/multiscache.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/muls/multiscache.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -46,7 +46,7 @@
+ 	// try to sort
+ 	if ( items.empty() )
+ 		return;
+-	unsigned int i = 0;
++	int i = 0;
+ 	for ( ; i &lt; items.size(); ++i )
+ 	{
+ 		if ( items[i].x &lt; left )
+@@ -68,7 +68,7 @@
+ 	grid.resize( width * height );
+ 	for ( i = 0; i &lt; items.size(); ++i )
+ 	{
+-		unsigned int index = ( items[i].y - top ) * width + ( items[i].x - left );
++		int index = ( items[i].y - top ) * width + ( items[i].x - left );
+ 		if ( index &lt; grid.size() )
+ 		{
+ 			grid[index].append( items[i] );
+@@ -80,7 +80,7 @@
+ 
+ const QList&lt;multiItem_st&gt;&amp; MultiDefinition::itemsAt( int x, int y )
+ {
+-	unsigned int index = ( x - left ) + ( y - top ) * width;
++	int index = ( x - left ) + ( y - top ) * width;
+ 	static QList&lt;multiItem_st&gt; emptyGrid;
+ 	if ( index &gt;= grid.size() )
+ 	{
+@@ -100,7 +100,7 @@
+ bool MultiDefinition::inMulti( short x, short y )
+ {
+ 	if ( abs( x ) &gt; this-&gt;width || abs( y ) &gt; this-&gt;height )
+-		for ( unsigned int i = 0; i &lt; entries.size(); ++i )
++		for ( int i = 0; i &lt; entries.size(); ++i )
+ 			if ( entries[i].x == x &amp;&amp; entries[i].y == y )
+ 				return true;
+ 	return false;
+@@ -108,7 +108,7 @@
+ 
+ signed char MultiDefinition::multiHeight( short x, short y, short z ) const
+ {
+-	for ( uint j = 0; j &lt; entries.size(); ++j )
++	for ( int j = 0; j &lt; entries.size(); ++j )
+ 	{
+ 		if ( entries[j].visible &amp;&amp; ( x + entries[j].x == x ) &amp;&amp; ( y + entries[j].y == y ) )
+ 		{
+
+Modified: trunk/server/src/muls/multiscache.h
+===================================================================
+--- trunk/server/src/muls/multiscache.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/muls/multiscache.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -49,12 +49,12 @@
+ 
+ 	const QList&lt;multiItem_st&gt;&amp; itemsAt( int x, int y );
+ 
+-	unsigned int getHeight()
++	int getHeight()
+ 	{
+ 		return height;
+ 	}
+ 
+-	unsigned int getWidth()
++	int getWidth()
+ 	{
+ 		return width;
+ 	}
+@@ -84,8 +84,8 @@
+ 	signed char multiHeight( short x, short y, short z ) const;
+ 	QList&lt;multiItem_st&gt; getEntries() const;
+ protected:
+-	unsigned int width;
+-	unsigned int height;
++	int width;
++	int height;
+ 	int left;
+ 	int top;
+ 	int right;
+
+Modified: trunk/server/src/multi.cpp
+===================================================================
+--- trunk/server/src/multi.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/multi.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -262,7 +262,7 @@
+ 
+ 			// Check every tile of the multi at the current position
+ 			// The following algorithm is more or less a ripoff of RunUOs idea.
+-			for ( unsigned int i = 0; i &lt; multiItems.size(); ++i )
++			for ( int i = 0; i &lt; multiItems.size(); ++i )
+ 			{
+ 				multiItem_st multiItem = multiItems[i];
+ 				tile_st tile = TileCache::instance()-&gt;getTile( multiItem.tile );
+@@ -569,7 +569,7 @@
+ 
+ 			// Check every tile of the multi at the current position
+ 			// The following algorithm is more or less a ripoff of RunUOs idea.
+-			for ( unsigned int i = 0; i &lt; multiItems.size(); ++i )
++			for ( int i = 0; i &lt; multiItems.size(); ++i )
+ 			{
+ 				multiItem_st multiItem = multiItems[i];
+ 				tile_st tile = TileCache::instance()-&gt;getTile( multiItem.tile );
+@@ -662,7 +662,7 @@
+ 
+ bool cMulti::canBoatMoveTo( const Coord&amp; pos )
+ {
+-	
++
+ 	MultiDefinition *multi = MultiCache::instance()-&gt;getMulti( this-&gt;id() - 0x4000 );
+ 
+ 	if ( !multi )
+@@ -760,7 +760,7 @@
+ 					bool skip = false;
+ 					while ( i &lt;= count &amp;&amp; !skip )
+ 					{
+-						skip = getTag( QString(&quot;boat_part&quot;).append( QString::number( i ) ) ).toInt() == pItem-&gt;serial();
++						skip = static_cast&lt;SERIAL&gt;(getTag( QString(&quot;boat_part&quot;).append( QString::number( i ) ) ).toInt()) == pItem-&gt;serial();
+ 						++i;
+ 					}
+ 
+@@ -777,7 +777,7 @@
+ 						// Move the item out of the multi space if possible
+ 						if ( ( pItem-&gt;movable() == 0 &amp;&amp; itemInfo.weight != 255 ) || pItem-&gt;movable() == 1 )
+ 						{
+-							
++
+ 						}
+ 						else
+ 						{
+@@ -806,4 +806,4 @@
+ 	}
+ 
+ 	return true;
+-}
+\ No newline at end of file
++}
+
+Modified: trunk/server/src/network/uopacket.cpp
+===================================================================
+--- trunk/server/src/network/uopacket.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/network/uopacket.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -81,7 +81,7 @@
+ /*!
+   Constructs a packet of size \a size and filled with 0's.
+ */
+-cUOPacket::cUOPacket( quint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
++cUOPacket::cUOPacket( qint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
+ {
+ 	init();
+ 	rawPacket.fill( ( char ) 0 );
+@@ -92,7 +92,7 @@
+   with 0's in all positions except for the first byte which contains
+   the packet type.
+ */
+-cUOPacket::cUOPacket( quint8 packetId, quint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
++cUOPacket::cUOPacket( quint8 packetId, qint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
+ {
+ 	init();
+ 	rawPacket.fill( ( char ) 0 );
+@@ -133,7 +133,7 @@
+   \internal
+   Performs an internal buffer resize.
+ */
+-void cUOPacket::resize( uint newSize )
++void cUOPacket::resize( int newSize )
+ {
+ 	rawPacket.resize( newSize );
+ }
+@@ -143,7 +143,7 @@
+   type, but rather how many bytes this instance in particular uses. No
+   consistency checks are made or enforced here.
+ */
+-uint cUOPacket::size() const
++int cUOPacket::size() const
+ {
+ 	return rawPacket.size();
+ }
+@@ -151,7 +151,7 @@
+ /*!
+   Returns the same as \sa size().
+ */
+-uint cUOPacket::count() const
++int cUOPacket::count() const
+ {
+ 	return rawPacket.count();
+ }
+@@ -161,7 +161,7 @@
+   If the packet's size is not enought to hold the position + data.size(),
+   more memory will be allocated automatically.
+ */
+-void cUOPacket::setRawData( uint pos, const char* data, uint dataSize )
++void cUOPacket::setRawData( int pos, const char* data, int dataSize )
+ {
+ 	haveCompressed = false;
+ 	if ( size() &lt; pos + dataSize )
+@@ -248,7 +248,7 @@
+ /*!
+   Reads a 32 bits integer value from the raw data buffer starting at position \a pos
+ */
+-int cUOPacket::getInt( uint pos ) const
++int cUOPacket::getInt( int pos ) const
+ {
+ #if defined(_DEBUG)
+ 	if ( rawPacket.size() &lt; pos + 3 )
+@@ -265,7 +265,7 @@
+ /*!
+   Reads a 16 bits integer value from the raw data buffer starting at position \a pos
+ */
+-short cUOPacket::getShort( uint pos ) const
++short cUOPacket::getShort( int pos ) const
+ {
+ #if defined(_DEBUG)
+ 	if ( rawPacket.size() &lt; pos + 1 )
+@@ -285,7 +285,7 @@
+   and with size no longer than \a fieldLength. If the actual string in buffer
+   is longer than the supplied \a fieldLength, it will be truncated.
+ */
+-QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
++QString cUOPacket::getUnicodeString( int pos, int fieldLength ) const
+ {
+ 	QString result;
+ #if defined(_DEBUG)
+@@ -295,7 +295,7 @@
+ 		return result;
+ 	}
+ #endif
+-	for ( uint i = pos; i &lt; pos + fieldLength; i += 2 )
++	for ( int i = pos; i &lt; pos + fieldLength; i += 2 )
+ 	{
+ 		QChar ch( getShort( i ) );
+ 		if ( ch.isNull() )
+@@ -312,7 +312,7 @@
+   \a fieldLength can be 0, in which case, no size check is performed the string
+   is read until a \0 is found.
+ */
+-QByteArray cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
++QByteArray cUOPacket::getAsciiString( int pos, int fieldLength ) const
+ {
+ #if defined(_DEBUG)
+ 	if ( rawPacket.size() &lt; fieldLength + pos )
+@@ -339,7 +339,7 @@
+ /*!
+   Writes a 32 bits integer \a value to the raw data buffer starting at position \a pos
+ */
+-void cUOPacket::setInt( unsigned int pos, unsigned int value )
++void cUOPacket::setInt( int pos, uint value )
+ {
+ 	haveCompressed = false; // changed
+ 	value = B_HOST_TO_BENDIAN_INT32( value );
+@@ -349,7 +349,7 @@
+ /*!
+   Writes a 16 bits integer \a value to the raw data buffer starting at position \a pos
+ */
+-void cUOPacket::setShort( unsigned int pos, unsigned short value )
++void cUOPacket::setShort( int pos, unsigned short value )
+ {
+ 	haveCompressed = false; // changed
+ 	value = B_HOST_TO_BENDIAN_INT16( value );
+@@ -361,12 +361,12 @@
+   and with field size \a maxlen. If the actual string \a data is longer than \a maxlen
+   it will be truncated.
+ */
+-void cUOPacket::setUnicodeString( uint pos, const QString&amp; data, uint maxlen, bool swapbytes )
++void cUOPacket::setUnicodeString( int pos, const QString&amp; data, int maxlen, bool swapbytes )
+ {
+ 	haveCompressed = false; // changed
+ 	const QChar* unicodeData = data.unicode();
+-	const uint length = data.length() * 2 &gt; maxlen ? maxlen / 2 : data.length();
+-	for ( uint i = 0; i &lt; length; ++i )
++	const int length = data.length() * 2 &gt; maxlen ? maxlen / 2 : data.length();
++	for ( int i = 0; i &lt; length; ++i )
+ 	{
+ 		if ( !swapbytes )
+ 		{
+@@ -385,7 +385,7 @@
+   and with field size \a maxlen. If the actual string \a data is longer than \a maxlen
+   it will be truncated.
+ */
+-void cUOPacket::setAsciiString( uint pos, const char* data, uint maxlen )
++void cUOPacket::setAsciiString( int pos, const char* data, int maxlen )
+ {
+ 	haveCompressed = false; // changed
+ 	qstrncpy( rawPacket.data() + pos, data, maxlen );
+@@ -395,7 +395,7 @@
+   This is a method added for convinience. It permits read/write access to a single byte
+   inside the packet.
+ */
+-char&amp; cUOPacket::operator[]( unsigned int index )
++char&amp; cUOPacket::operator[]( int index )
+ {
+ 	haveCompressed = false; // better safe than sorry
+ 	return *(rawPacket.data() + index);
+
+Modified: trunk/server/src/network/uopacket.h
+===================================================================
+--- trunk/server/src/network/uopacket.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/network/uopacket.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -47,15 +47,15 @@
+ 	void init();
+ 	void compress();
+ 	void assign( cUOPacket&amp; );
+-	void setRawData( uint, const char*, uint );
++	void setRawData( int, const char*, int );
+ 
+ public:
+ 	cUOPacket( const QByteArray&amp; );
+-	cUOPacket( quint32 );
++	cUOPacket( qint32 );
+ 	cUOPacket( cUOPacket&amp; );
+-	cUOPacket( quint8, quint32 );
+-	uint size() const;
+-	uint count() const;
++	cUOPacket( quint8, qint32 );
++	int size() const;
++	int count() const;
+ 	virtual ~cUOPacket();
+ 
+ 	virtual  QByteArray compressed();
+@@ -63,20 +63,20 @@
+ 	{
+ 		return rawPacket;
+ 	}
+-	void resize( uint );
+-	int getInt( uint ) const;
+-	short getShort( uint ) const;
+-	QByteArray getAsciiString( uint, uint = 0 ) const;
+-	QString getUnicodeString( uint, uint ) const;
+-	void setInt( uint, uint );
+-	void setShort( uint, ushort );
+-	void setUnicodeString( uint, const QString&amp;, uint, bool swapbytes = false );
+-	void setAsciiString( uint, const char*, uint );
++	void resize( int );
++	int getInt( int ) const;
++	short getShort( int ) const;
++	QByteArray getAsciiString( int, int = 0 ) const;
++	QString getUnicodeString( int, int ) const;
++	void setInt( int, uint );
++	void setShort( int, unsigned short );
++	void setUnicodeString( int, const QString&amp;, int, bool swapbytes = false );
++	void setAsciiString( int, const char*, int );
+ 	static QByteArray dump( const QByteArray&amp; );
+ 
+ 	// Operators
+-	char&amp; operator []( uint );
+-	char operator []( uint ) const;
++	char&amp; operator []( int );
++	char operator []( int ) const;
+ 	cUOPacket&amp; operator=( cUOPacket&amp; p );
+ };
+ 
+@@ -85,7 +85,7 @@
+ /*!
+   Overloaded version for const objects.
+ */
+-inline char cUOPacket::operator[]( unsigned int index ) const
++inline char cUOPacket::operator[]( int index ) const
+ {
+ 	return rawPacket.at( index );
+ }
+
+Modified: trunk/server/src/network/uorxpackets.cpp
+===================================================================
+--- trunk/server/src/network/uorxpackets.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/network/uorxpackets.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -158,17 +158,14 @@
+ 
+ 	cUOPacket temp( data );
+ 
+-	switch ( temp.getShort( 7 ) )
++	if(temp.getShort( 7 ) == CHLevel)
+ 	{
+-	case CHLevel:
+-		return new cUORxCHLevel( data ); break;
+-	default:
+-		{
+-			//qWarning(&quot;Unknown cUORxAosMultiPurpose subcommand&quot;);
+-			//qWarning( cUOPacket::dump( data ) );
+-			return new cUORxAosMultiPurpose( data );
+-		}
++		return new cUORxCHLevel( data );
+ 	}
++
++	//qWarning(&quot;Unknown cUORxAosMultiPurpose subcommand&quot;);
++	//qWarning( cUOPacket::dump( data ) );
++	return new cUORxAosMultiPurpose( data );
+ }
+ 
+ QString cUORxSpeechRequest::message()
+@@ -210,7 +207,7 @@
+ 		choice.switches.push_back( getInt( 19 + 4 * i ) );
+ 	}
+ 
+-	quint32 offset = 19 + 4 * numSwitches;
++	qint32 offset = 19 + 4 * numSwitches;
+ 
+ 	if ( offset &gt;= size() )
+ 	{
+@@ -240,13 +237,13 @@
+ {
+ 	QList&lt;ushort&gt; keywords;
+ 
+-	ushort count = keywordCount();
+-	ushort offset = 13; // Skip the count
++	short count = keywordCount();
++	short offset = 13; // Skip the count
+ 
+ 	for ( ushort i = 0; i &lt; count; ++i )
+ 	{
+ 		// Invalid Packet size
+-		if ( offset + 2U &gt; size() )
++		if ( offset + 2 &gt; size() )
+ 			return keywords;
+ 
+ 		ushort value;
+
+Modified: trunk/server/src/network/uorxpackets.h
+===================================================================
+--- trunk/server/src/network/uorxpackets.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/network/uorxpackets.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -480,11 +480,11 @@
+ 	{
+ 		return this-&gt;getAsciiString( 1, 30 );
+ 	}
+-	uint index( void ) const
++	int index( void ) const
+ 	{
+ 		return getInt( 31 );
+ 	}
+-	uint ip( void ) const
++	int ip( void ) const
+ 	{
+ 		return getInt( 35 );
+ 	}
+@@ -512,7 +512,7 @@
+ 		return getInt( 37 );
+ 	}
+ 
+-	uint slot( void ) const
++	int slot( void ) const
+ 	{
+ 		return getInt( 65 );
+ 	}
+@@ -1028,7 +1028,7 @@
+ 	cUORxGumpResponse( const QByteArray&amp; data ) : cUOPacket( data )
+ 	{
+ 	}
+-	ushort size() const
++	short size() const
+ 	{
+ 		return getShort( 1 );
+ 	}
+
+Modified: trunk/server/src/network/uosocket.cpp
+===================================================================
+--- trunk/server/src/network/uosocket.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/network/uosocket.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -1316,7 +1316,7 @@
+ 	QList&lt;P_PLAYER&gt; characters = _account-&gt;caracterList();
+ 
+ 	// If we have more than 6 characters
+-	uint maxChars = wpMin&lt;uint&gt;( 6, Config::instance()-&gt;maxCharsPerAccount() );
++	int maxChars = wpMin&lt;int&gt;( 6, Config::instance()-&gt;maxCharsPerAccount() );
+ 	if ( Config::instance()-&gt;enableIndivNumberSlots() )
+ 	{
+ 		maxChars = _account-&gt;charslots();
+@@ -1917,7 +1917,7 @@
+ 	_player-&gt;onCastSpell( packet-&gt;spell() );
+ }
+ 
+-void cUOSocket::handleCloseQuestArrow( cUORxCloseQuestArrow* packet )
++void cUOSocket::handleCloseQuestArrow( cUORxCloseQuestArrow* /*packet*/ )
+ {
+ 	if ( !_player )
+ 		return;
+@@ -2366,7 +2366,7 @@
+ {
+ 	if ( packet-&gt;isTip() )
+ 	{
+-		UI32 tip = packet-&gt;lastTip();
++		int tip = packet-&gt;lastTip();
+ 
+ 		if ( tip == 0 )
+ 			tip = 1;
+@@ -3450,7 +3450,7 @@
+ 	cUOTxVendorBuy vendorBuy;
+ 	vendorBuy.setSerial( pItem-&gt;serial() );
+ 
+-	/* don&#180;t ask me, but the order of the items for vendor buy is reversed */
++	/* don&#239;&#191;&#189;t ask me, but the order of the items for vendor buy is reversed */
+ 	QList&lt;buyitem_st&gt; buyitems;
+ 	QList&lt;buyitem_st&gt;::const_iterator bit;
+ 	QList&lt;cItem*&gt; items;
+@@ -3631,7 +3631,7 @@
+ 	cUOTxVendorBuy vendorBuy;
+ 	vendorBuy.setSerial( pStock-&gt;serial() );
+ 
+-	// This is something i don&#180;t understand. Why does it have to be backwards??
++	// This is something i don&#239;&#191;&#189;t understand. Why does it have to be backwards??
+ 	foreach ( cItem* pItem, itemList )
+ 	{
+ 		containerContent.setInt( pOffset, pItem-&gt;serial() );
+@@ -3994,7 +3994,7 @@
+ 	send( &amp;closegump );
+ }
+ 
+-void cUOSocket::addTooltip( quint32 data )
++void cUOSocket::addTooltip( qint32 data )
+ {
+ 	if ( data &gt;= tooltipscache_-&gt;size() )
+ 		tooltipscache_-&gt;resize( data + 2 );
+
+Modified: trunk/server/src/network/uosocket.h
+===================================================================
+--- trunk/server/src/network/uosocket.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/network/uosocket.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -75,7 +75,7 @@
+ 		Connecting		= 0,
+ 		LoggingIn,
+ 		LoggedIn,
+-		InGame, 
++		InGame,
+ 		Disconnected
+ 	};
+ 
+@@ -132,15 +132,15 @@
+ 	{
+ 		return tooltipscache_;
+ 	}
+-	bool haveTooltip( quint32 data ) const
++	bool haveTooltip( qint32 data ) const
+ 	{
+ 		return tooltipscache_-&gt;testBit( data );
+ 	}
+-	void delTooltip( quint32 data )
++	void delTooltip( qint32 data )
+ 	{
+ 		tooltipscache_-&gt;setBit( data, false );
+ 	}
+-	void addTooltip( quint32 );
++	void addTooltip( qint32 );
+ 
+ 	quint8 walkSequence( void ) const;
+ 	void setWalkSequence( quint8 data );
+
+Modified: trunk/server/src/network/uotxpackets.cpp
+===================================================================
+--- trunk/server/src/network/uotxpackets.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/network/uotxpackets.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -559,7 +559,7 @@
+ 		QStringList titles = Definitions::instance()-&gt;getList( &quot;REPUTATION_TITLES&quot; );
+ 
+ 		// Calculate the position inside the list
+-		unsigned int position;
++		int position;
+ 
+ 		if ( pChar-&gt;karma() &gt;= 10000 )
+ 		{
+@@ -606,7 +606,7 @@
+ 			position = 5;
+ 		}
+ 
+-		position = ( position * 5 ) + wpMin&lt;unsigned int&gt;( 4, pChar-&gt;fame() / 2500 );
++		position = ( position * 5 ) + wpMin&lt;int&gt;( 4, pChar-&gt;fame() / 2500 );
+ 
+ 		if ( pChar-&gt;objectType() != enNPC &amp;&amp; !pChar-&gt;isReputationHidden() &amp;&amp; position &lt; titles.size() )
+ 		{
+
+Modified: trunk/server/src/npc.cpp
+===================================================================
+--- trunk/server/src/npc.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/npc.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -1243,7 +1243,7 @@
+ 	if ( pos_.map != goal.map )
+ 		return;
+ 
+-	QList&lt;unsigned char&gt; path = Pathfinding::instance()-&gt;find(this, pos_, goal);
++	QList&lt;quint8&gt; path = Pathfinding::instance()-&gt;find(this, pos_, goal);
+ 
+ 	if ( path.size() &lt; 1 )
+ 	{
+@@ -1253,8 +1253,8 @@
+ 
+ 	Coord coord = pos_;
+ 
+-	for (unsigned int i = 0; i &lt; path.size(); ++i) {
+-		unsigned char dir = path[i];
++	for (int i = 0; i &lt; path.size(); ++i) {
++		quint8 dir = path[i];
+ 
+ 		Coord newcoord = Movement::instance()-&gt;calcCoordFromDir(dir, coord);
+ 		path_.push_back( newcoord );
+
+Modified: trunk/server/src/optionparser.cpp
+===================================================================
+--- trunk/server/src/optionparser.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/optionparser.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -69,7 +69,7 @@
+ 		{
+ 			printUsage();
+ 		}
+-		
++
+ 		QMap&lt;QString, Option&gt;::iterator it = optionSet.find( args[i] );
+ 		if ( it != optionSet.end() )
+ 		{
+@@ -111,4 +111,4 @@
+ 
+ 	fprintf( stderr, qPrintable( usage ) );
+ 	QCoreApplication::exit( 1 );
+-}
+\ No newline at end of file
++}
+
+Modified: trunk/server/src/pathfinding.cpp
+===================================================================
+--- trunk/server/src/pathfinding.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/pathfinding.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -106,7 +106,7 @@
+ 	#define CHECK_OFFSET(xoff,yoff) coord.z = nodez; \
+ 		coord.x += xoff; \
+ 		coord.y += yoff; \
+-		if (coord.x &gt;= 0 &amp;&amp; coord.y &gt;= 0 &amp;&amp; coord.x &lt; xoffset + areaSize &amp;&amp; coord.y &lt; yoffset + areaSize) { \
++		if (coord.x &lt; xoffset + areaSize &amp;&amp; coord.y &lt; yoffset + areaSize) { \
+ 			if (mayWalk(pChar, coord)) { \
+ 				if (goal == coord || !CheckForCharacterAtXYZ(pChar, coord)) { \
+ 					index = getNodeIndex(coord.x, coord.y, coord.z); \
+@@ -144,7 +144,7 @@
+ 	memset(touched, 0, sizeof(bool) * nodeCount); // Clear the touched nodes
+ 	this-&gt;goal = to; // Save the goal
+ 
+-	// Actually th&#237;s should be the x/y offset of our area
++	// Actually th&#239;&#191;&#189;s should be the x/y offset of our area
+ 	xoffset = (from.x + to.x - areaSize) / 2;
+ 	yoffset = (from.y + to.y - areaSize) / 2;
+ 
+
+Modified: trunk/server/src/persistentbroker.cpp
+===================================================================
+--- trunk/server/src/persistentbroker.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/persistentbroker.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -105,7 +105,7 @@
+ 	if (port &gt; 0) {
+ 		d-&gt;connection.setPort( port );
+ 	}
+-	
++
+ 	d-&gt;useTransaction = transaction;
+ 
+ 	if ( !d-&gt;connection.open() )
+@@ -207,11 +207,11 @@
+ 	return d-&gt;connection.lastError().text();
+ }
+ 
+-void cPersistentBroker::lockTable( const QString&amp; table ) const
++void cPersistentBroker::lockTable( const QString&amp; /*table*/ ) const
+ {
+ }
+ 
+-void cPersistentBroker::unlockTable( const QString&amp; table ) const
++void cPersistentBroker::unlockTable( const QString&amp; /*table*/ ) const
+ {
+ }
+ 
+
+Modified: trunk/server/src/player.cpp
+===================================================================
+--- trunk/server/src/player.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/player.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -324,7 +324,7 @@
+ 	cUOTxUnicodeSpeech::eSpeechType speechType;
+ 
+ 	// Lets try the Range of Speech
+-	int speechrange = Config::instance()-&gt;SpeechNormalRange();
++	unsigned int speechrange = Config::instance()-&gt;SpeechNormalRange();
+ 
+ 	switch ( type )
+ 	{
+@@ -360,7 +360,7 @@
+ 	// Generate the ghost-speech *ONCE*
+ 	if ( isDead() &amp;&amp; !gmSpiritSpeak )
+ 	{
+-		for ( quint32 gI = 0; gI &lt; message.length(); ++gI )
++		for ( qint32 gI = 0; gI &lt; message.length(); ++gI )
+ 		{
+ 			if ( message[gI].isSpace() )
+ 				ghostSpeech.append( message[gI] );
+@@ -1273,7 +1273,7 @@
+ int cPlayer::onStepChar( P_CHAR pChar )
+ {
+ 	unsigned int retvalue = 0;
+-	
++
+ 	if ( canHandleEvent( EVENT_STEPCHAR ) )
+ 	{
+ 		PyObject* args = Py_BuildValue( &quot;O&amp;O&amp;&quot;, PyGetCharObject, this, PyGetCharObject, pChar );
+@@ -1296,7 +1296,7 @@
+ int cPlayer::onStepWeightPercent( int percent, bool mounted, bool running )
+ {
+ 	unsigned int retvalue = 0;
+-	
++
+ 	if ( canHandleEvent( EVENT_STEPWEIGHTPERCENT ) )
+ 	{
+ 		PyObject* args = Py_BuildValue( &quot;O&amp;iii&quot;, PyGetCharObject, this, percent, mounted, running );
+@@ -1522,20 +1522,20 @@
+ 	/*
+ 	#define OUTPUT_HASH(x) QString(&quot;case 0x%2: // %1\n&quot;).arg(x).arg( elfHash( x ), 0, 16)
+ 	Console::instance()-&gt;send(
+-	OUTPUT_HASH(&quot;account&quot;) + 
+-	OUTPUT_HASH(&quot;controlslots&quot;) + 
+-	OUTPUT_HASH(&quot;logouttime&quot;) + 
+-	OUTPUT_HASH(&quot;npc&quot;) + 
+-	OUTPUT_HASH(&quot;lightbonus&quot;) + 
+-	OUTPUT_HASH(&quot;objectdelay&quot;) + 
+-	OUTPUT_HASH(&quot;visrange&quot;) + 
+-	OUTPUT_HASH(&quot;profile&quot;) + 
+-	OUTPUT_HASH(&quot;strengthlock&quot;) + 
+-	OUTPUT_HASH(&quot;dexteritylock&quot;) + 
+-	OUTPUT_HASH(&quot;intelligencelock&quot;) + 
+-	OUTPUT_HASH(&quot;maxcontrolslots&quot;) + 
+-	OUTPUT_HASH(&quot;karmalock&quot;) + 
+-	OUTPUT_HASH(&quot;squelched&quot;) + 
++	OUTPUT_HASH(&quot;account&quot;) +
++	OUTPUT_HASH(&quot;controlslots&quot;) +
++	OUTPUT_HASH(&quot;logouttime&quot;) +
++	OUTPUT_HASH(&quot;npc&quot;) +
++	OUTPUT_HASH(&quot;lightbonus&quot;) +
++	OUTPUT_HASH(&quot;objectdelay&quot;) +
++	OUTPUT_HASH(&quot;visrange&quot;) +
++	OUTPUT_HASH(&quot;profile&quot;) +
++	OUTPUT_HASH(&quot;strengthlock&quot;) +
++	OUTPUT_HASH(&quot;dexteritylock&quot;) +
++	OUTPUT_HASH(&quot;intelligencelock&quot;) +
++	OUTPUT_HASH(&quot;maxcontrolslots&quot;) +
++	OUTPUT_HASH(&quot;karmalock&quot;) +
++	OUTPUT_HASH(&quot;squelched&quot;) +
+ 	OUTPUT_HASH(&quot;jailed&quot;)
+ 	);
+ 	#undef OUTPUT_HASH
+
+Modified: trunk/server/src/preferences.cpp
+===================================================================
+--- trunk/server/src/preferences.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/preferences.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -273,7 +273,7 @@
+ 
+ 	// iterate through the groups
+ 	QDomNodeList options;
+-	for ( uint n = 0; n &lt; nodes.count(); ++n )
++	for ( int n = 0; n &lt; nodes.count(); ++n )
+ 	{
+ 		if ( nodes.item( n ).isElement() &amp;&amp; !nodes.item( n ).isComment() )
+ 		{
+@@ -289,7 +289,7 @@
+ 	QDomNodeList options;
+ 	QString currentgroup_ = group.attribute( &quot;name&quot;, &quot;Default&quot; );
+ 	options = group.elementsByTagName( &quot;option&quot; );
+-	for ( unsigned n = 0; n &lt; options.count(); ++n )
++	for ( int n = 0; n &lt; options.count(); ++n )
+ 	{
+ 		if ( options.item( n ).isElement() )
+ 		{
+
+Modified: trunk/server/src/python/char.cpp
+===================================================================
+--- trunk/server/src/python/char.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/char.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -380,7 +380,7 @@
+ 	if ( PyTuple_Size( args ) &gt;= 2 )
+ 	{
+ 		if ( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+-		{	
++		{
+ 			PyErr_BadArgument();
+ 			Py_RETURN_FALSE;
+ 		}
+@@ -393,7 +393,7 @@
+ 	if ( PyTuple_Size( args ) &gt;= 3 )
+ 	{
+ 		if ( !PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
+-		{	
++		{
+ 			PyErr_BadArgument();
+ 			Py_RETURN_FALSE;
+ 		}
+@@ -405,7 +405,7 @@
+ 	if ( PyTuple_Size( args ) &gt;= 4 )
+ 	{
+ 		if ( !PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
+-		{	
++		{
+ 			PyErr_BadArgument();
+ 			Py_RETURN_FALSE;
+ 		}
+@@ -1011,7 +1011,7 @@
+ 	}
+ 
+ 	QString name = boost::python::extract&lt;QString&gt;( pyname );
+-	
++
+ 	QString def = QString::null;
+ 	if ( pydef != Py_None )
+ 	{
+@@ -1743,7 +1743,7 @@
+ 			}
+ 		}
+ 
+-		for ( uint i = 0; i &lt; effects.size(); ++i )
++		for ( int i = 0; i &lt; effects.size(); ++i )
+ 		{
+ 			// No python effect, but we are forcing.
+ 			if ( ( force || effects[i]-&gt;dispellable ) &amp;&amp; dispelid.isNull() &amp;&amp; effects[i]-&gt;objectID() != &quot;cPythonEffect&quot; )
+@@ -3086,7 +3086,7 @@
+ 		cBaseChar::CharContainer followers = player-&gt;pets();
+ 		PyObject* rVal = PyTuple_New( followers.size() );
+ 
+-		for ( uint i = 0; i &lt; followers.size(); ++i )
++		for ( int i = 0; i &lt; followers.size(); ++i )
+ 			PyTuple_SetItem( rVal, i, PyGetCharObject( followers[i] ) );
+ 
+ 		return rVal;
+@@ -3101,7 +3101,7 @@
+ 		cBaseChar::CharContainer guards = self-&gt;pChar-&gt;guardedby();
+ 		PyObject* rVal = PyTuple_New( guards.size() );
+ 
+-		for ( uint i = 0; i &lt; guards.size(); ++i )
++		for ( int i = 0; i &lt; guards.size(); ++i )
+ 			PyTuple_SetItem( rVal, i, PyGetCharObject( guards[i] ) );
+ 
+ 		return rVal;
+@@ -3124,7 +3124,7 @@
+ 			}
+ 		}
+ 		PyObject* list = PyTuple_New( scripts.count() );
+-		for ( uint i = 0; i &lt; scripts.count(); ++i )
++		for ( int i = 0; i &lt; scripts.count(); ++i )
+ 			PyTuple_SetItem( list, i, PyString_FromString( scripts[i] ) );
+ 		return list;
+ 	}
+
+Modified: trunk/server/src/python/converters.cpp
+===================================================================
+--- trunk/server/src/python/converters.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/converters.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -61,7 +61,7 @@
+ 		if ( PyString_Check( obj ) )
+ 		{
+ 			const char *value = PyString_AS_STRING(obj);
+-			if( !value ) 
++			if( !value )
+ 				throw_error_already_set();
+ 			void *storage=((converter::rvalue_from_python_storage&lt;QString&gt; *) data)-&gt;storage.bytes;
+ 			new(storage) QByteArray(value, PyString_GET_SIZE(obj));
+@@ -127,7 +127,7 @@
+ 		else if ( PyString_Check( obj ) )
+ 		{
+ 			const char *value=PyString_AsString(obj);
+-			if( !value ) 
++			if( !value )
+ 				throw_error_already_set();
+ 			void *storage=((converter::rvalue_from_python_storage&lt;QString&gt; *) data)-&gt;storage.bytes;
+ 			new(storage) QString(QByteArray(value, PyString_Size(obj)));
+@@ -143,4 +143,4 @@
+ 	QByteArray_from_python_str();
+ 	to_python_converter&lt;QString, QString_to_python_str&gt;();
+ 	QString_from_python_str();
+-}
+\ No newline at end of file
++}
+
+Modified: trunk/server/src/python/engine.cpp
+===================================================================
+--- trunk/server/src/python/engine.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/engine.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -135,7 +135,7 @@
+ 	{
+ 		searchPath.insert( 0, str( elements[i].toLatin1() ) );
+ 	}
+-	
++
+ 	// Import site now
+ 	object siteModule = extract&lt;object&gt;( PyImport_ImportModule( &quot;site&quot; ) );
+ 
+@@ -306,4 +306,4 @@
+ QString cPythonEngine::version()
+ {
+ 	return Py_GetVersion();
+-}
+\ No newline at end of file
++}
+
+Modified: trunk/server/src/python/global.cpp
+===================================================================
+--- trunk/server/src/python/global.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/global.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -1042,7 +1042,7 @@
+ 	QStringList list = Definitions::instance()-&gt;getList( getArgStr( 0 ) );
+ 	PyObject* pylist = PyTuple_New( list.count() );
+ 
+-	for ( uint i = 0; i &lt; list.count(); ++i )
++	for ( int i = 0; i &lt; list.count(); ++i )
+ 		PyTuple_SetItem( pylist, i, QString2Python( list[i] ) );
+ 
+ 	return pylist;
+@@ -1541,13 +1541,13 @@
+ 
+ 	PyObject* result = PyTuple_New( elements.size() + sections.size() );
+ 
+-	uint i = 0;
++	int i = 0;
+ 	for ( ; i &lt; elements.size(); ++i )
+ 	{
+ 		PyTuple_SetItem( result, i, elements[i]-&gt;getPyObject() );
+ 	}
+ 
+-	for ( uint j = 0; j &lt; sections.size(); ++j )
++	for ( int j = 0; j &lt; sections.size(); ++j )
+ 	{
+ 		cElement* element = const_cast&lt;cElement*&gt;( Definitions::instance()-&gt;getDefinition( ( eDefCategory ) type, sections[j] ) );
+ 		PyTuple_SetItem( result, i++, element-&gt;getPyObject() );
+@@ -1859,8 +1859,8 @@
+ /*
+ 	\function wolfpack.sockets.first
+ 	\return A &lt;object id=&quot;socket&quot;&gt;socket&lt;/object&gt; object or None.
+-	\description This function is used to iterate thru the ingame sockets. It resets the iterator to the first 
+-	available socket and returns it. 
++	\description This function is used to iterate thru the ingame sockets. It resets the iterator to the first
++	available socket and returns it.
+ 	\sa wolfpack.sockets.next
+ */
+ QList&lt;cUOSocket*&gt; sockets;
+@@ -1902,7 +1902,7 @@
+ /*
+ 	\function wolfpack.sockets.count
+ 	\return An integer value.
+-	\description This function returns how many sockets are connected. There is no distinction 
++	\description This function returns how many sockets are connected. There is no distinction
+ 	on their state, which could be logging in sockets or ingame sockets.
+ */
+ static PyObject* wpSocketsCount( PyObject* self, PyObject* args )
+@@ -2315,7 +2315,7 @@
+ 	\param database The id of the database you want to close. See the &quot;Database Constants&quot; in this module.
+ 	\description This function closes the connection to the given database.
+ */
+-void wpClose( unsigned int database )
++void wpClose( unsigned int /*database*/ )
+ {
+ 	try
+ 	{
+
+Modified: trunk/server/src/python/item.cpp
+===================================================================
+--- trunk/server/src/python/item.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/item.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -1163,7 +1163,7 @@
+ 	}
+ 
+ 	QString name = boost::python::extract&lt;QString&gt;( pyname );
+-	
++
+ 	QString def = QString::null;
+ 	if ( pydef != Py_None )
+ 	{
+@@ -1369,7 +1369,7 @@
+ 		}
+ 
+ 		PyObject* list = PyTuple_New( events.count() );
+-		for ( uint i = 0; i &lt; events.count(); ++i )
++		for ( int i = 0; i &lt; events.count(); ++i )
+ 			PyTuple_SetItem( list, i, PyString_FromString( events[i] ) );
+ 		return list;
+ 	}
+
+Modified: trunk/server/src/python/objectcache.h
+===================================================================
+--- trunk/server/src/python/objectcache.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/objectcache.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -33,7 +33,7 @@
+ #include &lt;stdexcept&gt;
+ #include &lt;QList&gt;
+ 
+-template &lt;class T, unsigned int MAXSIZE&gt;
++template &lt;class T, int MAXSIZE&gt;
+ class FixedSizePtrStack
+ {
+ private:
+@@ -80,7 +80,7 @@
+ 	}
+ };
+ 
+-template &lt;class T, unsigned int MAXSIZE&gt;
++template &lt;class T, int MAXSIZE&gt;
+ class cObjectCache
+ {
+ private:
+
+Modified: trunk/server/src/python/pypacket.cpp
+===================================================================
+--- trunk/server/src/python/pypacket.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/pypacket.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -201,14 +201,14 @@
+ */
+ static PyObject* wpPacket_setascii( PyObject* self, PyObject* args )
+ {
+-	unsigned short pos;
++	short pos;
+ 	char* buffer;
+ 
+ 	if ( !PyArg_ParseTuple( args, &quot;Hs:wppacket.setbuffer(position, value)&quot;, &amp;pos, &amp;buffer ) )
+ 		return 0;
+ 
+ 	cUOPacket* packet = ( ( wpPacket* ) self )-&gt;packet;
+-	unsigned int length = strlen( buffer ) + 1;
++	int length = strlen( buffer ) + 1;
+ 
+ 	if ( pos + length &gt; packet-&gt;size() )
+ 	{
+
+Modified: trunk/server/src/python/pyprofiler.cpp
+===================================================================
+--- trunk/server/src/python/pyprofiler.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/pyprofiler.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -40,7 +40,7 @@
+ #define PyTrace_C_RETURN 6
+ #endif
+ 
+-int PyProfiler::tracefunc( PyObject *obj, PyFrameObject *frame, int what, PyObject *arg )
++int PyProfiler::tracefunc( PyObject */*obj*/, PyFrameObject *frame, int what, PyObject */*arg*/ )
+ {
+ 	PyProfiler* that = PyProfiler::instance();
+ 	ProfileData* pdata = 0;
+
+Modified: trunk/server/src/python/pyregion.cpp
+===================================================================
+--- trunk/server/src/python/pyregion.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/pyregion.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -82,7 +82,7 @@
+ 	\method region.startrain
+ 	\description This method make Region begins to rain.
+ */
+-static PyObject* wpRegion_startrain( wpRegion* self, PyObject* args )
++static PyObject* wpRegion_startrain( wpRegion* self, PyObject* /*args*/ )
+ {
+ 
+ 	self-&gt;pRegion-&gt;setIsRaining( true );
+@@ -94,7 +94,7 @@
+ 	\method region.stoprain
+ 	\description This method make Region stops to rain.
+ */
+-static PyObject* wpRegion_stoprain( wpRegion* self, PyObject* args )
++static PyObject* wpRegion_stoprain( wpRegion* self, PyObject* /*args*/ )
+ {
+ 
+ 	self-&gt;pRegion-&gt;setIsRaining( false );
+@@ -106,7 +106,7 @@
+ 	\method region.startsnow
+ 	\description This method make Region begins to snow.
+ */
+-static PyObject* wpRegion_startsnow( wpRegion* self, PyObject* args )
++static PyObject* wpRegion_startsnow( wpRegion* self, PyObject* /*args*/ )
+ {
+ 
+ 	self-&gt;pRegion-&gt;setIsSnowing( true );
+@@ -118,7 +118,7 @@
+ 	\method region.stopsnow
+ 	\description This method make Region stops to snow.
+ */
+-static PyObject* wpRegion_stopsnow( wpRegion* self, PyObject* args )
++static PyObject* wpRegion_stopsnow( wpRegion* self, PyObject* /*args*/ )
+ {
+ 
+ 	self-&gt;pRegion-&gt;setIsSnowing( false );
+@@ -166,7 +166,8 @@
+ 
+ 	unsigned char arg = getArgInt( 0 );
+ 
+-	int actualhour = UoTime::instance()-&gt;hour();
++	//Why that? - BtbN
++	//int actualhour = UoTime::instance()-&gt;hour();
+ 
+ 	self-&gt;pRegion-&gt;setWeatherHour( arg );
+ 
+@@ -250,7 +251,7 @@
+ 	{
+ 		QList&lt;cBaseRegion*&gt; children = self-&gt;pRegion-&gt;children();
+ 		PyObject* tuple = PyTuple_New( children.size() );
+-		for ( uint i = 0; i &lt; children.size(); ++i )
++		for ( int i = 0; i &lt; children.size(); ++i )
+ 		{
+ 			cTerritory* pRegion = dynamic_cast&lt;cTerritory*&gt;( children[i] );
+ 			PyTuple_SetItem( tuple, i, PyGetRegionObject( pRegion ) );
+@@ -265,7 +266,7 @@
+ 	{
+ 		QList&lt;cBaseRegion::rect_st&gt; rectangles = self-&gt;pRegion-&gt;rectangles();
+ 		PyObject* tuple = PyTuple_New( rectangles.size() );
+-		for ( uint i = 0; i &lt; rectangles.size(); ++i )
++		for ( int i = 0; i &lt; rectangles.size(); ++i )
+ 		{
+ 			PyObject* subtuple = PyTuple_New( 4 );
+ 			PyTuple_SetItem( subtuple, 0, PyInt_FromLong( rectangles[i].x1 ) );
+
+Modified: trunk/server/src/python/regioniterator.h
+===================================================================
+--- trunk/server/src/python/regioniterator.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/python/regioniterator.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -101,7 +101,8 @@
+ 	return reinterpret_cast&lt;PyObject*&gt;( returnVal );
+ }
+ 
+-static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
++// Never used? - BtbN
++/* static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
+ {
+ 	// must manually initialize the iterator's state to zero
+ 	wpRegionIteratorItems* returnVal = PyObject_New( wpRegionIteratorItems, &amp;wpRegionIteratorItemsType );
+@@ -110,7 +111,7 @@
+ 	returnVal-&gt;iter = MapObjects::instance()-&gt;listItemsInBlock( map, xBlock * 8, yBlock * 8 );
+ 
+ 	return reinterpret_cast&lt;PyObject*&gt;( returnVal );
+-}
++} */
+ 
+ /*
+  *	Character Region Iterator
+@@ -184,7 +185,8 @@
+ 	return reinterpret_cast&lt;PyObject*&gt;( returnVal );
+ }
+ 
+-static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map, bool offline = false )
++// Never used? - BtbN
++/* static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map, bool offline = false )
+ {
+ 	// must manually initialize the iterator's state to zero
+ 	wpRegionIteratorChars* returnVal = PyObject_New( wpRegionIteratorChars, &amp;wpRegionIteratorCharsType );
+@@ -193,6 +195,6 @@
+ 	returnVal-&gt;iter = MapObjects::instance()-&gt;listCharsInBlock( map, xBlock * 8, yBlock * 8, offline );
+ 
+ 	return reinterpret_cast&lt;PyObject*&gt;( returnVal );
+-}
++} */
+ 
+ #endif
+
+Modified: trunk/server/src/pythonscript.cpp
+===================================================================
+--- trunk/server/src/pythonscript.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/pythonscript.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -1118,7 +1118,7 @@
+ 	return result;
+ }
+ 
+-PyObject* cPythonScriptable::getProperty( const QString&amp; name, uint hash )
++PyObject* cPythonScriptable::getProperty( const QString&amp; name, uint /*hash*/ )
+ {
+ 	PY_PROPERTY( &quot;classname&quot;, className() );
+ 
+
+Modified: trunk/server/src/scriptmanager.cpp
+===================================================================
+--- trunk/server/src/scriptmanager.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/scriptmanager.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -139,9 +139,7 @@
+ 	// Each Section is a Script identifier
+ 	const QList&lt;cElement*&gt;&amp; sections = Definitions::instance()-&gt;getDefinitions( WPDT_SCRIPT );
+ 
+-	unsigned int loaded = 0;
+-	unsigned int i;
+-
++	int i;
+ 	for ( i = 0; i &lt; sections.size(); ++i )
+ 	{
+ 		const cElement* element = sections[i];
+@@ -155,7 +153,6 @@
+ 		cPythonScript* script = new cPythonScript;
+ 		scripts.insert( element-&gt;text().toUtf8(), script );
+ 		script-&gt;load( element-&gt;text().toLatin1() );
+-		++loaded;
+ 	}
+ 	cComponent::load();
+ }
+
+Modified: trunk/server/src/server.cpp
+===================================================================
+--- trunk/server/src/server.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/server.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -248,7 +248,7 @@
+ 	return d-&gt;secure;
+ }
+ 
+-void myMessageOutput( QtMsgType type, const char *msg )
++void myMessageOutput( QtMsgType /*type*/, const char */*msg*/ )
+ {
+  /*   switch ( type ) {
+         case QtDebugMsg:
+
+Modified: trunk/server/src/server.h
+===================================================================
+--- trunk/server/src/server.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/server.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -128,7 +128,7 @@
+ 	Private* d;
+ 
+ 	// Disallow copy constructor
+-	cServer( const cServer&amp; )
++	cServer( const QThread&amp; )
+ 	{
+ 	}
+ 
+
+Modified: trunk/server/src/skills.cpp
+===================================================================
+--- trunk/server/src/skills.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/skills.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -127,13 +127,13 @@
+ 		return;
+ 	}
+ 
+-	/*	if( pVictim-&gt;npcaitype() == 17 )
+-		{
+-			socket-&gt;sysMessage( tr( &quot;You cannot steal from Playervendors.&quot; ) );
+-			return;
+-		}
+-	*/
+-/*	if ( pVictim-&gt;objectType() == enPlayer )
++	//if( pVictim-&gt;npcaitype() == 17 )
++		//{
++			//socket-&gt;sysMessage( tr( &quot;You cannot steal from Playervendors.&quot; ) );
++			//return;
++		//}
++
++	if ( pVictim-&gt;objectType() == enPlayer )
+ 	{
+ 		P_PLAYER pp = dynamic_cast&lt;P_PLAYER&gt;( pVictim );
+ 		if ( pp-&gt;isGMorCounselor() )
+@@ -257,6 +257,7 @@
+ 	}
+ }
+ */
++
+ void cSkills::Meditation( cUOSocket* socket )
+ {
+ 	P_CHAR pc_currchar = socket-&gt;player();
+@@ -447,7 +448,7 @@
+ 	if ( skill &gt;= skills.size() )
+ 	{
+ 		Console::instance()-&gt;log( LOG_ERROR, tr( &quot;Skill id out of range: %u&quot; ).arg( skill ) );
+-		return QString::null;
++		return QString();
+ 	}
+ 
+ 	return skills[skill].name;
+@@ -457,7 +458,7 @@
+ {
+ 	QString defName = defname.toUpper();
+ 
+-	unsigned int i;
++	int i;
+ 	for ( i = 0; i &lt; skills.size(); ++i )
+ 	{
+ 		if ( skills[i].defname == defName )
+@@ -471,7 +472,7 @@
+ 	if ( skill &gt;= skills.size() )
+ 	{
+ 		Console::instance()-&gt;log( LOG_ERROR, tr( &quot;Skill id out of range: %u&quot; ).arg( skill ) );
+-		return QString::null;
++		return QString();
+ 	}
+ 
+ 	return skills[skill].defname;
+
+Modified: trunk/server/src/spawnregions.cpp
+===================================================================
+--- trunk/server/src/spawnregions.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/spawnregions.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -266,7 +266,7 @@
+ 	}
+ }
+ 
+-void cSpawnRegion::processNode( const cElement* tag, uint hash )
++void cSpawnRegion::processNode( const cElement* tag, uint /*hash*/ )
+ {
+ 	QString name = tag-&gt;name();
+ 	QString value = tag-&gt;value();
+
+Modified: trunk/server/src/spawnregions.h
+===================================================================
+--- trunk/server/src/spawnregions.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/spawnregions.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -41,6 +41,8 @@
+ protected:
+ 	unsigned int points_; // The number of points
+ public:
++	virtual ~cSpawnPosition() {}
++
+ 	virtual unsigned int points()
+ 	{
+ 		return points_;
+
+Modified: trunk/server/src/speech.cpp
+===================================================================
+--- trunk/server/src/speech.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/speech.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -167,7 +167,7 @@
+ 		return false;
+ }
+ 
+-bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString&amp; comm, QList&lt;ushort&gt;&amp; keywords )
++bool Speech::response( cUOSocket* /*socket*/, P_PLAYER pPlayer, const QString&amp; comm, QList&lt;ushort&gt;&amp; keywords )
+ {
+ 	if ( !pPlayer-&gt;socket() || pPlayer-&gt;isDead() )
+ 	{
+@@ -187,7 +187,7 @@
+ 			PyObject* pkeywords = PyTuple_New( keywords.size() );
+ 
+ 			// Set Items
+-			for ( unsigned int i = 0; i &lt; keywords.size(); ++i )
++			for ( int i = 0; i &lt; keywords.size(); ++i )
+ 				PyTuple_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
+ 
+ 			PyObject* args = Py_BuildValue( &quot;(NNNO)&quot;, pItem-&gt;getPyObject(), pPlayer-&gt;getPyObject(), QString2Python( comm ), pkeywords );
+@@ -220,7 +220,7 @@
+ 			PyObject* pkeywords = PyTuple_New( keywords.size() );
+ 
+ 			// Set Items
+-			for ( unsigned int i = 0; i &lt; keywords.size(); ++i )
++			for ( int i = 0; i &lt; keywords.size(); ++i )
+ 				PyTuple_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
+ 
+ 			PyObject* args = Py_BuildValue( &quot;(NNNO)&quot;, pNpc-&gt;getPyObject(), pPlayer-&gt;getPyObject(), QString2Python( comm ), pkeywords );
+@@ -259,20 +259,20 @@
+ 		return;
+ 
+ 	// Squelched
+-	if ( pChar-&gt;isSquelched() ) 
++	if ( pChar-&gt;isSquelched() )
+ 	{
+ 		socket-&gt;clilocMessage( 500168 ); // You cannot say anything, you have been squelched.
+ 		return;
+ 	}
+ 
+ 	// log
+-	pChar-&gt;log( LOG_SPEECH, 
+-		tr( &quot;Character '%1' says '%2' (font=%3, color=0x%4).\n&quot; 
+-			).arg( pChar-&gt;orgName() 
+-			).arg( speech 
+-			).arg( font 
+-			).arg( color, 0, 16 
+-		) 
++	pChar-&gt;log( LOG_SPEECH,
++		tr( &quot;Character '%1' says '%2' (font=%3, color=0x%4).\n&quot;
++			).arg( pChar-&gt;orgName()
++			).arg( speech
++			).arg( font
++			).arg( color, 0, 16
++		)
+ 	);
+ 
+ 	pChar-&gt;unhide();
+
+Modified: trunk/server/src/twofish/aes.h
+===================================================================
+--- trunk/server/src/twofish/aes.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/twofish/aes.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -35,8 +35,12 @@
+ #define 	MODE_CBC 		2 		/* Are we ciphering in CBC mode? */
+ #define 	MODE_CFB1 		3 		/* Are we ciphering in 1-bit CFB mode? */
+ 
+-#define 	TRUE 			1
+-#define 	FALSE 			0
++#ifndef		TRUE
++#	define 	TRUE 			1
++#endif
++#ifndef		FALSE
++#	define 	FALSE 			0
++#endif
+ 
+ #define 	BAD_KEY_DIR 		-1	/* Key direction is invalid (unknown value) */
+ #define 	BAD_KEY_MAT 		-2	/* Key material not of correct length */
+
+Modified: trunk/server/src/uobject.cpp
+===================================================================
+--- trunk/server/src/uobject.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/uobject.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -499,7 +499,7 @@
+ 	}
+ }
+ 
+-void cUObject::processNode( const cElement* Tag, uint hash )
++void cUObject::processNode( const cElement* Tag, uint /*hash*/ )
+ {
+ 	QString TagName( Tag-&gt;name() );
+ 	QString Value( Tag-&gt;value() );
+
+Modified: trunk/server/src/walking.cpp
+===================================================================
+--- trunk/server/src/walking.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/walking.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -272,7 +272,7 @@
+ 
+ 		QList&lt;multiItem_st&gt; multi = def-&gt;getEntries();
+ 
+-		for ( unsigned int j = 0; j &lt; multi.size(); ++j )
++		for ( int j = 0; j &lt; multi.size(); ++j )
+ 		{
+ 			if ( multi[j].visible &amp;&amp; ( pMulti-&gt;pos().x + multi[j].x == pos.x ) &amp;&amp; ( pMulti-&gt;pos().y + multi[j].y == pos.y ) )
+ 			{
+@@ -589,8 +589,8 @@
+ 			{
+ 				if (player-&gt;pos().map == 0)
+ 					rightmap = true;
+-			}			
+-			
++			}
++
+ 			// Player vs characters Section
+ 			if ( player-&gt;socket() &amp;&amp; rightmap )
+ 			{
+@@ -599,7 +599,7 @@
+ 				{
+ 					if ( them == player )
+ 						continue;
+-	
++
+ 					// Handling onStepChar (Cant call the event it z difference is higher than definition)
+ 					if ( wpAbs&lt;SI08&gt;( newCoord.z - them-&gt;pos().z ) &lt; P_M_MAX_Z_CLIMB )
+ 					{
+@@ -614,7 +614,7 @@
+ 							else
+ 								continue;
+ 						}
+-					}					
++					}
+ 
+ 					// If we're dead or Staff, no collisions to check (Unless we have events)
+ 					if ( player-&gt;isDead() || player-&gt;account()-&gt;isStaff() )
+@@ -996,7 +996,7 @@
+ 				return 0;
+ 
+ 			QList&lt;multiItem_st&gt; multi = def-&gt;getEntries();
+-			for ( quint32 j = 0; j &lt; multi.size(); ++j )
++			for ( qint32 j = 0; j &lt; multi.size(); ++j )
+ 			{
+ 				if ( ( multi[j].visible &amp;&amp; ( mapitem-&gt;pos().x + multi[j].x == pos.x ) &amp;&amp; ( mapitem-&gt;pos().y + multi[j].y == pos.y ) &amp;&amp; ( abs( mapitem-&gt;pos().z + multi[j].z - pos.z ) &lt;= 1 ) ) )
+ 				{
+
+Modified: trunk/server/src/world.cpp
+===================================================================
+--- trunk/server/src/world.cpp	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/world.cpp	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -95,12 +95,13 @@
+ }
+ 
+ // This is used for autocreating the tables
+-struct
++struct dbEntryTripple
+ {
+ 	const char* name;
+ 	const char* create;
+ 	const char* mysqlcreate;
+-} tableInfo[] =
++};
++dbEntryTripple tableInfo[] =
+ {
+ { &quot;guilds&quot;,
+ &quot;CREATE TABLE guilds ( \
+@@ -136,7 +137,7 @@
+ guildtitle varchar(255) NOT NULL default '', \
+ joined int(11) NOT NULL default '0', \
+ PRIMARY KEY(guild,player) \
+-);&quot;, 
++);&quot;,
+ &quot;CREATE TABLE `guilds_members` ( \
+ `guild` int(10) unsigned NOT NULL default '0', \
+ `player` int(10) unsigned NOT NULL default '0', \
+@@ -301,7 +302,7 @@
+ murderer unsigned int(10) NOT NULL default '0',\
+ murdertime unsigned int(10) NOT NULL default '0',\
+ PRIMARY KEY (serial)\
+-);&quot;, 
++);&quot;,
+ &quot;CREATE TABLE `corpses` ( \
+ `serial` int(10) unsigned NOT NULL default '0', \
+ `bodyid` smallint(5) unsigned NOT NULL default '0', \
+@@ -346,7 +347,7 @@
+ priv unsigned tinyint(3)  NOT NULL default '0',\
+ baseid varchar(64) NOT NULL default '',\
+ PRIMARY KEY (serial)\
+-);&quot;, 
++);&quot;,
+ &quot;CREATE TABLE `items` ( \
+ `serial` int(10) unsigned NOT NULL default '0', \
+ `id` smallint(5) unsigned NOT NULL default '0', \
+@@ -522,7 +523,7 @@
+ type varchar(64) NOT NULL,\
+ value text NOT NULL,\
+ PRIMARY KEY (id,keyname)\
+-);&quot;, 
++);&quot;,
+ &quot;CREATE TABLE `effects_properties` ( \
+ `id` int(10) unsigned NOT NULL default '0', \
+ `keyname` varchar(64) NOT NULL default '', \
+@@ -919,7 +920,7 @@
+ 					PersistentBroker::instance()-&gt;executeQuery( QString(&quot;insert into `settings` (`option`, `value`) values ('db_version',%1);&quot;).arg( WP_DATABASE_VERSION ) );
+ 				}
+ 				else
+-				{ 
++				{
+ 					PersistentBroker::instance()-&gt;executeQuery( QString(&quot;insert into settings (option, value) values ('db_version',%1);&quot;).arg( WP_DATABASE_VERSION ) );
+ 				}
+ 			}
+@@ -964,7 +965,7 @@
+ 
+ 	QStringList types = PersistentFactory::instance()-&gt;objectTypes();
+ 
+-	for ( uint j = 0; j &lt; types.count(); ++j )
++	for ( int j = 0; j &lt; types.count(); ++j )
+ 	{
+ 		QString type = types[j];
+ 
+@@ -1230,7 +1231,7 @@
+ 		setOption( &quot;worldtime&quot;, QString::number( UoTime::instance()-&gt;getMinutes() ) );
+ 
+ 		if ( Config::instance()-&gt;databaseDriver() == &quot;binary&quot; )
+-		{			
++		{
+ 			// Make a backup of the old world.
+ 			backupWorld( Config::instance()-&gt;binarySavepath(), Config::instance()-&gt;binaryBackups(), Config::instance()-&gt;binaryCompressBackups() );
+ 
+@@ -1719,7 +1720,7 @@
+ /*
+ 	Backup old worldfile
+ */
+-void cWorld::backupWorld( const QString&amp; filename, unsigned int count, bool compress )
++void cWorld::backupWorld( const QString&amp; filename, int count, bool compress )
+ {
+ 	// Looks like there is nothing to backup
+ 	if ( count == 0 || !QFile::exists( filename ) )
+
+Modified: trunk/server/src/world.h
+===================================================================
+--- trunk/server/src/world.h	2007-06-21 10:26:52 UTC (rev 6837)
++++ trunk/server/src/world.h	2007-06-21 20:19:19 UTC (rev 6838)
+@@ -97,7 +97,7 @@
+ 	unsigned int _playerCount, _npcCount;
+ 	void loadTag( cBufferedReader&amp; reader, unsigned int version );
+ 	QMap&lt;QString, QString&gt; options;
+-	void backupWorld( const QString&amp; filename, unsigned int count, bool compress );
++	void backupWorld( const QString&amp; filename, int count, bool compress );
+ 	QList&lt;cBackupThread*&gt; backupThreads;
+ 
+ public:
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000042.html">[Wolfpack-svn] r6837 - in trunk/server: build release/scripts/deeds
+</A></li>
+	<LI>Next message: <A HREF="000044.html">[Wolfpack-svn] r6839 - in trunk/WPGM: . Components	Components/Graphics32 Components/VirtualTreeview	Components/VirtualTreeview/Packages ImportDefinitions UOLib
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

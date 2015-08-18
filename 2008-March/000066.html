@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6862 - trunk/server/src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6862%20-%20trunk/server/src&In-Reply-To=%3C200803252131.m2PLVCTZ025037%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000065.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6862 - trunk/server/src</H1>
+    <B>lastkiller at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6862%20-%20trunk/server/src&In-Reply-To=%3C200803252131.m2PLVCTZ025037%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6862 - trunk/server/src">lastkiller at mail.berlios.de
+       </A><BR>
+    <I>Tue Mar 25 22:31:12 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000065.html">[Wolfpack-svn] r6861 - in trunk/server: release	release/definitions/multis src
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lastkiller
+Date: 2008-03-25 22:31:05 +0100 (Tue, 25 Mar 2008)
+New Revision: 6862
+
+Modified:
+   trunk/server/src/multi.cpp
+   trunk/server/src/multi.h
+Log:
+You can define Multi Area with multiples rectangle tags
+
+Modified: trunk/server/src/multi.cpp
+===================================================================
+--- trunk/server/src/multi.cpp	2008-03-25 03:56:28 UTC (rev 6861)
++++ trunk/server/src/multi.cpp	2008-03-25 21:31:05 UTC (rev 6862)
+@@ -127,6 +127,7 @@
+ bool cMulti::inMulti( const Coord&amp; pos )
+ {
+ 	short x1t,y1t,x2t,y2t;
++	ushort h;
+ 
+ 	// Seek tiles with same x,y as pos
+ 	// Items on tables are 6 z higher than the ground
+@@ -172,24 +173,24 @@
+ 	}
+ 
+ 	// I'm not in a multi, but I could be in a extended area...
+-	// If this multi has the tag 'MultiArea' defined we can use this to know if
+-	// we are inside a multi or not.
+-	if (this-&gt;hasTag(&quot;MultiArea&quot;) )
++	// If there is a rectangles set we could be in a Multi area.
++	for(int i = 0; i &lt; this-&gt;rectangles_.count(); i++)
+ 	{
+-		x1t = pos_.x + x1_;
+-		y1t = pos_.y + y1_;
+-		x2t = pos_.x + x2_;
+-		y2t = pos_.y + y2_;
+-		
++		x1t = pos_.x + this-&gt;rectangles_.at(i).x1;
++		y1t = pos_.y + this-&gt;rectangles_.at(i).y1;
++		x2t = pos_.x + this-&gt;rectangles_.at(i).x2;
++		y2t = pos_.y + this-&gt;rectangles_.at(i).y2;
++		h = this-&gt;rectangles_.at(i).height;
++					
+ 		if ( ( ( pos.x &gt;= x1t &amp;&amp; pos.x &lt;= x2t )	|| ( pos.x &gt;= x2t &amp;&amp; pos.x &lt;= x2t ) ) 
+ 			&amp;&amp; ( ( pos.y &gt;= y1t &amp;&amp; pos.y &lt;= y2t ) 
+ 			|| ( pos.y &gt;= y2t &amp;&amp; pos.y &lt;= y1t ) ) 
+-			&amp;&amp; ((pos.z &lt;= (h_ + 6 )) &amp;&amp; (pos.z &gt;= (pos_.z - 6))) ) 
++			&amp;&amp; ((pos.z &lt;= (h + 6 )) &amp;&amp; (pos.z &gt;= (pos_.z - 6))) ) 
+ 		{
+ 			return true;
+ 		}
+ 	}
+-
++	
+ 	return false;
+ }
+ 
+@@ -852,32 +853,41 @@
+ 
+ 		case 0xaa83695: // rectangle
+ 		
+-			//TODO: Support multiple rectangle tags
+ 			// &lt;rectangle x1=&quot;-3&quot; y1=&quot;-4&quot; x2=&quot;+2&quot; y2=&quot;+6&quot; h=&quot;30&quot; /&gt;
+-			this-&gt;setX1( Tag-&gt;getAttribute( &quot;x1&quot; ).toShort());
+-			this-&gt;setX2( Tag-&gt;getAttribute( &quot;x2&quot; ).toShort());
+-			this-&gt;setY1( Tag-&gt;getAttribute( &quot;y1&quot; ).toShort());
+-			this-&gt;setY2( Tag-&gt;getAttribute( &quot;y2&quot; ).toShort());
+-			this-&gt;setHeight( Tag-&gt;getAttribute( &quot;h&quot; ).toUShort());
++			rect_st toinsert_;
++			toinsert_.x1 = Tag-&gt;getAttribute( &quot;x1&quot; ).toShort();
++			toinsert_.x2 = Tag-&gt;getAttribute( &quot;x2&quot; ).toShort();
++			toinsert_.y1 = Tag-&gt;getAttribute( &quot;y1&quot; ).toShort();
++			toinsert_.y2 = Tag-&gt;getAttribute( &quot;y2&quot; ).toShort();
++			toinsert_.height = Tag-&gt;getAttribute( &quot;h&quot; ).toUShort();
+ 
+-			if ( y1_ &gt; y2_ )
++			if ( toinsert_.y1 &gt; toinsert_.y2 )
+ 			{
+-				std::swap( y1_, y2_ );
++				std::swap( toinsert_.y1, toinsert_.y2 );
+ 			}
+ 
+-			if ( x1_ &gt; x2_ )
++			if ( toinsert_.x1 &gt; toinsert_.x2 )
+ 			{
+-				std::swap( x1_, x2_ );
++				std::swap( toinsert_.x1, toinsert_.x2 );
+ 			}
+ 
+-			// Lets store the MultiArea
+-			if (this-&gt;hasTag( &quot;MultiArea&quot; ))
++			this-&gt;rectangles_.push_back( toinsert_ );
++
++			ushort rectcount;
++			
++			if (this-&gt;hasTag(&quot;rect_count&quot;))
+ 			{
+-				this-&gt;removeTag(&quot;MultiArea&quot;);
++				rectcount = this-&gt;getTag(&quot;rect_count&quot;).toInt();
+ 			}
++			else
++			{
++				this-&gt;setTag(&quot;rect_count&quot;,0);
++				rectcount = 0;
++			}
++			
++			this-&gt;setTag(QString(&quot;MultiArea.%1&quot;).arg(rectcount),QString(&quot;%1,%2,%3,%4,%5&quot;).arg(toinsert_.x1).arg(toinsert_.y1).arg(toinsert_.x2).arg(toinsert_.y2).arg(toinsert_.height));
++			this-&gt;setTag(&quot;rect_count&quot;,++rectcount);
+ 
+-			this-&gt;setTag(&quot;MultiArea&quot;,QString(&quot;%1,%2,%3,%4,%5&quot;).arg(x1_).arg(y1_).arg(x2_).arg(y2_).arg(h_));
+-			
+ 			break;
+ 
+ 		default:
+@@ -901,28 +911,39 @@
+ 		MapObjects::instance()-&gt;add( this );
+ 	}
+ 
+-	// Lets load the data from MultiArea tag.
++	// If we have an old MultiArea tag we have to convert it to the new format.
+ 	if (this-&gt;hasTag(&quot;MultiArea&quot;))
+ 	{
++		QString tmp = this-&gt;getTag(&quot;MultiArea&quot;).toString();
++		this-&gt;setTag(&quot;MultiArea.0&quot;,tmp);
++		this-&gt;removeTag(&quot;MultiArea&quot;);
++	}
++	// Lets load the data from MultiArea tags.
++	int i = 0;
++	while (this-&gt;hasTag(QString(&quot;MultiArea.%1&quot;).arg(i)))
++	{
+ 		//&quot; 1; 2; 3; 4; 5&quot;
+ 		// x1,y1,x2,y2,h
+-		QString multiarea(&quot;&quot;);
++		QString multiarea = this-&gt;getTag(QString(&quot;MultiArea.%1&quot;).arg(i)).toString();
+ 		
+-		multiarea.append(this-&gt;getTag(&quot;MultiArea&quot;).toString());
+ 		QStringList elements = multiarea.split(&quot;,&quot;);
+ 		
+ 		if (elements.count() == 5)
+ 		{
+-			this-&gt;setX1(elements.at(0).toShort());
+-			this-&gt;setY1(elements.at(1).toShort());
+-			this-&gt;setX2(elements.at(2).toShort());
+-			this-&gt;setY2(elements.at(3).toShort());
+-			this-&gt;setHeight(elements.at(4).toUShort());
++			rect_st toinsert_;
++			toinsert_.x1 = elements.at(0).toShort();
++			toinsert_.x2 = elements.at(2).toShort();
++			toinsert_.y1 = elements.at(1).toShort();
++			toinsert_.y2 = elements.at(3).toShort();
++			toinsert_.height = elements.at(4).toUShort();
++
++			this-&gt;rectangles_.push_back( toinsert_ );
+ 		}
+ 		else
+ 		{
+-			Console::instance()-&gt;log( LOG_WARNING, tr(&quot;The TAG 'MultiArea' is mal-formed for multi &lt;%1&gt; at &lt;%2,%3,%4,%5&gt;&quot;).arg(this-&gt;id_).arg(this-&gt;pos_.x).arg(this-&gt;pos_.y).arg(this-&gt;pos_.z).arg(this-&gt;pos_.map)  + &quot;\n&quot; );
++			Console::instance()-&gt;log( LOG_WARNING, tr(&quot;The TAG 'MultiArea.%1' is mal-formed for multi &lt;%2&gt; at &lt;%3,%4,%5,%6&gt;&quot;).arg(i).arg(this-&gt;id_).arg(this-&gt;pos_.x).arg(this-&gt;pos_.y).arg(this-&gt;pos_.z).arg(this-&gt;pos_.map)  + &quot;\n&quot; );
+ 		}
++		i++;
+ 
+ 	}
+ }
+\ No newline at end of file
+
+Modified: trunk/server/src/multi.h
+===================================================================
+--- trunk/server/src/multi.h	2008-03-25 03:56:28 UTC (rev 6861)
++++ trunk/server/src/multi.h	2008-03-25 21:31:05 UTC (rev 6862)
+@@ -55,13 +55,17 @@
+ 	// To load data from MultiArea tag.
+ 	virtual void postload( unsigned int version );
+ 	// Multi size and height
+-	short x1_;
+-	short y1_;
+-	short x2_;
+-	short y2_;
+-	
+-	ushort h_;
++	struct rect_st
++	{
++		short x1;
++		short x2;
++		short y1;
++		short y2;
++		ushort height;
++	};
+ 
++	QList&lt;rect_st&gt; rectangles_;
++
+ public:
+ 	static void setClassid( unsigned char id )
+ 	{
+@@ -128,47 +132,15 @@
+ 	bool canBoatMoveTo( const Coord&amp; pos );
+ 
+ 	// Multi size and height
+-	void setX1(short value)
++	void setRectangles(QList&lt;rect_st&gt; value)
+ 	{
+-		this-&gt;x1_ = value;
++		this-&gt;rectangles_ = value;
+ 	} 
+-	void setY1(short value)
++	
++	QList&lt;rect_st&gt; getRectangles() const
+ 	{
+-		this-&gt;y1_ = value;
++		return rectangles_;
+ 	} 
+-	void setX2(short value)
+-	{
+-		this-&gt;x2_ = value;
+-	} 
+-	void setY2(short value)
+-	{
+-		this-&gt;y2_ = value;
+-	} 
+-	void setHeight(ushort value)
+-	{
+-		this-&gt;h_ = value;
+-	}
+-
+-	short getX1() const
+-	{
+-		return x1_;
+-	} 
+-	short getY1() const
+-	{
+-		return y1_;
+-	} 
+-	short getX2() const
+-	{
+-		return x2_;
+-	} 
+-	short getY2() const
+-	{
+-		return y2_;
+-	} 
+-	ushort getHeight() const
+-	{
+-		return h_;
+-	} 
+ 	
+ };
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000065.html">[Wolfpack-svn] r6861 - in trunk/server: release	release/definitions/multis src
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6894 - trunk/server/build
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2013-November/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6894%20-%20trunk/server/build&In-Reply-To=%3C20131101011658.1712F55B0C%40scm.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6894 - trunk/server/build</H1>
+    <B>owner_mutilador at scm.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6894%20-%20trunk/server/build&In-Reply-To=%3C20131101011658.1712F55B0C%40scm.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6894 - trunk/server/build">owner_mutilador at scm.berlios.de
+       </A><BR>
+    <I>Fri Nov  1 02:16:58 CET 2013</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: owner_mutilador
+Date: 2013-11-01 02:16:57 +0100 (Fri, 01 Nov 2013)
+New Revision: 6894
+
+Modified:
+   trunk/server/build/configure.py
+Log:
+Add auto search for libs and includes to python 2.6 and 2.7
+
+Modified: trunk/server/build/configure.py
+===================================================================
+--- trunk/server/build/configure.py	2013-07-30 20:06:32 UTC (rev 6893)
++++ trunk/server/build/configure.py	2013-11-01 01:16:57 UTC (rev 6894)
+@@ -170,6 +170,20 @@
+ 	# Linux and BSD Search Paths
+ 	elif sys.platform in (&quot;linux2&quot;, &quot;freebsd4&quot;, &quot;freebsd5&quot;):
+ 		PYTHONLIBSEARCHPATH += [ \
++			# Python 2.7 - Look for this first
++			&quot;/usr/local/lib/libpython2.7*.so&quot;, \
++			&quot;/usr/local/lib/[Pp]ython*/libpython2.7*.so&quot;, \
++			&quot;/usr/local/lib/[Pp]ython*/config/libpython2.7*.so&quot;, \
++			&quot;/usr/lib/libpython2.7*.so&quot;, \
++			&quot;/usr/lib/[Pp]ython*/libpython2.7*.so&quot;, \
++			&quot;/usr/lib/[Pp]ython*/config/libpython2.7*.so&quot;, \
++			# Python 2.6 - Look for this first
++			&quot;/usr/local/lib/libpython2.6*.so&quot;, \
++			&quot;/usr/local/lib/[Pp]ython*/libpython2.6*.so&quot;, \
++			&quot;/usr/local/lib/[Pp]ython*/config/libpython2.6*.so&quot;, \
++			&quot;/usr/lib/libpython2.6*.so&quot;, \
++			&quot;/usr/lib/[Pp]ython*/libpython2.6*.so&quot;, \
++			&quot;/usr/lib/[Pp]ython*/config/libpython2.6*.so&quot;, \
+ 			# Python 2.4 - Look for this first
+ 			&quot;/usr/local/lib/libpython2.4*.so&quot;, \
+ 			&quot;/usr/local/lib/[Pp]ython*/libpython2.4*.so&quot;, \
+@@ -192,6 +206,20 @@
+ 			&quot;/usr/lib/[Pp]ython*/libpython2.3*.so&quot;, \
+ 			&quot;/usr/lib/[Pp]ython*/config/libpython2.3*.so&quot; ]
+ 		PYTHONLIBSTATICSEARCHPATH += [ \
++			# Python 2.7
++			&quot;/usr/local/lib/libpython2.7*.a&quot;, \
++			&quot;/usr/local/lib/[Pp]ython2.7*/libpython2.7*.a&quot;, \
++			&quot;/usr/local/lib/[Pp]ython2.7*/config/libpython2.7*.a&quot;, \
++			&quot;/usr/lib/libpython2.7*.a&quot;, \
++			&quot;/usr/lib/[Pp]ython2.7*/libpython2.7*.a&quot;, \
++			&quot;/usr/lib/[Pp]ython2.7*/config/libpython2.7*.a&quot;, \
++			# Python 2.6
++			&quot;/usr/local/lib/libpython2.6*.a&quot;, \
++			&quot;/usr/local/lib/[Pp]ython2.6*/libpython2.6*.a&quot;, \
++			&quot;/usr/local/lib/[Pp]ython2.6*/config/libpython2.6*.a&quot;, \
++			&quot;/usr/lib/libpython2.6*.a&quot;, \
++			&quot;/usr/lib/[Pp]ython2.6*/libpython2.6*.a&quot;, \
++			&quot;/usr/lib/[Pp]ython2.6*/config/libpython2.6*.a&quot;, \
+ 			# Python 2.4
+ 			&quot;/usr/local/lib/libpython2.4*.a&quot;, \
+ 			&quot;/usr/local/lib/[Pp]ython2.4*/libpython2.4*.a&quot;, \
+@@ -216,6 +244,12 @@
+ 		PYTHONINCSEARCHPATH += [ \
+ 			&quot;/usr/local/include/Python.h&quot;, \
+ 			&quot;/usr/include/Python.h&quot;, \
++			# Python 2.7
++			&quot;/usr/local/include/[Pp]ython2.7*/Python.h&quot;, \
++			&quot;/usr/include/[Pp]ython2.7*/Python.h&quot; \
++			# Python 2.6
++			&quot;/usr/local/include/[Pp]ython2.6*/Python.h&quot;, \
++			&quot;/usr/include/[Pp]ython2.6*/Python.h&quot; \
+ 			# Python 2.4
+ 			&quot;/usr/local/include/[Pp]ython2.4*/Python.h&quot;, \
+ 			&quot;/usr/include/[Pp]ython2.4*/Python.h&quot; \
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

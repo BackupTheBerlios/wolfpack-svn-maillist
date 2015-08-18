@@ -1,0 +1,908 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6882 - in trunk/server: build src src/gui
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6882%20-%20in%20trunk/server%3A%20build%20src%20src/gui&In-Reply-To=%3C201002102114.o1ALEEU4025008%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000083.html">
+   <LINK REL="Next"  HREF="000085.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6882 - in trunk/server: build src src/gui</H1>
+    <B>naddel at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6882%20-%20in%20trunk/server%3A%20build%20src%20src/gui&In-Reply-To=%3C201002102114.o1ALEEU4025008%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6882 - in trunk/server: build src src/gui">naddel at mail.berlios.de
+       </A><BR>
+    <I>Wed Feb 10 22:14:14 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000083.html">[Wolfpack-svn] r6881 - trunk/server/src
+</A></li>
+        <LI>Next message: <A HREF="000085.html">[Wolfpack-svn] r6883 - in trunk/server/release/scripts: . system
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#84">[ date ]</a>
+              <a href="thread.html#84">[ thread ]</a>
+              <a href="subject.html#84">[ subject ]</a>
+              <a href="author.html#84">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2010-02-10 22:14:04 +0100 (Wed, 10 Feb 2010)
+New Revision: 6882
+
+Modified:
+   trunk/server/build/configure.py
+   trunk/server/build/configure2.py
+   trunk/server/src/defines.h
+   trunk/server/src/gui/mainwindow.cpp
+   trunk/server/src/server.cpp
+Log:
+- using a defines.h for homepage
+- some configure2.py changes (can use python 2.6.x now)
+
+Modified: trunk/server/build/configure.py
+===================================================================
+--- trunk/server/build/configure.py	2010-02-09 23:56:01 UTC (rev 6881)
++++ trunk/server/build/configure.py	2010-02-10 21:14:04 UTC (rev 6882)
+@@ -391,12 +391,12 @@
+ 		sys.stdout.write(&quot;Enabled\n&quot;)
+ 
+         # if --enable-translations
+-        sys.stdout.write(&quot;Translation:                            &quot;)
+-        if not options.enable_translation:
++	sys.stdout.write(&quot;Translation:                            &quot;)
++	if not options.enable_translation:
+ 		DEFINES += &quot;QT_NO_TRANSLATION &quot;
+-                sys.stdout.write(&quot;Disabled\n&quot;)
+-        else:
+-                sys.stdout.write(&quot;Enabled\n&quot;)
++		sys.stdout.write(&quot;Disabled\n&quot;)
++	else:
++		sys.stdout.write(&quot;Enabled\n&quot;)
+ 	
+ 	# if --aidebug
+ 	sys.stdout.write(&quot;AI debugging:                           &quot;)
+
+Modified: trunk/server/build/configure2.py
+===================================================================
+--- trunk/server/build/configure2.py	2010-02-09 23:56:01 UTC (rev 6881)
++++ trunk/server/build/configure2.py	2010-02-10 21:14:04 UTC (rev 6882)
+@@ -23,7 +23,6 @@
+ import sys
+ import glob
+ import fnmatch
+-import dircache
+ import string
+ import re
+ 
+@@ -86,415 +85,407 @@
+ 	return result
+ 
+ def get_compiler():
+-    from distutils.ccompiler import new_compiler
+-    qmakespec = os.environ.get('QMAKESPEC')
+-    if not qmakespec:
+-        return new_compiler()
+-    else:
+-        if qmakespec.startswith('win32-msvc'):
+-            return new_compiler( 'nt', 'msvc' )
+-        elif qmakespec == &quot;win32-g++&quot;:
+-            return new_compiler( 'nt', 'mingw32' )
+-        elif qmakespec == &quot;win32-borland&quot;:
+-            return new_compiler( 'nt', 'bcpp' )
+-        elif qmakespec == &quot;macx-mwerks&quot;:
+-            return new_compiler( 'posix', 'mwerks' )
+-        else:
+-            return new_compiler( None, 'unix' )
+-        
++	from distutils.ccompiler import new_compiler
++	qmakespec = os.environ.get('QMAKESPEC')
++	if not qmakespec:
++		return new_compiler()
++	else:
++		if qmakespec.startswith('win32-msvc'):
++			return new_compiler( 'nt', 'msvc' )
++		elif qmakespec == &quot;win32-g++&quot;:
++			return new_compiler( 'nt', 'mingw32' )
++		elif qmakespec == &quot;win32-borland&quot;:
++			return new_compiler( 'nt', 'bcpp' )
++		elif qmakespec == &quot;macx-mwerks&quot;:
++			return new_compiler( 'posix', 'mwerks' )
++		else:
++			return new_compiler( None, 'unix' )
+ 
+ 
+ class AbstractExternalLibrary:
++	def __init__( self, output = sys.stdout ):
++		self.output = output
++		self.incPath = &quot;&quot;
++		self.libSearchPath = &quot;&quot;
++		self._toolPath = &quot;&quot;
++		self.libs = []
+     
+-    def __init__( self, output = sys.stdout ):
+-        self.output = output
+-        self.incPath = &quot;&quot;
+-        self.libSearchPath = &quot;&quot;
+-        self._toolPath = &quot;&quot;
+-        self.libs = []
+-    
+-    def out( self, message ):
+-        self.output.write( message )
++	def out( self, message ):
++		self.output.write( message )
+ 
+-    def findFile( self, searchpath ):
+-        &quot;&quot;&quot;Locates a file specified in the searchpath structure, returning a tuple
+-        containing filename, path, non-searched entries in the searchpath.
++	def findFile( self, searchpath ):
++		&quot;&quot;&quot;Locates a file specified in the searchpath structure, returning a tuple
++			containing filename, path, non-searched entries in the searchpath.
++		&quot;&quot;&quot;
++		path = &quot;&quot;
++		file = &quot;&quot;
++		for entry in searchpath:
++			del searchpath[-1] # remove entry from list
++			pathexp, fileexp = os.path.split( entry )
++			for path in glob.glob( pathexp ):
++				if os.path.exists( path ):
++					for file in os.listdir( path ):
++						if fnmatch.fnmatch( file, fileexp ):
++							return ( file, path, searchpath )
++		return ( None, None, None )
+ 
+-        &quot;&quot;&quot;
+-	path = &quot;&quot;
+-	file = &quot;&quot;
+-	for entry in searchpath:
+-                del searchpath[-1] # remove entry from list
+-		pathexp, fileexp = os.path.split( entry )
+-		for path in glob.glob( pathexp ):
+-			if os.path.exists( path ):
+-				for file in dircache.listdir( path ):
+-					if fnmatch.fnmatch( file, fileexp ):
+-						return ( file, path, searchpath )
+-	return ( None, None, None )
++	def find_library_file( self, dirs, lib, debug = False, static = False ):
++		&quot;&quot;&quot;Locates a library in the specified dirs, guessing the local filename based on library name&quot;&quot;&quot;
++		compiler = get_compiler()
++		shared_f = compiler.library_filename( lib, lib_type='shared' )
++		static_f = compiler.library_filename( lib, lib_type='static' )
++		dylib_f = None
++		try:
++			dylib_f = compiler.library_filename( lib, lib_type='dylib' )
++		except:
++			pass
+ 
+-    def find_library_file( self, dirs, lib, debug = False, static = False ):
+-        &quot;&quot;&quot;Locates a library in the specified dirs, guessing the local filename based on library name&quot;&quot;&quot;
+-        compiler = get_compiler()
+-        shared_f = compiler.library_filename( lib, lib_type='shared' )
+-        static_f = compiler.library_filename( lib, lib_type='static' )
+-        dylib_f = None
+-        try:
+-            dylib_f = compiler.library_filename( lib, lib_type='dylib' )
+-        except:
+-            pass
+ 
+-
+-        for pathexp in dirs:
+-            for dir in glob.glob( pathexp ):
+-                shared = os.path.join(dir, shared_f)
+-                if dylib_f:
+-                    dylib = os.path.join(dir, dylib_f)
+-                else:
+-                    dylib = None
+-                static = os.path.join(dir, static_f)
++		for pathexp in dirs:
++			for dir in glob.glob( pathexp ):
++				shared = os.path.join(dir, shared_f)
++				if dylib_f:
++					dylib = os.path.join(dir, dylib_f)
++				else:
++					dylib = None
++				static = os.path.join(dir, static_f)
+                 # We're second-guessing the linker here, with not much hard
+                 # data to go on: GCC seems to prefer the shared library, so I'm
+                 # assuming that *all* Unix C compilers do.  And of course I'm
+                 # ignoring even GCC's &quot;-static&quot; option.  So sue me.
+-                if not static and dylib and os.path.exists(dylib):
+-                    return dir
+-                elif not static and os.path.exists(shared):
+-                    return dir
+-                elif os.path.exists(static):
+-                    return dir
++				if not static and dylib and os.path.exists(dylib):
++					return dir
++				elif not static and os.path.exists(shared):
++					return dir
++				elif os.path.exists(static):
++					return dir
+ 
+-        # Can't find it
+-        return None
++		# Can't find it
++		return None
+ 
+ 
+-    def check( self, options ):
+-        raise NotImplementedError
++	def check( self, options ):
++		raise NotImplementedError
+     
+-    def includePath( self ):
+-        return self.incPath
++	def includePath( self ):
++		return self.incPath
+ 
+-    def librarySearchPath( self ): 
+-        return self.libSearchPath
++	def librarySearchPath( self ): 
++		return self.libSearchPath
+ 
+-    def toolPath( self ): 
+-        return self._toolPath
++	def toolPath( self ): 
++		return self._toolPath
+     
+-    def libraryFiles( self ):
+-        return self.libs
+-    
++	def libraryFiles( self ):
++		return self.libs
+ 
++
+ class PythonLibrary( AbstractExternalLibrary ):
+-    
+-    def __init__( self, minversion ):
+-        AbstractExternalLibrary.__init__( self )
+-        self.minversion = minversion
+-    
+-    def check( self, options ):
+-        self.out( &quot;Checking Python Configuration:\n&quot; )
++	def __init__( self, minversion ):
++		AbstractExternalLibrary.__init__( self )
++		self.minversion = minversion
+ 
+-        # Default Blank
+-        PYTHONLIBSEARCHPATH = []
+-        PYTHONINCSEARCHPATH = []
+-        # Attept to find the system's configuration
+-        PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + &quot;Python.h&quot; ]
++	def check( self, options ):
++		self.out( &quot;Checking Python Configuration:\n&quot; )
+ 
+-	if distutils.sysconfig.get_config_vars().has_key(&quot;DESTSHARED&quot;):
+-		PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()[&quot;DESTSHARED&quot;] ]
+-        if distutils.sysconfig.get_config_vars().has_key(&quot;DESTLIB&quot;):
+-		PYTHONLIBSEARCHPATH.append( distutils.sysconfig.get_config_vars()[&quot;DESTLIB&quot;] )
++		# Default Blank
++		PYTHONLIBSEARCHPATH = []
++		PYTHONINCSEARCHPATH = []
++		# Attept to find the system's configuration
++		PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + &quot;Python.h&quot; ]
++
++		if &quot;DESTSHARED&quot; in distutils.sysconfig.get_config_vars():
++			PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()[&quot;DESTSHARED&quot;] ]
++		if &quot;DESTLIB&quot; in distutils.sysconfig.get_config_vars():
++			PYTHONLIBSEARCHPATH.append( distutils.sysconfig.get_config_vars()[&quot;DESTLIB&quot;] )
+ 		
+-	# Windows Search Paths
+-	if sys.platform == &quot;win32&quot;:
+-		PYTHONLIBSEARCHPATH += [ sys.prefix + &quot;\Libs&quot; ]
+-		PYTHONINCSEARCHPATH += [ sys.prefix + &quot;\include\Python.h&quot; ]
+-	# Linux and BSD Search Paths
+-	elif sys.platform in (&quot;linux2&quot;, &quot;freebsd4&quot;, &quot;freebsd5&quot;, &quot;openbsd3&quot;):
+-		PYTHONLIBSEARCHPATH += [ \
+-			# Python 2.4 - Look for this first
+-			&quot;/usr/local/lib/&quot;, \
+-			&quot;/usr/local/lib/[Pp]ython*/&quot;, \
+-			&quot;/usr/local/lib/[Pp]ython*/config/&quot;, \
+-			&quot;/usr/lib/&quot;, \
+-			&quot;/usr/lib/[Pp]ython*/&quot;, \
+-			&quot;/usr/lib/[Pp]ython*/config/&quot; ]
+-		PYTHONINCSEARCHPATH += [ \
+-			&quot;/usr/local/include/Python.h&quot;, \
+-			&quot;/usr/include/Python.h&quot;, \
+-			# Python 2.4
+-			&quot;/usr/local/include/[Pp]ython2.4*/Python.h&quot;, \
+-			&quot;/usr/include/[Pp]ython2.4*/Python.h&quot; \
+-			# Python 2.3
+-			&quot;/usr/local/include/[Pp]ython2.3*/Python.h&quot;, \
+-			&quot;/usr/include/[Pp]ython2.3*/Python.h&quot; ]
+-	# MacOSX Search Paths
+-	elif sys.platform == &quot;darwin&quot;:
+-		PYTHONINCSEARCHPATH += [ \
+-			&quot;/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h&quot; ]
+-		PYTHONLIBSEARCHPATH +=  [ \
+-			&quot;/usr/local/lib/[Pp]ython*/config/&quot;, \
+-			&quot;/System/Library/Frameworks/Python.framework/Versions/Current/Python&quot;, \
+-			&quot;/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/&quot; ]
+-	# Undefined OS
+-	else:
+-		self.out(yellow(&quot;  WARNING&quot;)+&quot;: Unknown platform %s to LibraryPython::check()\nLibrary autosearch might not work properly\n&quot; % sys.platform )
++		# Windows Search Paths
++		if sys.platform == &quot;win32&quot;:
++			PYTHONLIBSEARCHPATH += [ sys.prefix + &quot;\libs&quot; ]
++			PYTHONINCSEARCHPATH += [ sys.prefix + &quot;\include\Python.h&quot; ]
++		# Linux and BSD Search Paths
++		elif sys.platform in (&quot;linux2&quot;, &quot;freebsd4&quot;, &quot;freebsd5&quot;, &quot;openbsd3&quot;):
++			PYTHONLIBSEARCHPATH += [ \
++				# Python 2.6 - Look for this first
++				&quot;/usr/local/lib/&quot;, \
++				&quot;/usr/local/lib/[Pp]ython*/&quot;, \
++				&quot;/usr/local/lib/[Pp]ython*/config/&quot;, \
++				&quot;/usr/lib/&quot;, \
++				&quot;/usr/lib/[Pp]ython*/&quot;, \
++				&quot;/usr/lib/[Pp]ython*/config/&quot; ]
++			PYTHONINCSEARCHPATH += [ \
++				&quot;/usr/local/include/Python.h&quot;, \
++				&quot;/usr/include/Python.h&quot;, \
++				# Python 2.6
++				&quot;/usr/local/include/[Pp]ython2.6*/Python.h&quot;, \
++				&quot;/usr/include/[Pp]ython2.6*/Python.h&quot; \
++				# Python 2.4
++				&quot;/usr/local/include/[Pp]ython2.4*/Python.h&quot;, \
++				&quot;/usr/include/[Pp]ython2.4*/Python.h&quot; ]
++		# MacOSX Search Paths
++		elif sys.platform == &quot;darwin&quot;:
++			PYTHONINCSEARCHPATH += [ \
++				&quot;/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h&quot; ]
++			PYTHONLIBSEARCHPATH +=  [ \
++				&quot;/usr/local/lib/[Pp]ython*/config/&quot;, \
++				&quot;/System/Library/Frameworks/Python.framework/Versions/Current/Python&quot;, \
++				&quot;/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/&quot; ]
++		# Undefined OS
++		else:
++			self.out(yellow(&quot;  WARNING&quot;)+&quot;: Unknown platform %s to LibraryPython::check()\nLibrary autosearch might not work properly\n&quot; % sys.platform )
+ 
+-	# if it was overiden...
+-	if options.py_incpath:
+-		PYTHONINCSEARCHPATH = [ options.py_incpath ]
+-	if options.py_libpath:
+-		PYTHONLIBSEARCHPATH = [ options.py_libpath ]
++		# if it was overiden...
++		if options.py_incpath:
++			PYTHONINCSEARCHPATH = [ options.py_incpath ]
++		if options.py_libpath:
++			PYTHONLIBSEARCHPATH = [ options.py_libpath ]
+ 
+-	self.out( &quot;  Checking CPU byte order:              %s\n&quot; % sys.byteorder )
+-	if sys.byteorder != 'little':
+-		self.out(yellow(&quot;Warning:&quot;) + &quot; Wolfpack support for big endian systems is completely experimental and unlikey to work!\n&quot; )
++		self.out( &quot;  Checking CPU byte order:              %s\n&quot; % sys.byteorder )
++		if sys.byteorder != 'little':
++			self.out(yellow(&quot;Warning:&quot;) + &quot; Wolfpack support for big endian systems is completely experimental and unlikey to work!\n&quot; )
+ 
+-	self.out( &quot;  Checking Python version:              &quot; )
+-	if sys.hexversion &gt;= self.minversion:
+-		self.out(green(&quot;Pass\n&quot;))
+-	else:
+-		self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
+-		self.out( bold(&quot;  Wolfpack requires Python version &gt;= 2.3.0\n&quot;) )
+-		sys.exit(1);
++		self.out( &quot;  Checking Python version:              &quot; )
++		if sys.hexversion &gt;= self.minversion:
++			self.out(green(&quot;Pass\n&quot;))
++		else:
++			self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
++			self.out( bold(&quot;  Wolfpack requires Python version &gt;= 2.4.0\n&quot;) )
++			sys.exit(1);
+ 
+-        # Search for python
+-        self.out( &quot;  Searching for Python includes:        &quot; )
+-        filename, path, searchpath = self.findFile( PYTHONINCSEARCHPATH )
+-        if filename:
+-            self.out( &quot;%s\n&quot; % path )
+-            self.incPath = path
+-        else:
+-            self.out(red(&quot;Not Found!&quot;) + &quot;\n&quot;)
++		# Search for python
++		self.out( &quot;  Searching for Python includes:        &quot; )
++		filename, path, searchpath = self.findFile( PYTHONINCSEARCHPATH )
++		if filename:
++			self.out( &quot;%s\n&quot; % path )
++			self.incPath = path
++		else:
++			self.out(red(&quot;Not Found!&quot;) + &quot;\n&quot;)
+ 
+-        if sys.platform != &quot;darwin&quot;:
+-            self.out( &quot;  Searching for Python library:         &quot; )
+-            if sys.platform == &quot;win32&quot;:
+-                library24 = &quot;python24&quot;
+-                library23 = &quot;python23&quot;
+-            else:
+-                library24 = &quot;python2.4&quot;
+-                library23 = &quot;python2.3&quot;
+-            path = self.find_library_file( PYTHONLIBSEARCHPATH, library24, static = options.staticlink )
+-            self.libs = [ library24 ]
+-            if not path:
+-                path = self.find_library_file( PYTHONLIBSEARCHPATH, library23, static = options.staticlink )
+-                self.libs = [ library23 ]
++		if sys.platform != &quot;darwin&quot;:
++			self.out( &quot;  Searching for Python library:         &quot; )
++			if sys.platform == &quot;win32&quot;:
++				library24 = &quot;python24&quot;
++				library26 = &quot;python26&quot;
++			else:
++				library24 = &quot;python2.4&quot;
++				library26 = &quot;python2.6&quot;
++			path = self.find_library_file( PYTHONLIBSEARCHPATH, library26, static = options.staticlink )
++			self.libs = [ library26 ]
++			if not path:
++				path = self.find_library_file( PYTHONLIBSEARCHPATH, library24, static = options.staticlink )
++				self.libs = [ library24 ]
+ 
+-            if path:
+-                self.out( &quot;%s\n&quot; % path )
+-                self.libSearchPath = path
+-            else:
+-                self.out(red(&quot;Not Found!&quot;) + &quot;\n&quot;)
+-                sys.exit(1)
+-        self.out( &quot;\n&quot; )
+-        return True
+-    
++			if path:
++				self.out( &quot;%s\n&quot; % path )
++				self.libSearchPath = path
++			else:
++				self.out(red(&quot;Not Found!&quot;) + &quot;\n&quot;)
++				sys.exit(1)
++		self.out( &quot;\n&quot; )
++		return True
+ 
+-            
+ 
+-
+ class QtLibrary( AbstractExternalLibrary ):
+-    def __init__( self, minversion ):
+-        AbstractExternalLibrary.__init__( self )
+-        self.minversion = minversion
+-        if sys.platform == &quot;win32&quot;:
+-            self.qmakeExecutable = &quot;qmake.exe&quot;
+-	else:
+-            self.qmakeExecutable = &quot;qmake&quot;
++	def __init__( self, minversion ):
++		AbstractExternalLibrary.__init__( self )
++		self.minversion = minversion
++		if sys.platform == &quot;win32&quot;:
++			self.qmakeExecutable = &quot;qmake.exe&quot;
++		else:
++			self.qmakeExecutable = &quot;qmake&quot;
+         
+-    def check( self, options ):
+-       	self.out(&quot;Checking QT Configuration:\n&quot;)
++	def check( self, options ):
++		self.out(&quot;Checking QT Configuration:\n&quot;)
+         
+-	qt_dir = &quot;&quot;
+-        self.out( &quot;  Checking QT installation:             &quot; )
+-	if not options.qt_dir:
+-		if ( os.environ.has_key(&quot;QTDIR&quot;) and os.path.exists( os.environ[&quot;QTDIR&quot;] ) ):
+-			qt_dir = os.environ[&quot;QTDIR&quot;]
+-			self.out( green(&quot;Pass\n&quot;) )
+-			self.out( &quot;  Found value for QTDIR:                %s\n&quot; % qt_dir )
++		qt_dir = &quot;&quot;
++		self.out( &quot;  Checking QT installation:             &quot; )
++		if not options.qt_dir:
++			if ( &quot;QTDIR&quot; in os.environ and os.path.exists( os.environ[&quot;QTDIR&quot;] ) ):
++				qt_dir = os.environ[&quot;QTDIR&quot;]
++				self.out( green(&quot;Pass\n&quot;) )
++				self.out( &quot;  Found value for QTDIR:                %s\n&quot; % qt_dir )
++			else:
++				self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
++				self.out( &quot;  You must properly setup the QTDIR environment variable or use --qt-directory parameter!\n&quot; )
++				sys.exit( 1 );
+ 		else:
+-			self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
+-			self.out( &quot;  You must properly setup the QTDIR environment variable or use --qt-directory parameter!\n&quot; )
+-			sys.exit( 1 );
+-	else:
+-		qt_dir = options.qt_dir
+-		self.out( &quot;  Manually specified value:             %s\n&quot; % qt_dir )
+-                if os.path.exists( qt_dir ):
+-                    self.out( green(&quot;Pass\n&quot;) )
+-                else:
+-                    self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
+-                    self.out( &quot;Specified folder %s doesn't exist\n&quot; % qt_dir )
+-                    sys.exit( 1 )
+-	self.libSearchPath = qt_dir
+-	self.out( &quot;  Searching for qmake executable:       &quot; )
+-	temp = &quot;&quot;
++			qt_dir = options.qt_dir
++			self.out( &quot;  Manually specified value:             %s\n&quot; % qt_dir )
++			if os.path.exists( qt_dir ):
++				self.out( green(&quot;Pass\n&quot;) )
++			else:
++				self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
++				self.out( &quot;Specified folder %s doesn't exist\n&quot; % qt_dir )
++				sys.exit( 1 )
++		self.libSearchPath = qt_dir
++		self.out( &quot;  Searching for qmake executable:       &quot; )
++		temp = &quot;&quot;
+ 
+-	QMAKESEARCHPATH = [ os.path.join(os.path.join(qt_dir, &quot;bin&quot;), self.qmakeExecutable) ]
+-	for dir in string.split( os.environ[&quot;PATH&quot;], os.path.pathsep ):
+-		QMAKESEARCHPATH.append( os.path.join( dir, self.qmakeExecutable ) )
++		QMAKESEARCHPATH = [ os.path.join(os.path.join(qt_dir, &quot;bin&quot;), self.qmakeExecutable) ]
++		for dir in os.environ[&quot;PATH&quot;].split( os.path.pathsep ):
++			QMAKESEARCHPATH.append( os.path.join( dir, self.qmakeExecutable ) )
+ 
+-	qmake_file, qmake_path, searchpath = self.findFile(QMAKESEARCHPATH)
+-	if not qmake_file:
+-            self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
+-            self.out( &quot;Couldn't find qmake\n&quot; )
+-            return False
++		qmake_file, qmake_path, searchpath = self.findFile(QMAKESEARCHPATH)
++		if not qmake_file:
++			self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
++			self.out( &quot;Couldn't find qmake\n&quot; )
++			return False
+ 
+-	qt_qmake = os.path.join(qmake_path, qmake_file)
+-        self._toolPath = qmake_path
+-	self.out( &quot;%s\n&quot; % qt_qmake )
++		qt_qmake = os.path.join(qmake_path, qmake_file)
++		self._toolPath = qmake_path
++		self.out( &quot;%s\n&quot; % qt_qmake )
+ 
+-        # Check Qt Version
+-	self.out( &quot;  Checking Qt version:                  &quot; )
+-	import tempfile
+-        fd, fname = tempfile.mkstemp('', 'qmakerun', text=True)
+-        os.close( fd )
+-        os.system( qt_qmake + (&quot; -v &gt; %s&quot; % fname ) )
+-        f = open( fname, 'rt' )
+-        lines = f.readlines()
+-        f.close()
+-        os.remove( fname )
+-        if len(lines) &lt; 2:
+-            self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
+-            self.out( &quot;Couldn't run qmake -v to figure out Qt version\n&quot; )
+-            return False
+-        version = lines[1].split()[3]
+-        if not version:
+-            self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
+-            self.out( &quot;Unrecognized output from qmake -v\n&quot; )
+-            return False
+-        if version &gt;= self.minversion:
+-            self.out( green(&quot;Pass&quot;) + &quot;\n&quot; )
+-        else:
+-            self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
+-            self.out( &quot;You need Qt version &gt;= 4.0.0\n&quot; )
++		# Check Qt Version
++		self.out( &quot;  Checking Qt version:                  &quot; )
++		import tempfile
++		fd, fname = tempfile.mkstemp('', 'qmakerun', text=True)
++		os.close( fd )
++		os.system( qt_qmake + (&quot; -v &gt; %s&quot; % fname ) )
++		f = open( fname, 'rt' )
++		lines = f.readlines()
++		f.close()
++		os.remove( fname )
++		if len(lines) &lt; 2:
++			self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
++			self.out( &quot;Couldn't run qmake -v to figure out Qt version\n&quot; )
++			return False
++		version = lines[1].split()[3]
++		if not version:
++			self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
++			self.out( &quot;Unrecognized output from qmake -v\n&quot; )
++			return False
++		if version &gt;= self.minversion:
++			self.out( green(&quot;Pass&quot;) + &quot;\n&quot; )
++		else:
++			self.out( red(&quot;Fail&quot;) + &quot;\n&quot; )
++			self.out( &quot;You need Qt version &gt;= 4.0.0\n&quot; )
+ 
+-	self.out(&quot;\n&quot;)
+-	return True
++		self.out(&quot;\n&quot;)
++		return True
+ 
+-    def runQMake( self, projectfile, options ):
+-        qt_qmake = os.path.join(self.toolPath(), self.qmakeExecutable)
+-        if options:
+-            return os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, projectfile, options])
+-        else:
+-            return os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, projectfile])
++	def runQMake( self, projectfile, options ):
++		qt_qmake = os.path.join(self.toolPath(), self.qmakeExecutable)
++		if options:
++			return os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, projectfile, options])
++		else:
++			return os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, projectfile])
+ 
+-    
+ 
+ def main():
+-    &quot;&quot;&quot; Entry Point &quot;&quot;&quot;
++	&quot;&quot;&quot; Entry Point &quot;&quot;&quot;
+ 
+-    parser = OptionParser(version=&quot;%prog 1.0&quot;)
+-    parser.add_option(&quot;--dsp&quot;, action=&quot;store_true&quot;, dest=&quot;dsp&quot;, help=&quot;also Generate Visual Studio project files&quot;)
+-    parser.add_option(&quot;--nocolor&quot;, action=&quot;store_true&quot;, dest=&quot;nocolor&quot;, help=&quot;disable color output support on this script&quot;)
+-    parser.add_option(&quot;--python-includes&quot;,  dest=&quot;py_incpath&quot;, help=&quot;Python include path&quot;)
+-    parser.add_option(&quot;--python-libraries&quot;, dest=&quot;py_libpath&quot;, help=&quot;Python library path&quot;)
+-    parser.add_option(&quot;--qt-directory&quot;, dest=&quot;qt_dir&quot;, help=&quot;Base directory of Qt&quot;)
+-    parser.add_option(&quot;--static&quot;, action=&quot;store_true&quot;, dest=&quot;staticlink&quot;, help=&quot;Build wokfpack using static libraries&quot;)
+-    parser.add_option(&quot;--enable-debug&quot;, action=&quot;store_true&quot;, dest=&quot;enable_debug&quot;, help=&quot;Enables basic debugging support.&quot;)
+-    parser.add_option(&quot;--enable-aidebug&quot;, action=&quot;store_true&quot;, dest=&quot;enable_aidebug&quot;, help=&quot;Enabled debugging of NPC AI.&quot;)
+-    parser.add_option(&quot;--enable-translation&quot;, action=&quot;store_true&quot;, dest=&quot;enable_translation&quot;, help=&quot;Enable non-English language support.&quot;)
+-    parser.add_option(&quot;--enable-gui&quot;, action=&quot;store_true&quot;, dest=&quot;enable_gui&quot;, help=&quot;Enables Graphic User Interface&quot; )
+-    parser.add_option(&quot;--dry-run&quot;, action=&quot;store_true&quot;, dest=&quot;dry_run&quot;, help=&quot;Run checks without changing config.pri&quot; )
++	parser = OptionParser(version=&quot;%prog 1.0&quot;)
++	parser.add_option(&quot;--dsp&quot;, action=&quot;store_true&quot;, dest=&quot;dsp&quot;, help=&quot;also Generate Visual Studio project files&quot;)
++	parser.add_option(&quot;--nocolor&quot;, action=&quot;store_true&quot;, dest=&quot;nocolor&quot;, help=&quot;disable color output support on this script&quot;)
++	parser.add_option(&quot;--python-includes&quot;,  dest=&quot;py_incpath&quot;, help=&quot;Python include path&quot;)
++	parser.add_option(&quot;--python-libraries&quot;, dest=&quot;py_libpath&quot;, help=&quot;Python library path&quot;)
++	parser.add_option(&quot;--qt-directory&quot;, dest=&quot;qt_dir&quot;, help=&quot;Base directory of Qt&quot;)
++	parser.add_option(&quot;--static&quot;, action=&quot;store_true&quot;, dest=&quot;staticlink&quot;, help=&quot;Build wokfpack using static libraries&quot;)
++	parser.add_option(&quot;--enable-debug&quot;, action=&quot;store_true&quot;, dest=&quot;enable_debug&quot;, help=&quot;Enables basic debugging support.&quot;)
++	parser.add_option(&quot;--enable-aidebug&quot;, action=&quot;store_true&quot;, dest=&quot;enable_aidebug&quot;, help=&quot;Enabled debugging of NPC AI.&quot;)
++	parser.add_option(&quot;--enable-translation&quot;, action=&quot;store_true&quot;, dest=&quot;enable_translation&quot;, help=&quot;Enable non-English language support.&quot;)
++	parser.add_option(&quot;--enable-gui&quot;, action=&quot;store_true&quot;, dest=&quot;enable_gui&quot;, help=&quot;Enables Graphic User Interface&quot; )
++	parser.add_option(&quot;--dry-run&quot;, action=&quot;store_true&quot;, dest=&quot;dry_run&quot;, help=&quot;Run checks without changing config.pri&quot; )
+     
+-    if sys.platform == &quot;win32&quot;:
+-            parser.set_defaults(enable_gui=True)
+-    else:
+-            parser.set_defaults(enable_gui=False)
++	if sys.platform == &quot;win32&quot;:
++		parser.set_defaults(enable_gui=True)
++	else:
++		parser.set_defaults(enable_gui=False)
+     
+-    # Now let's parse the options
+-    (options, args) = parser.parse_args()
++	# Now let's parse the options
++	(options, args) = parser.parse_args()
+ 
+-    if options.nocolor or sys.platform == &quot;win32&quot;:
+-            nocolor()
++	if options.nocolor or sys.platform == &quot;win32&quot;:
++		nocolor()
+     
+-    checkQt = QtLibrary( &quot;4.0.0&quot; )
+-    if not checkQt.check( options ):
+-        sys.exit( 1 )
++	checkQt = QtLibrary( &quot;4.0.0&quot; )
++	if not checkQt.check( options ):
++		sys.exit( 1 )
+     
+-    checkPython = PythonLibrary( 0x020200F0 )
+-    if not checkPython.check( options ):
+-        sys.exit( 1 )
++	checkPython = PythonLibrary( 0x020200F0 )
++	if not checkPython.check( options ):
++		sys.exit( 1 )
+ 
+-    if options.dry_run:
+-        sys.exit( 0 )
++	if options.dry_run:
++		sys.exit( 0 )
+     
+-    config = file( &quot;config.pri&quot;, &quot;wt&quot; )
+-    config.write(&quot;# WARNING: This file was automatically generated by configure.py\n&quot;)
+-    config.write(&quot;#          any changes to this file will be lost!\n\n&quot;)
++	config = open( &quot;config.pri&quot;, &quot;wt&quot; )
++	config.write(&quot;# WARNING: This file was automatically generated by configure.py\n&quot;)
++	config.write(&quot;#          any changes to this file will be lost!\n\n&quot;)
+ 
+-    # Build Python LIBS and Includes
+-    PY_LIBDIR = &quot;&quot;
+-    CONFIG = &quot;&quot;
+-    DEFINES = &quot;&quot;
+-    if sys.platform == &quot;darwin&quot;:
+-	# MacPython is build as a Framework, not a library :/
+-	PY_LIBDIR = distutils.sysconfig.get_config_vars(&quot;LINKFORSHARED&quot;)[0]
+-	PY_LIBDIR += &quot; -flat_namespace&quot;
+-    else:
+-	PY_LIBDIR = buildLibLine( checkPython.librarySearchPath(), checkPython.libraryFiles()[0] )
+-	if sys.platform != &quot;win32&quot;:
+-		for lib in distutils.sysconfig.get_config_vars(&quot;LIBS&quot;):
+-			PY_LIBDIR += &quot; %s&quot; % lib
+-    config.write(&quot;PY_LIBDIR = %s\n&quot; % PY_LIBDIR)
+-    config.write(&quot;PY_INCDIR = %s\n&quot; % checkPython.includePath() )
++	# Build Python LIBS and Includes
++	PY_LIBDIR = &quot;&quot;
++	CONFIG = &quot;&quot;
++	DEFINES = &quot;&quot;
++	if sys.platform == &quot;darwin&quot;:
++		# MacPython is build as a Framework, not a library :/
++		PY_LIBDIR = distutils.sysconfig.get_config_vars(&quot;LINKFORSHARED&quot;)[0]
++		PY_LIBDIR += &quot; -flat_namespace&quot;
++	else:
++		PY_LIBDIR = buildLibLine( checkPython.librarySearchPath(), checkPython.libraryFiles()[0] )
++		if sys.platform != &quot;win32&quot;:
++			for lib in distutils.sysconfig.get_config_vars(&quot;LIBS&quot;):
++				PY_LIBDIR += &quot; %s&quot; % lib
++	config.write(&quot;PY_LIBDIR = %s\n&quot; % PY_LIBDIR)
++	config.write(&quot;PY_INCDIR = %s\n&quot; % checkPython.includePath() )
+ 
+-    # QT stuff
+-    #config.write(&quot;QTDIR = %s\n&quot; % checkQt.librarySearchPath() )
++	# QT stuff
++	#config.write(&quot;QTDIR = %s\n&quot; % checkQt.librarySearchPath() )
+ 
+-    # if --debug
+-    sys.stdout.write(&quot;Build mode:                             &quot;)
+-    if options.enable_debug:
+-	DEFINES += &quot;_DEBUG &quot;
+-	CONFIG += &quot;debug warn_on &quot;
+-	sys.stdout.write(&quot;Debug\n&quot;)
+-    else:
+-	CONFIG += &quot;release warn_off &quot;
+-	sys.stdout.write(&quot;Release\n&quot;)
++	# if --debug
++	sys.stdout.write(&quot;Build mode:                             &quot;)
++	if options.enable_debug:
++		DEFINES += &quot;_DEBUG &quot;
++		CONFIG += &quot;debug warn_on &quot;
++		sys.stdout.write(&quot;Debug\n&quot;)
++	else:
++		CONFIG += &quot;release warn_off &quot;
++		sys.stdout.write(&quot;Release\n&quot;)
+ 
+-    # if --enable-gui
+-    sys.stdout.write(&quot;GUI:                                    &quot;)
+-    if not options.enable_gui:
+-	CONFIG += &quot;console&quot;
+-	sys.stdout.write(&quot;Disabled\n&quot;)
+-    else:
+-	sys.stdout.write(&quot;Enabled\n&quot;)
++	# if --enable-gui
++	sys.stdout.write(&quot;GUI:                                    &quot;)
++	if not options.enable_gui:
++		CONFIG += &quot;console&quot;
++		sys.stdout.write(&quot;Disabled\n&quot;)
++	else:
++		sys.stdout.write(&quot;Enabled\n&quot;)
+ 
+-    # if --enable-translations
+-    sys.stdout.write(&quot;Translation:                            &quot;)
+-    if not options.enable_translation:
+-	DEFINES += &quot;QT_NO_TRANSLATION &quot;
+-        sys.stdout.write(&quot;Disabled\n&quot;)
+-    else:
+-        sys.stdout.write(&quot;Enabled\n&quot;)
++	# if --enable-translations
++	sys.stdout.write(&quot;Translation:                            &quot;)
++	if not options.enable_translation:
++		DEFINES += &quot;QT_NO_TRANSLATION &quot;
++		sys.stdout.write(&quot;Disabled\n&quot;)
++	else:
++		sys.stdout.write(&quot;Enabled\n&quot;)
+ 	
+-    # if --aidebug
+-    sys.stdout.write(&quot;AI debugging:                           &quot;)
+-    if options.enable_aidebug:
+-	DEFINES += &quot;_AIDEBUG &quot;
+-	sys.stdout.write(&quot;Enabled\n&quot;)
+-    else:
+-	sys.stdout.write(&quot;Disabled\n&quot;)
++	# if --aidebug
++	sys.stdout.write(&quot;AI debugging:                           &quot;)
++	if options.enable_aidebug:
++		DEFINES += &quot;_AIDEBUG &quot;
++		sys.stdout.write(&quot;Enabled\n&quot;)
++	else:
++		sys.stdout.write(&quot;Disabled\n&quot;)
+ 
+-    config.write(&quot;DEFINES += %s\n&quot; % DEFINES)
+-    config.write(&quot;CONFIG += %s\n&quot; % CONFIG)
+-    config.write(&quot;LIBS += $$PY_LIBDIR $$MySQL_LIBDIR \n&quot;)
+-    config.write(&quot;INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR \n&quot;)
+-    config.close()
++	config.write(&quot;DEFINES += %s\n&quot; % DEFINES)
++	config.write(&quot;CONFIG += %s\n&quot; % CONFIG)
++	config.write(&quot;LIBS += $$PY_LIBDIR $$MySQL_LIBDIR \n&quot;)
++	config.write(&quot;INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR \n&quot;)
++	config.close()
+ 
+-    sys.stdout.write(&quot;\nGenerating makefile... &quot;)
+-    sys.stdout.flush()
+-    exitcode = checkQt.runQMake(&quot;wolfpack.pro&quot;, None)
+-    if exitcode != 0:
+-        sys.stdout.write(&quot;Error generating Makefile!\n&quot;)
+-        sys.exit(1)        
++	sys.stdout.write(&quot;\nGenerating makefile... &quot;)
++	sys.stdout.flush()
++	exitcode = checkQt.runQMake(&quot;wolfpack.pro&quot;, None)
++	if exitcode != 0:
++		sys.stdout.write(&quot;Error generating Makefile!\n&quot;)
++		sys.exit(1)        
+ 
+-    if options.dsp:
+-	sys.stdout.write(&quot;Generating Visual Studio project files... \n&quot;)
+-	checkQt.runQMake( &quot;wolfpack.pro&quot;, &quot;-t vcapp&quot; )
+-    sys.stdout.write(bold(green(&quot;Done\n&quot;)))
+-    sys.stdout.write(bold(&quot;Configure finished. Please run 'make' now.\n&quot;))
+-    sys.stdout.write(&quot;To reconfigure, run /usr/bin/gmake confclean and configure.py\n&quot;)
+-    sys.stdout.write(&quot;\n&quot;)
++	if options.dsp:
++		sys.stdout.write(&quot;Generating Visual Studio project files... \n&quot;)
++		checkQt.runQMake( &quot;wolfpack.pro&quot;, &quot;-t vcapp&quot; )
++	sys.stdout.write(bold(green(&quot;Done\n&quot;)))
++	sys.stdout.write(bold(&quot;Configure finished. Please run 'make' now.\n&quot;))
++	sys.stdout.write(&quot;To reconfigure, run /usr/bin/gmake confclean and configure.py\n&quot;)
++	sys.stdout.write(&quot;\n&quot;)
+ 
+ if __name__ == &quot;__main__&quot;:
+ 	main()
+
+Modified: trunk/server/src/defines.h
+===================================================================
+--- trunk/server/src/defines.h	2010-02-09 23:56:01 UTC (rev 6881)
++++ trunk/server/src/defines.h	2010-02-10 21:14:04 UTC (rev 6882)
+@@ -108,7 +108,7 @@
+ 	ALLSKILLS
+ };
+ 
+-#define DEFAULTWEBPAGE &quot;<A HREF="http://www.wpdev.org/">http://www.wpdev.org/</A>&quot;
++#define DEFAULTWEBPAGE &quot;<A HREF="http://wolfpack.berlios.de/">http://wolfpack.berlios.de/</A>&quot;
+ 
+ #define MY_CLOCKS_PER_SEC 1000
+ #define INVALID_SERIAL 0
+
+Modified: trunk/server/src/gui/mainwindow.cpp
+===================================================================
+--- trunk/server/src/gui/mainwindow.cpp	2010-02-09 23:56:01 UTC (rev 6881)
++++ trunk/server/src/gui/mainwindow.cpp	2010-02-10 21:14:04 UTC (rev 6882)
+@@ -332,7 +332,7 @@
+ 
+ void MainWindow::homepage()
+ {
+-	QDesktopServices::openUrl( QString(&quot;<A HREF="http://www.wpdev.org">http://www.wpdev.org</A>&quot;) );
++	QDesktopServices::openUrl( QString(DEFAULTWEBPAGE) );
+ }
+ 
+ void MainWindow::about()
+
+Modified: trunk/server/src/server.cpp
+===================================================================
+--- trunk/server/src/server.cpp	2010-02-09 23:56:01 UTC (rev 6881)
++++ trunk/server/src/server.cpp	2010-02-10 21:14:04 UTC (rev 6882)
+@@ -493,7 +493,7 @@
+ 	Console::instance()-&gt;setAttributes( false, false, false, 0xAF, 0xAF, 0xAF, 0, FONT_FIXEDWIDTH );
+ 
+ 	Console::instance()-&gt;send( &quot;Copyright (C) 2000-2010 Wolfpack Development Team\n&quot; );
+-	Console::instance()-&gt;send( &quot;Wolfpack Homepage: <A HREF="http://wolfpack.berlios.de/\n">http://wolfpack.berlios.de/\n</A>&quot; );
++	Console::instance()-&gt;send( QString( &quot;Wolfpack Homepage: %1 \n&quot; ).arg( DEFAULTWEBPAGE ));
+ 	Console::instance()-&gt;send( tr( &quot;By using this software you agree to the license accompanying this release.\n&quot; ) );
+ 	Console::instance()-&gt;send( tr( &quot;Compiled on %1 %2\n&quot; ).arg( __DATE__, __TIME__ ) );
+ 	Console::instance()-&gt;send( tr( &quot;Compiled for Qt %1 (Using: %2 %3)\n&quot; ).arg( QT_VERSION_STR, qVersion(), qSharedBuild() ? &quot; Shared&quot; : &quot; Static&quot; ) );
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000083.html">[Wolfpack-svn] r6881 - trunk/server/src
+</A></li>
+	<LI>Next message: <A HREF="000085.html">[Wolfpack-svn] r6883 - in trunk/server/release/scripts: . system
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#84">[ date ]</a>
+              <a href="thread.html#84">[ thread ]</a>
+              <a href="subject.html#84">[ subject ]</a>
+              <a href="author.html#84">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

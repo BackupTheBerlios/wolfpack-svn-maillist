@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6844 - trunk/server/release/scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6844%20-%20trunk/server/release/scripts&In-Reply-To=%3C200707081457.l68Ev96r010885%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000050.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6844 - trunk/server/release/scripts</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6844%20-%20trunk/server/release/scripts&In-Reply-To=%3C200707081457.l68Ev96r010885%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6844 - trunk/server/release/scripts">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sun Jul  8 16:57:09 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000050.html">[Wolfpack-svn] r6845 - in trunk/server/src/gui: . trayicon
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#49">[ date ]</a>
+              <a href="thread.html#49">[ thread ]</a>
+              <a href="subject.html#49">[ subject ]</a>
+              <a href="author.html#49">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-07-08 16:57:09 +0200 (Sun, 08 Jul 2007)
+New Revision: 6844
+
+Modified:
+   trunk/server/release/scripts/bulletinboard.py
+Log:
+#0000036: Bulletin boards not accepting &quot;umlauts&quot;
+
+Modified: trunk/server/release/scripts/bulletinboard.py
+===================================================================
+--- trunk/server/release/scripts/bulletinboard.py	2007-06-25 14:30:09 UTC (rev 6843)
++++ trunk/server/release/scripts/bulletinboard.py	2007-07-08 14:57:09 UTC (rev 6844)
+@@ -160,9 +160,9 @@
+ 				packet.setint(4, board.serial)
+ 				packet.setint(8, message.serial)
+ 				packet.setbyte(12, posterlen)
+-				packet.setascii(13, poster)
++				packet.setascii(13, poster.encode('utf-8'))
+ 				packet.setbyte(13 + posterlen, subjectlen)
+-				packet.setascii(14 + posterlen, subject)
++				packet.setascii(14 + posterlen, subject.encode('utf-8'))
+ 				packet.setbyte(14 + posterlen + subjectlen, timestrlen)
+ 				packet.setascii(15 + posterlen + subjectlen, timestr)
+ 
+@@ -252,9 +252,9 @@
+ 					packet.setint(12, message.container.serial) # parent
+ 
+ 				packet.setbyte(16, posterlen)
+-				packet.setascii(17, poster)
++				packet.setascii(17, poster.encode('utf-8'))
+ 				packet.setbyte(17 + posterlen, subjectlen)
+-				packet.setascii(18 + posterlen, subject)
++				packet.setascii(18 + posterlen, subject.encode('utf-8'))
+ 				packet.setbyte(18 + posterlen + subjectlen, timestrlen)
+ 				packet.setascii(19 + posterlen + subjectlen, timestr)
+ 				packet.send(char.socket)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000050.html">[Wolfpack-svn] r6845 - in trunk/server/src/gui: . trayicon
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#49">[ date ]</a>
+              <a href="thread.html#49">[ thread ]</a>
+              <a href="subject.html#49">[ subject ]</a>
+              <a href="author.html#49">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

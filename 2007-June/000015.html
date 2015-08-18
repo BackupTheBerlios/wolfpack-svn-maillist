@@ -1,0 +1,2793 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6810 - in trunk/server/src: . ai gui muls network	python win
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6810%20-%20in%20trunk/server/src%3A%20.%20ai%20gui%20muls%20network%0A%09python%20win&In-Reply-To=%3C200706080914.l589Edh2030460%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6810 - in trunk/server/src: . ai gui muls network	python win</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6810%20-%20in%20trunk/server/src%3A%20.%20ai%20gui%20muls%20network%0A%09python%20win&In-Reply-To=%3C200706080914.l589Edh2030460%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6810 - in trunk/server/src: . ai gui muls network	python win">naddel at mail.berlios.de
+       </A><BR>
+    <I>Fri Jun  8 11:14:39 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[Wolfpack-svn] r6809 - trunk/server/release/scripts
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[Wolfpack-svn] r6811 - trunk/server/build/languages
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-08 11:14:31 +0200 (Fri, 08 Jun 2007)
+New Revision: 6810
+
+Modified:
+   trunk/server/src/accounts.cpp
+   trunk/server/src/accounts.h
+   trunk/server/src/action.cpp
+   trunk/server/src/action.h
+   trunk/server/src/ai/ai.cpp
+   trunk/server/src/ai/ai.h
+   trunk/server/src/ai/ai_animals.cpp
+   trunk/server/src/ai/ai_bladespirit.cpp
+   trunk/server/src/ai/ai_bladespirit.h
+   trunk/server/src/ai/ai_commoner.cpp
+   trunk/server/src/ai/ai_commoner.h
+   trunk/server/src/ai/ai_energyvortex.cpp
+   trunk/server/src/ai/ai_energyvortex.h
+   trunk/server/src/ai/ai_humans.cpp
+   trunk/server/src/ai/ai_mage.cpp
+   trunk/server/src/ai/ai_mage.h
+   trunk/server/src/ai/ai_monsters.cpp
+   trunk/server/src/basechar.cpp
+   trunk/server/src/basechar.h
+   trunk/server/src/basedef.cpp
+   trunk/server/src/basedef.h
+   trunk/server/src/baseregion.h
+   trunk/server/src/basics.cpp
+   trunk/server/src/basics.h
+   trunk/server/src/combat.cpp
+   trunk/server/src/combat.h
+   trunk/server/src/commands.cpp
+   trunk/server/src/commands.h
+   trunk/server/src/console.cpp
+   trunk/server/src/console.h
+   trunk/server/src/content.cpp
+   trunk/server/src/content.h
+   trunk/server/src/contextmenu.cpp
+   trunk/server/src/contextmenu.h
+   trunk/server/src/coord.cpp
+   trunk/server/src/coord.h
+   trunk/server/src/corpse.cpp
+   trunk/server/src/corpse.h
+   trunk/server/src/customtags.cpp
+   trunk/server/src/customtags.h
+   trunk/server/src/dbdriver.cpp
+   trunk/server/src/dbdriver.h
+   trunk/server/src/definable.cpp
+   trunk/server/src/definable.h
+   trunk/server/src/defines.h
+   trunk/server/src/definitions.cpp
+   trunk/server/src/definitions.h
+   trunk/server/src/dragdrop.cpp
+   trunk/server/src/dragdrop.h
+   trunk/server/src/exceptions.h
+   trunk/server/src/exportdefinitions.cpp
+   trunk/server/src/exportdefinitions.h
+   trunk/server/src/factory.h
+   trunk/server/src/gui/mainwindow.cpp
+   trunk/server/src/gui/mainwindow.h
+   trunk/server/src/gui/profilersessionmodel.cpp
+   trunk/server/src/gui/profilersessionmodel.h
+   trunk/server/src/gui/profilerwindow.cpp
+   trunk/server/src/gui/profilerwindow.h
+   trunk/server/src/gui/qwpevents.h
+   trunk/server/src/gui/wpmain.cpp
+   trunk/server/src/guilds.cpp
+   trunk/server/src/guilds.h
+   trunk/server/src/gumps.cpp
+   trunk/server/src/gumps.h
+   trunk/server/src/inlines.h
+   trunk/server/src/items.cpp
+   trunk/server/src/items.h
+   trunk/server/src/log.cpp
+   trunk/server/src/log.h
+   trunk/server/src/mapobjects.cpp
+   trunk/server/src/mapobjects.h
+   trunk/server/src/md5.cpp
+   trunk/server/src/md5.h
+   trunk/server/src/muls/maps.cpp
+   trunk/server/src/muls/maps.h
+   trunk/server/src/muls/multiscache.cpp
+   trunk/server/src/muls/multiscache.h
+   trunk/server/src/muls/tilecache.cpp
+   trunk/server/src/muls/tilecache.h
+   trunk/server/src/multi.cpp
+   trunk/server/src/multi.h
+   trunk/server/src/network/encryption.cpp
+   trunk/server/src/network/encryption.h
+   trunk/server/src/network/network.cpp
+   trunk/server/src/network/network.h
+   trunk/server/src/network/uopacket.cpp
+   trunk/server/src/network/uopacket.h
+   trunk/server/src/network/uorxpackets.cpp
+   trunk/server/src/network/uorxpackets.h
+   trunk/server/src/network/uosocket.cpp
+   trunk/server/src/network/uosocket.h
+   trunk/server/src/network/uotxpackets.cpp
+   trunk/server/src/network/uotxpackets.h
+   trunk/server/src/npc.cpp
+   trunk/server/src/npc.h
+   trunk/server/src/optionparser.cpp
+   trunk/server/src/optionparser.h
+   trunk/server/src/party.cpp
+   trunk/server/src/party.h
+   trunk/server/src/pathfinding.cpp
+   trunk/server/src/pathfinding.h
+   trunk/server/src/persistentbroker.cpp
+   trunk/server/src/persistentbroker.h
+   trunk/server/src/persistentobject.cpp
+   trunk/server/src/persistentobject.h
+   trunk/server/src/platform.h
+   trunk/server/src/player.cpp
+   trunk/server/src/player.h
+   trunk/server/src/preferences.cpp
+   trunk/server/src/preferences.h
+   trunk/server/src/profile.cpp
+   trunk/server/src/profile.h
+   trunk/server/src/python/char.cpp
+   trunk/server/src/python/engine.cpp
+   trunk/server/src/python/engine.h
+   trunk/server/src/python/global.cpp
+   trunk/server/src/python/gump.h
+   trunk/server/src/python/item.cpp
+   trunk/server/src/python/objectcache.h
+   trunk/server/src/python/pyaccount.cpp
+   trunk/server/src/python/pyaction.cpp
+   trunk/server/src/python/pyaction.h
+   trunk/server/src/python/pyai.cpp
+   trunk/server/src/python/pycontent.h
+   trunk/server/src/python/pycoord.cpp
+   trunk/server/src/python/pypacket.cpp
+   trunk/server/src/python/pypacket.h
+   trunk/server/src/python/pyprofiler.cpp
+   trunk/server/src/python/pyprofiler.h
+   trunk/server/src/python/pyregion.cpp
+   trunk/server/src/python/pyspawnregion.cpp
+   trunk/server/src/python/pytooltip.cpp
+   trunk/server/src/python/region.cpp
+   trunk/server/src/python/regioniterator.h
+   trunk/server/src/python/skills.h
+   trunk/server/src/python/socket.cpp
+   trunk/server/src/python/target.cpp
+   trunk/server/src/python/target.h
+   trunk/server/src/python/tempeffect.h
+   trunk/server/src/python/utilities.h
+   trunk/server/src/python/worlditerator.cpp
+   trunk/server/src/python/worlditerator.h
+   trunk/server/src/pythonscript.cpp
+   trunk/server/src/pythonscript.h
+   trunk/server/src/quests.cpp
+   trunk/server/src/quests.h
+   trunk/server/src/scriptmanager.cpp
+   trunk/server/src/scriptmanager.h
+   trunk/server/src/server.cpp
+   trunk/server/src/server.h
+   trunk/server/src/serverconfig.cpp
+   trunk/server/src/serverconfig.h
+   trunk/server/src/singleton.h
+   trunk/server/src/skills.cpp
+   trunk/server/src/skills.h
+   trunk/server/src/spawnregions.cpp
+   trunk/server/src/spawnregions.h
+   trunk/server/src/speech.cpp
+   trunk/server/src/speech.h
+   trunk/server/src/targetrequest.h
+   trunk/server/src/targetrequests.cpp
+   trunk/server/src/targetrequests.h
+   trunk/server/src/territories.cpp
+   trunk/server/src/territories.h
+   trunk/server/src/timers.cpp
+   trunk/server/src/timers.h
+   trunk/server/src/timing.cpp
+   trunk/server/src/timing.h
+   trunk/server/src/trade.cpp
+   trunk/server/src/trade.h
+   trunk/server/src/typedefs.h
+   trunk/server/src/uobject.cpp
+   trunk/server/src/uobject.h
+   trunk/server/src/uotime.h
+   trunk/server/src/verinfo.h
+   trunk/server/src/walking.cpp
+   trunk/server/src/walking.h
+   trunk/server/src/win/config_win.cpp
+   trunk/server/src/world.cpp
+   trunk/server/src/world.h
+Log:
+WP is back - yeah! ;)
+
+Modified: trunk/server/src/accounts.cpp
+===================================================================
+--- trunk/server/src/accounts.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/accounts.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/accounts.h
+===================================================================
+--- trunk/server/src/accounts.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/accounts.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/action.cpp
+===================================================================
+--- trunk/server/src/action.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/action.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/action.h
+===================================================================
+--- trunk/server/src/action.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/action.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai.cpp
+===================================================================
+--- trunk/server/src/ai/ai.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai.h
+===================================================================
+--- trunk/server/src/ai/ai.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_animals.cpp
+===================================================================
+--- trunk/server/src/ai/ai_animals.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_animals.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_bladespirit.cpp
+===================================================================
+--- trunk/server/src/ai/ai_bladespirit.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_bladespirit.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_bladespirit.h
+===================================================================
+--- trunk/server/src/ai/ai_bladespirit.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_bladespirit.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_commoner.cpp
+===================================================================
+--- trunk/server/src/ai/ai_commoner.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_commoner.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_commoner.h
+===================================================================
+--- trunk/server/src/ai/ai_commoner.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_commoner.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_energyvortex.cpp
+===================================================================
+--- trunk/server/src/ai/ai_energyvortex.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_energyvortex.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_energyvortex.h
+===================================================================
+--- trunk/server/src/ai/ai_energyvortex.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_energyvortex.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_humans.cpp
+===================================================================
+--- trunk/server/src/ai/ai_humans.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_humans.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_mage.cpp
+===================================================================
+--- trunk/server/src/ai/ai_mage.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_mage.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_mage.h
+===================================================================
+--- trunk/server/src/ai/ai_mage.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_mage.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/ai/ai_monsters.cpp
+===================================================================
+--- trunk/server/src/ai/ai_monsters.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/ai/ai_monsters.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/basechar.cpp
+===================================================================
+--- trunk/server/src/basechar.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/basechar.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/basechar.h
+===================================================================
+--- trunk/server/src/basechar.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/basechar.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/basedef.cpp
+===================================================================
+--- trunk/server/src/basedef.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/basedef.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/basedef.h
+===================================================================
+--- trunk/server/src/basedef.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/basedef.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/baseregion.h
+===================================================================
+--- trunk/server/src/baseregion.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/baseregion.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/basics.cpp
+===================================================================
+--- trunk/server/src/basics.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/basics.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/basics.h
+===================================================================
+--- trunk/server/src/basics.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/basics.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/combat.cpp
+===================================================================
+--- trunk/server/src/combat.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/combat.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/combat.h
+===================================================================
+--- trunk/server/src/combat.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/combat.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/commands.cpp
+===================================================================
+--- trunk/server/src/commands.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/commands.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/commands.h
+===================================================================
+--- trunk/server/src/commands.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/commands.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/console.cpp
+===================================================================
+--- trunk/server/src/console.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/console.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/console.h
+===================================================================
+--- trunk/server/src/console.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/console.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/content.cpp
+===================================================================
+--- trunk/server/src/content.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/content.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/content.h
+===================================================================
+--- trunk/server/src/content.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/content.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/contextmenu.cpp
+===================================================================
+--- trunk/server/src/contextmenu.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/contextmenu.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/contextmenu.h
+===================================================================
+--- trunk/server/src/contextmenu.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/contextmenu.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/coord.cpp
+===================================================================
+--- trunk/server/src/coord.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/coord.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/coord.h
+===================================================================
+--- trunk/server/src/coord.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/coord.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/corpse.cpp
+===================================================================
+--- trunk/server/src/corpse.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/corpse.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/corpse.h
+===================================================================
+--- trunk/server/src/corpse.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/corpse.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/customtags.cpp
+===================================================================
+--- trunk/server/src/customtags.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/customtags.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/customtags.h
+===================================================================
+--- trunk/server/src/customtags.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/customtags.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/dbdriver.cpp
+===================================================================
+--- trunk/server/src/dbdriver.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/dbdriver.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/dbdriver.h
+===================================================================
+--- trunk/server/src/dbdriver.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/dbdriver.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/definable.cpp
+===================================================================
+--- trunk/server/src/definable.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/definable.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/definable.h
+===================================================================
+--- trunk/server/src/definable.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/definable.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/defines.h
+===================================================================
+--- trunk/server/src/defines.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/defines.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/definitions.cpp
+===================================================================
+--- trunk/server/src/definitions.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/definitions.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/definitions.h
+===================================================================
+--- trunk/server/src/definitions.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/definitions.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/dragdrop.cpp
+===================================================================
+--- trunk/server/src/dragdrop.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/dragdrop.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/dragdrop.h
+===================================================================
+--- trunk/server/src/dragdrop.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/dragdrop.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/exceptions.h
+===================================================================
+--- trunk/server/src/exceptions.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/exceptions.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/exportdefinitions.cpp
+===================================================================
+--- trunk/server/src/exportdefinitions.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/exportdefinitions.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/exportdefinitions.h
+===================================================================
+--- trunk/server/src/exportdefinitions.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/exportdefinitions.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/factory.h
+===================================================================
+--- trunk/server/src/factory.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/factory.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gui/mainwindow.cpp
+===================================================================
+--- trunk/server/src/gui/mainwindow.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gui/mainwindow.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gui/mainwindow.h
+===================================================================
+--- trunk/server/src/gui/mainwindow.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gui/mainwindow.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gui/profilersessionmodel.cpp
+===================================================================
+--- trunk/server/src/gui/profilersessionmodel.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gui/profilersessionmodel.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gui/profilersessionmodel.h
+===================================================================
+--- trunk/server/src/gui/profilersessionmodel.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gui/profilersessionmodel.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gui/profilerwindow.cpp
+===================================================================
+--- trunk/server/src/gui/profilerwindow.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gui/profilerwindow.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gui/profilerwindow.h
+===================================================================
+--- trunk/server/src/gui/profilerwindow.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gui/profilerwindow.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gui/qwpevents.h
+===================================================================
+--- trunk/server/src/gui/qwpevents.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gui/qwpevents.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gui/wpmain.cpp
+===================================================================
+--- trunk/server/src/gui/wpmain.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gui/wpmain.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/guilds.cpp
+===================================================================
+--- trunk/server/src/guilds.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/guilds.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/guilds.h
+===================================================================
+--- trunk/server/src/guilds.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/guilds.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gumps.cpp
+===================================================================
+--- trunk/server/src/gumps.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gumps.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/gumps.h
+===================================================================
+--- trunk/server/src/gumps.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/gumps.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/inlines.h
+===================================================================
+--- trunk/server/src/inlines.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/inlines.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/items.cpp
+===================================================================
+--- trunk/server/src/items.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/items.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/items.h
+===================================================================
+--- trunk/server/src/items.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/items.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/log.cpp
+===================================================================
+--- trunk/server/src/log.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/log.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/log.h
+===================================================================
+--- trunk/server/src/log.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/log.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/mapobjects.cpp
+===================================================================
+--- trunk/server/src/mapobjects.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/mapobjects.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/mapobjects.h
+===================================================================
+--- trunk/server/src/mapobjects.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/mapobjects.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/md5.cpp
+===================================================================
+--- trunk/server/src/md5.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/md5.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/md5.h
+===================================================================
+--- trunk/server/src/md5.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/md5.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/muls/maps.cpp
+===================================================================
+--- trunk/server/src/muls/maps.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/muls/maps.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/muls/maps.h
+===================================================================
+--- trunk/server/src/muls/maps.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/muls/maps.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/muls/multiscache.cpp
+===================================================================
+--- trunk/server/src/muls/multiscache.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/muls/multiscache.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/muls/multiscache.h
+===================================================================
+--- trunk/server/src/muls/multiscache.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/muls/multiscache.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/muls/tilecache.cpp
+===================================================================
+--- trunk/server/src/muls/tilecache.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/muls/tilecache.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/muls/tilecache.h
+===================================================================
+--- trunk/server/src/muls/tilecache.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/muls/tilecache.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/multi.cpp
+===================================================================
+--- trunk/server/src/multi.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/multi.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/multi.h
+===================================================================
+--- trunk/server/src/multi.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/multi.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/encryption.cpp
+===================================================================
+--- trunk/server/src/network/encryption.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/encryption.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/encryption.h
+===================================================================
+--- trunk/server/src/network/encryption.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/encryption.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/network.cpp
+===================================================================
+--- trunk/server/src/network/network.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/network.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/network.h
+===================================================================
+--- trunk/server/src/network/network.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/network.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/uopacket.cpp
+===================================================================
+--- trunk/server/src/network/uopacket.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/uopacket.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/uopacket.h
+===================================================================
+--- trunk/server/src/network/uopacket.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/uopacket.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/uorxpackets.cpp
+===================================================================
+--- trunk/server/src/network/uorxpackets.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/uorxpackets.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/uorxpackets.h
+===================================================================
+--- trunk/server/src/network/uorxpackets.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/uorxpackets.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/uosocket.cpp
+===================================================================
+--- trunk/server/src/network/uosocket.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/uosocket.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/uosocket.h
+===================================================================
+--- trunk/server/src/network/uosocket.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/uosocket.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/uotxpackets.cpp
+===================================================================
+--- trunk/server/src/network/uotxpackets.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/uotxpackets.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/network/uotxpackets.h
+===================================================================
+--- trunk/server/src/network/uotxpackets.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/network/uotxpackets.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/npc.cpp
+===================================================================
+--- trunk/server/src/npc.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/npc.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/npc.h
+===================================================================
+--- trunk/server/src/npc.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/npc.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/optionparser.cpp
+===================================================================
+--- trunk/server/src/optionparser.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/optionparser.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/optionparser.h
+===================================================================
+--- trunk/server/src/optionparser.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/optionparser.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/party.cpp
+===================================================================
+--- trunk/server/src/party.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/party.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/party.h
+===================================================================
+--- trunk/server/src/party.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/party.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/pathfinding.cpp
+===================================================================
+--- trunk/server/src/pathfinding.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/pathfinding.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/pathfinding.h
+===================================================================
+--- trunk/server/src/pathfinding.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/pathfinding.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/persistentbroker.cpp
+===================================================================
+--- trunk/server/src/persistentbroker.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/persistentbroker.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/persistentbroker.h
+===================================================================
+--- trunk/server/src/persistentbroker.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/persistentbroker.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/persistentobject.cpp
+===================================================================
+--- trunk/server/src/persistentobject.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/persistentobject.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/persistentobject.h
+===================================================================
+--- trunk/server/src/persistentobject.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/persistentobject.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/platform.h
+===================================================================
+--- trunk/server/src/platform.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/platform.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/player.cpp
+===================================================================
+--- trunk/server/src/player.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/player.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/player.h
+===================================================================
+--- trunk/server/src/player.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/player.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/preferences.cpp
+===================================================================
+--- trunk/server/src/preferences.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/preferences.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/preferences.h
+===================================================================
+--- trunk/server/src/preferences.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/preferences.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/profile.cpp
+===================================================================
+--- trunk/server/src/profile.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/profile.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/profile.h
+===================================================================
+--- trunk/server/src/profile.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/profile.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/char.cpp
+===================================================================
+--- trunk/server/src/python/char.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/char.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/engine.cpp
+===================================================================
+--- trunk/server/src/python/engine.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/engine.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/engine.h
+===================================================================
+--- trunk/server/src/python/engine.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/engine.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/global.cpp
+===================================================================
+--- trunk/server/src/python/global.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/global.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/gump.h
+===================================================================
+--- trunk/server/src/python/gump.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/gump.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/item.cpp
+===================================================================
+--- trunk/server/src/python/item.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/item.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/objectcache.h
+===================================================================
+--- trunk/server/src/python/objectcache.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/objectcache.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pyaccount.cpp
+===================================================================
+--- trunk/server/src/python/pyaccount.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pyaccount.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pyaction.cpp
+===================================================================
+--- trunk/server/src/python/pyaction.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pyaction.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pyaction.h
+===================================================================
+--- trunk/server/src/python/pyaction.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pyaction.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pyai.cpp
+===================================================================
+--- trunk/server/src/python/pyai.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pyai.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pycontent.h
+===================================================================
+--- trunk/server/src/python/pycontent.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pycontent.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pycoord.cpp
+===================================================================
+--- trunk/server/src/python/pycoord.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pycoord.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pypacket.cpp
+===================================================================
+--- trunk/server/src/python/pypacket.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pypacket.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pypacket.h
+===================================================================
+--- trunk/server/src/python/pypacket.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pypacket.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pyprofiler.cpp
+===================================================================
+--- trunk/server/src/python/pyprofiler.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pyprofiler.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pyprofiler.h
+===================================================================
+--- trunk/server/src/python/pyprofiler.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pyprofiler.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pyregion.cpp
+===================================================================
+--- trunk/server/src/python/pyregion.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pyregion.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pyspawnregion.cpp
+===================================================================
+--- trunk/server/src/python/pyspawnregion.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pyspawnregion.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+-* Copyright 2001-2006 by holders identified in AUTHORS.txt
++* Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/pytooltip.cpp
+===================================================================
+--- trunk/server/src/python/pytooltip.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/pytooltip.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/region.cpp
+===================================================================
+--- trunk/server/src/python/region.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/region.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/regioniterator.h
+===================================================================
+--- trunk/server/src/python/regioniterator.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/regioniterator.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/skills.h
+===================================================================
+--- trunk/server/src/python/skills.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/skills.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/socket.cpp
+===================================================================
+--- trunk/server/src/python/socket.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/socket.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/target.cpp
+===================================================================
+--- trunk/server/src/python/target.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/target.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/target.h
+===================================================================
+--- trunk/server/src/python/target.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/target.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/tempeffect.h
+===================================================================
+--- trunk/server/src/python/tempeffect.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/tempeffect.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/utilities.h
+===================================================================
+--- trunk/server/src/python/utilities.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/utilities.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/worlditerator.cpp
+===================================================================
+--- trunk/server/src/python/worlditerator.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/worlditerator.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/python/worlditerator.h
+===================================================================
+--- trunk/server/src/python/worlditerator.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/python/worlditerator.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/pythonscript.cpp
+===================================================================
+--- trunk/server/src/pythonscript.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/pythonscript.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/pythonscript.h
+===================================================================
+--- trunk/server/src/pythonscript.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/pythonscript.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/quests.cpp
+===================================================================
+--- trunk/server/src/quests.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/quests.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/quests.h
+===================================================================
+--- trunk/server/src/quests.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/quests.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/scriptmanager.cpp
+===================================================================
+--- trunk/server/src/scriptmanager.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/scriptmanager.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/scriptmanager.h
+===================================================================
+--- trunk/server/src/scriptmanager.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/scriptmanager.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/server.cpp
+===================================================================
+--- trunk/server/src/server.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/server.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+@@ -492,7 +492,7 @@
+ 	Console::instance()-&gt;send( QString( &quot;\n%1 %2 %3\n\n&quot; ).arg( productString(), productBeta(), productVersion() ) );
+ 	Console::instance()-&gt;setAttributes( false, false, false, 0xAF, 0xAF, 0xAF, 0, FONT_FIXEDWIDTH );
+ 
+-	Console::instance()-&gt;send( &quot;Copyright (C) 2000-2006 Wolfpack Development Team\n&quot; );
++	Console::instance()-&gt;send( &quot;Copyright (C) 2000-2007 Wolfpack Development Team\n&quot; );
+ 	Console::instance()-&gt;send( &quot;Wolfpack Homepage: <A HREF="http://www.wpdev.org/\n">http://www.wpdev.org/\n</A>&quot; );
+ 	Console::instance()-&gt;send( tr( &quot;By using this software you agree to the license accompanying this release.\n&quot; ) );
+ 	Console::instance()-&gt;send( tr( &quot;Compiled on %1 %2\n&quot; ).arg( __DATE__, __TIME__ ) );
+
+Modified: trunk/server/src/server.h
+===================================================================
+--- trunk/server/src/server.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/server.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/serverconfig.cpp
+===================================================================
+--- trunk/server/src/serverconfig.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/serverconfig.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/serverconfig.h
+===================================================================
+--- trunk/server/src/serverconfig.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/serverconfig.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/singleton.h
+===================================================================
+--- trunk/server/src/singleton.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/singleton.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/skills.cpp
+===================================================================
+--- trunk/server/src/skills.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/skills.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/skills.h
+===================================================================
+--- trunk/server/src/skills.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/skills.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/spawnregions.cpp
+===================================================================
+--- trunk/server/src/spawnregions.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/spawnregions.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/spawnregions.h
+===================================================================
+--- trunk/server/src/spawnregions.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/spawnregions.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/speech.cpp
+===================================================================
+--- trunk/server/src/speech.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/speech.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/speech.h
+===================================================================
+--- trunk/server/src/speech.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/speech.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/targetrequest.h
+===================================================================
+--- trunk/server/src/targetrequest.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/targetrequest.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/targetrequests.cpp
+===================================================================
+--- trunk/server/src/targetrequests.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/targetrequests.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/targetrequests.h
+===================================================================
+--- trunk/server/src/targetrequests.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/targetrequests.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/territories.cpp
+===================================================================
+--- trunk/server/src/territories.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/territories.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/territories.h
+===================================================================
+--- trunk/server/src/territories.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/territories.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/timers.cpp
+===================================================================
+--- trunk/server/src/timers.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/timers.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/timers.h
+===================================================================
+--- trunk/server/src/timers.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/timers.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/timing.cpp
+===================================================================
+--- trunk/server/src/timing.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/timing.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/timing.h
+===================================================================
+--- trunk/server/src/timing.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/timing.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/trade.cpp
+===================================================================
+--- trunk/server/src/trade.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/trade.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/trade.h
+===================================================================
+--- trunk/server/src/trade.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/trade.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/typedefs.h
+===================================================================
+--- trunk/server/src/typedefs.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/typedefs.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/uobject.cpp
+===================================================================
+--- trunk/server/src/uobject.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/uobject.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/uobject.h
+===================================================================
+--- trunk/server/src/uobject.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/uobject.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/uotime.h
+===================================================================
+--- trunk/server/src/uotime.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/uotime.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/verinfo.h
+===================================================================
+--- trunk/server/src/verinfo.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/verinfo.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/walking.cpp
+===================================================================
+--- trunk/server/src/walking.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/walking.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/walking.h
+===================================================================
+--- trunk/server/src/walking.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/walking.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/win/config_win.cpp
+===================================================================
+--- trunk/server/src/win/config_win.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/win/config_win.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/world.cpp
+===================================================================
+--- trunk/server/src/world.cpp	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/world.cpp	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+Modified: trunk/server/src/world.h
+===================================================================
+--- trunk/server/src/world.h	2007-06-02 15:04:36 UTC (rev 6809)
++++ trunk/server/src/world.h	2007-06-08 09:14:31 UTC (rev 6810)
+@@ -2,7 +2,7 @@
+  *     Wolfpack Emu (WP)
+  * UO Server Emulation Program
+  *
+- * Copyright 2001-2006 by holders identified in AUTHORS.txt
++ * Copyright 2001-2007 by holders identified in AUTHORS.txt
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[Wolfpack-svn] r6809 - trunk/server/release/scripts
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[Wolfpack-svn] r6811 - trunk/server/build/languages
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

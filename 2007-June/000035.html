@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6830 -	trunk/server/release/definitions/npcs/animals/land
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6830%20-%0A%09trunk/server/release/definitions/npcs/animals/land&In-Reply-To=%3C200706180145.l5I1jhOB001582%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000034.html">
+   <LINK REL="Next"  HREF="000036.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6830 -	trunk/server/release/definitions/npcs/animals/land</H1>
+    <B>correa at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6830%20-%0A%09trunk/server/release/definitions/npcs/animals/land&In-Reply-To=%3C200706180145.l5I1jhOB001582%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6830 -	trunk/server/release/definitions/npcs/animals/land">correa at mail.berlios.de
+       </A><BR>
+    <I>Mon Jun 18 03:45:43 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000034.html">[Wolfpack-svn] r6829 - in trunk/server/release/definitions/npcs:	animals/land monsters monsters/mondains_legancy	monsters/mondains_legancy/Blighted Grove	monsters/mondains_legancy/Painted Caves	monsters/mondains_legancy/Palace of Paroxysmus	monsters/mondains_legancy/Twisted Weald
+</A></li>
+        <LI>Next message: <A HREF="000036.html">[Wolfpack-svn] r6831 - in trunk/server/release/scripts: . commands
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: correa
+Date: 2007-06-18 03:45:34 +0200 (Mon, 18 Jun 2007)
+New Revision: 6830
+
+Added:
+   trunk/server/release/definitions/npcs/animals/land/ferret.xml
+   trunk/server/release/definitions/npcs/animals/land/squirrel.xml
+Modified:
+   trunk/server/release/definitions/npcs/animals/land/index.xml
+Log:
+ops
+
+Added: trunk/server/release/definitions/npcs/animals/land/ferret.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/animals/land/ferret.xml	2007-06-17 20:30:17 UTC (rev 6829)
++++ trunk/server/release/definitions/npcs/animals/land/ferret.xml	2007-06-18 01:45:34 UTC (rev 6830)
+@@ -0,0 +1,50 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  | Created by: Dreoth
++ *   )).-' {{ ;'`   | Revised by:
++ *  ( (  ;._ \\     | Last modification:
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Brown Bear --&gt;
++	&lt;npc id=&quot;Farret&quot; inherit=&quot;animal_base&quot;&gt;
++		&lt;name&gt;Farret&lt;/name&gt;
++		&lt;id&gt;0x117&lt;/id&gt;
++		&lt;ai&gt;Animal_Wild&lt;/ai&gt;
++		&lt;inherit id=&quot;KARMA_L0&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L1&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;41&quot; max=&quot;48&quot; /&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;53&quot; max=&quot;55&quot; /&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;70&quot; max=&quot;75&quot; /&gt;&lt;/int&gt;
++		&lt;!-- Status --&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;45&quot; max=&quot;50&quot; /&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;1&lt;/mindamage&gt;
++		&lt;maxdamage&gt;2&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_physical&quot; value=&quot;100&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Defense --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;45,50&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;10,14&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;30,40&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;21,25&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;20,25&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;40&quot; max=&quot;45&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;401&quot; max=&quot;450&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;40&quot; max=&quot;45&quot; /&gt;&lt;/skill&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;controlslots&gt;1&lt;/controlslots&gt;
++		&lt;mintaming&gt;200&lt;/mintaming&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;2,3,1&quot; /&gt;
++		&lt;strproperty name=&quot;packinstinct&quot; value=&quot;bear&quot; /&gt;
++		&lt;bindmenu&gt;tame_menu,pet_menu&lt;/bindmenu&gt;
++		&lt;category&gt;Animals\Mondains Legancy\Ferret&lt;/category&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;12&quot; /&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;1&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/npcs/animals/land/index.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/animals/land/index.xml	2007-06-17 20:30:17 UTC (rev 6829)
++++ trunk/server/release/definitions/npcs/animals/land/index.xml	2007-06-18 01:45:34 UTC (rev 6830)
+@@ -12,7 +12,7 @@
+ 	&lt;include file=&quot;definitions/npcs/animals/land/cow.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/dire_wolf.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/dog.xml&quot;/&gt;
+-	&lt;include file=&quot;definitions/npcs/animals/land/Ferret.xml&quot;/&gt;
++	&lt;include file=&quot;definitions/npcs/animals/land/ferret.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/goat.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/gorilla.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/great_hart.xml&quot;/&gt;
+@@ -30,7 +30,7 @@
+ 	&lt;include file=&quot;definitions/npcs/animals/land/sheep.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/snake.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/snow_leopard.xml&quot;/&gt;
+-	&lt;include file=&quot;definitions/npcs/animals/land/Squirrel.xml&quot;/&gt;
++	&lt;include file=&quot;definitions/npcs/animals/land/squirrel.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/timber_wolf.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/walrus.xml&quot;/&gt;
+ 	&lt;include file=&quot;definitions/npcs/animals/land/white_wolf.xml&quot;/&gt;
+
+Added: trunk/server/release/definitions/npcs/animals/land/squirrel.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/animals/land/squirrel.xml	2007-06-17 20:30:17 UTC (rev 6829)
++++ trunk/server/release/definitions/npcs/animals/land/squirrel.xml	2007-06-18 01:45:34 UTC (rev 6830)
+@@ -0,0 +1,50 @@
++&lt;!--
++/*=========================================================
++ *   )      (\_     | WOLFPACK 13.0.0 Scripts
++ *  ((    _/{  &quot;-;  | Created by: Dreoth
++ *   )).-' {{ ;'`   | Revised by:
++ *  ( (  ;._ \\     | Last modification:
++ *=======================================================*/
++--&gt;
++&lt;definitions&gt;
++
++	&lt;!-- Brown Bear --&gt;
++	&lt;npc id=&quot;Squirrel&quot; inherit=&quot;animal_base&quot;&gt;
++		&lt;name&gt;Squirrel&lt;/name&gt;
++		&lt;id&gt;0x116&lt;/id&gt;
++		&lt;ai&gt;Animal_Wild&lt;/ai&gt;
++		&lt;inherit id=&quot;KARMA_L0&quot; /&gt;
++		&lt;inherit id=&quot;FAME_L0&quot; /&gt;
++		&lt;!-- Stats --&gt;
++		&lt;str&gt;&lt;random min=&quot;44&quot; max=&quot;50&quot; /&gt;&lt;/str&gt;
++		&lt;dex&gt;&lt;random min=&quot;33&quot; max=&quot;35&quot; /&gt;&lt;/dex&gt;
++		&lt;int&gt;&lt;random min=&quot;1&quot; max=&quot;5&quot; /&gt;&lt;/int&gt;
++		&lt;!-- Status --&gt;
++		&lt;maxhitpoints&gt;&lt;random min=&quot;42&quot; max=&quot;50&quot; /&gt;&lt;/maxhitpoints&gt;
++		&lt;!-- Damage --&gt;
++		&lt;mindamage&gt;1&lt;/mindamage&gt;
++		&lt;maxdamage&gt;2&lt;/maxdamage&gt;
++		&lt;tag name=&quot;dmg_physical&quot; value=&quot;100&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Defense --&gt;
++		&lt;tag name=&quot;res_physical&quot; value=&quot;30&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_fire&quot; value=&quot;10,14&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_cold&quot; value=&quot;30,35&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_poison&quot; value=&quot;22,25&quot; type=&quot;int&quot; /&gt;
++		&lt;tag name=&quot;res_energy&quot; value=&quot;20,25&quot; type=&quot;int&quot; /&gt;
++		&lt;!-- Skills --&gt;
++		&lt;skill id=&quot;wrestling&quot;&gt;&lt;random min=&quot;40&quot; max=&quot;45&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;tactics&quot;&gt;&lt;random min=&quot;401&quot; max=&quot;450&quot; /&gt;&lt;/skill&gt;
++		&lt;skill id=&quot;magicresistance&quot;&gt;&lt;random min=&quot;40&quot; max=&quot;45&quot; /&gt;&lt;/skill&gt;
++		&lt;!-- Misc. --&gt;
++		&lt;controlslots&gt;1&lt;/controlslots&gt;
++		&lt;mintaming&gt;200&lt;/mintaming&gt;
++		&lt;strproperty name=&quot;food&quot; value=&quot;2,3,1&quot; /&gt;
++		&lt;strproperty name=&quot;packinstinct&quot; value=&quot;bear&quot; /&gt;
++		&lt;bindmenu&gt;tame_menu,pet_menu&lt;/bindmenu&gt;
++		&lt;category&gt;Animals\Mondains Legancy\Squirrel&lt;/category&gt;
++		&lt;!-- Carve --&gt;
++		&lt;intproperty name=&quot;carve_hides&quot; value=&quot;12&quot; /&gt;
++		&lt;intproperty name=&quot;carve_meat&quot; value=&quot;1&quot; /&gt;
++	&lt;/npc&gt;
++
++&lt;/definitions&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000034.html">[Wolfpack-svn] r6829 - in trunk/server/release/definitions/npcs:	animals/land monsters monsters/mondains_legancy	monsters/mondains_legancy/Blighted Grove	monsters/mondains_legancy/Painted Caves	monsters/mondains_legancy/Palace of Paroxysmus	monsters/mondains_legancy/Twisted Weald
+</A></li>
+	<LI>Next message: <A HREF="000036.html">[Wolfpack-svn] r6831 - in trunk/server/release/scripts: . commands
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6860 - trunk/server/release/scripts/system
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6860%20-%20trunk/server/release/scripts/system&In-Reply-To=%3C200803110144.m2B1i2tV013642%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000063.html">
+   <LINK REL="Next"  HREF="000065.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6860 - trunk/server/release/scripts/system</H1>
+    <B>lastkiller at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6860%20-%20trunk/server/release/scripts/system&In-Reply-To=%3C200803110144.m2B1i2tV013642%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6860 - trunk/server/release/scripts/system">lastkiller at mail.berlios.de
+       </A><BR>
+    <I>Tue Mar 11 02:44:02 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000063.html">[Wolfpack-svn] r6859 - trunk/server/src
+</A></li>
+        <LI>Next message: <A HREF="000065.html">[Wolfpack-svn] r6861 - in trunk/server: release	release/definitions/multis src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#64">[ date ]</a>
+              <a href="thread.html#64">[ thread ]</a>
+              <a href="subject.html#64">[ subject ]</a>
+              <a href="author.html#64">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lastkiller
+Date: 2008-03-11 02:43:57 +0100 (Tue, 11 Mar 2008)
+New Revision: 6860
+
+Modified:
+   trunk/server/release/scripts/system/spawns.py
+Log:
+Fix bug when a item/npc get deleted by restock command even the item/npc doesn't belong to the spawner anymore
+
+Modified: trunk/server/release/scripts/system/spawns.py
+===================================================================
+--- trunk/server/release/scripts/system/spawns.py	2008-03-07 18:44:16 UTC (rev 6859)
++++ trunk/server/release/scripts/system/spawns.py	2008-03-11 01:43:57 UTC (rev 6860)
+@@ -320,6 +320,7 @@
+ 		return 0
+ 
+ 	object.removescript('system.spawns')
++	object.deltag('spawner')
+ 	return 0
+ 
+ #
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000063.html">[Wolfpack-svn] r6859 - trunk/server/src
+</A></li>
+	<LI>Next message: <A HREF="000065.html">[Wolfpack-svn] r6861 - in trunk/server: release	release/definitions/multis src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#64">[ date ]</a>
+              <a href="thread.html#64">[ thread ]</a>
+              <a href="subject.html#64">[ subject ]</a>
+              <a href="author.html#64">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

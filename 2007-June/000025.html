@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6820 - in trunk/server/release/scripts: . wolfpack
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6820%20-%20in%20trunk/server/release/scripts%3A%20.%20wolfpack&In-Reply-To=%3C200706161719.l5GHJWCx002317%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000024.html">
+   <LINK REL="Next"  HREF="000026.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6820 - in trunk/server/release/scripts: . wolfpack</H1>
+    <B>naddel at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6820%20-%20in%20trunk/server/release/scripts%3A%20.%20wolfpack&In-Reply-To=%3C200706161719.l5GHJWCx002317%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6820 - in trunk/server/release/scripts: . wolfpack">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sat Jun 16 19:19:32 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000024.html">[Wolfpack-svn] r6819 - trunk/server/release/scripts
+</A></li>
+        <LI>Next message: <A HREF="000026.html">[Wolfpack-svn] r6821 - trunk/server/release/scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2007-06-16 19:19:32 +0200 (Sat, 16 Jun 2007)
+New Revision: 6820
+
+Modified:
+   trunk/server/release/scripts/granite.py
+   trunk/server/release/scripts/wolfpack/utilities.py
+Log:
+..
+
+Modified: trunk/server/release/scripts/granite.py
+===================================================================
+--- trunk/server/release/scripts/granite.py	2007-06-15 11:37:16 UTC (rev 6819)
++++ trunk/server/release/scripts/granite.py	2007-06-16 17:19:32 UTC (rev 6820)
+@@ -13,4 +13,4 @@
+ 		tooltip.add(int(name), &quot;&quot;)
+ 	else:
+ 		tooltip.add(1044607, '') # High Qualitiy Granite
+-		tooltip.add(1042971, &quot;%s&quot; % name)
++		tooltip.add(1042971, name)
+
+Modified: trunk/server/release/scripts/wolfpack/utilities.py
+===================================================================
+--- trunk/server/release/scripts/wolfpack/utilities.py	2007-06-15 11:37:16 UTC (rev 6819)
++++ trunk/server/release/scripts/wolfpack/utilities.py	2007-06-16 17:19:32 UTC (rev 6820)
+@@ -656,7 +656,7 @@
+ 		resistance = properties.fromchar(target, RESISTANCE_ENERGY) / 100.0
+ 		damage += max(0, energy - (energy * resistance))
+ 
+-	damage = max(1, damage)
++	damage = int(max(1, damage))
+ 	return target.damage(damagetype, damage, source)
+ 
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000024.html">[Wolfpack-svn] r6819 - trunk/server/release/scripts
+</A></li>
+	<LI>Next message: <A HREF="000026.html">[Wolfpack-svn] r6821 - trunk/server/release/scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

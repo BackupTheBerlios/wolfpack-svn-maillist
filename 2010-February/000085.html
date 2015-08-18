@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6883 - in trunk/server/release/scripts: . system
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6883%20-%20in%20trunk/server/release/scripts%3A%20.%20system&In-Reply-To=%3C201002102146.o1ALkIsD029235%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000084.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6883 - in trunk/server/release/scripts: . system</H1>
+    <B>naddel at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6883%20-%20in%20trunk/server/release/scripts%3A%20.%20system&In-Reply-To=%3C201002102146.o1ALkIsD029235%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6883 - in trunk/server/release/scripts: . system">naddel at mail.berlios.de
+       </A><BR>
+    <I>Wed Feb 10 22:46:18 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000084.html">[Wolfpack-svn] r6882 - in trunk/server: build src src/gui
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2010-02-10 22:46:17 +0100 (Wed, 10 Feb 2010)
+New Revision: 6883
+
+Modified:
+   trunk/server/release/scripts/farming.py
+   trunk/server/release/scripts/system/status.py
+Log:
+- status output fixed
+- farming error fixed
+
+Modified: trunk/server/release/scripts/farming.py
+===================================================================
+--- trunk/server/release/scripts/farming.py	2010-02-10 21:14:04 UTC (rev 6882)
++++ trunk/server/release/scripts/farming.py	2010-02-10 21:46:17 UTC (rev 6883)
+@@ -6,6 +6,7 @@
+ import crops
+ import wolfpack.utilities
+ import beverage
++from environment import actions
+ 
+ # How often should the object checks be started
+ # Default is once every 30 minutes
+
+Modified: trunk/server/release/scripts/system/status.py
+===================================================================
+--- trunk/server/release/scripts/system/status.py	2010-02-10 21:14:04 UTC (rev 6882)
++++ trunk/server/release/scripts/system/status.py	2010-02-10 21:46:17 UTC (rev 6883)
+@@ -13,7 +13,7 @@
+ import time
+ 
+ magic = 0.0
+-interval = 60000
++interval = 6000
+ htmltemplate = u'web/status_template.html'
+ outputfile = u'web/status.html'
+ processthread = None
+@@ -44,7 +44,7 @@
+ 			if data:
+ 				global outputfile
+ 				try:
+-					fp = file(outputfile, 'wu')
++					fp = file(outputfile, 'w')
+ 					fp.write(data.encode('utf-8'))
+ 					fp.close()
+ 				except Exception, e:
+@@ -67,7 +67,7 @@
+ 	if not templatemodule:
+ 		global htmltemplate
+ 		try:
+-			fp = file(htmltemplate, 'ru')
++			fp = file(htmltemplate, 'rU')
+ 			template = fp.read()
+ 			fp.close()
+ 			console.log(LOG_MESSAGE, &quot;Loaded status template from '%s'.\n&quot; % htmltemplate)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000084.html">[Wolfpack-svn] r6882 - in trunk/server: build src src/gui
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

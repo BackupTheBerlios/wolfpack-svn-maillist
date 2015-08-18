@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6827 - in trunk/server:	release/definitions/spawnregions/felucca/dungeons	release/definitions/spawnregions/trammel	release/definitions/spawnregions/trammel/dungeons	release/definitions/spawnregions/trammel/graveyards	release/definitions/spawnregions/trammel/towns src src/muls
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6827%20-%20in%20trunk/server%3A%0A%09release/definitions/spawnregions/felucca/dungeons%0A%09release/definitions/spawnregions/trammel%0A%09release/definitions/spawnregions/trammel/dungeons%0A%09release/definitions/spawnregions/trammel/graveyards%0A%09release/definitions/spawnregions/trammel/towns%20src%20src/muls&In-Reply-To=%3C200706171952.l5HJqu1v029054%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000031.html">
+   <LINK REL="Next"  HREF="000033.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6827 - in trunk/server:	release/definitions/spawnregions/felucca/dungeons	release/definitions/spawnregions/trammel	release/definitions/spawnregions/trammel/dungeons	release/definitions/spawnregions/trammel/graveyards	release/definitions/spawnregions/trammel/towns src src/muls</H1>
+    <B>btbn at BerliOS</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6827%20-%20in%20trunk/server%3A%0A%09release/definitions/spawnregions/felucca/dungeons%0A%09release/definitions/spawnregions/trammel%0A%09release/definitions/spawnregions/trammel/dungeons%0A%09release/definitions/spawnregions/trammel/graveyards%0A%09release/definitions/spawnregions/trammel/towns%20src%20src/muls&In-Reply-To=%3C200706171952.l5HJqu1v029054%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6827 - in trunk/server:	release/definitions/spawnregions/felucca/dungeons	release/definitions/spawnregions/trammel	release/definitions/spawnregions/trammel/dungeons	release/definitions/spawnregions/trammel/graveyards	release/definitions/spawnregions/trammel/towns src src/muls">btbn at mail.berlios.de
+       </A><BR>
+    <I>Sun Jun 17 21:52:56 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000031.html">[Wolfpack-svn] r6826 - trunk/server/release/definitions/locations
+</A></li>
+        <LI>Next message: <A HREF="000033.html">[Wolfpack-svn] r6828 -	trunk/server/release/definitions/regions/trammel/towns
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: btbn
+Date: 2007-06-17 21:52:56 +0200 (Sun, 17 Jun 2007)
+New Revision: 6827
+
+Added:
+   trunk/server/release/definitions/spawnregions/trammel/graveyards/haven_graveyard.xml
+Modified:
+   trunk/server/release/definitions/spawnregions/felucca/dungeons/solen_hive.xml
+   trunk/server/release/definitions/spawnregions/trammel/dungeons/solen_hive.xml
+   trunk/server/release/definitions/spawnregions/trammel/index.xml
+   trunk/server/release/definitions/spawnregions/trammel/towns/haven.xml
+   trunk/server/src/muls/maps.cpp
+   trunk/server/src/serverconfig.cpp
+   trunk/server/src/serverconfig.h
+Log:
+Fixed a great map Problem with clients &gt;=6.0 and added some new spawn locations in New Haven.
+
+Modified: trunk/server/release/definitions/spawnregions/felucca/dungeons/solen_hive.xml
+===================================================================
+--- trunk/server/release/definitions/spawnregions/felucca/dungeons/solen_hive.xml	2007-06-17 19:41:59 UTC (rev 6826)
++++ trunk/server/release/definitions/spawnregions/felucca/dungeons/solen_hive.xml	2007-06-17 19:52:56 UTC (rev 6827)
+@@ -109,10 +109,10 @@
+                 &lt;rectangle from=&quot;5886,1921&quot; to=&quot;5886,1921&quot; map=&quot;0&quot; /&gt;
+ 	&lt;/spawnregion&gt;
+ 
+-	&lt;spawnregion inherit=&quot;felucca_solen_hive_ant&quot; id=&quot;felucca_solen_hive_area_quest&quot;&gt;
++	&lt;!-- &lt;spawnregion inherit=&quot;felucca_solen_hive_ant&quot; id=&quot;felucca_solen_hive_area_quest&quot;&gt;
+ 		&lt;active /&gt;
+ 		&lt;npc id=&quot;black_solen_queen_quest&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+                 &lt;rectangle from=&quot;5775,1897&quot; to=&quot;5775,1897&quot; map=&quot;0&quot; /&gt;
+-	&lt;/spawnregion&gt;
++	&lt;/spawnregion&gt; --&gt;
+ 
+ &lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/spawnregions/trammel/dungeons/solen_hive.xml
+===================================================================
+--- trunk/server/release/definitions/spawnregions/trammel/dungeons/solen_hive.xml	2007-06-17 19:41:59 UTC (rev 6826)
++++ trunk/server/release/definitions/spawnregions/trammel/dungeons/solen_hive.xml	2007-06-17 19:52:56 UTC (rev 6827)
+@@ -109,10 +109,10 @@
+                 &lt;rectangle from=&quot;5886,1921&quot; to=&quot;5886,1921&quot; map=&quot;1&quot; /&gt;
+ 	&lt;/spawnregion&gt;
+ 
+-	&lt;spawnregion inherit=&quot;trammel_solen_hive_ant&quot; id=&quot;trammel_solen_hive_area_quest&quot;&gt;
++	&lt;!-- &lt;spawnregion inherit=&quot;trammel_solen_hive_ant&quot; id=&quot;trammel_solen_hive_area_quest&quot;&gt;
+ 		&lt;active /&gt;
+ 		&lt;npc id=&quot;red_solen_queen_quest&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+                 &lt;rectangle from=&quot;5775,1897&quot; to=&quot;5775,1897&quot; map=&quot;1&quot; /&gt;
+-	&lt;/spawnregion&gt;
++	&lt;/spawnregion&gt; --&gt;
+ 
+ &lt;/definitions&gt;
+
+Added: trunk/server/release/definitions/spawnregions/trammel/graveyards/haven_graveyard.xml
+===================================================================
+--- trunk/server/release/definitions/spawnregions/trammel/graveyards/haven_graveyard.xml	2007-06-17 19:41:59 UTC (rev 6826)
++++ trunk/server/release/definitions/spawnregions/trammel/graveyards/haven_graveyard.xml	2007-06-17 19:52:56 UTC (rev 6827)
+@@ -0,0 +1,41 @@
++&lt;!--
++#################################################################
++#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
++#  ((    _/{  &quot;-;  | Created by: BtbN                           #
++#   )).-' {{ ;'`   | Revised by:                                #
++#  ( (  ;._ \\ ctr | Last Modification: Created                 #
++#################################################################
++--&gt;
++&lt;definitions&gt;
++	&lt;spawnregion id=&quot;trammel_haven_graveyard_1&quot;&gt;
++		&lt;active /&gt;
++		&lt;maxnpcamount&gt;1&lt;/maxnpcamount&gt;
++		&lt;delay min=&quot;50&quot; max=&quot;60&quot; /&gt;
++		&lt;npc id=&quot;lich&quot;&gt;
++			&lt;npcwander type=&quot;circle&quot; radius=&quot;5&quot; /&gt;
++		&lt;/npc&gt;
++		&lt;rectangle from=&quot;3590,2457,25&quot; to=&quot;3595,2460,25&quot; map=&quot;1&quot; /&gt;
++	&lt;/spawnregion&gt;
++
++	&lt;spawnregion id=&quot;trammel_haven_graveyard_2&quot;&gt;
++		&lt;active /&gt;
++		&lt;maxnpcamount&gt;5&lt;/maxnpcamount&gt;
++		&lt;delay min=&quot;25&quot; max=&quot;30&quot; /&gt;
++		&lt;npcspercycle&gt;1&lt;/npcspercycle&gt;
++		&lt;npc id=&quot;zombie&quot;&gt;
++			&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;
++		&lt;/npc&gt;
++		&lt;rectangle from=&quot;3591,2442&quot; to=&quot;3599,2452&quot; map=&quot;1&quot; /&gt;
++	&lt;/spawnregion&gt;
++
++	&lt;spawnregion id=&quot;trammel_haven_graveyard_3&quot;&gt;
++		&lt;active /&gt;
++		&lt;maxnpcamount&gt;5&lt;/maxnpcamount&gt;
++		&lt;delay min=&quot;25&quot; max=&quot;30&quot; /&gt;
++		&lt;npcspercycle&gt;1&lt;/npcspercycle&gt;
++		&lt;npc id=&quot;skeleton&quot;&gt;
++			&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;
++		&lt;/npc&gt;
++		&lt;rectangle from=&quot;3599,2452&quot; to=&quot;3606,2460&quot; map=&quot;1&quot; /&gt;
++	&lt;/spawnregion&gt;
++&lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/spawnregions/trammel/index.xml
+===================================================================
+--- trunk/server/release/definitions/spawnregions/trammel/index.xml	2007-06-17 19:41:59 UTC (rev 6826)
++++ trunk/server/release/definitions/spawnregions/trammel/index.xml	2007-06-17 19:52:56 UTC (rev 6827)
+@@ -34,6 +34,7 @@
+ 	&lt;include file=&quot;definitions/spawnregions/trammel/graveyards/cove_graveyard.xml&quot; /&gt;
+ 	&lt;include file=&quot;definitions/spawnregions/trammel/graveyards/vesper_graveyard.xml&quot; /&gt;
+ 	&lt;include file=&quot;definitions/spawnregions/trammel/graveyards/moonglow_graveyard.xml&quot; /&gt;
++	&lt;include file=&quot;definitions/spawnregions/trammel/graveyards/haven_graveyard.xml&quot; /&gt;
+ 	&lt;!-- Dungeon Spawns --&gt;
+ 	&lt;include file=&quot;definitions/spawnregions/trammel/dungeons/britain_passage.xml&quot; /&gt;
+ 	&lt;include file=&quot;definitions/spawnregions/trammel/dungeons/covetous.xml&quot; /&gt;
+
+Modified: trunk/server/release/definitions/spawnregions/trammel/towns/haven.xml
+===================================================================
+--- trunk/server/release/definitions/spawnregions/trammel/towns/haven.xml	2007-06-17 19:41:59 UTC (rev 6826)
++++ trunk/server/release/definitions/spawnregions/trammel/towns/haven.xml	2007-06-17 19:52:56 UTC (rev 6827)
+@@ -57,18 +57,18 @@
+ 
+ 	&lt;spawnregion inherit=&quot;haven_vendor&quot; id=&quot;haven_vendor_5&quot;&gt;
+ 		&lt;active /&gt;
+-		&lt;npc id=&quot;banker_male&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+-		&lt;npc id=&quot;banker_female&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+-		&lt;point pos=&quot;3697,2507,0,1&quot; /&gt;
++		&lt;npc id=&quot;banker_male&quot;&gt;
++			&lt;npcwander type=&quot;6&quot; /&gt;
++		&lt;/npc&gt;
++		&lt;npc id=&quot;banker_female&quot;&gt;
++			&lt;npcwander type=&quot;6&quot; /&gt;
++		&lt;/npc&gt;
++		&lt;maxnpcamount&gt;2&lt;/maxnpcamount&gt;
++		&lt;npcspercycle&gt;2&lt;/npcspercycle&gt;
++		&lt;delay min=&quot;0&quot; max=&quot;5&quot; /&gt;
++		&lt;rectangle from=&quot;3484,2569,20&quot; to=&quot;3485,2578,20&quot; map=&quot;1&quot; /&gt;
+ 	&lt;/spawnregion&gt;
+ 
+-	&lt;spawnregion inherit=&quot;haven_vendor&quot; id=&quot;haven_vendor_6&quot;&gt;
+-		&lt;active /&gt;
+-		&lt;npc id=&quot;banker_male&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+-		&lt;npc id=&quot;banker_female&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+-		&lt;point pos=&quot;3691,2513,0,1&quot; /&gt;
+-	&lt;/spawnregion&gt;
+-
+ 	&lt;spawnregion inherit=&quot;haven_vendor&quot; id=&quot;haven_vendor_7&quot;&gt;
+ 		&lt;active /&gt;
+ 		&lt;npc id=&quot;bard_male&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+@@ -80,7 +80,7 @@
+ 		&lt;active /&gt;
+ 		&lt;npc id=&quot;baker_male&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+ 		&lt;npc id=&quot;baker_female&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+-		&lt;point pos=&quot;3626,2545,0,1&quot; /&gt;
++		&lt;point pos=&quot;3628,2541,0,1&quot; /&gt;
+ 	&lt;/spawnregion&gt;
+ 
+ 	&lt;spawnregion inherit=&quot;haven_vendor&quot; id=&quot;haven_vendor_9&quot;&gt;
+@@ -111,13 +111,6 @@
+ 		&lt;point pos=&quot;3626,2573,0,1&quot; /&gt;
+ 	&lt;/spawnregion&gt;
+ 
+-	&lt;spawnregion inherit=&quot;haven_vendor&quot; id=&quot;haven_vendor_13&quot;&gt;
+-		&lt;active /&gt;
+-		&lt;npc id=&quot;banker_male&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+-		&lt;npc id=&quot;banker_female&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+-		&lt;point pos=&quot;3619,2615,0,1&quot; /&gt;
+-	&lt;/spawnregion&gt;
+-
+ 	&lt;spawnregion inherit=&quot;haven_vendor&quot; id=&quot;haven_vendor_14&quot;&gt;
+ 		&lt;active /&gt;
+ 		&lt;npc id=&quot;blacksmith_male&quot;&gt;&lt;npcwander type=&quot;circle&quot; radius=&quot;10&quot; /&gt;&lt;/npc&gt;
+
+Modified: trunk/server/src/muls/maps.cpp
+===================================================================
+--- trunk/server/src/muls/maps.cpp	2007-06-17 19:41:59 UTC (rev 6826)
++++ trunk/server/src/muls/maps.cpp	2007-06-17 19:52:56 UTC (rev 6827)
+@@ -279,15 +279,19 @@
+ {
+ 	basePath = Config::instance()-&gt;mulPath();
+ 
++	uint tramMapNr = 0;
++	if( Config::instance()-&gt;usesKingdomRebornMaps() )
++		tramMapNr = 1;
++
+ 	if ( Config::instance()-&gt;usesMondainsLegacyMap() )
+ 	{
+ 		registerMap( 0, &quot;map0.mul&quot;, 896, 512, &quot;statics0.mul&quot;, &quot;staidx0.mul&quot; );
+-		registerMap( 1, &quot;map0.mul&quot;, 896, 512, &quot;statics0.mul&quot;, &quot;staidx0.mul&quot; );
++		registerMap( 1, QString(&quot;map%1.mul&quot;).arg(tramMapNr), 896, 512, QString(&quot;statics%1.mul&quot;).arg(tramMapNr), QString(&quot;staidx%1.mul&quot;).arg(tramMapNr) );
+ 	}
+ 	else
+ 	{
+ 		registerMap( 0, &quot;map0.mul&quot;, 768, 512, &quot;statics0.mul&quot;, &quot;staidx0.mul&quot; );
+-		registerMap( 1, &quot;map0.mul&quot;, 768, 512, &quot;statics0.mul&quot;, &quot;staidx0.mul&quot; );
++		registerMap( 1, QString(&quot;map%1.mul&quot;).arg(tramMapNr), 768, 512, QString(&quot;statics%1.mul&quot;).arg(tramMapNr), QString(&quot;staidx%1.mul&quot;).arg(tramMapNr) );
+ 	}
+ 	registerMap( 2, &quot;map2.mul&quot;, 288, 200, &quot;statics2.mul&quot;, &quot;staidx2.mul&quot; );
+ 	registerMap( 3, &quot;map3.mul&quot;, 320, 256, &quot;statics3.mul&quot;, &quot;staidx3.mul&quot; );
+@@ -367,7 +371,8 @@
+ 
+ 		p-&gt;height = mapheight;
+ 		p-&gt;width = mapwidth;
+-		p-&gt;loadDiffs( basePath, id );
++		if( !Config::instance()-&gt;usesKingdomRebornMaps() )
++			p-&gt;loadDiffs( basePath, id );
+ 		d.insert( id, p );
+ 		return true;
+ 	}
+
+Modified: trunk/server/src/serverconfig.cpp
+===================================================================
+--- trunk/server/src/serverconfig.cpp	2007-06-17 19:41:59 UTC (rev 6826)
++++ trunk/server/src/serverconfig.cpp	2007-06-17 19:52:56 UTC (rev 6827)
+@@ -162,6 +162,7 @@
+ 
+ 	// General Group
+ 	usesMondainsLegacyMap_ = getBool( &quot;General&quot;, &quot;Uses Mondains Legacy Map&quot;, true, true );
++	usesKingdomRebornMaps_ = getBool( &quot;General&quot;, &quot;Uses Kingdom Reborn Maps&quot;, true, true );
+ 	enableFeluccaSeason_ = getBool( &quot;General&quot;, &quot;Enable Felucca Season&quot;, true, true );
+ 	enableTrammelSeason_ = getBool( &quot;General&quot;, &quot;Enable Trammel Season&quot;, true, true );
+ 	showSkillTitles_ = getBool( &quot;General&quot;, &quot;ShowSkillTitles&quot;, true, true );
+
+Modified: trunk/server/src/serverconfig.h
+===================================================================
+--- trunk/server/src/serverconfig.h	2007-06-17 19:41:59 UTC (rev 6826)
++++ trunk/server/src/serverconfig.h	2007-06-17 19:52:56 UTC (rev 6827)
+@@ -103,6 +103,7 @@
+ 	int niceLevel_;
+ 	unsigned short loginPort_;
+ 	bool usesMondainsLegacyMap_;
++	bool usesKingdomRebornMaps_;
+ 	bool enableFeluccaSeason_;
+ 	bool enableTrammelSeason_;
+ 	unsigned int logMask_;
+@@ -247,6 +248,7 @@
+ 
+ 	// gets
+ 	bool usesMondainsLegacyMap() const;
++	bool usesKingdomRebornMaps() const;
+ 	bool enableFeluccaSeason() const;
+ 	bool enableTrammelSeason() const;
+ 	bool hashAccountPasswords() const;
+@@ -839,6 +841,11 @@
+ 	return usesMondainsLegacyMap_;
+ }
+ 
++inline bool cConfig::usesKingdomRebornMaps() const
++{
++	return usesKingdomRebornMaps_;
++}
++
+ inline bool cConfig::enableFeluccaSeason() const
+ {
+ 	return enableFeluccaSeason_;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000031.html">[Wolfpack-svn] r6826 - trunk/server/release/definitions/locations
+</A></li>
+	<LI>Next message: <A HREF="000033.html">[Wolfpack-svn] r6828 -	trunk/server/release/definitions/regions/trammel/towns
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

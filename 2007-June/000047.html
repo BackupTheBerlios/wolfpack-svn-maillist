@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6842 - in trunk/WPGM: . Components/Graphics32 UOLib
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6842%20-%20in%20trunk/WPGM%3A%20.%20Components/Graphics32%20UOLib&In-Reply-To=%3C200706251429.l5PET7lf004230%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000046.html">
+   <LINK REL="Next"  HREF="000048.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6842 - in trunk/WPGM: . Components/Graphics32 UOLib</H1>
+    <B>lastkiller at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6842%20-%20in%20trunk/WPGM%3A%20.%20Components/Graphics32%20UOLib&In-Reply-To=%3C200706251429.l5PET7lf004230%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6842 - in trunk/WPGM: . Components/Graphics32 UOLib">lastkiller at mail.berlios.de
+       </A><BR>
+    <I>Mon Jun 25 16:29:07 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000046.html">[Wolfpack-svn] r6841 - in trunk/server/release: definitions	definitions/items/armory/samurai	definitions/items/weaponry/samurai scripts scripts/potions	scripts/skills scripts/wolfpack
+</A></li>
+        <LI>Next message: <A HREF="000048.html">[Wolfpack-svn] r6843 - in trunk/WPGM: . Components	Components/Graphics32/Packages	Components/VirtualTreeview/Packages Release build src tools	tools/ImportDefinitions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lastkiller
+Date: 2007-06-25 16:28:11 +0200 (Mon, 25 Jun 2007)
+New Revision: 6842
+
+Removed:
+   trunk/WPGM/ImportDefinitions/
+Modified:
+   trunk/WPGM/Components/Graphics32/GR32.inc
+   trunk/WPGM/UOLib/UOAnim.pas
+Log:
+See changelog.txt for more information
+
+Modified: trunk/WPGM/Components/Graphics32/GR32.inc
+===================================================================
+--- trunk/WPGM/Components/Graphics32/GR32.inc	2007-06-25 13:34:57 UTC (rev 6841)
++++ trunk/WPGM/Components/Graphics32/GR32.inc	2007-06-25 14:28:11 UTC (rev 6842)
+@@ -1,3 +1,16 @@
++// Support Delphi 2007
++{$IFDEF VER180}
++  {$DEFINE COMPILER7}
++  {$DEFINE COMPILER6}
++  {$DEFINE COMPILER5}
++  {$DEFINE COMPILER4}
++  {$IFNDEF BCB}
++    {$DEFINE DELPHI7}
++  {$ELSE}
++    {$DEFINE BCB7}
++  {$ENDIF}
++{$ENDIF}
++
+ {$IFDEF VER150}
+   {$DEFINE COMPILER7}
+   {$DEFINE COMPILER6}
+
+Modified: trunk/WPGM/UOLib/UOAnim.pas
+===================================================================
+--- trunk/WPGM/UOLib/UOAnim.pas	2007-06-25 13:34:57 UTC (rev 6841)
++++ trunk/WPGM/UOLib/UOAnim.pas	2007-06-25 14:28:11 UTC (rev 6842)
+@@ -36,6 +36,8 @@
+   Body: Integer;
+   Anim2: Integer;
+   Anim3: Integer;
++  Anim4: Integer;
++  Anim5: Integer;
+ end;
+ 
+ type TBodyDef = record
+@@ -49,6 +51,8 @@
+     dStream, iStream: TStream;
+     dStream2, iStream2: TStream;
+     dStream3, iStream3: TStream;
++    dStream4, iStream4: TStream;
++    dStream5, iStream5: TStream;
+     disabled: Boolean;
+     BodyConv: Array of TBodyConv;
+     BodyDef: Array of TBodyDef;
+@@ -63,10 +67,10 @@
+     destructor Free;
+     function GetFrames( Body, Action, Color: Word): TAnimation; overload;
+     function GetFrames( Body, Action: Word ): TAnimation; overload;
+-    procedure getBodyConv(Body: Word; var Anim2: Integer; var Anim3: Integer);
++    procedure getBodyConv(Body: Word; var Anim2: Integer; var Anim3: Integer; var Anim4: Integer; var Anim5: Integer);
+     function getBodyDef(var Body: Word; var Color: Word): Boolean;
+ 
+-    function Open( IndexName1, DataName1, IndexName2, DataName2, IndexName3, DataName3, BodyConv, BodyDef: String ): Boolean;
++    function Open( BodyConv, BodyDef, IndexName1 : string; DataName1 : string; IndexName2 : string = ''; DataName2  : string = ''; IndexName3 : string = ''; DataName3 : string = ''; IndexName4 : string = ''; DataName4 : string = ''; IndexName5 : string = ''; DataName5 : string = '' ): Boolean;
+     procedure Close();
+ end;
+ 
+@@ -148,12 +152,50 @@
+ var
+     IndexRecord: TIndexRecord;
+     Offset: Cardinal;
+-    Anim2, Anim3: Integer;
++    Anim2, Anim3, Anim4, Anim5: Integer;
+ begin
+     // CHECK FOR VERDATA HERE
+ 
+-    getBodyConv(Body, Anim2, Anim3);
++    getBodyConv(Body, Anim2, Anim3, Anim4, Anim5);
+ 
++    // Read From Anim5.mul TODO
++    if (Anim5 &lt;&gt; -1) and (iStream5 &lt;&gt; nil) and (dStream5 &lt;&gt; nil) then begin
++      if (Anim5 &lt; 200) And (Anim5 &lt;&gt; 34) then
++        Offset := Anim5 * 110 + Action
++      else
++        Offset := 35000 + ((Anim5 - 400) * 65) + Action;
++
++      iStream5.Seek( Offset * 12, soFromBeginning );
++      iStream5.Read( IndexRecord, SizeOf( TIndexRecord ) );
++
++      if IndexRecord.Offset &lt;&gt; -1 then begin
++        Length := IndexRecord.Length;
++        dStream5.Seek( IndexRecord.Offset, soFromBeginning );
++        Result := dStream5;
++        exit;
++      end;
++    end;
++
++    // Read From Anim4.mul TODO
++    if (Anim4 &lt;&gt; -1) and (iStream4 &lt;&gt; nil) and (dStream4 &lt;&gt; nil) then begin
++      if Anim4 &lt; 200 then
++        Offset := Anim4 * 110 + Action
++      else if Anim4 &lt; 400 then
++        Offset := 22000 + (Anim4 - 200) * 65 + Action
++      else
++        Offset := 35000 + (Anim4 - 400) * 175 + Action;
++
++      iStream4.Seek( Offset * 12, soFromBeginning );
++      iStream4.Read( IndexRecord, SizeOf( TIndexRecord ) );
++
++      if IndexRecord.Offset &lt;&gt; -1 then begin
++        Length := IndexRecord.Length;
++        dStream4.Seek( IndexRecord.Offset, soFromBeginning );
++        Result := dStream4;
++        exit;
++      end;
++    end;
++
+     // Read From Anim3.mul
+     if (Anim3 &lt;&gt; -1) and (iStream3 &lt;&gt; nil) and (dStream3 &lt;&gt; nil) then begin
+       if Anim3 &lt; 300 then
+@@ -218,7 +260,7 @@
+     Result := dStream;
+ end;
+ 
+-function TAnimReader.Open( IndexName1, DataName1, IndexName2, DataName2, IndexName3, DataName3, BodyConv, BodyDef: String ): Boolean;
++function TAnimReader.Open(BodyConv, BodyDef, IndexName1 : string; DataName1 : string; IndexName2 : string = ''; DataName2  : string = ''; IndexName3 : string = ''; DataName3 : string = ''; IndexName4 : string = ''; DataName4 : string = ''; IndexName5 : string = ''; DataName5 : string = ''): Boolean;
+ begin
+  	Result := False;
+   try
+@@ -233,6 +275,10 @@
+   dStream3 := nil;
+   iStream2 := nil;
+   iStream3 := nil;
++  dStream4 := nil;
++  dStream5 := nil;
++  iStream4 := nil;
++  iStream5 := nil;
+ 
+   try
+     dStream2 := TFileStream.Create( DataName2, fmOpenRead+fmShareDenyNone );
+@@ -250,6 +296,22 @@
+     FreeAndNil(dStream3);
+   end;
+ 
++  try
++    dStream4 := TFileStream.Create( DataName4, fmOpenRead+fmShareDenyNone );
++    iStream4 := TFileStream.Create( IndexName4, fmOpenRead+fmShareDenyNone );
++  except
++    FreeAndNil(iStream4);
++    FreeAndNil(dStream4);
++  end;
++
++  try
++    dStream5 := TFileStream.Create( DataName5, fmOpenRead+fmShareDenyNone );
++    iStream5 := TFileStream.Create( IndexName5, fmOpenRead+fmShareDenyNone );
++  except
++    FreeAndNil(iStream5);
++    FreeAndNil(dStream5);
++  end;
++
+   // Load Bodyconv.def
+   LoadBodyConv(BodyConv);
+ 
+@@ -397,7 +459,7 @@
+ var
+   Input: TextFile;
+   Line: String;
+-  Pos, Body, Anim2, Anim3: Integer;
++  Pos, Body, Anim2, Anim3, Anim4, Anim5: Integer;
+ begin
+   try
+     AssignFile(Input, FileName);
+@@ -428,12 +490,29 @@
+       Pos := AnsiPos(Char($9), Line);
+       Anim3 := StrToIntDef(LeftStr(Line, Pos - 1), -1);
+ 
++      // TODO
++
++      // Get Fourth Token
++      Line := RightStr(Line, Length(Line) - pos);
++      Pos := AnsiPos(Char($9), Line);
++      Anim4 := StrToIntDef(LeftStr(Line, Pos - 1), -1);
++
++      // Get Fifth Token
++      Line := RightStr(Line, Length(Line) - pos);
++      Pos := AnsiPos(Char($9), Line);
++      Anim5 := StrToIntDef(LeftStr(Line, Pos - 1), -1);
++
++      // END TODO
++
++
+       // Save Token
+       Pos := Length(BodyConv);
+       SetLength(BodyConv, Pos + 1);
+       BodyConv[Pos].Body := Body;
+       BodyConv[Pos].Anim2 := Anim2;
+       BodyConv[Pos].Anim3 := Anim3;
++      BodyConv[Pos].Anim4 := Anim4;
++      BodyConv[Pos].Anim5 := Anim5;
+     end;
+ 
+     CloseFile(Input);
+@@ -500,7 +579,7 @@
+ 
+ 
+ 
+-procedure TAnimReader.getBodyConv(Body: Word; var Anim2: Integer; var Anim3: Integer);
++procedure TAnimReader.getBodyConv(Body: Word; var Anim2: Integer; var Anim3: Integer; var Anim4: Integer; var Anim5: Integer);
+ var
+   i: Integer;
+ begin
+@@ -508,12 +587,16 @@
+     if BodyConv[i].Body = Body then begin
+       Anim2 := BodyConv[i].Anim2;
+       Anim3 := BodyConv[i].Anim3;
++      Anim4 := BodyConv[i].Anim4;
++      Anim5 := BodyConv[i].Anim5;
+       exit;
+     end;
+   end;
+ 
+   Anim2 := -1;
+   Anim3 := -1;
++  Anim4 := -1;
++  Anim5 := -1;
+ end;
+ 
+ function TAnimReader.getBodyDef(var Body: Word; var Color: Word): Boolean;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000046.html">[Wolfpack-svn] r6841 - in trunk/server/release: definitions	definitions/items/armory/samurai	definitions/items/weaponry/samurai scripts scripts/potions	scripts/skills scripts/wolfpack
+</A></li>
+	<LI>Next message: <A HREF="000048.html">[Wolfpack-svn] r6843 - in trunk/WPGM: . Components	Components/Graphics32/Packages	Components/VirtualTreeview/Packages Release build src tools	tools/ImportDefinitions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

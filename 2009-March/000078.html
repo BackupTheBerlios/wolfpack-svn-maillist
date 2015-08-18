@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6875 - trunk/server/release/scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6875%20-%20trunk/server/release/scripts&In-Reply-To=%3C200903221921.n2MJLGH1024654%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000077.html">
+   <LINK REL="Next"  HREF="000079.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6875 - trunk/server/release/scripts</H1>
+    <B>naddel at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6875%20-%20trunk/server/release/scripts&In-Reply-To=%3C200903221921.n2MJLGH1024654%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6875 - trunk/server/release/scripts">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sun Mar 22 20:21:16 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000077.html">[Wolfpack-svn] r6874 - in trunk/server/src: . ai
+</A></li>
+        <LI>Next message: <A HREF="000079.html">[Wolfpack-svn] r6876 - in trunk/server/release: definitions	definitions/items/professions definitions/menus/crafting	definitions/npcs/humans/vendors definitions/system scripts	scripts/skills scripts/wolfpack
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#78">[ date ]</a>
+              <a href="thread.html#78">[ thread ]</a>
+              <a href="subject.html#78">[ subject ]</a>
+              <a href="author.html#78">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2009-03-22 20:21:14 +0100 (Sun, 22 Mar 2009)
+New Revision: 6875
+
+Modified:
+   trunk/server/release/scripts/ankh.py
+   trunk/server/release/scripts/arcanegem.py
+Log:
+
+
+Modified: trunk/server/release/scripts/ankh.py
+===================================================================
+--- trunk/server/release/scripts/ankh.py	2009-03-22 19:19:28 UTC (rev 6874)
++++ trunk/server/release/scripts/ankh.py	2009-03-22 19:21:14 UTC (rev 6875)
+@@ -87,7 +87,7 @@
+ 	elif response.button == 4:
+ 		showTitheGump(player, ankh, gold) # Set to Maximum
+ 	elif response.button == 5:
+-		amount = max(0, min(gold, amount)) # Normalize the amount of gold to tithe		
++		amount = max(0, min(gold, amount)) # Normalize the amount of gold to tithe
+ 
+ 		# Get the tithing points of the user
+ 		tithing_points = player.gettag('tithing_points')
+
+Modified: trunk/server/release/scripts/arcanegem.py
+===================================================================
+--- trunk/server/release/scripts/arcanegem.py	2009-03-22 19:19:28 UTC (rev 6874)
++++ trunk/server/release/scripts/arcanegem.py	2009-03-22 19:21:14 UTC (rev 6875)
+@@ -7,7 +7,7 @@
+ 
+ # leather gloves, cloaks, robe, tigh boots
+ arcaneequip = [
+-		[0x13c6, 0x26b0], 
++		[0x13c6, 0x26b0],
+ 		[0x1515, 0x26ad],
+ 		[0x1f04, 0x26ae],
+ 		[0x1711, 0x1712]
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000077.html">[Wolfpack-svn] r6874 - in trunk/server/src: . ai
+</A></li>
+	<LI>Next message: <A HREF="000079.html">[Wolfpack-svn] r6876 - in trunk/server/release: definitions	definitions/items/professions definitions/menus/crafting	definitions/npcs/humans/vendors definitions/system scripts	scripts/skills scripts/wolfpack
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#78">[ date ]</a>
+              <a href="thread.html#78">[ thread ]</a>
+              <a href="subject.html#78">[ subject ]</a>
+              <a href="author.html#78">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

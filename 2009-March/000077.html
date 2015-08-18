@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6874 - in trunk/server/src: . ai
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6874%20-%20in%20trunk/server/src%3A%20.%20ai&In-Reply-To=%3C200903221919.n2MJJj8M024484%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000076.html">
+   <LINK REL="Next"  HREF="000078.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6874 - in trunk/server/src: . ai</H1>
+    <B>naddel at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6874%20-%20in%20trunk/server/src%3A%20.%20ai&In-Reply-To=%3C200903221919.n2MJJj8M024484%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6874 - in trunk/server/src: . ai">naddel at mail.berlios.de
+       </A><BR>
+    <I>Sun Mar 22 20:19:45 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000076.html">[Wolfpack-svn] r6873 - in trunk/WPGM: . Release build src
+</A></li>
+        <LI>Next message: <A HREF="000078.html">[Wolfpack-svn] r6875 - trunk/server/release/scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#77">[ date ]</a>
+              <a href="thread.html#77">[ thread ]</a>
+              <a href="subject.html#77">[ subject ]</a>
+              <a href="author.html#77">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2009-03-22 20:19:28 +0100 (Sun, 22 Mar 2009)
+New Revision: 6874
+
+Modified:
+   trunk/server/src/ai/ai.cpp
+   trunk/server/src/basechar.cpp
+   trunk/server/src/npc.cpp
+   trunk/server/src/npc.h
+   trunk/server/src/pythonscript.cpp
+   trunk/server/src/pythonscript.h
+Log:
+fixed #0000046 and added onReachDestination event for NPC
+
+Modified: trunk/server/src/ai/ai.cpp
+===================================================================
+--- trunk/server/src/ai/ai.cpp	2009-03-21 04:40:17 UTC (rev 6873)
++++ trunk/server/src/ai/ai.cpp	2009-03-22 19:19:28 UTC (rev 6874)
+@@ -612,8 +612,11 @@
+ 		return 1.0f;
+ 
+ 	case enDestination:
+-		if ( m_npc-&gt;wanderDestination() == m_npc-&gt;pos() )
++		if ( m_npc-&gt;wanderDestination() == m_npc-&gt;pos() ) {
++			m_npc-&gt;setWanderType(enFreely);
++			m_npc-&gt;onReachDestination();
+ 			return 1.0f;
++		}
+ 		break;
+ 
+ 	case enFollowTarget:
+
+Modified: trunk/server/src/basechar.cpp
+===================================================================
+--- trunk/server/src/basechar.cpp	2009-03-21 04:40:17 UTC (rev 6873)
++++ trunk/server/src/basechar.cpp	2009-03-22 19:19:28 UTC (rev 6874)
+@@ -2652,7 +2652,7 @@
+ 		return 0;
+ 	}
+ 
+-	// Sending for Victim too
++	// Show the amount of damage dealt over the head of the victim
+ 	if ( Config::instance()-&gt;showDamageReceived() )
+ 	{
+ 		P_PLAYER pvictim = dynamic_cast&lt;P_PLAYER&gt;( this );
+@@ -2678,7 +2678,7 @@
+ 		}
+ 	}
+ 
+-	// Show the amount of damage dealt over the head of the victim
++	// Show the amount of damage dealt over the head of the attacker
+ 	if ( Config::instance()-&gt;showDamageDone() )
+ 	{
+ 		if ( player &amp;&amp; player-&gt;socket() )
+
+Modified: trunk/server/src/npc.cpp
+===================================================================
+--- trunk/server/src/npc.cpp	2009-03-21 04:40:17 UTC (rev 6873)
++++ trunk/server/src/npc.cpp	2009-03-22 19:19:28 UTC (rev 6874)
+@@ -1633,3 +1633,15 @@
+ 		cBaseChar::moveTo( newpos );
+ 	}
+ }
++
++bool cNPC::onReachDestination()
++{
++	bool result = false;
++	if ( canHandleEvent( EVENT_ONREACHDESTINATION ) )
++	{
++		PyObject* args = Py_BuildValue( &quot;(O&amp;)&quot;, PyGetCharObject, this );
++		result = callEventHandler( EVENT_ONREACHDESTINATION, args );
++		Py_DECREF( args );
++	}
++	return result;
++}
+
+Modified: trunk/server/src/npc.h
+===================================================================
+--- trunk/server/src/npc.h	2009-03-21 04:40:17 UTC (rev 6873)
++++ trunk/server/src/npc.h	2009-03-22 19:19:28 UTC (rev 6874)
+@@ -144,6 +144,8 @@
+ 
+ 	virtual void moveTo( const Coord&amp; pos );
+ 
++	virtual bool onReachDestination();
++
+ 	// getters
+ 	quint32 additionalFlags() const;
+ 	quint32 nextBeggingTime() const;
+
+Modified: trunk/server/src/pythonscript.cpp
+===================================================================
+--- trunk/server/src/pythonscript.cpp	2009-03-21 04:40:17 UTC (rev 6873)
++++ trunk/server/src/pythonscript.cpp	2009-03-22 19:19:28 UTC (rev 6874)
+@@ -839,7 +839,14 @@
+ */
+ &quot;onStepWeightPercent&quot;,
+ 
++/*
++\event onReachDestination
++\param npc The NPC who reached his destination.
++\condition Triggered when a NPC reaches his given destination.
++*/
++&quot;onReachDestination&quot;,
+ 
++
+ 0
+ };
+ 
+
+Modified: trunk/server/src/pythonscript.h
+===================================================================
+--- trunk/server/src/pythonscript.h	2009-03-21 04:40:17 UTC (rev 6873)
++++ trunk/server/src/pythonscript.h	2009-03-22 19:19:28 UTC (rev 6874)
+@@ -119,6 +119,7 @@
+ 	EVENT_UPDATEACCTDATABASE,
+ 	EVENT_STEPCHAR,
+ 	EVENT_STEPWEIGHTPERCENT,
++	EVENT_ONREACHDESTINATION,
+ 	EVENT_COUNT,
+ };
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000076.html">[Wolfpack-svn] r6873 - in trunk/WPGM: . Release build src
+</A></li>
+	<LI>Next message: <A HREF="000078.html">[Wolfpack-svn] r6875 - trunk/server/release/scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#77">[ date ]</a>
+              <a href="thread.html#77">[ thread ]</a>
+              <a href="subject.html#77">[ subject ]</a>
+              <a href="author.html#77">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

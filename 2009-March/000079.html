@@ -1,0 +1,1189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6876 - in trunk/server/release: definitions	definitions/items/professions definitions/menus/crafting	definitions/npcs/humans/vendors definitions/system scripts	scripts/skills scripts/wolfpack
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6876%20-%20in%20trunk/server/release%3A%20definitions%0A%09definitions/items/professions%20definitions/menus/crafting%0A%09definitions/npcs/humans/vendors%20definitions/system%20scripts%0A%09scripts/skills%20scripts/wolfpack&In-Reply-To=%3C200903261049.n2QAnxdA002807%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000078.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6876 - in trunk/server/release: definitions	definitions/items/professions definitions/menus/crafting	definitions/npcs/humans/vendors definitions/system scripts	scripts/skills scripts/wolfpack</H1>
+    <B>naddel at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6876%20-%20in%20trunk/server/release%3A%20definitions%0A%09definitions/items/professions%20definitions/menus/crafting%0A%09definitions/npcs/humans/vendors%20definitions/system%20scripts%0A%09scripts/skills%20scripts/wolfpack&In-Reply-To=%3C200903261049.n2QAnxdA002807%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6876 - in trunk/server/release: definitions	definitions/items/professions definitions/menus/crafting	definitions/npcs/humans/vendors definitions/system scripts	scripts/skills scripts/wolfpack">naddel at mail.berlios.de
+       </A><BR>
+    <I>Thu Mar 26 11:49:59 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000078.html">[Wolfpack-svn] r6875 - trunk/server/release/scripts
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: naddel
+Date: 2009-03-26 11:49:51 +0100 (Thu, 26 Mar 2009)
+New Revision: 6876
+
+Added:
+   trunk/server/release/scripts/skills/cartography.py
+Modified:
+   trunk/server/release/definitions/items/professions/mapmaker.xml
+   trunk/server/release/definitions/menus/crafting/cartography.xml
+   trunk/server/release/definitions/npcs/humans/vendors/mapmaker.xml
+   trunk/server/release/definitions/scripts.xml
+   trunk/server/release/definitions/system/encryption.xml
+   trunk/server/release/scripts/map.py
+   trunk/server/release/scripts/wolfpack/consts.py
+Log:
+- cartography
+- 2 new encryption keys (not very usable so far...)
+- 
+
+Modified: trunk/server/release/definitions/items/professions/mapmaker.xml
+===================================================================
+--- trunk/server/release/definitions/items/professions/mapmaker.xml	2009-03-22 19:21:14 UTC (rev 6875)
++++ trunk/server/release/definitions/items/professions/mapmaker.xml	2009-03-26 10:49:51 UTC (rev 6876)
+@@ -28,7 +28,7 @@
+ 		&lt;weight&gt;1.0&lt;/weight&gt;
+ 	&lt;/item&gt;
+ 
+-	&lt;item id=&quot;14ec&quot;&gt;
++	&lt;item id=&quot;14ec&quot; inherit=&quot;14eb&quot;&gt;
+ 		&lt;id&gt;0x14ec&lt;/id&gt;
+ 		&lt;category&gt;Professions\Mapmaker\Map (W/E)&lt;/category&gt;
+ 	&lt;/item&gt;
+@@ -89,6 +89,8 @@
+ 	&lt;item id=&quot;mapmakers_pen&quot; inherit=&quot;fbf&quot;&gt;
+ 		&lt;id&gt;0xfbf&lt;/id&gt;
+ 		&lt;name&gt;#1044167&lt;/name&gt;
++		&lt;tag name=&quot;remaining_uses&quot; type=&quot;int&quot; value=&quot;35&quot; /&gt;
++		&lt;basescripts&gt;equipment,skills.cartography&lt;/basescripts&gt;
+ 		&lt;category&gt;Professions\Mapmaker\Pen &amp; Ink&lt;/category&gt;
+ 	&lt;/item&gt;
+ 
+@@ -293,7 +295,7 @@
+ 	&lt;/item&gt;
+ 
+ 	&lt;item id=&quot;map_world&quot; inherit=&quot;14eb&quot;&gt;
+-		&lt;name&gt;map of The World&lt;/name&gt;
++		&lt;name&gt;#1015233&lt;/name&gt;
+ 		&lt;basescripts&gt;map&lt;/basescripts&gt;
+ 		&lt;tag name=&quot;type&quot; value=&quot;preset&quot; /&gt;
+ 		&lt;tag name=&quot;preset&quot; value=&quot;world&quot; /&gt;
+@@ -372,6 +374,24 @@
+ 		&lt;category&gt;Professions\Mapmaker\Maps\Yew to Britain&lt;/category&gt;
+ 	&lt;/item&gt;
+ 
++	&lt;item id=&quot;map_local&quot; inherit=&quot;14eb&quot;&gt;
++		&lt;name&gt;#1015230&lt;/name&gt;
++		&lt;basescripts&gt;map&lt;/basescripts&gt;
++		&lt;tag name=&quot;type&quot; value=&quot;custom&quot; /&gt;
++	&lt;/item&gt;
++
++	&lt;item id=&quot;map_city&quot; inherit=&quot;14eb&quot;&gt;
++		&lt;name&gt;#1015231&lt;/name&gt;
++		&lt;basescripts&gt;map&lt;/basescripts&gt;
++		&lt;tag name=&quot;type&quot; value=&quot;custom&quot; /&gt;
++	&lt;/item&gt;
++
++	&lt;item id=&quot;sea_chart&quot; inherit=&quot;14eb&quot;&gt;
++		&lt;name&gt;#1015232&lt;/name&gt;
++		&lt;basescripts&gt;map&lt;/basescripts&gt;
++		&lt;tag name=&quot;type&quot; value=&quot;custom&quot; /&gt;
++	&lt;/item&gt;
++
+ 	&lt;!-- Treasure Map Section --&gt;
+ 
+ 	&lt;item id=&quot;map_treasure_0&quot; inherit=&quot;14eb&quot;&gt;
+
+Modified: trunk/server/release/definitions/menus/crafting/cartography.xml
+===================================================================
+--- trunk/server/release/definitions/menus/crafting/cartography.xml	2009-03-22 19:21:14 UTC (rev 6875)
++++ trunk/server/release/definitions/menus/crafting/cartography.xml	2009-03-26 10:49:51 UTC (rev 6876)
+@@ -8,733 +8,26 @@
+ --&gt;
+ &lt;definitions&gt;
+ 
+-	&lt;menu id=&quot;CRAFTMENU_CARTOGRAPHY&quot;&gt;
+-		&lt;name&gt;Cartography&lt;/name&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_WORLD&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_LAND&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_REGIONAL&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_DETAL&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY&quot;/&gt;
++	&lt;menu id=&quot;CARTOGRAPHY&quot; name=&quot;1044008&quot;&gt;
++		&lt;menu id=&quot;MAPS&quot; /&gt;
+ 	&lt;/menu&gt;
+ 
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY&quot;&gt;
+-		&lt;name&gt;City maps&lt;/name&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_BRITAIN&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_BUCCANEERS_DEN&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_COVE&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_JHELOM&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_NUJELM&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_MAGINCIA&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_MINOC&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_MOON_GLOW&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_OCLLO&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_SERPENTS_HOLD&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_SKARA_BRAE&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_TRINSIC&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_VESPER&quot;/&gt;
+-		&lt;menu inherit=&quot;CARTOGRAPHY_CITY_YEW&quot;/&gt;
++	&lt;menu id=&quot;MAPS&quot; name=&quot;1044448&quot;&gt;
++		&lt;craft definition=&quot;map_local&quot; name=&quot;1015230&quot; itemid=&quot;0x14EB&quot;&gt;
++			&lt;cartography min=&quot;100&quot; max=&quot;700&quot; /&gt;
++			&lt;material id=&quot;14eb;14ec&quot; amount=&quot;1&quot; name=&quot;Blank Map&quot; /&gt;
++		&lt;/craft&gt;
++		&lt;craft definition=&quot;map_city&quot; name=&quot;1015231&quot; itemid=&quot;0x14EB&quot;&gt;
++			&lt;cartography min=&quot;250&quot; max=&quot;850&quot; /&gt;
++			&lt;material id=&quot;14eb;14ec&quot; amount=&quot;1&quot; name=&quot;Blank Map&quot; /&gt;
++		&lt;/craft&gt;
++		&lt;craft definition=&quot;sea_chart&quot; name=&quot;1015232&quot; itemid=&quot;0x14EB&quot;&gt;
++			&lt;cartography min=&quot;350&quot; max=&quot;950&quot; /&gt;
++			&lt;material id=&quot;14eb;14ec&quot; amount=&quot;1&quot; name=&quot;Blank Map&quot; /&gt;
++		&lt;/craft&gt;
++		&lt;craft definition=&quot;map_world&quot; name=&quot;1015233&quot; itemid=&quot;0x14EB&quot;&gt;
++			&lt;cartography min=&quot;395&quot; max=&quot;995&quot; /&gt;
++			&lt;material id=&quot;14eb;14ec&quot; amount=&quot;1&quot; name=&quot;Blank Map&quot; /&gt;
++		&lt;/craft&gt;
+ 	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_WORLD&quot;&gt;
+-		&lt;name&gt;World maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;World map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A world map (small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_world_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;World map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A world map (middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_world_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;World map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A world map (large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_world_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_LAND&quot;&gt;
+-		&lt;name&gt;Land maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Land world map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A land world map (small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_land_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Land world map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A land world map (middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_land_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Land world map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A land world map (large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_land_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_REGIONAL&quot;&gt;
+-		&lt;name&gt;Regional world maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Regional map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Regional map (small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_regional_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Regional world map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Regional map (middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_regional_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Regional world map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Regional map (large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_regional_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_DETAL&quot;&gt;
+-		&lt;name&gt;Detaled world maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Detaled world map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A detaled world map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_world_detaled_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Detaled world map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A detaled world map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_world_detaled_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Detaled world map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A detaled world map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_world_detaled_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_BRITAIN&quot;&gt;
+-		&lt;name&gt;Britain maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Britain map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Britain map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_britain_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Britain map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Britain map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_britain_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Britain map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Britain map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_britain_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_BUCCANEERS_DEN&quot;&gt;
+-		&lt;name&gt;Buccaneers Den maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Buccaneers Den map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Buccaneers Den map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_buccaneersden_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Buccaneers Den map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Buccaneers Den map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_buccaneersden_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Buccaneers Den map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Buccaneers Den map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_buccaneersden_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_COVE&quot;&gt;
+-		&lt;name&gt;Cove maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Cove map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Cove map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_cove_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Cove map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Cove map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_cove_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Cove map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Cove map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_cove_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_JHELOM&quot;&gt;
+-		&lt;name&gt;Jhelom maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Jhelom map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Jhelom map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_jhelom_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Jhelom map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Jhelom map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_jhelom_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Jhelom map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Jhelom map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_jhelom_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_NUJELM&quot;&gt;
+-		&lt;name&gt;Nujelm maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Nujelm map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Nujelm map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_nujelm_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Nujelm map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Nujelm map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_nujelm_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Nujelm map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Nujelm map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_nujelm_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_MAGINCIA&quot;&gt;
+-		&lt;name&gt;Magincia maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Magincia map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Magincia map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_magincia_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Magincia map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Magincia map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_magincia_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Magincia map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Magincia map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_magincia_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_MINOC&quot;&gt;
+-		&lt;name&gt;Minoc maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Minoc map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Minoc map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_Minoc_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Minoc map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Minoc map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_Minoc_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Minoc map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Minoc map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_Minoc_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_MOON_GLOW&quot;&gt;
+-		&lt;name&gt;Moon Glow maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Moon Glow map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Moon Glow map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_moonglow_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Moon Glow map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Moon Glow map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_moonglow_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Moon Glow map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Moon Glow map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_moonglow_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_OCLLO&quot;&gt;
+-		&lt;name&gt;Ocllo maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Ocllo map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Ocllo map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_ocllo_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Ocllo map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Ocllo map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_ocllo_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Ocllo map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Ocllo map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_ocllo_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_SERPENTS_HOLD&quot;&gt;
+-		&lt;name&gt;Serpents Hold maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Serpents Hold map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;ASerpents Hold map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_serpentshold_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Serpents Hold map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Serpents Hold map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_serpentshold_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Serpents Hold map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Serpents Hold map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_serpentshold_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_SKARA_BRAE&quot;&gt;
+-		&lt;name&gt;Skara Brae maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Skara Brae map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Skara Braen map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_skarabrae_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Skara Brae map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Skara Brae map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_skarabrae_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Skara Brae map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Skara Brae map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_skarabrae_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_TRINSIC&quot;&gt;
+-		&lt;name&gt;Trinsic maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Trinsic map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Trinsic map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_trinsic_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Trinsic map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Trinsic map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_trinsic_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Trinsic map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Trinsic map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_trinsic_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_VESPER&quot;&gt;
+-		&lt;name&gt;Vesper maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Vesper map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Vesper map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_vesper_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Vesper map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Vesper map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_vesper_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Vesper map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Vesper map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_vesper_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-	&lt;menu id=&quot;CARTOGRAPHY_CITY_YEW&quot;&gt;
+-		&lt;name&gt;Yew maps&lt;/name&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Yew map (small)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;AYew map(small)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_yew_small&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Yew map (middle)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Yew map(middle)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_yew_middle&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-		&lt;action&gt;
+-			&lt;name&gt;Yew map (large)&lt;/name&gt;
+-			&lt;model&gt;0x14ec&lt;/model&gt;
+-			&lt;description&gt;A Yew map(large)&lt;/description&gt;
+-			&lt;make&gt;
+-				&lt;useitem itemid=&quot;0x14ed-0x14ee&quot; name=&quot;empty map&quot; amount=&quot;1&quot;/&gt;
+-				&lt;makeitem section=&quot;map_city_yew_large&quot; amount=&quot;1&quot;/&gt;
+-				&lt;skillcheck skillid=&quot;12&quot; min=&quot;750&quot; max=&quot;950&quot;/&gt;
+-			&lt;/make&gt;
+-			&lt;fail&gt;You failed to make the map&lt;/fail&gt;
+-			&lt;success&gt;You succeded in making the map&lt;/success&gt;
+-		&lt;/action&gt;
+-	&lt;/menu&gt;
+-
+ &lt;/definitions&gt;
+
+Modified: trunk/server/release/definitions/npcs/humans/vendors/mapmaker.xml
+===================================================================
+--- trunk/server/release/definitions/npcs/humans/vendors/mapmaker.xml	2009-03-22 19:21:14 UTC (rev 6875)
++++ trunk/server/release/definitions/npcs/humans/vendors/mapmaker.xml	2009-03-26 10:49:51 UTC (rev 6876)
+@@ -12,7 +12,7 @@
+ 			&lt;restockable&gt;
+ 				&lt;item id=&quot;ef3&quot;&gt;&lt;amount&gt;40&lt;/amount&gt;&lt;/item&gt; &lt;!-- Empty Scrool --&gt;
+ 				&lt;item id=&quot;mapmakers_pen&quot;&gt;&lt;amount&gt;20&lt;/amount&gt;&lt;/item&gt; &lt;!-- Mapmaker's Pen --&gt;
+-				&lt;item id=&quot;14ec&quot;&gt;&lt;amount&gt;20&lt;/amount&gt;&lt;/item&gt; &lt;!-- Blank Map --&gt;
++				&lt;item id=&quot;14eb&quot;&gt;&lt;amount&gt;20&lt;/amount&gt;&lt;/item&gt; &lt;!-- Blank Map --&gt;
+ 			&lt;/restockable&gt;
+ 		&lt;/shopkeeper&gt;
+ 		&lt;skill id=&quot;cartography&quot;&gt;&lt;random min=&quot;900&quot; max=&quot;1000&quot; /&gt;&lt;/skill&gt;
+
+Modified: trunk/server/release/definitions/scripts.xml
+===================================================================
+--- trunk/server/release/definitions/scripts.xml	2009-03-22 19:21:14 UTC (rev 6875)
++++ trunk/server/release/definitions/scripts.xml	2009-03-26 10:49:51 UTC (rev 6876)
+@@ -307,6 +307,7 @@
+ 	&lt;script&gt;skills.blacksmithing&lt;/script&gt;
+ 	&lt;script&gt;skills.bowcraft&lt;/script&gt;
+ 	&lt;script&gt;skills.carpentry&lt;/script&gt;
++	&lt;script&gt;skills.cartography&lt;/script&gt;
+ 	&lt;script&gt;skills.cooking&lt;/script&gt;
+ 	&lt;script&gt;skills.detectinghidden&lt;/script&gt;
+ 	&lt;script&gt;skills.evaluatingintel&lt;/script&gt;
+
+Modified: trunk/server/release/definitions/system/encryption.xml
+===================================================================
+--- trunk/server/release/definitions/system/encryption.xml	2009-03-22 19:21:14 UTC (rev 6875)
++++ trunk/server/release/definitions/system/encryption.xml	2009-03-26 10:49:51 UTC (rev 6876)
+@@ -11,6 +11,8 @@
+ 		&lt;!-- High priority first !! --&gt;
+ 
+ 		&lt;!-- Client identification string (optional) ; Key1 ; Key2 --&gt;
++		&lt;item&gt; Client 6.0.13 ; 0x2DCAF72D ; 0xA3F71E7F &lt;/item&gt;
++		&lt;item&gt; Client 6.0.12 ; 0x2F2BA7ED ; 0xA2817E7F &lt;/item&gt;
+ 		&lt;item&gt; Client 6.0.8 ; 0x2ED3257D ; 0xA27F527F &lt;/item&gt;
+ 		&lt;item&gt; Client 6.0.7 ; 0x2E9BC78D ; 0xA25BFE7F &lt;/item&gt;
+ 		&lt;item&gt; Client 6.0.6 ; 0x2E43ED9D ; 0xA234227F &lt;/item&gt;
+
+Modified: trunk/server/release/scripts/map.py
+===================================================================
+--- trunk/server/release/scripts/map.py	2009-03-22 19:21:14 UTC (rev 6875)
++++ trunk/server/release/scripts/map.py	2009-03-26 10:49:51 UTC (rev 6876)
+@@ -201,6 +201,6 @@
+ 	if maptype != '':
+ 		sendmap(player, item, maptype)
+ 	else:
+-		player.socket.clilocmessage(500208)
++		player.socket.clilocmessage(500208) # It appears to be blank.
+ 
+ 	return 1
+
+Added: trunk/server/release/scripts/skills/cartography.py
+===================================================================
+--- trunk/server/release/scripts/skills/cartography.py	2009-03-22 19:21:14 UTC (rev 6875)
++++ trunk/server/release/scripts/skills/cartography.py	2009-03-26 10:49:51 UTC (rev 6876)
+@@ -0,0 +1,221 @@
++
++import wolfpack
++import math
++import random
++from wolfpack import console
++from wolfpack.consts import CARTOGRAPHY, LOG_ERROR, WPDT_MENU, WPDT_ITEM, skillnamesids
++from wolfpack import properties
++from system.makemenus import CraftItemAction, MakeMenu, findmenu, generateNamefromDef
++from wolfpack.utilities import hex2dec, tobackpack, createlockandkey
++import skills
++
++
++#
++# Bring up the cartography menu
++#
++def onUse(char, item):
++	menu = findmenu('CARTOGRAPHY')
++	if menu:
++		menu.send(char, [item.serial])
++	return True
++
++#
++# Create an item.
++#
++class CartItemAction(CraftItemAction):
++	def __init__(self, parent, title, itemid, definition):
++		CraftItemAction.__init__(self, parent, title, itemid, definition)
++
++	#
++	# Play the &quot;grind&quot; sound when we fail to create a potion
++	#
++	def fail(self, player, arguments, lostmaterials):
++		if lostmaterials:
++			player.socket.clilocmessage(1044043)
++		else:
++			player.socket.clilocmessage(1044157)
++
++
++	#
++	# Print a nicer success message
++	#
++	def success(self, player, arguments, item, exceptional=0, marked=0):
++		
++		
++		if exceptional and marked:
++			player.socket.clilocmessage(1044156)
++		elif exceptional:
++			player.socket.clilocmessage(1044155)
++		else:
++			player.socket.clilocmessage(1044154)
++
++	#
++	# Play a simple soundeffect
++	#
++	def playcrafteffect(self, player, arguments):
++		player.soundeffect(0x249)
++
++	#
++	# Apply range of map to the item.
++	#
++	def applyproperties(self, player, arguments, item, exceptional):
++		skillValue = player.skill[CARTOGRAPHY]/10
++
++		if item.baseid == 'map_local':
++			dist = 64 + (skillValue * 2)
++
++			self.setDisplay(item, player.pos.x - dist, player.pos.y - dist, player.pos.x + dist, player.pos.y + dist, 200, 200)
++
++		elif item.baseid == 'map_city':
++			dist = 64 + (skillValue * 4)
++			if ( dist &lt; 200 ):
++				dist = 200
++
++			size = 32 + (skillValue * 2)
++			if ( size &lt; 200 ):
++				size = 200
++			elif ( size &gt; 400 ):
++				size = 400
++
++			self.setDisplay(item, player.pos.x - dist, player.pos.y - dist, player.pos.x + dist, player.pos.y + dist, size, size);
++
++		elif item.baseid == 'sea_chart':
++			dist = 64 + (skillValue * 10)
++			if ( dist &lt; 200 ):
++				dist = 200
++
++			size = 24 + (skillValue * 3.3)
++			if ( size &lt; 200 ):
++				size = 200
++			elif ( size &gt; 400 ):
++				size = 400
++
++			self.setDisplay(item, player.pos.x - dist, player.pos.y - dist, player.pos.x + dist, player.pos.y + dist, size, size);
++
++
++	def setDisplay(self, item, x1, y1, x2, y2, width, height):
++		if ( x1 &lt; 0 ):
++			x1 = 0
++		if ( y1 &lt; 0 ):
++			y1 = 0
++		if ( x2 &gt;= 5120 ):
++			x2 = 5119
++		if ( y2 &gt;= 4096 ):
++			y2 = 4095
++
++		item.settag('xtop', x1)
++		item.settag('xbottom', x2)
++		item.settag('ytop', y1)
++		item.settag('ybottom', y2)
++		item.settag('width', width)
++		item.settag('height', height)
++
++
++#
++# A cartography menu.
++#
++class CartographyMenu(MakeMenu):
++	def __init__(self, id, parent, title):
++		MakeMenu.__init__(self, id, parent, title)
++		self.allowmark = 0
++		self.delay = 2000
++		self.gumptype = 0x9ca51fcb # This should be unique
++		self.requiretool = True
++
++#
++# Load a menu with a given id and
++# append it to the parents submenus.
++#
++def loadMenu(id, parent = None):
++	definition = wolfpack.getdefinition(WPDT_MENU, id)
++	if not definition:
++		if parent:
++			console.log(LOG_ERROR, &quot;Unknown submenu %s in menu %s.\n&quot; % (id, parent.id))
++		else:
++			console.log(LOG_ERROR, &quot;Unknown menu: %s.\n&quot; % id)
++		return
++
++	name = definition.getattribute('name', '')
++	menu = CartographyMenu(id, parent, name)
++
++	# See if we have any submenus
++	for i in range(0, definition.childcount):
++		child = definition.getchild(i)
++		# Submenu
++		if child.name == 'menu':
++			if not child.hasattribute('id'):
++				console.log(LOG_ERROR, &quot;Submenu with missing id attribute in menu %s.\n&quot; % menu.id)
++			else:
++				loadMenu(child.getattribute('id'), menu)
++
++		# Craft an item
++		elif child.name == 'craft':
++			if not child.hasattribute('definition'):
++				console.log(LOG_ERROR, &quot;craft action without definition in menu %s.\n&quot; % menu.id)
++			else:
++				itemdef = child.getattribute('definition')
++				try:
++					# See if we can find an item id if it's not given
++					if not child.hasattribute('itemid'):
++						item = wolfpack.getdefinition(WPDT_ITEM, itemdef)
++						itemid = 0
++						if item:
++							itemchild = item.findchild('id')
++							if itemchild:
++								itemid = itemchild.value
++					else:
++						itemid = hex2dec(child.getattribute('itemid', '0'))
++				except Exception, e:
++					console.log(LOG_ERROR, &quot;Craft action with invalid item id in menu %s: %s\n&quot; % (menu.id, str(e)))
++
++				if child.hasattribute('name'):
++					name = child.getattribute('name')
++				else:
++					name = generateNamefromDef(itemdef)
++				action = CartItemAction(menu, name, int(itemid), itemdef)
++
++				# Process subitems
++				for j in range(0, child.childcount):
++					subchild = child.getchild(j)
++
++					# Normal Material
++					if subchild.name == 'material':
++						if not subchild.hasattribute('id'):
++							console.log(LOG_ERROR, &quot;Material element without id list in menu %s.\n&quot; % menu.id)
++							break
++						else:
++							ids = subchild.getattribute('id').split(';')
++							try:
++								amount = hex2dec(subchild.getattribute('amount', '1'))
++								materialname = subchild.getattribute('name', 'Unknown')
++							except:
++								console.log(LOG_ERROR, &quot;Material element with invalid id list in menu %s.\n&quot; % menu.id)
++								break
++							action.materials.append([ids, amount, materialname])
++
++					# Skill requirement
++					elif subchild.name in skillnamesids:
++						skill = skillnamesids[subchild.name]
++						try:
++							minimum = hex2dec(subchild.getattribute('min', '0'))
++						except:
++							console.log(LOG_ERROR, &quot;%s element with invalid min value in menu %s.\n&quot; % (subchild.name, menu.id))
++
++						try:
++							maximum = hex2dec(subchild.getattribute('max', '1200'))
++						except:
++							console.log(LOG_ERROR, &quot;%s element with invalid max value in menu %s.\n&quot; % (subchild.name, menu.id))
++						action.skills[skill] = [minimum, maximum]
++
++	# Sort the menu. This is important for the makehistory to make.
++	menu.sort()
++
++def cartography( char, skill ):
++	char.socket.clilocmessage(500014) # That skill cannot be used directly.
++
++#
++# Load the cartography menu.
++#
++def onLoad():
++	loadMenu('CARTOGRAPHY')
++	skills.register( CARTOGRAPHY, cartography )
+
+Modified: trunk/server/release/scripts/wolfpack/consts.py
+===================================================================
+--- trunk/server/release/scripts/wolfpack/consts.py	2009-03-22 19:21:14 UTC (rev 6875)
++++ trunk/server/release/scripts/wolfpack/consts.py	2009-03-26 10:49:51 UTC (rev 6876)
+@@ -465,7 +465,8 @@
+ EVENT_UPDATEACCTDATABASE = 74
+ EVENT_STEPCHAR = 75
+ EVENT_STEPWEIGHTPERCENT = 76
+-EVENT_COUNT = 77
++EVENT_REACHDESTINATION = 77
++EVENT_COUNT = 78
+ &quot;&quot;&quot;
+ 	\end
+ &quot;&quot;&quot;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000078.html">[Wolfpack-svn] r6875 - trunk/server/release/scripts
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>

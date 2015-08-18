@@ -1,0 +1,76 @@
+From owner_mutilador at scm.berlios.de  Fri Nov  1 02:16:58 2013
+From: owner_mutilador at scm.berlios.de (owner_mutilador at scm.berlios.de)
+Date: Fri,  1 Nov 2013 02:16:58 +0100
+Subject: [Wolfpack-svn] r6894 - trunk/server/build
+Message-ID: <20131101011658.1712F55B0C@scm.berlios.de>
+
+Author: owner_mutilador
+Date: 2013-11-01 02:16:57 +0100 (Fri, 01 Nov 2013)
+New Revision: 6894
+
+Modified:
+   trunk/server/build/configure.py
+Log:
+Add auto search for libs and includes to python 2.6 and 2.7
+
+Modified: trunk/server/build/configure.py
+===================================================================
+--- trunk/server/build/configure.py	2013-07-30 20:06:32 UTC (rev 6893)
++++ trunk/server/build/configure.py	2013-11-01 01:16:57 UTC (rev 6894)
+@@ -170,6 +170,20 @@
+ 	# Linux and BSD Search Paths
+ 	elif sys.platform in ("linux2", "freebsd4", "freebsd5"):
+ 		PYTHONLIBSEARCHPATH += [ \
++			# Python 2.7 - Look for this first
++			"/usr/local/lib/libpython2.7*.so", \
++			"/usr/local/lib/[Pp]ython*/libpython2.7*.so", \
++			"/usr/local/lib/[Pp]ython*/config/libpython2.7*.so", \
++			"/usr/lib/libpython2.7*.so", \
++			"/usr/lib/[Pp]ython*/libpython2.7*.so", \
++			"/usr/lib/[Pp]ython*/config/libpython2.7*.so", \
++			# Python 2.6 - Look for this first
++			"/usr/local/lib/libpython2.6*.so", \
++			"/usr/local/lib/[Pp]ython*/libpython2.6*.so", \
++			"/usr/local/lib/[Pp]ython*/config/libpython2.6*.so", \
++			"/usr/lib/libpython2.6*.so", \
++			"/usr/lib/[Pp]ython*/libpython2.6*.so", \
++			"/usr/lib/[Pp]ython*/config/libpython2.6*.so", \
+ 			# Python 2.4 - Look for this first
+ 			"/usr/local/lib/libpython2.4*.so", \
+ 			"/usr/local/lib/[Pp]ython*/libpython2.4*.so", \
+@@ -192,6 +206,20 @@
+ 			"/usr/lib/[Pp]ython*/libpython2.3*.so", \
+ 			"/usr/lib/[Pp]ython*/config/libpython2.3*.so" ]
+ 		PYTHONLIBSTATICSEARCHPATH += [ \
++			# Python 2.7
++			"/usr/local/lib/libpython2.7*.a", \
++			"/usr/local/lib/[Pp]ython2.7*/libpython2.7*.a", \
++			"/usr/local/lib/[Pp]ython2.7*/config/libpython2.7*.a", \
++			"/usr/lib/libpython2.7*.a", \
++			"/usr/lib/[Pp]ython2.7*/libpython2.7*.a", \
++			"/usr/lib/[Pp]ython2.7*/config/libpython2.7*.a", \
++			# Python 2.6
++			"/usr/local/lib/libpython2.6*.a", \
++			"/usr/local/lib/[Pp]ython2.6*/libpython2.6*.a", \
++			"/usr/local/lib/[Pp]ython2.6*/config/libpython2.6*.a", \
++			"/usr/lib/libpython2.6*.a", \
++			"/usr/lib/[Pp]ython2.6*/libpython2.6*.a", \
++			"/usr/lib/[Pp]ython2.6*/config/libpython2.6*.a", \
+ 			# Python 2.4
+ 			"/usr/local/lib/libpython2.4*.a", \
+ 			"/usr/local/lib/[Pp]ython2.4*/libpython2.4*.a", \
+@@ -216,6 +244,12 @@
+ 		PYTHONINCSEARCHPATH += [ \
+ 			"/usr/local/include/Python.h", \
+ 			"/usr/include/Python.h", \
++			# Python 2.7
++			"/usr/local/include/[Pp]ython2.7*/Python.h", \
++			"/usr/include/[Pp]ython2.7*/Python.h" \
++			# Python 2.6
++			"/usr/local/include/[Pp]ython2.6*/Python.h", \
++			"/usr/include/[Pp]ython2.6*/Python.h" \
+ 			# Python 2.4
+ 			"/usr/local/include/[Pp]ython2.4*/Python.h", \
+ 			"/usr/include/[Pp]ython2.4*/Python.h" \
+
+

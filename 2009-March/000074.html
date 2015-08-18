@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Wolfpack-svn] r6871 - in trunk/server: build release/definitions	src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/wolfpack-svn/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6871%20-%20in%20trunk/server%3A%20build%20release/definitions%0A%09src&In-Reply-To=%3C200903171855.n2HItmbp022266%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000075.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Wolfpack-svn] r6871 - in trunk/server: build release/definitions	src</H1>
+    <B>owner_mutilador at mail.berlios.de</B> 
+    <A HREF="mailto:wolfpack-svn%40lists.berlios.de?Subject=Re%3A%20%5BWolfpack-svn%5D%20r6871%20-%20in%20trunk/server%3A%20build%20release/definitions%0A%09src&In-Reply-To=%3C200903171855.n2HItmbp022266%40sheep.berlios.de%3E"
+       TITLE="[Wolfpack-svn] r6871 - in trunk/server: build release/definitions	src">owner_mutilador at mail.berlios.de
+       </A><BR>
+    <I>Tue Mar 17 19:55:48 CET 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000075.html">[Wolfpack-svn] r6872 - in trunk/server: build release/definitions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#74">[ date ]</a>
+              <a href="thread.html#74">[ thread ]</a>
+              <a href="subject.html#74">[ subject ]</a>
+              <a href="author.html#74">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: owner_mutilador
+Date: 2009-03-17 19:55:31 +0100 (Tue, 17 Mar 2009)
+New Revision: 6871
+
+Modified:
+   trunk/server/build/wolfpack.pro
+   trunk/server/release/definitions/scripts.xml
+   trunk/server/src/server.cpp
+   trunk/server/src/verinfo.h
+Log:
+Acabo de atualizar o copyright do projeto e agora as novas versoes serao compiladas como 12.9.17.
+
+
+Modified: trunk/server/build/wolfpack.pro
+===================================================================
+--- trunk/server/build/wolfpack.pro	2008-09-12 23:03:26 UTC (rev 6870)
++++ trunk/server/build/wolfpack.pro	2009-03-17 18:55:31 UTC (rev 6871)
+@@ -228,4 +228,4 @@
+ QMAKE_TARGET_COMPANY = Wolfpack Development Team
+ QMAKE_TARGET_PRODUCT = Wolfpack
+ QMAKE_TARGET_DESCRIPTION = Ultima Online(tm) Server Software
+-QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2007 Wolfpack Development Team
++QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2009 Wolfpack Development Team
+
+Modified: trunk/server/release/definitions/scripts.xml
+===================================================================
+--- trunk/server/release/definitions/scripts.xml	2008-09-12 23:03:26 UTC (rev 6870)
++++ trunk/server/release/definitions/scripts.xml	2009-03-17 18:55:31 UTC (rev 6871)
+@@ -335,6 +335,8 @@
+ 	&lt;!-- Testing Scripts --&gt;
+ 	&lt;script&gt;testing&lt;/script&gt;
+ 	&lt;script&gt;testing.multibag&lt;/script&gt;
++	&lt;script&gt;testing.nobowusingplate&lt;/script&gt; 
++	&lt;script&gt;testing.noplateusingbow&lt;/script&gt;
+ 
+ 	&lt;!-- Plants --&gt;
+ 	&lt;script&gt;plants&lt;/script&gt;
+
+Modified: trunk/server/src/server.cpp
+===================================================================
+--- trunk/server/src/server.cpp	2008-09-12 23:03:26 UTC (rev 6870)
++++ trunk/server/src/server.cpp	2009-03-17 18:55:31 UTC (rev 6871)
+@@ -492,7 +492,7 @@
+ 	Console::instance()-&gt;send( QString( &quot;\n%1 %2 %3\n\n&quot; ).arg( productString(), productBeta(), productVersion() ) );
+ 	Console::instance()-&gt;setAttributes( false, false, false, 0xAF, 0xAF, 0xAF, 0, FONT_FIXEDWIDTH );
+ 
+-	Console::instance()-&gt;send( &quot;Copyright (C) 2000-2007 Wolfpack Development Team\n&quot; );
++	Console::instance()-&gt;send( &quot;Copyright (C) 2000-2009 Wolfpack Development Team\n&quot; );
+ 	Console::instance()-&gt;send( &quot;Wolfpack Homepage: <A HREF="http://www.wpdev.org/\n">http://www.wpdev.org/\n</A>&quot; );
+ 	Console::instance()-&gt;send( tr( &quot;By using this software you agree to the license accompanying this release.\n&quot; ) );
+ 	Console::instance()-&gt;send( tr( &quot;Compiled on %1 %2\n&quot; ).arg( __DATE__, __TIME__ ) );
+
+Modified: trunk/server/src/verinfo.h
+===================================================================
+--- trunk/server/src/verinfo.h	2008-09-12 23:03:26 UTC (rev 6870)
++++ trunk/server/src/verinfo.h	2009-03-17 18:55:31 UTC (rev 6871)
+@@ -35,7 +35,7 @@
+ 
+ inline const char* productVersion()
+ {
+-	return &quot;12.9.16&quot;;
++	return &quot;12.9.17&quot;;
+ }
+ 
+ inline const char* productBeta()
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000075.html">[Wolfpack-svn] r6872 - in trunk/server: build release/definitions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#74">[ date ]</a>
+              <a href="thread.html#74">[ thread ]</a>
+              <a href="subject.html#74">[ subject ]</a>
+              <a href="author.html#74">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/wolfpack-svn">More information about the Wolfpack-svn
+mailing list</a><br>
+</body></html>
